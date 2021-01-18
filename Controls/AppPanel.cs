@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,16 @@ namespace Apps.Controls
         public bool InLoad { get; set; }
  
         private AppMenu MenuRC;
+        private ToolStripMenuItem DeleteMenuItem;
+        
+        XmlDocument AppsXml;
+
+        private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
+        private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<DATA>\r\n</DATA>\r\n</XML>";
+        private string New_AppXmlNode = "<APP>{1}</APP>\r\n" +
+                                        "<FILENAME>{2}</FILENAME>\r\n" +
+                                        "<ICON>{3}</ICON>\r\n" +
+                                        "</APP>";
 
         public AppPanel(Config myConfig, bool isHeader = false)
         {
@@ -25,23 +36,36 @@ namespace Apps.Controls
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             ToolStripMenuItem t;
             MenuRC = new AppMenu(myConfig);
-            t = new ToolStripMenuItem("&Delete");
-            t.Click += new EventHandler(MenuDelete_Click);
+
+            MenuRC.Opening += new CancelEventHandler(Menu_Opening);
+
+            t = new ToolStripMenuItem("&Add Application");
+            t.Click += new EventHandler(MenuAddApp_Click);
             MenuRC.Items.Add(t);
+
+            t = new ToolStripMenuItem("&Add Sub Folder");
+            t.Click += new EventHandler(MenuAddFolder_Click);
+            MenuRC.Items.Add(t);
+
+            DeleteMenuItem = new ToolStripMenuItem("&Delete");
+            DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
+            MenuRC.Items.Add(DeleteMenuItem);
+
+            this.ContextMenuStrip = MenuRC;
+
             SetColors();
             LoadItems();
-
         }
-        
+
         #region EventHandlers
-        public delegate void ClipAddedHandler(AppButton Clip, bool AppsavedToDisk);
-        public event ClipAddedHandler OnClipAdded;
+        public delegate void AppAddedHandler(AppButton Clip, bool AppsavedToDisk);
+        public event AppAddedHandler OnAppAdded;
 
         public delegate void ClipClickedHandler(AppButton Clip);
         public event ClipClickedHandler OnClipClicked;
 
-        public delegate void ClipDeletedHandler();
-        public event ClipDeletedHandler OnClipDeleted;
+        public delegate void AppDeletedHandler();
+        public event AppDeletedHandler OnAppDeleted;
         
         public delegate void AppsLoadedHandler();
         public event AppsLoadedHandler OnAppsLoaded;
@@ -73,11 +97,10 @@ namespace Apps.Controls
 
             b.AutoSize = false;
             b.AutoEllipsis = false;
-            b.FullText = text;
+            //b.Text =
 
-
-            if (OnClipAdded != null)
-                OnClipAdded(b, saveToDisk);
+            if (OnAppAdded != null)
+                OnAppAdded(b, saveToDisk);
 
              ResumeLayout();
         }
@@ -104,7 +127,20 @@ namespace Apps.Controls
             SuspendLayout();
             Controls.Clear();
             InLoad = true;
-            //string[] files = Funcs.GetFiles(Funcs.AppPath() + "\\Cache", "*.xml");
+            
+
+            if (!File.Exists(AppsXmlFilePath))
+            {
+                AppsXml = new XmlDocument();
+                AppsXml.LoadXml(New_AppsXml_file);
+                AppsXml.Save(AppsXmlFilePath);
+            }
+            else
+            {
+                AppsXml = new XmlDocument();
+                AppsXml.Load(AppsXmlFilePath);
+            }
+
             //foreach (string file in files)
             //{
             //    XmlDocument doc = new XmlDocument();
@@ -133,31 +169,54 @@ namespace Apps.Controls
             //    }
             //    doc = null;
             //}
-            //InLoad = false;
+            InLoad = false;
             if (OnAppsLoaded != null)
                 OnAppsLoaded();
             ResumeLayout();
+        }
+
+        private void MenuAddApp_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
+
+            //Controls.Remove(b);
+            GC.Collect();
+
+            if (OnAppDeleted != null)
+                OnAppDeleted();
+            InMenu = false;
+        }
+
+        private void MenuAddFolder_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
+
+            //Controls.Remove(b);
+            GC.Collect();
+
+            if (OnAppDeleted != null)
+                OnAppDeleted();
+            InMenu = false;
         }
 
         private void MenuDelete_Click(object sender, EventArgs e)
         {
             InMenu = true;
             //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-            //if (File.Exists(b.FileName))
-            //    File.Delete(b.FileName);
-
-            //if (Funcs.IsSame(b.FullImage, LastImage))
-            //    LastImage = null;
-            //else
-            //if (b.FullText == LastText)
-            //    LastText = null;
 
             //Controls.Remove(b);
             GC.Collect();
 
-            if (OnClipDeleted != null)
-                OnClipDeleted();
+            if (OnAppDeleted != null)
+                OnAppDeleted();
             InMenu = false;
+        }
+
+        private void Menu_Opening(object sender, CancelEventArgs e)
+        {
+            DeleteMenuItem.Enabled = (sender is AppPanel);
         }
 
         private void SetColors()

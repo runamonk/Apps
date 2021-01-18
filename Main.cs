@@ -53,7 +53,7 @@ namespace Apps
             LoadConfig();
         }
 
-        private void ClipAdded(AppButton Clip, bool AppsavedToDisk)
+        private void AppAdded(AppButton Clip, bool AppsavedToDisk)
         {
             if (AppsavedToDisk)
                 AutoSizeForm(true);
@@ -65,7 +65,7 @@ namespace Apps
                  ToggleShow(true, true);
         }
 
-        private void ClipDeleted()
+        private void AppDeleted()
         {
             AutoSizeForm(false);
         }
@@ -229,8 +229,8 @@ namespace Apps
                 Apps = new AppPanel(Config);
                 Apps.AutoScroll = true;
                 Apps.OnClipClicked += new AppPanel.ClipClickedHandler(ClipClicked);
-                Apps.OnClipAdded += new AppPanel.ClipAddedHandler(ClipAdded);
-                Apps.OnClipDeleted += new AppPanel.ClipDeletedHandler(ClipDeleted);
+                Apps.OnAppAdded += new AppPanel.AppAddedHandler(AppAdded);
+                Apps.OnAppDeleted += new AppPanel.AppDeletedHandler(AppDeleted);
                 Apps.OnAppsLoaded += new AppPanel.AppsLoadedHandler(AppsLoaded);
                 Apps.Parent = pMain;
                 Apps.Dock = DockStyle.Fill;

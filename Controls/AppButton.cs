@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Utility;
+using System.Xml;
 
 namespace Apps
 {
@@ -12,9 +13,11 @@ namespace Apps
     {
         private Config AppsConfig { get; set; }
         private bool IsMenuButton = false;
-        public string FileName { get; set; }
-        public Image FullImage { get; set; }
-        public string FullText { get; set; }
+        private bool IsFolderButton = false;
+        private string FileName { get; set; }
+
+        XmlNode MyNode { get; set; }
+
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
         
