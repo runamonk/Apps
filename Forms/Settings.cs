@@ -31,10 +31,10 @@ namespace Apps
         private void LightTheme_Click(object sender, EventArgs e)
         {
             DarkTheme.Checked = false;
-            ClipHeaderColor.BackColor = Color.White;
-            ClipBackColor.BackColor = Color.White;
-            ClipFontColor.BackColor = Color.Black;
-            ClipRowColor.BackColor = Color.White;
+            AppHeaderColor.BackColor = Color.White;
+            AppBackColor.BackColor = Color.White;
+            AppFontColor.BackColor = Color.Black;
+            AppRowColor.BackColor = Color.White;
             MenuBackColor.BackColor = Color.White;
             MenuBorderColor.BackColor = Color.Gray;
             MenuButtonColor.BackColor = Color.White;
@@ -45,10 +45,10 @@ namespace Apps
         private void DarkTheme_Click(object sender, EventArgs e)
         {
             LightTheme.Checked = false;
-            ClipHeaderColor.BackColor = Color.FromArgb(56, 56, 56);
-            ClipBackColor.BackColor = Color.FromArgb(56, 56, 56);
-            ClipFontColor.BackColor = Color.White;
-            ClipRowColor.BackColor = Color.FromArgb(56, 56, 56);
+            AppHeaderColor.BackColor = Color.FromArgb(56, 56, 56);
+            AppBackColor.BackColor = Color.FromArgb(56, 56, 56);
+            AppFontColor.BackColor = Color.White;
+            AppRowColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuBackColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuBorderColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuButtonColor.BackColor = Color.FromArgb(56, 56, 56);
@@ -66,6 +66,11 @@ namespace Apps
         private void Key_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true; // this will stop the key pressed from actually entering into the text box.
+        }
+
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            Key.Clear();
         }
     }
 }

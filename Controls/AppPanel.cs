@@ -24,9 +24,10 @@ namespace Apps.Controls
 
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<DATA>\r\n</DATA>\r\n</XML>";
-        private string New_AppXmlNode = "<APP>{1}</APP>\r\n" +
-                                        "<FILENAME>{2}</FILENAME>\r\n" +
-                                        "<ICON>{3}</ICON>\r\n" +
+        private string New_AppXmlNode = "<APP>\r\n" +
+                                          "<CAPTION>{1}</CAPTION>\r\n" + 
+                                          "<FILENAME>{2}</FILENAME>\r\n" +
+                                          "<ICON>{3}</ICON>\r\n" +
                                         "</APP>";
 
         public AppPanel(Config myConfig, bool isHeader = false)
@@ -58,11 +59,11 @@ namespace Apps.Controls
         }
 
         #region EventHandlers
-        public delegate void AppAddedHandler(AppButton Clip, bool AppsavedToDisk);
+        public delegate void AppAddedHandler();
         public event AppAddedHandler OnAppAdded;
 
-        public delegate void ClipClickedHandler(AppButton Clip);
-        public event ClipClickedHandler OnClipClicked;
+        public delegate void AppClickedHandler();
+        public event AppClickedHandler OnAppClicked;
 
         public delegate void AppDeletedHandler();
         public event AppDeletedHandler OnAppDeleted;
@@ -80,7 +81,7 @@ namespace Apps.Controls
                 FlatStyle = FlatStyle.Flat
             };
 
-            b.OnAppButtonClicked += new  AppButton.AppButtonClickedHandler(ButtonClicked);
+            b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
 
 
             b.ContextMenuStrip = MenuRC;
@@ -100,18 +101,18 @@ namespace Apps.Controls
             //b.Text =
 
             if (OnAppAdded != null)
-                OnAppAdded(b, saveToDisk);
+                OnAppAdded();
 
              ResumeLayout();
         }
 
-        private void ButtonClicked(AppButton Clip)
+        private void ButtonClicked(AppButton App)
         {
 
             SuspendLayout();
 
-            if (OnClipClicked != null)
-                OnClipClicked(Clip);
+            if (OnAppClicked != null)
+                OnAppClicked();
 
             ResumeLayout();
         }
@@ -141,7 +142,7 @@ namespace Apps.Controls
                 AppsXml.Load(AppsXmlFilePath);
             }
 
-            //foreach (string file in files)
+            //foreach (string file in files) 
             //{
             //    XmlDocument doc = new XmlDocument();
             //    doc.Load(file);
@@ -183,21 +184,24 @@ namespace Apps.Controls
             //Controls.Remove(b);
             GC.Collect();
 
-            if (OnAppDeleted != null)
-                OnAppDeleted();
+
             InMenu = false;
         }
 
         private void MenuAddFolder_Click(object sender, EventArgs e)
         {
             InMenu = true;
+            
             //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
 
-            //Controls.Remove(b);
+            //if (sender is AppPanel)
+            
+
             GC.Collect();
 
-            if (OnAppDeleted != null)
-                OnAppDeleted();
+            if (OnAppAdded != null)
+                OnAppAdded();
+
             InMenu = false;
         }
 
