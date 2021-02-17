@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using Utility;
+using Apps.Forms;
 
 namespace Apps.Controls
 {
@@ -191,10 +192,16 @@ namespace Apps.Controls
         private void MenuAddFolder_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            
-            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
 
+            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
             //if (sender is AppPanel)
+
+            AddFolder f = new AddFolder();
+
+            if (f.ShowDialog(this) == DialogResult.OK)
+            {
+
+            }
             
 
             GC.Collect();
