@@ -83,8 +83,6 @@ namespace Apps.Controls
             };
 
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
-
-
             b.ContextMenuStrip = MenuRC;
             b.ImageAlign = ContentAlignment.MiddleLeft;
             b.Parent = this;
@@ -181,11 +179,15 @@ namespace Apps.Controls
         {
             InMenu = true;
             //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-
             //Controls.Remove(b);
+            AppProperties f = new AppProperties();
+
+            if (f.ShowDialog(this) == DialogResult.OK)
+            {
+
+            }
+
             GC.Collect();
-
-
             InMenu = false;
         }
 

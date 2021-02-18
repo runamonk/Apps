@@ -10,4 +10,6 @@ D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csproj.CoreCompileInputs.cache
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.exe
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.pdb
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Forms.AddFolder.resources
+D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Forms.AppProperties.resources
+D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Forms.SetName.resources
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csprojAssemblyReference.cache
