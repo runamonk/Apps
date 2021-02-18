@@ -28,7 +28,8 @@ namespace Apps.Controls
         private string New_AppXmlNode = "<APP>\r\n" +
                                           "<CAPTION>{1}</CAPTION>\r\n" + 
                                           "<FILENAME>{2}</FILENAME>\r\n" +
-                                          "<ICON>{3}</ICON>\r\n" +
+                                          "<ARGS>{3}</ARGS>\r\n" +
+                                          "<ICON>{4}</ICON>\r\n" +
                                         "</APP>";
 
         public AppPanel(Config myConfig, bool isHeader = false)
