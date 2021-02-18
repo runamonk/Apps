@@ -20,9 +20,23 @@ namespace Apps.Forms
         {
             InitializeComponent();
         }
-        
 
-        
+        public string AppFileName
+        {
+            get {return EditAppFilePath.Text; }
+        }
+
+        public string AppName
+        {
+            get { return EditAppName.Text; }
+        }
+
+        private string FAppIcon;
+        public string AppIcon
+        {
+            get { return FAppIcon; }
+        }
+
         private string BrowseForFile()
         {
             OpenFileDialog fd = new OpenFileDialog();
@@ -48,11 +62,11 @@ namespace Apps.Forms
 
                 if (ImageTypes.Contains(Path.GetExtension(fileName)))
                 {
-                    return (Image)(Image)(new Bitmap(new Bitmap(fileName, false), AppIcon.Size));
+                    return (Image)(Image)(new Bitmap(new Bitmap(fileName, false), EditAppIcon.Size));
                 }
                     
                 else
-                    return (Image)(new Bitmap(Icon.ExtractAssociatedIcon(fileName).ToBitmap(), AppIcon.Size));
+                    return (Image)(new Bitmap(Icon.ExtractAssociatedIcon(fileName).ToBitmap(), EditAppIcon.Size));
             }
             else
                 return null;
@@ -60,9 +74,10 @@ namespace Apps.Forms
 
         public void SetFileProperties(string appName, string filePath, string fileIcon)
         {
-            AppName.Text = appName;
-            AppFilePath.Text = filePath;
-            AppIcon.Image = GetIcon(fileIcon);
+            EditAppName.Text = appName;
+            EditAppFilePath.Text = filePath;
+            FAppIcon = fileIcon;
+            EditAppIcon.Image = GetIcon(FAppIcon);
         }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -80,7 +95,8 @@ namespace Apps.Forms
             string fileName = BrowseForFile();
             if (fileName != "")
             {
-                AppIcon.Image = GetIcon(fileName);
+                FAppIcon = fileName;
+                EditAppIcon.Image = GetIcon(fileName);
             }
         }
     }
