@@ -22,6 +22,23 @@ namespace Utility
             return Path.GetDirectoryName(Application.ExecutablePath);
         }
 
+        public static string BrowseForFile()
+        {
+            OpenFileDialog fd = new OpenFileDialog();
+            fd.Multiselect = false;
+            fd.Filter = "All files (*.*)|*.*";
+            fd.FilterIndex = 1;
+            fd.CheckFileExists = true;
+            fd.CheckPathExists = true;
+
+            DialogResult dr = fd.ShowDialog();
+
+            if (dr == DialogResult.OK)
+                return fd.FileName;
+            else
+                return "";
+        }
+
         public static string[] GetFiles(string path, string searchPattern)
         {
             if (!Directory.Exists(path))
@@ -35,6 +52,24 @@ namespace Utility
                 files = Directory.GetFiles(path).OrderBy(f => new FileInfo(f).CreationTime).ToArray();
 
             return files;
+        }
+
+        public static Image GetIcon(string fileName, Size ToSize)
+        {
+            if (File.Exists(fileName))
+            {
+                string[] ImageTypes = { ".png", ".tif", ".jpg", ".gif", ".bmp", ".ico" };
+
+                if (ImageTypes.Contains(Path.GetExtension(fileName)))
+                {
+                    return (Image)(Image)(new Bitmap(new Bitmap(fileName, false), ToSize));
+                }
+
+                else
+                    return (Image)(new Bitmap(Icon.ExtractAssociatedIcon(fileName).ToBitmap(), ToSize));
+            }
+            else
+                return null;
         }
 
         public static string GetName()

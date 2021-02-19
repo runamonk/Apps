@@ -80,29 +80,35 @@ namespace Apps.Controls
             {
                 TabStop = false,
                 Dock = DockStyle.Top,
-                FlatStyle = FlatStyle.Flat
+                //FlatStyle = FlatStyle.Flat
             };
 
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
             b.ContextMenuStrip = MenuRC;
-            b.ImageAlign = ContentAlignment.MiddleLeft;
+            b.BackgroundImageLayout = ImageLayout.None;
+
+            b.Height = 22;
             b.Parent = this;
+            b.Padding = new Padding(0, 0, 0, 0);
+            b.Margin = new Padding(0, 0, 0, 0);
+            
             return b;
         }
 
-        public void AddItem(string text, string fileName, bool saveToDisk = false)
+        public void AddItem(string AppName, string fileName, Image fileImage, string fileIconPath, string fileArgs, XmlNode xmlNode)
         {
             SuspendLayout();
-
             AppButton b = AddAppButton();
-
             b.AutoSize = false;
-            b.AutoEllipsis = false;
-            //b.Text =
-
+            b.AppName = AppName;
+            b.FileName = fileName;
+            b.FileArgs = fileArgs;
+            //if (fileImage != null)
+            //    b.Image = fileImage;           
+            b.FileIconPath = fileIconPath;
+            b.MyNode = xmlNode;
             if (OnAppAdded != null)
                 OnAppAdded();
-
              ResumeLayout();
         }
 
@@ -185,7 +191,7 @@ namespace Apps.Controls
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-
+                    AddItem(f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null);
                 }
                 else
                 {

@@ -128,7 +128,7 @@ namespace Apps
 
         private void MainButton_Click(object sender, EventArgs e)
         {
-            Button b = ((Button)sender);
+            AppButton b = ((AppButton)sender);
             MenuMain.Show(b.Left + b.Width + Left, b.Top + b.Height + Top);
         }
 
@@ -215,14 +215,14 @@ namespace Apps
                 MenuMain.Items.Add(t);
                 MenuMainButton = new AppButton(Config, true)
                 {
-                    Text = "...",
                     Width = 25,
                     Parent = pTop,
                     Dock = DockStyle.Left
                 };
+                MenuMainButton.AppName = "...";
                 MenuMainButton.Click += MainButton_Click;
                 MenuMainButton.Padding = new Padding(0,0,0,3);
-                MenuMainButton.TextAlign = ContentAlignment.MiddleCenter;
+                //MenuMainButton.TextAlign = ContentAlignment.MiddleCenter;
                 notifyApps.ContextMenuStrip = MenuMain;
 
                 Apps = new AppPanel(Config);

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
-using System.Drawing;
+using Utility;
 
 
 namespace Apps.Forms
@@ -28,6 +26,12 @@ namespace Apps.Forms
 
         private string FAppIconPath;
         private bool IsCancelled = false;
+
+        public string AppFileArgs
+        {
+            get { return this.EditFileArgs.Text.Trim(); }
+        }
+
         public string AppIconPath
         {
             get { return FAppIconPath; }
@@ -35,69 +39,39 @@ namespace Apps.Forms
 
         public Image AppIconImage
         {
-            get { return GetIcon(FAppIconPath); }
-        }
-
-        private string BrowseForFile()
-        {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Multiselect = false;
-            fd.Filter = "All files (*.*)|*.*";
-            fd.FilterIndex = 1;
-            fd.CheckFileExists = true;
-            fd.CheckPathExists = true;
-
-            DialogResult dr = fd.ShowDialog();
-
-            if (dr == DialogResult.OK)
-                return fd.FileName;
-            else
-                return "";           
-        }
-
-        private Image GetIcon(string fileName)
-        {
-            if (File.Exists(fileName))
-            {
-                string[] ImageTypes = { ".png", ".tif", ".jpg", ".gif", ".bmp", ".ico" };
-
-                if (ImageTypes.Contains(Path.GetExtension(fileName)))
-                {
-                    return (Image)(Image)(new Bitmap(new Bitmap(fileName, false), EditAppIcon.Size));
-                }
-                    
-                else
-                    return (Image)(new Bitmap(Icon.ExtractAssociatedIcon(fileName).ToBitmap(), EditAppIcon.Size));
-            }
-            else
-                return null;
+            get { return Funcs.GetIcon(FAppIconPath, EditAppIcon.Size); }
         }
 
         public void SetFileProperties(string appName, string filePath, string fileIcon)
         {
             EditAppName.Text = appName;
             EditAppFilePath.Text = filePath;
-            FAppIcon = fileIcon;
-            EditAppIcon.Image = GetIcon(FAppIcon);
+
+            string s = fileIcon;
+
+            if (s == null)
+                s = filePath;
+
+            EditAppIcon.Image = Funcs.GetIcon(s, EditAppIcon.Size);
         }
 
         private void Browse_Click(object sender, EventArgs e)
         {
-            string fileName = BrowseForFile();   
+            string fileName = Funcs.BrowseForFile();   
             if (fileName != "")
             {
                 FileVersionInfo f = FileVersionInfo.GetVersionInfo(fileName);
-                SetFileProperties(f.ProductName, f.FileName, f.FileName);
+                SetFileProperties(f.ProductName, f.FileName, null);
             }
         }
 
         private void AppIcon_Click(object sender, EventArgs e)
         {
-            string fileName = BrowseForFile();
+            string fileName = Funcs.BrowseForFile();
             if (fileName != "")
             {
                 FAppIconPath = fileName;
-                EditAppIcon.Image = GetIcon(fileName);
+                EditAppIcon.Image = Funcs.GetIcon(fileName, EditAppIcon.Size);
             }
         }
 
