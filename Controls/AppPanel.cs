@@ -17,16 +17,16 @@ namespace Apps.Controls
         private bool IsHeader = false;
         public bool InMenu { get; set; }
         public bool InLoad { get; set; }
- 
+
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
-        
+
         XmlDocument AppsXml;
 
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<DATA>\r\n</DATA>\r\n</XML>";
         private string New_AppXmlNode = "<APP>\r\n" +
-                                          "<CAPTION>{1}</CAPTION>\r\n" + 
+                                          "<NAME>{1}</NAME>\r\n" +
                                           "<FILENAME>{2}</FILENAME>\r\n" +
                                           "<ARGS>{3}</ARGS>\r\n" +
                                           "<ICON>{4}</ICON>\r\n" +
@@ -179,13 +179,18 @@ namespace Apps.Controls
         private void MenuAddApp_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-            //Controls.Remove(b);
             AppProperties f = new AppProperties();
-
             if (f.ShowDialog(this) == DialogResult.OK)
             {
+                var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+                if (c is AppPanel)
+                {
 
+                }
+                else
+                {
+                    AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
+                }
             }
 
             GC.Collect();

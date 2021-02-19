@@ -168,6 +168,7 @@
             this.ButtonCancel.TabIndex = 6;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // ButtonOK
             // 
@@ -178,6 +179,7 @@
             this.ButtonOK.TabIndex = 5;
             this.ButtonOK.Text = "OK";
             this.ButtonOK.UseVisualStyleBackColor = true;
+            this.ButtonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
             // AppProperties
             // 
@@ -191,6 +193,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Properties";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AppProperties_FormClosing);
             this.PanelBack.ResumeLayout(false);
             this.PanelBack.PerformLayout();
             this.PanelLeft.ResumeLayout(false);

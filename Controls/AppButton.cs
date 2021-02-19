@@ -14,9 +14,14 @@ namespace Apps
         private Config AppsConfig { get; set; }
         private bool IsMenuButton = false;
         private bool IsFolderButton = false;
-        private string FileName { get; set; }
 
-        XmlNode MyNode { get; set; }
+        public string AppName { get; set; }
+        public string FileName { get; set; }
+        public string FileIconPath { get; set; }
+        public string FileArgs { get; set; }
+        public Image FileIconImage { get; set; }
+        
+        public XmlNode MyNode { get; set; }
 
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;

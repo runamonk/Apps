@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -23,18 +18,24 @@ namespace Apps.Forms
 
         public string AppFileName
         {
-            get {return EditAppFilePath.Text; }
+            get {return EditAppFilePath.Text.Trim(); }
         }
 
         public string AppName
         {
-            get { return EditAppName.Text; }
+            get { return EditAppName.Text.Trim(); }
         }
 
-        private string FAppIcon;
-        public string AppIcon
+        private string FAppIconPath;
+        private bool IsCancelled = false;
+        public string AppIconPath
         {
-            get { return FAppIcon; }
+            get { return FAppIconPath; }
+        }
+
+        public Image AppIconImage
+        {
+            get { return GetIcon(FAppIconPath); }
         }
 
         private string BrowseForFile()
@@ -95,8 +96,35 @@ namespace Apps.Forms
             string fileName = BrowseForFile();
             if (fileName != "")
             {
-                FAppIcon = fileName;
+                FAppIconPath = fileName;
                 EditAppIcon.Image = GetIcon(fileName);
+            }
+        }
+
+        private void ButtonOK_Click(object sender, EventArgs e)
+        {
+            IsCancelled = false;
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            IsCancelled = true;
+        }
+
+        private void AppProperties_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!IsCancelled)
+            {
+                string ErrorStr = "";
+                if (AppName == "")
+                    ErrorStr = "Please enter a name.";
+                if (AppFileName == "")
+                    ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n":"") + "Please browse to a file to launch.";
+                if (ErrorStr != "")
+                {
+                    MessageBox.Show(this, ErrorStr, "Error");
+                    e.Cancel = true;
+                }
             }
         }
     }
