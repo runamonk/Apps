@@ -34,7 +34,7 @@ namespace Apps
             AppHeaderColor.BackColor = Color.White;
             AppBackColor.BackColor = Color.White;
             AppFontColor.BackColor = Color.Black;
-            AppRowColor.BackColor = Color.White;
+            AppSelectedColor.BackColor = Color.Gray;
             MenuBackColor.BackColor = Color.White;
             MenuBorderColor.BackColor = Color.Gray;
             MenuButtonColor.BackColor = Color.White;
@@ -48,7 +48,7 @@ namespace Apps
             AppHeaderColor.BackColor = Color.FromArgb(56, 56, 56);
             AppBackColor.BackColor = Color.FromArgb(56, 56, 56);
             AppFontColor.BackColor = Color.White;
-            AppRowColor.BackColor = Color.FromArgb(56, 56, 56);
+            AppSelectedColor.BackColor = Color.DarkGray;
             MenuBackColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuBorderColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuButtonColor.BackColor = Color.FromArgb(56, 56, 56);

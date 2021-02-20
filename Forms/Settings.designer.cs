@@ -36,7 +36,7 @@
             this.Startup = new System.Windows.Forms.CheckBox();
             this.Key = new System.Windows.Forms.TextBox();
             this.AppHeaderColor = new System.Windows.Forms.Panel();
-            this.AppRowColor = new System.Windows.Forms.Panel();
+            this.AppSelectedColor = new System.Windows.Forms.Panel();
             this.AppBackColor = new System.Windows.Forms.Panel();
             this.AppFontColor = new System.Windows.Forms.Panel();
             this.MenuButtonColor = new System.Windows.Forms.Panel();
@@ -51,6 +51,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupOther = new System.Windows.Forms.GroupBox();
             this.gbHotkey = new System.Windows.Forms.GroupBox();
+            this.Clear = new System.Windows.Forms.Button();
             this.Windows = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Shift = new System.Windows.Forms.CheckBox();
@@ -75,7 +76,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.DarkTheme = new System.Windows.Forms.RadioButton();
             this.LightTheme = new System.Windows.Forms.RadioButton();
-            this.Clear = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupOther.SuspendLayout();
@@ -151,15 +151,15 @@
             this.toolTip1.SetToolTip(this.AppHeaderColor, "Click to set color.");
             this.AppHeaderColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
-            // AppRowColor
+            // AppSelectedColor
             // 
-            this.AppRowColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AppRowColor.Location = new System.Drawing.Point(10, 117);
-            this.AppRowColor.Name = "AppRowColor";
-            this.AppRowColor.Size = new System.Drawing.Size(26, 27);
-            this.AppRowColor.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.AppRowColor, "Click to set color.");
-            this.AppRowColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            this.AppSelectedColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AppSelectedColor.Location = new System.Drawing.Point(10, 117);
+            this.AppSelectedColor.Name = "AppSelectedColor";
+            this.AppSelectedColor.Size = new System.Drawing.Size(26, 27);
+            this.AppSelectedColor.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.AppSelectedColor, "Click to set color.");
+            this.AppSelectedColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
             // AppBackColor
             // 
@@ -304,6 +304,16 @@
             this.gbHotkey.TabIndex = 4;
             this.gbHotkey.TabStop = false;
             this.gbHotkey.Text = "Popup Hotkey";
+            // 
+            // Clear
+            // 
+            this.Clear.Location = new System.Drawing.Point(156, 19);
+            this.Clear.Name = "Clear";
+            this.Clear.Size = new System.Drawing.Size(46, 20);
+            this.Clear.TabIndex = 7;
+            this.Clear.Text = "Clear";
+            this.Clear.UseVisualStyleBackColor = true;
+            this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
             // Windows
             // 
@@ -472,7 +482,7 @@
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.AppHeaderColor);
             this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.AppRowColor);
+            this.groupBox4.Controls.Add(this.AppSelectedColor);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.AppBackColor);
@@ -501,9 +511,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(42, 124);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.Size = new System.Drawing.Size(49, 13);
             this.label8.TabIndex = 13;
-            this.label8.Text = "Row";
+            this.label8.Text = "Selected";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
@@ -571,16 +581,6 @@
             this.LightTheme.UseVisualStyleBackColor = true;
             this.LightTheme.Click += new System.EventHandler(this.LightTheme_Click);
             // 
-            // Clear
-            // 
-            this.Clear.Location = new System.Drawing.Point(156, 19);
-            this.Clear.Name = "Clear";
-            this.Clear.Size = new System.Drawing.Size(46, 20);
-            this.Clear.TabIndex = 7;
-            this.Clear.Text = "Clear";
-            this.Clear.UseVisualStyleBackColor = true;
-            this.Clear.Click += new System.EventHandler(this.Clear_Click);
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,7 +645,7 @@
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.Panel AppHeaderColor;
         private System.Windows.Forms.Label label8;
-        public System.Windows.Forms.Panel AppRowColor;
+        public System.Windows.Forms.Panel AppSelectedColor;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         public System.Windows.Forms.Panel AppBackColor;

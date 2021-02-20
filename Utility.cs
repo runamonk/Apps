@@ -54,7 +54,7 @@ namespace Utility
             return files;
         }
 
-        public static Image GetIcon(string fileName, Size ToSize)
+        public static Image GetIcon(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -62,11 +62,11 @@ namespace Utility
 
                 if (ImageTypes.Contains(Path.GetExtension(fileName)))
                 {
-                    return (Image)(Image)(new Bitmap(new Bitmap(fileName, false), ToSize));
+                    return (Image)(Image)(new Bitmap(new Bitmap(fileName, false)));
                 }
 
                 else
-                    return (Image)(new Bitmap(Icon.ExtractAssociatedIcon(fileName).ToBitmap(), ToSize));
+                    return (Image)(new Bitmap(Icon.ExtractAssociatedIcon(fileName).ToBitmap()));
             }
             else
                 return null;

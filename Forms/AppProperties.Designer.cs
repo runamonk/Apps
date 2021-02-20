@@ -148,6 +148,7 @@
             this.EditAppIcon.Location = new System.Drawing.Point(72, 117);
             this.EditAppIcon.Name = "EditAppIcon";
             this.EditAppIcon.Size = new System.Drawing.Size(64, 64);
+            this.EditAppIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.EditAppIcon.TabIndex = 8;
             this.EditAppIcon.TabStop = false;
             this.EditAppIcon.Click += new System.EventHandler(this.AppIcon_Click);

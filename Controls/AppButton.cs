@@ -76,7 +76,7 @@ namespace Apps
             }
             get 
             {
-                return Funcs.GetIcon((!string.IsNullOrEmpty(FileIconPath) ? FileIconPath : FileName), new Size(20, 20)); 
+                return Funcs.GetIcon((!string.IsNullOrEmpty(FileIconPath) ? FileIconPath : FileName)); 
             }
         }
         
@@ -103,16 +103,20 @@ namespace Apps
                 PBox.BorderStyle = BorderStyle.None;
                 PBox.Padding = new Padding(3, 0, 0, 0);
                 PBox.Margin = new Padding(0, 0, 0, 0);
+                PBox.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             else
                 PBox.Visible = false;
             
             PBox.MouseClick += new MouseEventHandler(TextOnClick);
 
+            ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
             ButtonText.Dock = DockStyle.Fill;
             ButtonText.UseCompatibleTextRendering = true;
             ButtonText.UseMnemonic = true;
+            ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
+            ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
 
             if (isMenuButton)
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
@@ -146,6 +150,30 @@ namespace Apps
             SetColors();
         }
 
+        private void TextMouseEnter(object sender, EventArgs e)
+        {
+            if (IsMenuButton)
+            {
+                ButtonPanel.BackColor = AppsConfig.MenuSelectedColor;
+            }
+            else
+            {
+                ButtonText.BackColor = AppsConfig.AppsSelectedBackColor;
+            }
+        }
+
+        private void TextMouseLeave(object sender, EventArgs e)
+        {
+            if (IsMenuButton)
+            {
+                ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
+            }
+            else
+            {
+                ButtonText.BackColor = AppsConfig.AppsBackColor;
+            }
+        }
+
         private void TextOnClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) 
@@ -170,7 +198,7 @@ namespace Apps
             }
             else
             {
-                ButtonPanel.BackColor = AppsConfig.AppsRowBackColor;
+                ButtonPanel.BackColor = AppsConfig.AppsBackColor;
                 ButtonText.ForeColor = AppsConfig.AppsFontColor;
             }
         }
@@ -182,7 +210,7 @@ namespace Apps
         //    if (!IsMenuButton)
         //    {
         //        // Defines pen 
-        //        Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsRowBackColor, 25));
+        //        Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsSelectedBackColor, 25));
                                
         //        PointF pt1 = new PointF(0F, Height-1);
         //        PointF pt2 = new PointF(0F, Height);

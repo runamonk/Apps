@@ -50,7 +50,7 @@ namespace Apps
                     AppBackColor.BackColor = _Config.AppsBackColor;
                     AppFontColor.BackColor = _Config.AppsFontColor;
                     AppHeaderColor.BackColor = _Config.AppsHeaderColor;
-                    AppRowColor.BackColor = _Config.AppsRowBackColor;
+                    AppSelectedColor.BackColor = _Config.AppsSelectedBackColor;
                     MenuBackColor.BackColor = _Config.MenuBackColor;
                     MenuBorderColor.BackColor = _Config.MenuBorderColor;
                     MenuButtonColor.BackColor = _Config.MenuButtonColor;
@@ -86,7 +86,7 @@ namespace Apps
                 _Config.AppsBackColor = AppBackColor.BackColor;
                 _Config.AppsFontColor = AppFontColor.BackColor;
                 _Config.AppsHeaderColor = AppHeaderColor.BackColor;
-                _Config.AppsRowBackColor = AppRowColor.BackColor;
+                _Config.AppsSelectedBackColor = AppSelectedColor.BackColor;
                 _Config.MenuBackColor = MenuBackColor.BackColor;
                 _Config.MenuBorderColor = MenuBorderColor.BackColor;
                 _Config.MenuButtonColor = MenuButtonColor.BackColor;
@@ -265,7 +265,7 @@ namespace Apps
             set { SetKey("Apps_lines_per_row", value.ToString()); }
         }
 
-        public Color AppsRowBackColor
+        public Color AppsSelectedBackColor
         {
             get {
                 string s = FindKey("Apps_row_back_color");
