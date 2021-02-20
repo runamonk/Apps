@@ -222,7 +222,6 @@ namespace Apps
                 MenuMainButton.AppName = "...";
                 MenuMainButton.Click += MainButton_Click;
                 MenuMainButton.Padding = new Padding(0,0,0,3);
-                //MenuMainButton.TextAlign = ContentAlignment.MiddleCenter;
                 notifyApps.ContextMenuStrip = MenuMain;
 
                 Apps = new AppPanel(Config);

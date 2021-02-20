@@ -46,9 +46,9 @@ namespace Apps.Controls
             t.Click += new EventHandler(MenuAddApp_Click);
             MenuRC.Items.Add(t);
 
-            t = new ToolStripMenuItem("&Add Sub Folder");
-            t.Click += new EventHandler(MenuAddFolder_Click);
-            MenuRC.Items.Add(t);
+            //t = new ToolStripMenuItem("&Add Sub Folder");
+            //t.Click += new EventHandler(MenuAddFolder_Click);
+            //MenuRC.Items.Add(t);
 
             DeleteMenuItem = new ToolStripMenuItem("&Delete");
             DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
