@@ -163,8 +163,8 @@ namespace Apps.Controls
                 else
                 {
                     AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
-
-
+                    int i = Controls.GetChildIndex(b);
+                    AddItem(f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null, i);               
                 }
             }
 

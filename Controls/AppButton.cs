@@ -19,7 +19,7 @@ namespace Apps
         private Panel BorderPanel = new Panel();
         private Panel ButtonPanel = new Panel();
         private Label ButtonText = new Label();
-
+        
         public new ContextMenuStrip ContextMenuStrip
         {
             get 
