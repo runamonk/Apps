@@ -106,7 +106,9 @@ namespace Apps
             }
             else
                 PBox.Visible = false;
-                       
+            
+            PBox.MouseClick += new MouseEventHandler(TextOnClick);
+
             ButtonText.Parent = ButtonPanel;
             ButtonText.Dock = DockStyle.Fill;
             ButtonText.UseCompatibleTextRendering = true;
@@ -124,7 +126,7 @@ namespace Apps
             else
                 ButtonText.TextAlign = ContentAlignment.MiddleLeft;
 
-            ButtonText.Click += new EventHandler(TextOnClick);
+            ButtonText.MouseClick += new MouseEventHandler(TextOnClick);
 
             if (isMenuButton)
                 BorderPanel.Padding = new Padding(1, 1, 1, 1);
@@ -144,9 +146,10 @@ namespace Apps
             SetColors();
         }
 
-        private void TextOnClick(object sender, EventArgs e)
+        private void TextOnClick(object sender, MouseEventArgs e)
         {
-            OnClick(e);
+            if (e.Button == MouseButtons.Left) 
+                OnClick(e);
         }
 
         protected override void OnClick(EventArgs e)

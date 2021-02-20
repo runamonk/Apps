@@ -131,7 +131,6 @@ namespace Apps.Controls
             Controls.Clear();
             InLoad = true;
             
-
             if (!File.Exists(AppsXmlFilePath))
             {
                 AppsXml = new XmlDocument();
@@ -144,34 +143,6 @@ namespace Apps.Controls
                 AppsXml.Load(AppsXmlFilePath);
             }
 
-            //foreach (string file in files) 
-            //{
-            //    XmlDocument doc = new XmlDocument();
-            //    doc.Load(file);
-            //    XmlNode data = doc.DocumentElement.SelectSingleNode("/DATA");
-            //    string type = data.Attributes["TYPE"]?.InnerText;
-
-            //    if (type == "IMAGE")
-            //    {
-            //        MemoryStream ms = new MemoryStream(Convert.FromBase64String(data.InnerText));
-            //        try
-            //        {
-            //            Image img = Image.FromStream(ms);
-            //            AddItem(img, file, false);
-            //        }
-            //        finally
-            //        {
-            //            ms.Close();
-            //        }
-            //    }
-            //    else
-            //    {
-            //        byte[] base64EncodedBytes = Convert.FromBase64String(data.InnerText);
-            //        string decodedString = Encoding.UTF8.GetString(base64EncodedBytes);
-            //        AddItem(decodedString, file, false);
-            //    }
-            //    doc = null;
-            //}
             InLoad = false;
             if (OnAppsLoaded != null)
                 OnAppsLoaded();
@@ -191,7 +162,9 @@ namespace Apps.Controls
                 }
                 else
                 {
-                    AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
+                    AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+
+
                 }
             }
 
