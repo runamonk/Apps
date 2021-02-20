@@ -53,7 +53,7 @@ namespace Apps
             set 
             {
                 FFileName = value;
-                //Image = FileIconImage;
+                PBox.Image = FileIconImage;
             }
         }
         private string FFileIconPath;
@@ -70,9 +70,13 @@ namespace Apps
 
         public Image FileIconImage
         {
+            set 
+            {
+                PBox.Image = value;
+            }
             get 
             {
-                return Funcs.GetIcon((!string.IsNullOrEmpty(FileIconPath) ? FileIconPath : FileName), new Size(16, 16)); 
+                return Funcs.GetIcon((!string.IsNullOrEmpty(FileIconPath) ? FileIconPath : FileName), new Size(20, 20)); 
             }
         }
         
@@ -86,18 +90,19 @@ namespace Apps
             BorderPanel.Parent = this;
             BorderPanel.Dock = DockStyle.Fill;
             BorderPanel.Margin = new Padding(0, 0, 0, 0);
-            BorderPanel.Visible = true;
             ButtonPanel.Parent = BorderPanel;
             ButtonPanel.Dock = DockStyle.Fill;
             ButtonPanel.Margin = new Padding(0, 0, 0, 0);
-            ButtonPanel.Visible = true;
-
+            ButtonPanel.BorderStyle = BorderStyle.None;
+            
             if (!isMenuButton)
             {
                 PBox.Parent = ButtonPanel;
                 PBox.Dock = DockStyle.Left;
-                PBox.Size = new Size(18, this.Height);
+                PBox.Width = 23;
                 PBox.BorderStyle = BorderStyle.None;
+                PBox.Padding = new Padding(3, 0, 0, 0);
+                PBox.Margin = new Padding(0, 0, 0, 0);
             }
             else
                 PBox.Visible = false;
@@ -106,15 +111,19 @@ namespace Apps
             ButtonText.Dock = DockStyle.Fill;
             ButtonText.UseCompatibleTextRendering = true;
             ButtonText.UseMnemonic = true;
+
             if (isMenuButton)
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
             else
-                ButtonText.Padding = new Padding(5, 0, 0, 0);
+                ButtonText.Padding = new Padding(25, 0, 0, 0);
+
             ButtonText.Margin = new Padding(0, 0, 0, 0);
+
             if (isMenuButton)
                 ButtonText.TextAlign = ContentAlignment.MiddleCenter;
             else
                 ButtonText.TextAlign = ContentAlignment.MiddleLeft;
+
             ButtonText.Click += new EventHandler(TextOnClick);
 
             if (isMenuButton)

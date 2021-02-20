@@ -17,7 +17,7 @@ namespace Apps.Controls
         private bool IsHeader = false;
         public bool InMenu { get; set; }
         public bool InLoad { get; set; }
-
+               
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
 
@@ -76,26 +76,20 @@ namespace Apps.Controls
 
         private AppButton AddAppButton()
         {
-            AppButton b = new AppButton(AppsConfig)
-            {
-                TabStop = false,
-                Dock = DockStyle.Top,
-                //FlatStyle = FlatStyle.Flat
-            };
+            AppButton b = new AppButton(AppsConfig);
 
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
             b.ContextMenuStrip = MenuRC;
-            b.BackgroundImageLayout = ImageLayout.None;
-
             b.Height = 22;
-            b.Parent = this;
             b.Padding = new Padding(0, 0, 0, 0);
             b.Margin = new Padding(0, 0, 0, 0);
-            
+            b.TabStop = false;
+            Controls.Add(b);
+            b.Dock = DockStyle.Top;
             return b;
         }
 
-        public void AddItem(string AppName, string fileName, Image fileImage, string fileIconPath, string fileArgs, XmlNode xmlNode)
+        public void AddItem(string AppName, string fileName, Image fileImage, string fileIconPath, string fileArgs, XmlNode xmlNode, int AddAtIndex)
         {
             SuspendLayout();
             AppButton b = AddAppButton();
@@ -103,10 +97,12 @@ namespace Apps.Controls
             b.AppName = AppName;
             b.FileName = fileName;
             b.FileArgs = fileArgs;
-            //if (fileImage != null)
-            //    b.Image = fileImage;           
+            if (fileImage != null)
+                b.FileIconImage = fileImage;           
             b.FileIconPath = fileIconPath;
             b.MyNode = xmlNode;
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+
             if (OnAppAdded != null)
                 OnAppAdded();
              ResumeLayout();
@@ -191,7 +187,7 @@ namespace Apps.Controls
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddItem(f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null);
+                    AddItem(f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null, 0);
                 }
                 else
                 {
