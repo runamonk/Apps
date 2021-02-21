@@ -33,20 +33,18 @@ namespace Apps
         }
 
         private new string Text; // get rid of the Text Property.
-
         public Color BorderColor
         {
             get { return BorderPanel.BackColor; }
             set { BorderPanel.BackColor = value;  }
         }      
-
+        public string AppId { get; set; }
         public string AppName
         {
             get { return ButtonText.Text; }
             set { ButtonText.Text = value; }
         }
         private string FFileName;
-        
         public string FileName
         {
             get { return FFileName; }

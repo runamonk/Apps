@@ -22,9 +22,10 @@ namespace Apps.Controls
         private ToolStripMenuItem DeleteMenuItem;
 
         XmlDocument AppsXml;
+        XmlNodeList AppsNodeList;
 
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
-        private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<DATA>\r\n</DATA>\r\n</XML>";
+        private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
         private string New_AppXmlNode = "<APP>\r\n" +
                                           "<NAME>{1}</NAME>\r\n" +
                                           "<FILENAME>{2}</FILENAME>\r\n" +
@@ -77,7 +78,6 @@ namespace Apps.Controls
         private AppButton AddAppButton()
         {
             AppButton b = new AppButton(AppsConfig);
-
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
             b.ContextMenuStrip = MenuRC;
             b.Height = 22;
@@ -89,10 +89,16 @@ namespace Apps.Controls
             return b;
         }
 
-        public void AddItem(string AppName, string fileName, Image fileImage, string fileIconPath, string fileArgs, XmlNode xmlNode, int AddAtIndex)
+        public void AddItem(string AppId, string AppName, string fileName, Image fileImage, string fileIconPath, string fileArgs, XmlNode xmlNode, int AddAtIndex)
         {
             SuspendLayout();
             AppButton b = AddAppButton();
+
+            if (string.IsNullOrEmpty(AppId))
+                b.AppId = Guid.NewGuid().ToString();
+            else
+                b.AppId = AppId;
+
             b.AutoSize = false;
             b.AppName = AppName;
             b.FileName = fileName;
@@ -102,6 +108,8 @@ namespace Apps.Controls
             b.FileIconPath = fileIconPath;
             b.MyNode = xmlNode;
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            
+            //Add to AppsNodeList
 
             if (OnAppAdded != null)
                 OnAppAdded();
@@ -143,6 +151,8 @@ namespace Apps.Controls
                 AppsXml.Load(AppsXmlFilePath);
             }
 
+            AppsNodeList = AppsXml.GetElementsByTagName("APPS");
+
             InLoad = false;
             if (OnAppsLoaded != null)
                 OnAppsLoaded();
@@ -158,13 +168,13 @@ namespace Apps.Controls
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddItem(f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null, 0);
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null, 0);
                 }
                 else
                 {
                     AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
                     int i = Controls.GetChildIndex(b);
-                    AddItem(f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null, i);               
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, null, i);               
                 }
             }
 
@@ -199,7 +209,6 @@ namespace Apps.Controls
         {
             InMenu = true;
             //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-
             //Controls.Remove(b);
             GC.Collect();
 
@@ -210,7 +219,15 @@ namespace Apps.Controls
 
         private void Menu_Opening(object sender, CancelEventArgs e)
         {
-            DeleteMenuItem.Enabled = (sender is AppPanel);
+            bool b = false;
+            var c = ((AppMenu)sender).SourceControl;
+
+            if (c is AppPanel)
+                b = false;
+            else
+            if (c is Label)
+                b = true;
+            DeleteMenuItem.Enabled = b;
         }
 
         private void SetColors()
