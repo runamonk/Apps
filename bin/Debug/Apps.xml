@@ -1,4 +1,8 @@
 <xml version="1.0" encoding="utf-8">
-  <DATA>
-  </DATA>
+  <APPS>
+    <APP id="b6dca829-afd9-49fc-a3aa-a25f4f2fa046" appname="Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
+    <APP id="3f1ad4f4-7071-4101-a866-153f04c7574d" appname="Python3.zip" filename="D:\Apps\Sublime Text 3\python3.3.zip" fileiconpath="" fileargs="" />
+    <APP id="7d54f725-fe65-459b-8188-10549f724a24" appname="changelog for merge" filename="D:\Apps\Sublime Merge\changelog.txt" fileiconpath="" fileargs="" />
+    <APP id="97784cfc-5375-4ff7-841c-0f6f5902edcc" appname="Sublime Text" filename="D:\Apps\Sublime Text 3\sublime_text.exe" fileiconpath="" fileargs="" />
+  </APPS>
 </xml>
