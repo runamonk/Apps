@@ -117,7 +117,7 @@ namespace Apps.Controls
 
             siblingAppId = ((AppButton)Controls[AddAtIndex]).AppId;
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-
+            
             XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
             XmlNode nodeSib = null;
 
@@ -143,6 +143,7 @@ namespace Apps.Controls
                 XmlAtt = AppsXml.CreateAttribute("fileargs");
                 XmlAtt.Value = fileArgs;
                 node.Attributes.Append(XmlAtt);
+
                 if (nodeSib == null)
                     AppsNode.AppendChild(node);
                 else

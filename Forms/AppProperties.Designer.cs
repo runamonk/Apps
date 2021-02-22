@@ -159,6 +159,7 @@
             this.EditAppName.Name = "EditAppName";
             this.EditAppName.Size = new System.Drawing.Size(320, 20);
             this.EditAppName.TabIndex = 1;
+            this.EditAppName.TextChanged += new System.EventHandler(this.EditAppName_TextChanged);
             // 
             // ButtonCancel
             // 

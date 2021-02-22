@@ -85,16 +85,43 @@ namespace Apps.Forms
         {
             if (!IsCancelled)
             {
-                string ErrorStr = "";
-                if (AppName == "")
-                    ErrorStr = "Please enter a name.";
-                if (AppFileName == "")
-                    ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n":"") + "Please browse to a file to launch.";
-                if (ErrorStr != "")
+                // We'll use this for seperators.
+                if (AppName == "-")
                 {
-                    MessageBox.Show(this, ErrorStr, "Error");
-                    e.Cancel = true;
+                    
                 }
+                else
+                {
+                    string ErrorStr = "";
+                    if (AppName == "")
+                        ErrorStr = "Please enter a name.";
+                    if (AppFileName == "")
+                        ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please browse to a file to launch.";
+                    if (ErrorStr != "")
+                    {
+                        MessageBox.Show(this, ErrorStr, "Error");
+                        e.Cancel = true;
+                    }
+                }
+            }
+        }
+
+        private void EditAppName_TextChanged(object sender, EventArgs e)
+        {
+            if (EditAppName.Text.Trim() == "-")
+            {
+                EditFileArgs.Text = "";
+                EditFileArgs.ReadOnly = true;
+                EditAppFilePath.Text = "";
+                EditAppFilePath.ReadOnly = true;
+                EditAppIcon.Image = null;
+                EditAppIcon.Enabled = false;
+            }
+            else
+            {
+                EditFileArgs.ReadOnly = true;
+                EditAppFilePath.ReadOnly = true;
+                EditAppIcon.Enabled = true;
             }
         }
     }
