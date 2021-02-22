@@ -45,7 +45,6 @@ namespace Apps
                     Shift.Checked = (m == 4 || m == 5 || m == 6 || m == 12);
                     Windows.Checked = (m == 8 || m == 9 || m == 10 || m == 12);
                     Startup.Checked = _Config.StartWithWindows;
-                    AutoHide.Checked = _Config.AutoHide;
                     AutoSizeHeight.Checked = _Config.AutoSizeHeight;
                     AppBackColor.BackColor = _Config.AppsBackColor;
                     AppFontColor.BackColor = _Config.AppsFontColor;
@@ -81,7 +80,6 @@ namespace Apps
                 if (Control.Checked) i = (i + 2);
                 if (Shift.Checked) i = (i + 4);
                 if (Windows.Checked) i = (i + 8);
-                _Config.AutoHide = AutoHide.Checked;
                 _Config.AutoSizeHeight = AutoSizeHeight.Checked;
                 _Config.AppsBackColor = AppBackColor.BackColor;
                 _Config.AppsFontColor = AppFontColor.BackColor;
@@ -199,17 +197,6 @@ namespace Apps
         }
 
         // properties
-        public Boolean AutoHide
-        {
-            get {
-                string s = FindKey("auto_hide");
-                if (s == "")
-                    s = SetKey("auto_hide", "false");
-                return bool.Parse(s);
-            }
-            set { SetKey("auto_hide", value.ToString()); }
-        }
-
         public Boolean AutoSizeHeight
         {
             get {

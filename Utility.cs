@@ -114,13 +114,14 @@ namespace Utility
                 //Height
                 if ((p.Y + form.Size.Width) > Screen.PrimaryScreen.WorkingArea.Height)
                 {
-                    p.Y = (p.Y - form.Size.Height);
+                    //p.Y = (p.Y - form.Size.Height);
+                    p.Y = (p.Y - ((p.Y + form.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
                 }
 
                 //Width
                 if ((p.X + form.Size.Width) > Screen.PrimaryScreen.WorkingArea.Width)
                 {
-                    p.X = (p.X - form.Size.Width);
+                    p.X = (p.X-((p.X + form.Size.Width)-Screen.PrimaryScreen.WorkingArea.Width));
                 }
             }
 

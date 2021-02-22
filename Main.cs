@@ -60,8 +60,7 @@ namespace Apps
 
         private void AppClicked()
         {
-            if (Config.AutoHide)
-                 ToggleShow(true, true);
+            ToggleShow(true);
         }
 
         private void AppDeleted()
@@ -134,7 +133,7 @@ namespace Apps
 
         private void NotifyApps_DoubleClick(object sender, EventArgs e)
         {
-            ToggleShow(false,false);
+            ToggleShow(false);
         }
 
         private void PTop_MouseDown(object sender, MouseEventArgs e)
@@ -199,6 +198,8 @@ namespace Apps
             {
                 Config = new Config();
                 Config.ConfigChanged += new EventHandler(ConfigChanged);
+
+                MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width,Screen.PrimaryScreen.WorkingArea.Height);
                 MenuMain = new AppMenu(Config);
                 MenuMain.Opening += new System.ComponentModel.CancelEventHandler(MenuApps_Opening);
                 MenuMain.Closed += new ToolStripDropDownClosedEventHandler(MenuApps_Closed);
@@ -259,7 +260,7 @@ namespace Apps
             Size = Config.FormSize;
         }
 
-        private void ToggleShow(bool Override = false, bool IgnoreBounds = true)
+        private void ToggleShow(bool Override = false)
         {
             if ((!Override) && (inClose || inAbout || Apps.InMenu || inMenu || inSettings))
                 return;
@@ -273,7 +274,7 @@ namespace Apps
                 {
                     AutoSizeForm(true);
                     if (Config.OpenFormAtCursor)
-                        Funcs.MoveFormToCursor(this, IgnoreBounds);
+                        Funcs.MoveFormToCursor(this, false);
                     Opacity = 100;
                     Activate();
                 }

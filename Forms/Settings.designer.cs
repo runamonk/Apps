@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.AutoHide = new System.Windows.Forms.CheckBox();
             this.AutoSizeHeight = new System.Windows.Forms.CheckBox();
             this.OpenAtMouse = new System.Windows.Forms.CheckBox();
             this.Startup = new System.Windows.Forms.CheckBox();
@@ -86,17 +85,6 @@
             this.groupBox4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // AutoHide
-            // 
-            this.AutoHide.AutoSize = true;
-            this.AutoHide.Location = new System.Drawing.Point(6, 83);
-            this.AutoHide.Name = "AutoHide";
-            this.AutoHide.Size = new System.Drawing.Size(71, 17);
-            this.AutoHide.TabIndex = 20;
-            this.AutoHide.Text = "Auto hide";
-            this.toolTip1.SetToolTip(this.AutoHide, "Check to auto hide Apps window after clicking a App.");
-            this.AutoHide.UseVisualStyleBackColor = true;
             // 
             // AutoSizeHeight
             // 
@@ -278,7 +266,6 @@
             // 
             // groupOther
             // 
-            this.groupOther.Controls.Add(this.AutoHide);
             this.groupOther.Controls.Add(this.AutoSizeHeight);
             this.groupOther.Controls.Add(this.OpenAtMouse);
             this.groupOther.Controls.Add(this.Startup);
@@ -627,7 +614,6 @@
         public System.Windows.Forms.Button OK;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupOther;
-        public System.Windows.Forms.CheckBox AutoHide;
         public System.Windows.Forms.CheckBox AutoSizeHeight;
         public System.Windows.Forms.CheckBox OpenAtMouse;
         public System.Windows.Forms.CheckBox Startup;
