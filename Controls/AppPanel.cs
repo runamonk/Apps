@@ -272,6 +272,7 @@ namespace Apps.Controls
             if (c is Label)
                 b = true;
             DeleteMenuItem.Enabled = b;
+            EditMenuItem.Enabled = b;
         }
 
         private void SetColors()
