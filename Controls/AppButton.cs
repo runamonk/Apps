@@ -176,8 +176,11 @@ namespace Apps
             if (e.Button == MouseButtons.Left)
             {
                 if (!IsMenuButton)
-                    Process.Start(FileName, FileArgs);
-
+                {
+                    ProcessStartInfo procStartInfo = new ProcessStartInfo(FileName, FileArgs);
+                    procStartInfo.WorkingDirectory = Path.GetDirectoryName(FileName);
+                    Process.Start(procStartInfo);
+                }
                 OnClick(e);
             }
                 
