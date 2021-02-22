@@ -213,7 +213,7 @@ namespace Apps
             get {
                 string s = FindKey("Apps_back_color");
                 if (s == "")
-                    s = SetKey("Apps_back_color", Color.FromName("Control").ToArgb().ToString());
+                    s = SetKey("Apps_back_color", Color.White.ToArgb().ToString());
                     return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("Apps_back_color", value.ToArgb().ToString()); }
@@ -224,7 +224,7 @@ namespace Apps
             get {
                 string s = FindKey("Apps_font_color");
                 if (s == "")
-                    s = SetKey("Apps_font_color", Color.FromName("ControlText").ToArgb().ToString());
+                    s = SetKey("Apps_font_color", Color.Black.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("Apps_font_color", value.ToArgb().ToString()); }
@@ -235,7 +235,7 @@ namespace Apps
             get {
                 string s = FindKey("Apps_header_color");
                 if (s == "")
-                    s = SetKey("Apps_header_color", Color.FromName("Control").ToArgb().ToString());
+                    s = SetKey("Apps_header_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("Apps_header_color", value.ToArgb().ToString()); }
@@ -257,7 +257,7 @@ namespace Apps
             get {
                 string s = FindKey("Apps_row_back_color");
                 if (s == "")
-                    s = SetKey("Apps_row_back_color", Color.FromName("Control").ToArgb().ToString());
+                    s = SetKey("Apps_row_back_color", Color.Gray.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("Apps_row_back_color", value.ToArgb().ToString()); }
@@ -324,7 +324,7 @@ namespace Apps
             get {
                 string s = FindKey("menu_back_color");
                 if (s == "")
-                    s = SetKey("menu_back_color", Color.FromName("Control").ToArgb().ToString());
+                    s = SetKey("menu_back_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("menu_back_color", value.ToArgb().ToString()); }
@@ -335,7 +335,7 @@ namespace Apps
             get {
                 string s = FindKey("menu_border_color");
                 if (s == "")
-                    s = SetKey("menu_border_color", Color.FromName("Control").ToArgb().ToString());
+                    s = SetKey("menu_border_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("menu_border_color", value.ToArgb().ToString()); }
@@ -346,7 +346,7 @@ namespace Apps
             get {
                 string s = FindKey("menu_button_color");
                 if (s == "")
-                    s = SetKey("menu_button_color", Color.FromName("Control").ToArgb().ToString());
+                    s = SetKey("menu_button_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("menu_button_color", value.ToArgb().ToString()); }
@@ -357,7 +357,7 @@ namespace Apps
             get {
                 string s = FindKey("menu_font_color");
                 if (s == "")
-                    s = SetKey("menu_font_color", Color.FromName("ControlText").ToArgb().ToString());
+                    s = SetKey("menu_font_color", Color.Black.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("menu_font_color", value.ToArgb().ToString()); }
@@ -368,7 +368,7 @@ namespace Apps
             get {
                 string s = FindKey("menu_selected_color");
                 if (s == "")
-                    s = SetKey("menu_selected_color", Color.FromName("MenuHighlight").ToArgb().ToString());
+                    s = SetKey("menu_selected_color", Color.Gray.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("menu_selected_color", value.ToArgb().ToString()); }
