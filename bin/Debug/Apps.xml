@@ -1,7 +1,7 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="b6dca829-afd9-49fc-a3aa-a25f4f2fa046" appname="Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
-    <APP id="509fde56-baad-4367-a1de-0aa83a88047e" appname="Honeyview" filename="D:\Apps\Honeyview\Honeyview.exe" fileiconpath="" fileargs="" />
-    <APP id="97784cfc-5375-4ff7-841c-0f6f5902edcc" appname="Sublime Text" filename="D:\Apps\Sublime Text 3\sublime_text.exe" fileiconpath="" fileargs="" />
+    <APP id="138f9851-e51a-461a-95f4-772c06c5aeb3" appname="Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
+    <APP id="f70e8468-2a8d-47fe-93e4-686142bbdd22" appname="Honeyview2" filename="D:\Apps\Honeyview\Honeyview.exe" fileiconpath="" fileargs="" />
+    <APP id="4049140c-48a7-4a6f-b0d2-f767421702f8" appname="Sublime Text -test" filename="D:\Apps\Sublime Text 3\sublime_text.exe" fileiconpath="" fileargs="" />
   </APPS>
 </xml>

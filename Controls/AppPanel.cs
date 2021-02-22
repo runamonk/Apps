@@ -20,7 +20,8 @@ namespace Apps.Controls
 
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
-
+        private ToolStripMenuItem EditMenuItem;
+        
         XmlDocument AppsXml;
         XmlNode AppsNode;
         
@@ -45,6 +46,10 @@ namespace Apps.Controls
             //t = new ToolStripMenuItem("&Add Sub Folder");
             //t.Click += new EventHandler(MenuAddFolder_Click);
             //MenuRC.Items.Add(t);
+
+            EditMenuItem = new ToolStripMenuItem("&Edit Properties");
+            EditMenuItem.Click += new EventHandler(MenuEdit_Click);
+            MenuRC.Items.Add(EditMenuItem);
 
             DeleteMenuItem = new ToolStripMenuItem("&Delete");
             DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
@@ -213,29 +218,6 @@ namespace Apps.Controls
             InMenu = false;
         }
 
-        private void MenuAddFolder_Click(object sender, EventArgs e)
-        {
-            InMenu = true;
-
-            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-            //if (sender is AppPanel)
-
-            AddFolder f = new AddFolder();
-
-            if (f.ShowDialog(this) == DialogResult.OK)
-            {
-
-            }
-            
-
-            GC.Collect();
-
-            if (OnAppAdded != null)
-                OnAppAdded();
-
-            InMenu = false;
-        }
-
         private void MenuDelete_Click(object sender, EventArgs e)
         {
             InMenu = true;
@@ -250,6 +232,32 @@ namespace Apps.Controls
 
             if (OnAppDeleted != null)
                 OnAppDeleted();
+            InMenu = false;
+        }
+
+        private void MenuEdit_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            SuspendLayout();
+            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+            
+            AppProperties f = new AppProperties();
+            f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs);
+            if (f.ShowDialog(this) == DialogResult.OK)
+            {
+                XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
+                int i = Controls.GetChildIndex(b);
+                AppsNode.RemoveChild(node);
+                Controls.Remove(b);
+                AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);
+                AppsXml.Save(AppsXmlFilePath);
+            }
+            GC.Collect();
+                        
+            if (OnAppDeleted != null)
+                OnAppDeleted();
+            ResumeLayout();
             InMenu = false;
         }
 

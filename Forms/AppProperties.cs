@@ -37,19 +37,15 @@ namespace Apps.Forms
             get { return FAppIconPath; }
         }
 
-        //public Image AppIconImage
-        //{
-        //    get { return Funcs.GetIcon(FAppIconPath); }
-        //}
-
-        public void SetFileProperties(string appName, string filePath, string fileIcon)
+        public void SetFileProperties(string appName, string filePath, string fileIcon, string fileArgs)
         {
             EditAppName.Text = appName;
             EditAppFilePath.Text = filePath;
+            EditFileArgs.Text = fileArgs;
 
             string s = fileIcon;
 
-            if (s == null)
+            if (string.IsNullOrEmpty(s))
                 s = filePath;
 
             EditAppIcon.Image = Funcs.GetIcon(s);
@@ -61,7 +57,7 @@ namespace Apps.Forms
             if (fileName != "")
             {
                 FileVersionInfo f = FileVersionInfo.GetVersionInfo(fileName);
-                SetFileProperties(f.ProductName, f.FileName, null);
+                SetFileProperties(f.ProductName, f.FileName, null, null);
             }
         }
 
