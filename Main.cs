@@ -44,7 +44,9 @@ namespace Apps
         private bool inSettings = false;
 
         #region Todo
-
+        // Move shortcut up/down
+        // Drag and drop
+        // Folders
         #endregion
 
         #region Events

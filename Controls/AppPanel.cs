@@ -21,7 +21,9 @@ namespace Apps.Controls
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
         private ToolStripMenuItem EditMenuItem;
-        
+        private ToolStripMenuItem UpMenuItem;
+        private ToolStripMenuItem DownMenuItem;
+                       
         XmlDocument AppsXml;
         XmlNode AppsNode;
         
@@ -43,17 +45,23 @@ namespace Apps.Controls
             t.Click += new EventHandler(MenuAddApp_Click);
             MenuRC.Items.Add(t);
 
-            //t = new ToolStripMenuItem("&Add Sub Folder");
-            //t.Click += new EventHandler(MenuAddFolder_Click);
-            //MenuRC.Items.Add(t);
-
-            EditMenuItem = new ToolStripMenuItem("&Edit Properties");
+            EditMenuItem = new ToolStripMenuItem("&Edit Application");
             EditMenuItem.Click += new EventHandler(MenuEdit_Click);
             MenuRC.Items.Add(EditMenuItem);
 
-            DeleteMenuItem = new ToolStripMenuItem("&Delete");
+            DeleteMenuItem = new ToolStripMenuItem("&Delete Application");
             DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
             MenuRC.Items.Add(DeleteMenuItem);
+
+            MenuRC.Items.Add(new ToolStripSeparator());
+
+            DownMenuItem = new ToolStripMenuItem("&Move Down");
+            DownMenuItem.Click += new EventHandler(MenuDown_Click);
+            MenuRC.Items.Add(DownMenuItem);
+
+            UpMenuItem = new ToolStripMenuItem("Move &Up");
+            UpMenuItem.Click += new EventHandler(MenuUp_Click);
+            MenuRC.Items.Add(UpMenuItem);
 
             this.ContextMenuStrip = MenuRC;
 
@@ -235,6 +243,36 @@ namespace Apps.Controls
             InMenu = false;
         }
 
+        private void MenuDown_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            SuspendLayout();
+            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+
+            XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
+            //AppsNode.RemoveChild(node);
+            //Controls.Remove(b);
+            AppsXml.Save(AppsXmlFilePath);
+            GC.Collect();
+
+            ResumeLayout();
+            InMenu = false;
+        }
+
+        private void MenuUp_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            SuspendLayout();
+            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+
+
+            GC.Collect();
+            ResumeLayout();
+            InMenu = false;
+        }
+
         private void MenuEdit_Click(object sender, EventArgs e)
         {
             InMenu = true;
@@ -254,9 +292,6 @@ namespace Apps.Controls
                 AppsXml.Save(AppsXmlFilePath);
             }
             GC.Collect();
-                        
-            if (OnAppDeleted != null)
-                OnAppDeleted();
             ResumeLayout();
             InMenu = false;
         }
@@ -273,7 +308,8 @@ namespace Apps.Controls
                 b = true;
             DeleteMenuItem.Enabled = b;
             EditMenuItem.Enabled = b;
-        }
+
+        } 
 
         private void SetColors()
         {
