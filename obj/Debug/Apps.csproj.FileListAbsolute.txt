@@ -1,3 +1,6 @@
+D:\Dropbox\code\C#\Projects\Apps\bin\Debug\Apps.exe.config
+D:\Dropbox\code\C#\Projects\Apps\bin\Debug\Apps.exe
+D:\Dropbox\code\C#\Projects\Apps\bin\Debug\Apps.pdb
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.About.resources
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Forms.AddFolder.resources
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Forms.AppProperties.resources
@@ -6,8 +9,5 @@ D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Main.resources
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.Properties.Resources.resources
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csproj.GenerateResource.cache
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csproj.CoreCompileInputs.cache
-D:\Dropbox\code\C#\Projects\Apps\bin\Debug\Apps.exe.config
-D:\Dropbox\code\C#\Projects\Apps\bin\Debug\Apps.exe
-D:\Dropbox\code\C#\Projects\Apps\bin\Debug\Apps.pdb
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.exe
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.pdb

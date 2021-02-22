@@ -37,10 +37,10 @@ namespace Apps.Forms
             get { return FAppIconPath; }
         }
 
-        public Image AppIconImage
-        {
-            get { return Funcs.GetIcon(FAppIconPath); }
-        }
+        //public Image AppIconImage
+        //{
+        //    get { return Funcs.GetIcon(FAppIconPath); }
+        //}
 
         public void SetFileProperties(string appName, string filePath, string fileIcon)
         {

@@ -1,10 +1,9 @@
 ﻿using Apps.Controls;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using Utility;
-using System.Xml;
+using System.Diagnostics;
 
 namespace Apps
 {
@@ -13,7 +12,7 @@ namespace Apps
     {
         private Config AppsConfig { get; set; }
         private bool IsMenuButton = false;
-        private bool IsFolderButton = false;
+        //private bool IsFolderButton = false;
 
         private PictureBox PBox = new PictureBox();
         private Panel BorderPanel = new Panel();
@@ -32,7 +31,6 @@ namespace Apps
             }
         }
 
-        private new string Text; // get rid of the Text Property.
         public Color BorderColor
         {
             get { return BorderPanel.BackColor; }
@@ -51,7 +49,8 @@ namespace Apps
             set 
             {
                 FFileName = value;
-                PBox.Image = FileIconImage;
+                PBox.Image = Funcs.GetIcon(FFileName);
+                FFileIconPath = "";
             }
         }
         private string FFileIconPath;
@@ -62,6 +61,8 @@ namespace Apps
             set 
             {
                 FFileIconPath = value;
+                if (!string.IsNullOrEmpty(FFileIconPath))
+                    PBox.Image = Funcs.GetIcon(FileIconPath); 
             }
         }
         public string FileArgs { get; set; }
@@ -74,12 +75,10 @@ namespace Apps
             }
             get 
             {
-                return Funcs.GetIcon((!string.IsNullOrEmpty(FileIconPath) ? FileIconPath : FileName)); 
+                return PBox.Image; 
             }
         }
-        
-        public XmlNode MyNode { get; set; }
-
+                
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
         
@@ -174,8 +173,14 @@ namespace Apps
 
         private void TextOnClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) 
+            if (e.Button == MouseButtons.Left)
+            {
+                if (!IsMenuButton)
+                    Process.Start(FileName, FileArgs);
+
                 OnClick(e);
+            }
+                
         }
 
         protected override void OnClick(EventArgs e)
@@ -201,27 +206,11 @@ namespace Apps
             }
         }
 
-        //protected override void OnPaint(PaintEventArgs pea)
-        //{
-        //    base.OnPaint(pea);
-
-        //    if (!IsMenuButton)
-        //    {
-        //        // Defines pen 
-        //        Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsSelectedBackColor, 25));
-                               
-        //        PointF pt1 = new PointF(0F, Height-1);
-        //        PointF pt2 = new PointF(0F, Height);
-        //        pea.Graphics.DrawLine(pen, pt1, pt2);
-        //    }
-        //}
-
         protected override bool ShowFocusCues
         {
             get {
                 return false;
             }
         }
-
     } 
 }

@@ -26,6 +26,7 @@ namespace Apps.Controls
         
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
+        private string AppIdLookup = "//APPS//APP[@id='{0}']";
 
         public AppPanel(Config myConfig, bool isHeader = false)
         {
@@ -83,7 +84,7 @@ namespace Apps.Controls
             return b;
         }
 
-        public void AddItem(string AppId, string AppName, string fileName, Image fileImage, string fileIconPath, string fileArgs, int AddAtIndex)
+        public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, int AddAtIndex)
         {
             SuspendLayout();
             AppButton b = AddAppButton();
@@ -96,20 +97,19 @@ namespace Apps.Controls
             b.AutoSize = false;
             b.AppName = AppName;
             b.FileName = fileName;
-            b.FileArgs = fileArgs;
-            if (fileImage != null)
-                b.FileIconImage = fileImage;           
+            b.FileArgs = fileArgs;       
             b.FileIconPath = fileIconPath;
+                        
             string siblingAppId = "";
 
             siblingAppId = ((AppButton)Controls[AddAtIndex]).AppId;
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
 
-            XmlNode node = AppsXml.SelectSingleNode(string.Format("//APPS//APP[@id='{0}']", b.AppId));
+            XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
             XmlNode nodeSib = null;
 
             if ((!string.IsNullOrEmpty(siblingAppId)) && (siblingAppId != b.AppId))
-                nodeSib = AppsXml.SelectSingleNode(string.Format("//APPS//APP[@id='{0}']", siblingAppId));
+                nodeSib = AppsXml.SelectSingleNode(string.Format(AppIdLookup, siblingAppId));
             
             if (node == null)
             {
@@ -179,6 +179,11 @@ namespace Apps.Controls
 
             AppsNode = AppsXml.SelectSingleNode("//APPS");
             
+            foreach (XmlNode xn in AppsNode)
+            {
+                AddItem(xn.Attributes["id"].Value, xn.Attributes["appname"].Value, xn.Attributes["filename"].Value, xn.Attributes["fileiconpath"].Value, xn.Attributes["fileargs"].Value, 0);
+            }
+
             InLoad = false;
             if (OnAppsLoaded != null)
                 OnAppsLoaded();
@@ -194,13 +199,13 @@ namespace Apps.Controls
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, 0);
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, 0);
                 }
                 else
                 {
                     AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
                     int i = Controls.GetChildIndex(b);
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconImage, f.AppIconPath, f.AppFileArgs, i);               
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);               
                 }
             }
 
@@ -234,8 +239,13 @@ namespace Apps.Controls
         private void MenuDelete_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            //AppButton b = ((AppButton)((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl);
-            //Controls.Remove(b);
+            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+
+            XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
+            AppsNode.RemoveChild(node);
+            Controls.Remove(b);
+            AppsXml.Save(AppsXmlFilePath);
             GC.Collect();
 
             if (OnAppDeleted != null)

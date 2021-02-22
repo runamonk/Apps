@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.HideForm = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDesc = new System.Windows.Forms.Label();
             this.linkEmail = new System.Windows.Forms.LinkLabel();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.HideForm = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,18 @@
             this.panel1.Size = new System.Drawing.Size(275, 180);
             this.panel1.TabIndex = 0;
             // 
+            // HideForm
+            // 
+            this.HideForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HideForm.ForeColor = System.Drawing.Color.Black;
+            this.HideForm.Location = new System.Drawing.Point(244, 152);
+            this.HideForm.Name = "HideForm";
+            this.HideForm.Size = new System.Drawing.Size(23, 21);
+            this.HideForm.TabIndex = 6;
+            this.HideForm.Text = "X";
+            this.HideForm.UseVisualStyleBackColor = true;
+            this.HideForm.Click += new System.EventHandler(this.Close_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -73,7 +85,7 @@
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(273, 102);
             this.lblDesc.TabIndex = 4;
-            this.lblDesc.Text = resources.GetString("lblDesc.Text");
+            this.lblDesc.Text = "A simple application launcher tool.";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // linkEmail
@@ -110,18 +122,6 @@
             this.lblName.TabIndex = 0;
             this.lblName.Text = "[NAME]";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // HideForm
-            // 
-            this.HideForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.HideForm.ForeColor = System.Drawing.Color.Black;
-            this.HideForm.Location = new System.Drawing.Point(244, 152);
-            this.HideForm.Name = "HideForm";
-            this.HideForm.Size = new System.Drawing.Size(23, 21);
-            this.HideForm.TabIndex = 6;
-            this.HideForm.Text = "X";
-            this.HideForm.UseVisualStyleBackColor = true;
-            this.HideForm.Click += new System.EventHandler(this.Close_Click);
             // 
             // About
             // 
