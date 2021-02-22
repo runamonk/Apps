@@ -112,7 +112,7 @@ namespace Utility
             if (!IgnoreBounds)
             {
                 //Height
-                if ((p.Y + form.Size.Width) > Screen.PrimaryScreen.WorkingArea.Height)
+                if ((p.Y + form.Size.Height) > Screen.PrimaryScreen.WorkingArea.Height)
                 {
                     //p.Y = (p.Y - form.Size.Height);
                     p.Y = (p.Y - ((p.Y + form.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
