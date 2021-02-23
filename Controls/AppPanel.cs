@@ -83,6 +83,17 @@ namespace Apps.Controls
         public event AppsLoadedHandler OnAppsLoaded;
         #endregion
 
+        private XmlNode GetNode(string AppId)
+        {
+            return AppsXml.SelectSingleNode(string.Format(AppIdLookup, AppId));
+        }
+        
+        private AppButton GetAppButton(object sender)
+        {
+            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            return ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+        }
+
         private AppButton AddAppButton()
         {
             AppButton b = new AppButton(AppsConfig);
@@ -100,6 +111,7 @@ namespace Apps.Controls
         public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, int AddAtIndex)
         {
             SuspendLayout();
+            
             AppButton b = AddAppButton();
 
             if (string.IsNullOrEmpty(AppId))
@@ -112,18 +124,12 @@ namespace Apps.Controls
             b.FileName = fileName;
             b.FileArgs = fileArgs;       
             b.FileIconPath = fileIconPath;
-                        
-            string siblingAppId = "";
-
-            siblingAppId = ((AppButton)Controls[AddAtIndex]).AppId;
+                 
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
             
-            XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
-            XmlNode nodeSib = null;
+            XmlNode node = GetNode(b.AppId);
+            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
 
-            if ((!string.IsNullOrEmpty(siblingAppId)) && (siblingAppId != b.AppId))
-                nodeSib = AppsXml.SelectSingleNode(string.Format(AppIdLookup, siblingAppId));
-            
             if (node == null)
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
@@ -169,8 +175,7 @@ namespace Apps.Controls
 
         private void ConfigChanged(object sender, EventArgs e)
         {
-            SetColors();
-            LoadItems();         
+            SetColors(); 
         }
 
         public void LoadItems()
@@ -217,7 +222,7 @@ namespace Apps.Controls
                 }
                 else
                 {
-                    AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+                    AppButton b = GetAppButton(sender);
                     int i = Controls.GetChildIndex(b);
                     AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);               
                 }
@@ -230,10 +235,8 @@ namespace Apps.Controls
         private void MenuDelete_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
-            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
-
-            XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
+            AppButton b = GetAppButton(sender);
+            XmlNode node = GetNode(b.AppId);
             AppsNode.RemoveChild(node);
             Controls.Remove(b);
             AppsXml.Save(AppsXmlFilePath);
@@ -248,8 +251,7 @@ namespace Apps.Controls
         {
             InMenu = true;
             SuspendLayout();
-            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
-            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+            AppButton b = GetAppButton(sender);
 
             XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
             //AppsNode.RemoveChild(node);
@@ -265,8 +267,8 @@ namespace Apps.Controls
         {
             InMenu = true;
             SuspendLayout();
-            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
-            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
+            AppButton b = GetAppButton(sender);
+
 
 
             GC.Collect();
@@ -278,14 +280,12 @@ namespace Apps.Controls
         {
             InMenu = true;
             SuspendLayout();
-            var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
-            AppButton b = ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
-            
+            AppButton b = GetAppButton(sender);
             AppProperties f = new AppProperties();
             f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
-                XmlNode node = AppsXml.SelectSingleNode(string.Format(AppIdLookup, b.AppId));
+                XmlNode node = GetNode(b.AppId);
                 int i = Controls.GetChildIndex(b);
                 AppsNode.RemoveChild(node);
                 Controls.Remove(b);
@@ -319,6 +319,5 @@ namespace Apps.Controls
             else
                 BackColor = AppsConfig.AppsBackColor;
         }
-
     }
 }

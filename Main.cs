@@ -47,6 +47,7 @@ namespace Apps
         // Move shortcut up/down
         // Drag and drop
         // Folders
+        // pin open regardless of settings
         #endregion
 
         #region Events
