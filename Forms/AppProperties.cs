@@ -56,7 +56,7 @@ namespace Apps.Forms
             string fileName = Funcs.BrowseForFile();   
             if (fileName != "")
             {
-                FileVersionInfo f = FileVersionInfo.GetVersionInfo(fileName);
+                FileVersionInfo f = Funcs.GetFileInfo(fileName);
                 SetFileProperties(f.ProductName, f.FileName, null, null);
             }
         }

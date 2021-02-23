@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -71,6 +72,11 @@ namespace Utility
             else
                 return null;
         }
+        public static FileVersionInfo GetFileInfo(string fileName)
+        {
+            return FileVersionInfo.GetVersionInfo(fileName);
+        }
+        
 
         public static string GetName()
         {

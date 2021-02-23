@@ -31,9 +31,8 @@ namespace Apps.Controls
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
         private string AppIdLookup = "//APPS//APP[@id='{0}']";
 
-        public AppPanel(Config myConfig, bool isHeader = false)
+        public AppPanel(Config myConfig)
         {
-            IsHeader = isHeader;
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             ToolStripMenuItem t;
@@ -88,6 +87,7 @@ namespace Apps.Controls
         {
             AppButton b = new AppButton(AppsConfig);
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
+            b.OnAppButtonDropped += new AppButton.AppButtonDropEventhandler(ButtonDropped);
             b.ContextMenuStrip = MenuRC;
             b.Height = 22;
             b.Padding = new Padding(0, 0, 0, 0);
@@ -154,12 +154,27 @@ namespace Apps.Controls
 
         private void ButtonClicked(AppButton App)
         {
-
             SuspendLayout();
 
             if (OnAppClicked != null)
                 OnAppClicked();
 
+            ResumeLayout();
+        }
+
+        private void ButtonDropped(AppButton App, DragEventArgs e)
+        {
+            SuspendLayout();
+            int i = Controls.GetChildIndex(App);
+            
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                  string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                  foreach (string filePath in files) 
+                  {
+                    AddItem(null, Funcs.GetFileInfo(filePath).ProductName, filePath, null, null, i);
+                }
+            }
             ResumeLayout();
         }
 
@@ -349,10 +364,7 @@ namespace Apps.Controls
 
         private void SetColors()
         {
-            if (IsHeader)
-                BackColor = AppsConfig.AppsHeaderColor;
-            else
-                BackColor = AppsConfig.AppsBackColor;
+            BackColor = AppsConfig.AppsBackColor;
         }
     }
 }

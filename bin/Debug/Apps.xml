@@ -4,5 +4,7 @@
     <APP id="0c77c640-439b-466c-a718-e248ef6b2683" appname="2 Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" />
     <APP id="cd8cb992-d4e8-41bb-a7d4-9e68b0fe83a3" appname="3 Samsung Magician" filename="D:\Apps\Samsung Magician\SamsungMagician.exe" fileiconpath="" fileargs="" />
     <APP id="88cc1bd0-c90d-4ccf-8094-b57ce7e884f3" appname="4 Sonos Desktop Controller" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="" fileargs="" />
+    <APP id="616ee6db-72e5-4396-921a-aba76a224535" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
+    <APP id="8dad7b4d-81e1-4032-8cb3-e212217dfa2a" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
   </APPS>
 </xml>

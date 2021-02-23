@@ -83,6 +83,9 @@ namespace Apps
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
 
+        public delegate void AppButtonDropEventhandler(AppButton Button, DragEventArgs e);
+        public event AppButtonDropEventhandler OnAppButtonDropped;
+
         public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false)
         {
             IsMenuButton = isMenuButton;
@@ -118,11 +121,16 @@ namespace Apps
             ButtonText.UseMnemonic = true;
             ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
             ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
-
+            
             if (IsHeaderButton())
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
             else
+            {
                 ButtonText.Padding = new Padding(25, 0, 0, 0);
+                ButtonText.AllowDrop = true;
+                ButtonText.DragOver += new DragEventHandler(OnDragOver);
+                ButtonText.DragDrop += new DragEventHandler(OnDrop);
+            }
 
             ButtonText.Margin = new Padding(0, 0, 0, 0);
 
@@ -159,6 +167,17 @@ namespace Apps
         private bool IsHeaderButton()
         {
             return ((IsMenuButton) || (IsPinButton));
+        }
+
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
+
+        private void OnDrop(object sender, DragEventArgs e)
+        {
+            if (OnAppButtonDropped != null)
+                OnAppButtonDropped(this, e);
         }
 
         private void TextMouseEnter(object sender, EventArgs e)
