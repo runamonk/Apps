@@ -89,7 +89,7 @@ namespace Apps.Controls
         {
             AppButton b = new AppButton(AppsConfig);
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
-            b.OnAppButtonDropped += new AppButton.AppButtonDropEventhandler(ButtonDropped);
+            b.OnAppButtonDropped += new AppButton.AppButtonDropEventhandler(DropToButton);
             b.ContextMenuStrip = MenuRC;
             b.Height = 22;
             b.Padding = new Padding(0, 0, 0, 0);
@@ -163,25 +163,25 @@ namespace Apps.Controls
             ResumeLayout();
         }
 
-        private void ButtonDropped(AppButton App, DragEventArgs e)
+        private void ConfigChanged(object sender, EventArgs e)
+        {
+            SetColors();
+        }
+
+        private void DropToButton(AppButton App, DragEventArgs e)
         {
             SuspendLayout();
             int i = Controls.GetChildIndex(App);
-            
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                  string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                  foreach (string filePath in files) 
-                  {                  
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string filePath in files)
+                {
                     AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, i);
                 }
             }
             ResumeLayout();
-        }
-
-        private void ConfigChanged(object sender, EventArgs e)
-        {
-            SetColors();
         }
 
         private void DropToPanel(object sender, DragEventArgs e)
