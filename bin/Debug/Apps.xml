@@ -1,8 +1,8 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="0c77c640-439b-466c-a718-e248ef6b2683" appname="2 Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" />
-    <APP id="88cc1bd0-c90d-4ccf-8094-b57ce7e884f3" appname="4 Sonos Desktop Controller" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="" fileargs="" />
     <APP id="1617a9c7-1673-4d01-8ea2-9cbe66085f57" appname="1 Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
+    <APP id="0c77c640-439b-466c-a718-e248ef6b2683" appname="2 Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" />
     <APP id="cd8cb992-d4e8-41bb-a7d4-9e68b0fe83a3" appname="3 Samsung Magician" filename="D:\Apps\Samsung Magician\SamsungMagician.exe" fileiconpath="" fileargs="" />
+    <APP id="88cc1bd0-c90d-4ccf-8094-b57ce7e884f3" appname="4 Sonos Desktop Controller" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="" fileargs="" />
   </APPS>
 </xml>

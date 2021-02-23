@@ -276,7 +276,7 @@ namespace Apps.Controls
             InMenu = true;
             SuspendLayout();
             AppButton b = GetAppButton(sender);
-            AppsNode.InsertBefore(GetNode(b.AppId), GetNextNode(GetNode(b.AppId)));
+            AppsNode.InsertAfter(GetNode(b.AppId), GetNextNode(GetNode(b.AppId)));
             Controls.SetChildIndex(b, GetAppButtonIndex(b) - 1); // indexes for panels are backwards last control is 0, first control is count. Dumb.
             SaveXML();
             GC.Collect();

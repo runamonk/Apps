@@ -178,13 +178,19 @@ namespace Apps
             {
                 if (!IsMenuButton)
                 {
-                    ProcessStartInfo procStartInfo = new ProcessStartInfo(FileName, FileArgs);
-                    procStartInfo.WorkingDirectory = Path.GetDirectoryName(FileName);
-                    Process.Start(procStartInfo);
+                    try
+                    {
+                        ProcessStartInfo procStartInfo = new ProcessStartInfo(FileName, FileArgs);
+                        procStartInfo.WorkingDirectory = Path.GetDirectoryName(FileName);
+                        Process.Start(procStartInfo);
+                    }
+                    catch (Exception error)
+                    {
+                        MessageBox.Show("Error while launching " + AppName + "\n\r" + error.Message.ToString());
+                    }
                 }
                 OnClick(e);
-            }
-                
+            }               
         }
 
         protected override void OnClick(EventArgs e)

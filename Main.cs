@@ -44,10 +44,10 @@ namespace Apps
         private bool inSettings = false;
 
         #region Todo
-        // Move shortcut up/down
         // Drag and drop
         // Folders
         // pin open regardless of settings
+        // seperators
         #endregion
 
         #region Events
