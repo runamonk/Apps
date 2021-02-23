@@ -19,6 +19,7 @@ namespace Apps
         private Panel BorderPanel = new Panel();
         private Panel ButtonPanel = new Panel();
         private Label ButtonText = new Label();
+        private Timer MissingIconTimer = new Timer();
         
         public new ContextMenuStrip ContextMenuStrip
         {
@@ -50,7 +51,7 @@ namespace Apps
             set 
             {
                 FFileName = value;
-                PBox.Image = Funcs.GetIcon(FFileName);
+                FileIconImage = Funcs.GetIcon(FFileName);
                 FFileIconPath = "";
             }
         }
@@ -63,7 +64,7 @@ namespace Apps
             {
                 FFileIconPath = value;
                 if (!string.IsNullOrEmpty(FFileIconPath))
-                    PBox.Image = Funcs.GetIcon(FileIconPath); 
+                    FileIconImage = Funcs.GetIcon(FileIconPath); 
             }
         }
         public string FileArgs { get; set; }
@@ -79,7 +80,18 @@ namespace Apps
                 return PBox.Image; 
             }
         }
-                
+        public bool WatchForIconUpdate
+        {
+            get 
+            {
+                return MissingIconTimer.Enabled;
+            }
+            set 
+            {
+                MissingIconTimer.Enabled = value;
+            }
+        }
+
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
 
@@ -108,6 +120,10 @@ namespace Apps
                 PBox.Padding = new Padding(3, 0, 0, 0);
                 PBox.Margin = new Padding(0, 0, 0, 0);
                 PBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                MissingIconTimer.Enabled = false;
+                MissingIconTimer.Interval = 10000;
+                MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
             }
             else
                 PBox.Visible = false;
@@ -157,6 +173,28 @@ namespace Apps
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             SetColors();
+        }
+
+        private void CheckForMissingIcon(object sender, EventArgs e)
+        {
+            if (FileIconImage == null)
+            {
+                if ((!string.IsNullOrEmpty(FileIconPath)) || (!string.IsNullOrEmpty(FileName)))
+                {
+                    if (File.Exists(FileIconPath) || File.Exists(FileName))
+                    {
+                        if (File.Exists(FileIconPath))
+                            FileIconImage = Funcs.GetIcon(FileIconPath);
+                        else
+                            FileIconImage = Funcs.GetIcon(FileName);
+                        WatchForIconUpdate = false;
+                    }                      
+                }
+            }
+            else
+            {
+                MissingIconTimer.Enabled = false;
+            }
         }
 
         private void ConfigChanged(object sender, EventArgs e)

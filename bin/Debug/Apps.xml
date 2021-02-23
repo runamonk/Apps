@@ -1,18 +1,9 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="1617a9c7-1673-4d01-8ea2-9cbe66085f57" appname="1 Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
-    <APP id="0c77c640-439b-466c-a718-e248ef6b2683" appname="2 Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" />
-    <APP id="cd8cb992-d4e8-41bb-a7d4-9e68b0fe83a3" appname="3 Samsung Magician" filename="D:\Apps\Samsung Magician\SamsungMagician.exe" fileiconpath="" fileargs="" />
-    <APP id="88cc1bd0-c90d-4ccf-8094-b57ce7e884f3" appname="4 Sonos Desktop Controller" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="" fileargs="" />
-    <APP id="59379b6d-84f7-495f-8367-f51da8e0faff" appname="gfie" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie.sh" fileiconpath="" fileargs="" />
-    <APP id="d72ed835-1f58-4984-ad47-0e67c652bb3a" appname="gfie_icon" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie_icon.png" fileiconpath="" fileargs="" />
-    <APP id="f60f428d-cd5e-4fc0-8895-65c1be6137e8" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie32.exe" fileiconpath="" fileargs="" />
-    <APP id="c8e532d7-04ab-4081-80b9-d6d9e98341fa" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
-    <APP id="b136c756-ebe9-43ab-8b46-7b65e6d38262" appname="Greenfish_Homepage" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\Greenfish_Homepage.url" fileiconpath="" fileargs="" />
-    <APP id="afc9140b-2082-4f82-a17b-aa093b8deb33" appname="libgfie32c" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\libgfie32c.dll" fileiconpath="" fileargs="" />
-    <APP id="7ab28f84-f6e2-40cf-97ba-51b4a2af01bc" appname="libgfie64c" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\libgfie64c.dll" fileiconpath="" fileargs="" />
-    <APP id="a0b710da-f119-4e3c-a9fe-6914a38cfbb4" appname="license" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\license.txt" fileiconpath="" fileargs="" />
-    <APP id="8586c2e5-4dae-4f82-92d2-e940a2aae726" appname="readme" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\readme.html" fileiconpath="" fileargs="" />
-    <APP id="e5995bdb-b644-4097-bd37-a69f92132787" appname="src" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\src.7z" fileiconpath="" fileargs="" />
+    <APP id="4da83617-f4c9-4f46-af9b-48e1adb931ec" appname="gfie" filename="C:\Users\ronhi\Desktop\test\gfie.sh" fileiconpath="" fileargs="" />
+    <APP id="b6237e5f-396e-40f8-a914-1afe9c8bad28" appname="Greenfish Icon Editor Pro" filename="C:\Users\ronhi\Desktop\test\gfie64.exe" fileiconpath="" fileargs="" />
+    <APP id="1412c540-6100-440e-abcb-81907447ec63" appname="Greenfish_Homepage" filename="C:\Users\ronhi\Desktop\test\Greenfish_Homepage.url" fileiconpath="" fileargs="" />
+    <APP id="cc6f2782-48fb-49de-bbc0-76940b0520be" appname="license" filename="C:\Users\ronhi\Desktop\test\license.txt" fileiconpath="" fileargs="" />
+    <APP id="8b877ba8-cb74-4d0d-9edc-d4dfce36e09b" appname="readme" filename="C:\Users\ronhi\Desktop\test\readme.html" fileiconpath="" fileargs="" />
   </APPS>
 </xml>
