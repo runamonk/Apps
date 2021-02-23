@@ -76,7 +76,6 @@ namespace Utility
         {
             return FileVersionInfo.GetVersionInfo(fileName);
         }
-        
 
         public static string GetName()
         {

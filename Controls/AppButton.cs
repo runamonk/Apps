@@ -209,7 +209,7 @@ namespace Apps
 
         private void OnDragOver(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Copy;
+            e.Effect = (DragDropEffects.Copy | DragDropEffects.Link);
         }
 
         private void OnDrop(object sender, DragEventArgs e)
