@@ -170,8 +170,8 @@ namespace Apps.Controls
             {
                   string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                   foreach (string filePath in files) 
-                  {
-                    AddItem(null, Funcs.GetFileInfo(filePath).ProductName, filePath, null, null, i);
+                  {                  
+                    AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, i);
                 }
             }
             ResumeLayout();
