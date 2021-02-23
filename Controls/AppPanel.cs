@@ -63,7 +63,9 @@ namespace Apps.Controls
             MenuRC.Items.Add(DownMenuItem);
 
             this.ContextMenuStrip = MenuRC;
-
+            this.AllowDrop = true;
+            this.DragOver += new DragEventHandler(OnDragOver);
+            this.DragDrop += new DragEventHandler(DropToPanel);
             SetColors();
             LoadItems();
         }
@@ -180,6 +182,21 @@ namespace Apps.Controls
         private void ConfigChanged(object sender, EventArgs e)
         {
             SetColors();
+        }
+
+        private void DropToPanel(object sender, DragEventArgs e)
+        {
+            SuspendLayout();
+
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string filePath in files)
+                {
+                    AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, 0);
+                }
+            }
+            ResumeLayout();
         }
 
         private AppButton GetAppButton(object sender)
@@ -354,6 +371,11 @@ namespace Apps.Controls
                 UpMenuItem.Enabled = false;
                 DownMenuItem.Enabled = false;
             }
+        }
+
+        private void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
         }
 
         private void SaveXML()
