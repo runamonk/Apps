@@ -1,15 +1,8 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="138f9851-e51a-461a-95f4-772c06c5aeb3" appname="Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
-    <APP id="c77e1e29-2215-42e5-8920-67b1b419a16f" appname="Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" />
-    <APP id="b03d5344-37c6-4267-b13d-7260aab71e56" appname="Samsung Magician" filename="D:\Apps\Samsung Magician\SamsungMagician.exe" fileiconpath="" fileargs="" />
-    <APP id="16ef7f2c-7624-4b63-9128-6680fcc7b877" appname="Sonos Desktop Controller" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="" fileargs="" />
-    <APP id="15c726b6-d969-42fc-ac2d-f5e2112466c9" appname="calibre" filename="D:\Apps\Calibre\ebook-viewer.exe" fileiconpath="" fileargs="" />
-    <APP id="f70e8468-2a8d-47fe-93e4-686142bbdd22" appname="Honeyview2" filename="D:\Apps\Honeyview\Honeyview.exe" fileiconpath="" fileargs="" />
-    <APP id="edc149fe-e1c5-45f9-8c3b-fb3975c72604" appname="NetLimiter" filename="D:\Apps\NetLimiter 4\NLClientApp.exe" fileiconpath="" fileargs="" />
-    <APP id="e898bec9-f23a-4f71-b89e-fbf8835fdbda" appname="Directory Opus" filename="D:\Apps\DirectoryOpus\dopus.exe" fileiconpath="" fileargs="" />
-    <APP id="e6af7b18-2fac-450d-bee3-68e83f94cb7d" appname="VMware Workstation" filename="D:\Apps\VMWarePro\vmware.exe" fileiconpath="" fileargs="" />
-    <APP id="65851d85-7222-4ca8-a17d-abea5a076cd3" appname="paint.net" filename="D:\Apps\paint.net\PaintDotNet.exe" fileiconpath="" fileargs="" />
-    <APP id="4049140c-48a7-4a6f-b0d2-f767421702f8" appname="Sublime Text -test" filename="D:\Apps\Sublime Text 3\sublime_text.exe" fileiconpath="" fileargs="" />
+    <APP id="0c77c640-439b-466c-a718-e248ef6b2683" appname="2 Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" />
+    <APP id="88cc1bd0-c90d-4ccf-8094-b57ce7e884f3" appname="4 Sonos Desktop Controller" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="" fileargs="" />
+    <APP id="1617a9c7-1673-4d01-8ea2-9cbe66085f57" appname="1 Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" />
+    <APP id="cd8cb992-d4e8-41bb-a7d4-9e68b0fe83a3" appname="3 Samsung Magician" filename="D:\Apps\Samsung Magician\SamsungMagician.exe" fileiconpath="" fileargs="" />
   </APPS>
 </xml>
