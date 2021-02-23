@@ -115,11 +115,10 @@ namespace Apps.Controls
             b.FileArgs = fileArgs;
             b.FileIconPath = fileIconPath;
 
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-
             XmlNode node = GetNode(b.AppId);
             XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+                       
             if (node == null)
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
