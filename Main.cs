@@ -46,9 +46,7 @@ namespace Apps
         private bool pinned = false;
 
         #region Todo
-        // Drag and drop
         // Folders
-        // pin open regardless of settings
         // seperators
         #endregion
 

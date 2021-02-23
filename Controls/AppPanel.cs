@@ -151,8 +151,7 @@ namespace Apps.Controls
                 SaveXML();
             }
 
-            if (OnAppAdded != null)
-                OnAppAdded();
+            OnAppAdded?.Invoke();
             ResumeLayout();
         }
 
@@ -160,8 +159,7 @@ namespace Apps.Controls
         {
             SuspendLayout();
 
-            if (OnAppClicked != null)
-                OnAppClicked();
+            OnAppClicked?.Invoke();
 
             ResumeLayout();
         }
@@ -262,8 +260,7 @@ namespace Apps.Controls
             }
 
             InLoad = false;
-            if (OnAppsLoaded != null)
-                OnAppsLoaded();
+            OnAppsLoaded?.Invoke();
             ResumeLayout();
         }
 
@@ -300,8 +297,7 @@ namespace Apps.Controls
             SaveXML();
             GC.Collect();
 
-            if (OnAppDeleted != null)
-                OnAppDeleted();
+            OnAppDeleted?.Invoke();
             InMenu = false;
         }
 

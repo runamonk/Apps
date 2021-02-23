@@ -214,8 +214,7 @@ namespace Apps
 
         private void OnDrop(object sender, DragEventArgs e)
         {
-            if (OnAppButtonDropped != null)
-                OnAppButtonDropped(this, e);
+            OnAppButtonDropped?.Invoke(this, e);
         }
 
         private void TextMouseEnter(object sender, EventArgs e)
@@ -267,8 +266,7 @@ namespace Apps
         {
             base.OnClick(e);
 
-            if (OnAppButtonClicked != null)
-                OnAppButtonClicked(this);
+            OnAppButtonClicked?.Invoke(this);
         }
                
         private void SetColors()
@@ -278,13 +276,14 @@ namespace Apps
                 BorderColor = AppsConfig.MenuBorderColor;
                 ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
                 ButtonText.ForeColor = AppsConfig.MenuFontColor;
+                ButtonText.BackColor = AppsConfig.MenuButtonColor;
             }
             else
             {
                 ButtonPanel.BackColor = AppsConfig.AppsBackColor;
                 ButtonText.ForeColor = AppsConfig.AppsFontColor;
+                ButtonText.BackColor = AppsConfig.AppsBackColor;
             }
-            Invalidate();
         }
 
         protected override bool ShowFocusCues
