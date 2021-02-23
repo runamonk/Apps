@@ -34,6 +34,7 @@ namespace Apps
 
         private About AboutForm = new About();
         private AppButton MenuMainButton { get; set; }
+        private AppButton PinButton { get; set; }
         private AppMenu MenuMain { get; set; }
         private Config Config { get; set; }
         private AppPanel Apps { get; set; }
@@ -42,6 +43,7 @@ namespace Apps
         private bool inClose = false;
         private bool inMenu = false;
         private bool inSettings = false;
+        private bool pinned = false;
 
         #region Todo
         // Drag and drop
@@ -132,6 +134,21 @@ namespace Apps
         {
             AppButton b = ((AppButton)sender);
             MenuMain.Show(b.Left + b.Width + Left, b.Top + b.Height + Top);
+        }
+
+        private void PinButton_Click(object sender, EventArgs e)
+        {
+            AppButton b = ((AppButton)sender);
+            if (!pinned)
+            {
+                pinned = true;
+                b.AppName = "√";
+            }
+            else
+            {
+                pinned = false;
+                b.AppName = "▫";
+            }
         }
 
         private void NotifyApps_DoubleClick(object sender, EventArgs e)
@@ -226,8 +243,18 @@ namespace Apps
                 MenuMainButton.AppName = "...";
                 MenuMainButton.Click += MainButton_Click;
                 MenuMainButton.Padding = new Padding(0,0,0,3);
+                PinButton = new AppButton(Config, false, true)
+                {
+                    Width = 25,
+                    Parent = pTop,
+                    Dock = DockStyle.Left
+                };
+                pTop.Controls.SetChildIndex(PinButton, 0);
+                PinButton.AppName = "▫";
+                PinButton.Click += PinButton_Click;
+                PinButton.Padding = new Padding(0, 0, 0, 3);
+               
                 notifyApps.ContextMenuStrip = MenuMain;
-
                 Apps = new AppPanel(Config);
                 Apps.AutoScroll = true;
                 Apps.OnAppClicked += new AppPanel.AppClickedHandler(AppClicked);
@@ -265,7 +292,7 @@ namespace Apps
 
         private void ToggleShow(bool Override = false)
         {
-            if ((!Override) && (inClose || inAbout || Apps.InMenu || inMenu || inSettings))
+            if ((!Override) && (inClose || inAbout || Apps.InMenu || inMenu || inSettings || pinned))
                 return;
             else
             {

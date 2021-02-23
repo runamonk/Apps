@@ -13,7 +13,7 @@ namespace Apps
     {
         private Config AppsConfig { get; set; }
         private bool IsMenuButton = false;
-        //private bool IsFolderButton = false;
+        private bool IsPinButton = false;
 
         private PictureBox PBox = new PictureBox();
         private Panel BorderPanel = new Panel();
@@ -82,9 +82,12 @@ namespace Apps
                 
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
-        
-        public AppButton(Config myConfig, bool isMenuButton = false)
+
+        public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false)
         {
+            IsMenuButton = isMenuButton;
+            IsPinButton = isPinButton;
+
             BorderPanel.Parent = this;
             BorderPanel.Dock = DockStyle.Fill;
             BorderPanel.Margin = new Padding(0, 0, 0, 0);
@@ -93,7 +96,7 @@ namespace Apps
             ButtonPanel.Margin = new Padding(0, 0, 0, 0);
             ButtonPanel.BorderStyle = BorderStyle.None;
             
-            if (!isMenuButton)
+            if (!IsHeaderButton())
             {
                 PBox.Parent = ButtonPanel;
                 PBox.Dock = DockStyle.Left;
@@ -116,27 +119,32 @@ namespace Apps
             ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
             ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
 
-            if (isMenuButton)
+            if (IsHeaderButton())
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
             else
                 ButtonText.Padding = new Padding(25, 0, 0, 0);
 
             ButtonText.Margin = new Padding(0, 0, 0, 0);
 
-            if (isMenuButton)
+            if (IsHeaderButton())
                 ButtonText.TextAlign = ContentAlignment.MiddleCenter;
             else
                 ButtonText.TextAlign = ContentAlignment.MiddleLeft;
 
             ButtonText.MouseClick += new MouseEventHandler(TextOnClick);
 
-            if (isMenuButton)
+            if (IsHeaderButton())
                 BorderPanel.Padding = new Padding(1, 1, 1, 1);
             else
                 BorderPanel.Padding = new Padding(0, 0, 0, 0);
 
             AutoSize = false;
-            IsMenuButton = isMenuButton;
+
+            if (isPinButton)
+            {
+                ToolTip PinButtonToolTip = new ToolTip();
+                PinButtonToolTip.SetToolTip(ButtonText, "Click to pin/unpin form (overrides autohide).");
+            }
 
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
@@ -148,9 +156,14 @@ namespace Apps
             SetColors();
         }
 
+        private bool IsHeaderButton()
+        {
+            return ((IsMenuButton) || (IsPinButton));
+        }
+
         private void TextMouseEnter(object sender, EventArgs e)
         {
-            if (IsMenuButton)
+            if (IsHeaderButton())
             {
                 ButtonPanel.BackColor = AppsConfig.MenuSelectedColor;
             }
@@ -162,7 +175,7 @@ namespace Apps
 
         private void TextMouseLeave(object sender, EventArgs e)
         {
-            if (IsMenuButton)
+            if (IsHeaderButton())
             {
                 ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
             }
@@ -176,7 +189,7 @@ namespace Apps
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (!IsMenuButton)
+                if (!IsHeaderButton())
                 {
                     try
                     {
@@ -203,7 +216,7 @@ namespace Apps
                
         private void SetColors()
         {
-            if (IsMenuButton)
+            if (IsHeaderButton())
             {
                 BorderColor = AppsConfig.MenuBorderColor;
                 ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
