@@ -247,9 +247,8 @@ namespace Apps
                 {
                     Width = 25,
                     Parent = pTop,
-                    Dock = DockStyle.Left
+                    Dock = DockStyle.Right
                 };
-                pTop.Controls.SetChildIndex(PinButton, 0);
                 PinButton.AppName = "▫";
                 PinButton.Click += PinButton_Click;
                 PinButton.Padding = new Padding(0, 0, 0, 3);

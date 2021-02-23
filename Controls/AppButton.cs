@@ -284,7 +284,7 @@ namespace Apps
                 ButtonPanel.BackColor = AppsConfig.AppsBackColor;
                 ButtonText.ForeColor = AppsConfig.AppsFontColor;
             }
-            Refresh();
+            Invalidate();
         }
 
         protected override bool ShowFocusCues

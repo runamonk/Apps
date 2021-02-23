@@ -1,24 +1,13 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="4da83617-f4c9-4f46-af9b-48e1adb931ec" appname="gfie" filename="C:\Users\ronhi\Desktop\test\gfie.sh" fileiconpath="" fileargs="" />
-    <APP id="b6237e5f-396e-40f8-a914-1afe9c8bad28" appname="Greenfish Icon Editor Pro" filename="C:\Users\ronhi\Desktop\test\gfie64.exe" fileiconpath="" fileargs="" />
-    <APP id="9a42fd66-9a53-4d38-a631-32f6d377ee24" appname="gfie_icon" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie_icon.png" fileiconpath="" fileargs="" />
-    <APP id="349e8929-a689-4513-90eb-5b5c01833b3e" appname="aida64" filename="D:\Tools\links\aida64.lnk" fileiconpath="" fileargs="" />
-    <APP id="c1829bac-d9eb-4a38-a448-085f009e3498" appname="Battle.net" filename="D:\Tools\links\Battle.net.lnk" fileiconpath="" fileargs="" />
-    <APP id="bd5ef466-2e8e-493a-848d-bd12b526d567" appname="Cinebench" filename="D:\Tools\links\Cinebench.lnk" fileiconpath="" fileargs="" />
-    <APP id="7bd53130-71da-4912-88f0-391ebf3d9fd9" appname="Clear Event Viewer Logs" filename="D:\Tools\links\Clear Event Viewer Logs.lnk" fileiconpath="" fileargs="" />
-    <APP id="947199d4-bc80-4ac0-bd3c-e31ee08ecfbb" appname="cpuz" filename="D:\Tools\links\cpuz.lnk" fileiconpath="" fileargs="" />
-    <APP id="dfd38ae0-9690-4a0a-85d4-6a97cb109756" appname="HWiNFO64" filename="D:\Tools\links\HWiNFO64.lnk" fileiconpath="" fileargs="" />
-    <APP id="d0519231-5791-4131-be7e-d3915bae7510" appname="OCCT" filename="D:\Tools\links\OCCT.lnk" fileiconpath="" fileargs="" />
-    <APP id="00edfd39-efdc-4af9-85ca-fd144bfd0030" appname="prime95" filename="D:\Tools\links\prime95.lnk" fileiconpath="" fileargs="" />
-    <APP id="c2276adf-c48d-4541-abab-1c9e6cfc842d" appname="Set DNS Ad Guard" filename="D:\Tools\links\Set DNS Ad Guard.lnk" fileiconpath="" fileargs="" />
-    <APP id="9b21b656-5ebe-4a87-ae0d-ff38556a6181" appname="Set DNS Google" filename="D:\Tools\links\Set DNS Google.lnk" fileiconpath="" fileargs="" />
-    <APP id="ec38747c-b6ab-42be-a7cd-43d348e2a2b1" appname="Steam" filename="D:\Tools\links\Steam.lnk" fileiconpath="" fileargs="" />
-    <APP id="8ea28c4a-83c3-4a79-bf65-e8e38e03873c" appname="UserBenchMark" filename="D:\Tools\links\UserBenchMark.lnk" fileiconpath="" fileargs="" />
-    <APP id="91ec1dba-f9ea-427c-be9c-b919ba2a327b" appname="WhatInStartup" filename="D:\Tools\links\WhatInStartup.lnk" fileiconpath="" fileargs="" />
-    <APP id="1d1e6d1f-4f1e-4d6e-8077-1da9fd1936fe" appname="WhoCrashed" filename="D:\Tools\links\WhoCrashed.lnk" fileiconpath="" fileargs="" />
-    <APP id="1412c540-6100-440e-abcb-81907447ec63" appname="Greenfish_Homepage" filename="C:\Users\ronhi\Desktop\test\Greenfish_Homepage.url" fileiconpath="" fileargs="" />
-    <APP id="cc6f2782-48fb-49de-bbc0-76940b0520be" appname="license" filename="C:\Users\ronhi\Desktop\test\license.txt" fileiconpath="" fileargs="" />
-    <APP id="8b877ba8-cb74-4d0d-9edc-d4dfce36e09b" appname="readme" filename="C:\Users\ronhi\Desktop\test\readme.html" fileiconpath="" fileargs="" />
+    <APP id="2adc1ad3-bae9-4ffe-9562-6b634a4f51e3" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
+    <APP id="d0c93fc0-96db-4a3b-9860-95f153ab9a81" appname="WhatInStartup" filename="D:\Tools\WhatInStartup\WhatInStartup.exe" fileiconpath="" fileargs="" />
+    <APP id="3de2e70c-8dad-4a45-a836-6dad7fca6017" appname="PRIME95 Application" filename="D:\Tools\prime95\prime95.exe" fileiconpath="" fileargs="" />
+    <APP id="db6e3ce1-04b1-4563-b898-5198875c5234" appname="CPU-Z Application" filename="D:\Tools\CPUZ\cpuz_x64.exe" fileiconpath="" fileargs="" />
+    <APP id="f13c91e2-3577-484e-912f-eb66908fc04d" appname="PuTTY suite" filename="D:\Tools\putty.exe" fileiconpath="" fileargs="" />
+    <APP id="5eb89e29-bf0a-428a-b047-bdcd090d7608" appname="WinDirStat" filename="D:\Tools\WinDirStat\windirstat.exe" fileiconpath="" fileargs="" />
+    <APP id="69e32539-3fa1-424b-aa74-bd7996dc9964" appname="AIDA64 Engineer" filename="D:\Tools\aida64\aida64.exe" fileiconpath="" fileargs="" />
+    <APP id="5fbbd67e-3295-4294-a6ea-95319c5f1a92" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="" fileargs="" />
+    <APP id="d82a3844-67b4-480f-98c7-601bfc86d564" appname="CPUID Hardware Monitor" filename="D:\Tools\hwmonitor\HWMonitor_x64.exe" fileiconpath="" fileargs="" />
   </APPS>
 </xml>
