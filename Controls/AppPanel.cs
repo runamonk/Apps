@@ -23,6 +23,7 @@ namespace Apps.Controls
         private ToolStripMenuItem EditMenuItem;
         private ToolStripMenuItem UpMenuItem;
         private ToolStripMenuItem DownMenuItem;
+        private ToolStripMenuItem AddSepMenuItem;
 
         XmlDocument AppsXml;
         XmlNode AppsNode;
@@ -37,31 +38,23 @@ namespace Apps.Controls
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             ToolStripMenuItem t;
             MenuRC = new AppMenu(myConfig);
-
             MenuRC.Opening += new CancelEventHandler(Menu_Opening);
-
             t = new ToolStripMenuItem("&Add Application");
             t.Click += new EventHandler(MenuAddApp_Click);
             MenuRC.Items.Add(t);
-
             EditMenuItem = new ToolStripMenuItem("&Edit Application");
             EditMenuItem.Click += new EventHandler(MenuEdit_Click);
             MenuRC.Items.Add(EditMenuItem);
-
             DeleteMenuItem = new ToolStripMenuItem("&Delete Application");
             DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
             MenuRC.Items.Add(DeleteMenuItem);
-
             MenuRC.Items.Add(new ToolStripSeparator());
-
             UpMenuItem = new ToolStripMenuItem("Move &Up");
             UpMenuItem.Click += new EventHandler(MenuUp_Click);
             MenuRC.Items.Add(UpMenuItem);
-
             DownMenuItem = new ToolStripMenuItem("&Move Down");
             DownMenuItem.Click += new EventHandler(MenuDown_Click);
             MenuRC.Items.Add(DownMenuItem);
-
             this.ContextMenuStrip = MenuRC;
             this.AllowDrop = true;
             this.DragOver += new DragEventHandler(OnDragOver);
@@ -83,8 +76,7 @@ namespace Apps.Controls
         public delegate void AppsLoadedHandler();
         public event AppsLoadedHandler OnAppsLoaded;
         #endregion
-
-
+        
         private AppButton AddAppButton()
         {
             AppButton b = new AppButton(AppsConfig);

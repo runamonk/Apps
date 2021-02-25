@@ -14,12 +14,15 @@ namespace Apps
         private Config AppsConfig { get; set; }
         private bool IsMenuButton = false;
         private bool IsPinButton = false;
+        private bool IsFolderButton = false;
 
         private PictureBox PBox = new PictureBox();
         private Panel BorderPanel = new Panel();
         private Panel ButtonPanel = new Panel();
         private Label ButtonText = new Label();
+        private Label FolderArrow = new Label();
         private Timer MissingIconTimer = new Timer();
+
         
         public new ContextMenuStrip ContextMenuStrip
         {
@@ -98,10 +101,11 @@ namespace Apps
         public delegate void AppButtonDropEventhandler(AppButton Button, DragEventArgs e);
         public event AppButtonDropEventhandler OnAppButtonDropped;
 
-        public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false)
+        public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false, bool isFolderButton = false)
         {
             IsMenuButton = isMenuButton;
             IsPinButton = isPinButton;
+            IsFolderButton = isFolderButton;
 
             BorderPanel.Parent = this;
             BorderPanel.Dock = DockStyle.Fill;
@@ -110,26 +114,38 @@ namespace Apps
             ButtonPanel.Dock = DockStyle.Fill;
             ButtonPanel.Margin = new Padding(0, 0, 0, 0);
             ButtonPanel.BorderStyle = BorderStyle.None;
-            
+
+            PBox.Visible = false;
+            FolderArrow.Visible = false;
+
+            if (IsFolderButton)
+            {
+                FolderArrow.Parent = ButtonPanel;
+                FolderArrow.Dock = DockStyle.Left;
+                FolderArrow.Width = 24;
+                FolderArrow.BorderStyle = BorderStyle.None;
+                FolderArrow.Padding = new Padding(0, 0, 0, 0);
+                FolderArrow.Margin = new Padding(0, 0, 0, 0);
+                FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
+                FolderArrow.Text = "►";
+                FolderArrow.Visible = true;
+            }
             if (!IsHeaderButton())
             {
                 PBox.Parent = ButtonPanel;
                 PBox.Dock = DockStyle.Left;
-                PBox.Width = 23;
+                PBox.Width = 24;
                 PBox.BorderStyle = BorderStyle.None;
-                PBox.Padding = new Padding(3, 0, 0, 0);
+                PBox.Padding = new Padding(0, 0, 0, 0);
                 PBox.Margin = new Padding(0, 0, 0, 0);
                 PBox.SizeMode = PictureBoxSizeMode.StretchImage;
-
                 MissingIconTimer.Enabled = false;
                 MissingIconTimer.Interval = 10000;
                 MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
-            }
-            else
-                PBox.Visible = false;
+                PBox.Visible = true;
+            }                
             
             PBox.MouseClick += new MouseEventHandler(TextOnClick);
-
             ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
             ButtonText.Dock = DockStyle.Fill;
@@ -221,7 +237,7 @@ namespace Apps
         {
             if (IsHeaderButton())
             {
-                ButtonPanel.BackColor = AppsConfig.MenuSelectedColor;
+                ButtonText.BackColor = AppsConfig.MenuSelectedColor;
             }
             else
             {
@@ -233,7 +249,7 @@ namespace Apps
         {
             if (IsHeaderButton())
             {
-                ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
+                ButtonText.BackColor = AppsConfig.MenuButtonColor;
             }
             else
             {
@@ -280,6 +296,8 @@ namespace Apps
             }
             else
             {
+                FolderArrow.ForeColor = AppsConfig.AppsFontColor;
+                FolderArrow.BackColor = AppsConfig.AppsBackColor;
                 ButtonPanel.BackColor = AppsConfig.AppsBackColor;
                 ButtonText.ForeColor = AppsConfig.AppsFontColor;
                 ButtonText.BackColor = AppsConfig.AppsBackColor;

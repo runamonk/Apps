@@ -216,7 +216,6 @@ namespace Apps
             {
                 Config = new Config();
                 Config.ConfigChanged += new EventHandler(ConfigChanged);
-
                 MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width,Screen.PrimaryScreen.WorkingArea.Height);
                 MenuMain = new AppMenu(Config);
                 MenuMain.Opening += new System.ComponentModel.CancelEventHandler(MenuApps_Opening);
@@ -250,7 +249,6 @@ namespace Apps
                 PinButton.AppName = "▫";
                 PinButton.Click += PinButton_Click;
                 PinButton.Padding = new Padding(0, 0, 0, 3);
-               
                 notifyApps.ContextMenuStrip = MenuMain;
                 Apps = new AppPanel(Config);
                 Apps.AutoScroll = true;
