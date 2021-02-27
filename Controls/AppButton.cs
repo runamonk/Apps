@@ -12,9 +12,9 @@ namespace Apps
     public partial class AppButton : Panel
     {
         private Config AppsConfig { get; set; }
-        private bool IsMenuButton = false;
-        private bool IsPinButton = false;
-        private bool IsFolderButton = false;
+        public bool IsMenuButton = false;
+        public bool IsPinButton = false;
+        public bool IsFolderButton = false;
 
         private PictureBox PBox = new PictureBox();
         private Panel BorderPanel = new Panel();
@@ -127,10 +127,12 @@ namespace Apps
                 FolderArrow.Padding = new Padding(0, 0, 0, 0);
                 FolderArrow.Margin = new Padding(0, 0, 0, 0);
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
-                FolderArrow.Text = "►";
+                FolderArrow.Text = ">";
+                //FolderArrow.Text = "►";
                 FolderArrow.Visible = true;
+                FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
             }
-            if (!IsHeaderButton())
+            if (!IsHeaderButton() && !IsFolderButton)
             {
                 PBox.Parent = ButtonPanel;
                 PBox.Dock = DockStyle.Left;
@@ -143,9 +145,10 @@ namespace Apps
                 MissingIconTimer.Interval = 10000;
                 MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
                 PBox.Visible = true;
+                PBox.MouseClick += new MouseEventHandler(TextOnClick);
             }                
             
-            PBox.MouseClick += new MouseEventHandler(TextOnClick);
+            
             ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
             ButtonText.Dock = DockStyle.Fill;

@@ -32,7 +32,7 @@
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.FolderName = new System.Windows.Forms.TextBox();
+            this.FolderNameEdit = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,7 +41,7 @@
             this.panel1.Controls.Add(this.ButtonCancel);
             this.panel1.Controls.Add(this.ButtonOK);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.FolderName);
+            this.panel1.Controls.Add(this.FolderNameEdit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -77,13 +77,13 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Name";
             // 
-            // FolderName
+            // FolderNameEdit
             // 
-            this.FolderName.Location = new System.Drawing.Point(46, 10);
-            this.FolderName.Name = "FolderName";
-            this.FolderName.Size = new System.Drawing.Size(154, 20);
-            this.FolderName.TabIndex = 0;
-            this.FolderName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FolderName_KeyDown);
+            this.FolderNameEdit.Location = new System.Drawing.Point(46, 10);
+            this.FolderNameEdit.Name = "FolderNameEdit";
+            this.FolderNameEdit.Size = new System.Drawing.Size(154, 20);
+            this.FolderNameEdit.TabIndex = 0;
+            this.FolderNameEdit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FolderName_KeyDown);
             // 
             // AddFolder
             // 
@@ -107,6 +107,6 @@
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.Button ButtonOK;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox FolderName;
+        private System.Windows.Forms.TextBox FolderNameEdit;
     }
 }

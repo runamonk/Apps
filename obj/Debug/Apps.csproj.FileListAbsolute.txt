@@ -11,4 +11,3 @@ D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csproj.GenerateResource.cache
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csproj.CoreCompileInputs.cache
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.exe
 D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.pdb
-D:\Dropbox\code\C#\Projects\Apps\obj\Debug\Apps.csprojAssemblyReference.cache

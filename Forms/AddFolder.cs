@@ -17,6 +17,11 @@ namespace Apps.Forms
             InitializeComponent();
         }
 
+        public string FolderName
+        {
+            get { return FolderNameEdit.Text.Trim(); }
+        }
+
         private void FolderName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

@@ -1,6 +1,7 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="2adc1ad3-bae9-4ffe-9562-6b634a4f51e3" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
+    <APP id="9dfb87a0-04ec-46d5-aa19-1b971ba7fbbe" foldername="test" />
     <APP id="48a98dda-e0a2-4798-891c-89263b8a28ae" appname="Battle.net" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Battle.net.lnk" fileiconpath="" fileargs="" />
     <APP id="d0c93fc0-96db-4a3b-9860-95f153ab9a81" appname="WhatInStartup" filename="D:\Tools\WhatInStartup\WhatInStartup.exe" fileiconpath="" fileargs="" />
     <APP id="3de2e70c-8dad-4a45-a836-6dad7fca6017" appname="PRIME95 Application" filename="D:\Tools\prime95\prime95.exe" fileiconpath="" fileargs="" />
@@ -8,7 +9,6 @@
     <APP id="f13c91e2-3577-484e-912f-eb66908fc04d" appname="PuTTY suite" filename="D:\Tools\putty.exe" fileiconpath="" fileargs="" />
     <APP id="6e82e653-073c-4f47-a63c-81ab08f8b441" appname="Assassin's Creed Valhalla" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Assassin's Creed Valhalla.url" fileiconpath="" fileargs="" />
     <APP id="46dbb803-cec4-4401-b671-e6c4f01b3079" appname="Batman™ Arkham Knight" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Batman™ Arkham Knight.url" fileiconpath="" fileargs="" />
-    <APP id="161fdbcb-4c0f-4fec-ae4a-c6c4dd4823e2" appname="HITMAN 3" filename="C:\ProgramData\Microsoft\Windows\Start Menu\HITMAN 3.url" fileiconpath="" fileargs="" />
     <APP id="a6920913-508e-4d36-ba6b-9cff3ae8318e" appname="Process Explorer" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Process Explorer.lnk" fileiconpath="" fileargs="" />
     <APP id="f3ad1bff-4cd9-48a4-8390-e0be13e1979a" appname="Rage 2" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Rage 2.url" fileiconpath="" fileargs="" />
     <APP id="bff24cfa-94b2-4104-9515-298eda57a70f" appname="The Long Dark" filename="C:\ProgramData\Microsoft\Windows\Start Menu\The Long Dark.url" fileiconpath="" fileargs="" />

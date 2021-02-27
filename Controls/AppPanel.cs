@@ -55,6 +55,12 @@ namespace Apps.Controls
             DownMenuItem = new ToolStripMenuItem("&Move Down");
             DownMenuItem.Click += new EventHandler(MenuDown_Click);
             MenuRC.Items.Add(DownMenuItem);
+            MenuRC.Items.Add(new ToolStripSeparator());
+            t = new ToolStripMenuItem("Add &Folder");
+            t.Click += new EventHandler(MenuAddFolder_Click);
+            MenuRC.Items.Add(t);
+
+
             this.ContextMenuStrip = MenuRC;
             this.AllowDrop = true;
             this.DragOver += new DragEventHandler(OnDragOver);
@@ -77,9 +83,9 @@ namespace Apps.Controls
         public event AppsLoadedHandler OnAppsLoaded;
         #endregion
         
-        private AppButton AddAppButton()
+        private AppButton AddAppButton(bool isMenuButton = false, bool isPinButton = false, bool isFolderButton = false)
         {
-            AppButton b = new AppButton(AppsConfig);
+            AppButton b = new AppButton(AppsConfig,isMenuButton,isPinButton,isFolderButton);
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
             b.OnAppButtonDropped += new AppButton.AppButtonDropEventhandler(DropToButton);
             b.ContextMenuStrip = MenuRC;
@@ -90,6 +96,52 @@ namespace Apps.Controls
             Controls.Add(b);
             b.Dock = DockStyle.Top;
             return b;
+        }
+
+        public void AddItem(string AppId, string FolderName, AppButton ParentButton)
+        {
+            SuspendLayout();
+            AppButton b = AddAppButton(false,false,true);
+            b.IsFolderButton = true;
+
+            if (string.IsNullOrEmpty(AppId))
+                b.AppId = Guid.NewGuid().ToString();
+            else
+                b.AppId = AppId;
+
+            b.AutoSize = false;
+            b.AppName = FolderName;
+            int AddAtIndex = 0;
+            if (ParentButton != null)
+            {
+                AddAtIndex = Controls.GetChildIndex(ParentButton);
+            }
+
+            XmlNode node = GetNode(b.AppId);
+            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+
+            if (node == null)
+            {
+                node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+                XmlAttribute XmlAtt;
+                XmlAtt = AppsXml.CreateAttribute("id");
+                XmlAtt.Value = b.AppId;
+                node.Attributes.Append(XmlAtt);
+                XmlAtt = AppsXml.CreateAttribute("foldername");
+                XmlAtt.Value = FolderName;
+                node.Attributes.Append(XmlAtt);
+
+                if (nodeSib == null)
+                    AppsNode.AppendChild(node);
+                else
+                    AppsNode.InsertAfter(node, nodeSib);
+                SaveXML();
+            }
+
+
+            OnAppAdded?.Invoke();
+            ResumeLayout();
         }
 
         public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, int AddAtIndex)
@@ -248,7 +300,10 @@ namespace Apps.Controls
 
             foreach (XmlNode xn in AppsNode)
             {
-                AddItem(xn.Attributes["id"].Value, xn.Attributes["appname"].Value, xn.Attributes["filename"].Value, xn.Attributes["fileiconpath"].Value, xn.Attributes["fileargs"].Value, 0);
+                if (xn.Attributes["foldername"] != null)
+                    AddItem(xn.Attributes["id"].Value, xn.Attributes["foldername"].Value, null);
+                else
+                    AddItem(xn.Attributes["id"].Value, xn.Attributes["appname"].Value, xn.Attributes["filename"].Value, xn.Attributes["fileiconpath"].Value, xn.Attributes["fileargs"].Value, 0);
             }
 
             InLoad = false;
@@ -272,6 +327,28 @@ namespace Apps.Controls
                     AppButton b = GetAppButton(sender);
                     int i = Controls.GetChildIndex(b);
                     AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);
+                }
+            }
+
+            GC.Collect();
+            InMenu = false;
+        }
+
+        private void MenuAddFolder_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            AddFolder f = new AddFolder();
+            if (f.ShowDialog(this) == DialogResult.OK)
+            {
+                var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+                if (c is AppPanel)
+                {
+                    AddItem(null, f.FolderName, null);
+                }
+                else
+                {
+                    AppButton b = GetAppButton(sender);
+                    AddItem(null, f.FolderName, b);
                 }
             }
 
