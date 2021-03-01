@@ -115,11 +115,16 @@ namespace Apps.Controls
             if (ParentButton != null)
             {
                 AddAtIndex = Controls.GetChildIndex(ParentButton);
+
             }
 
             XmlNode node = GetNode(b.AppId);
             XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+
+            if (((ParentButton != null) && (!ParentButton.IsFolderButton)) || (ParentButton == null))
+                Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            else
+                b.Visible = false;
 
             if (node == null)
             {
@@ -132,10 +137,19 @@ namespace Apps.Controls
                 XmlAtt.Value = FolderName;
                 node.Attributes.Append(XmlAtt);
 
-                if (nodeSib == null)
-                    AppsNode.AppendChild(node);
+                if ((ParentButton != null) && (ParentButton.IsFolderButton))
+                {
+                    XmlNode nodeParent = GetNode(ParentButton.AppId);
+                    nodeParent.AppendChild(node);
+                }
                 else
-                    AppsNode.InsertAfter(node, nodeSib);
+                {
+                    if (nodeSib == null)
+                        AppsNode.AppendChild(node);
+                    else
+                        AppsNode.InsertAfter(node, nodeSib);
+                }
+
                 SaveXML();
             }
 

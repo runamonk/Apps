@@ -48,16 +48,16 @@
             this.pTop.Location = new System.Drawing.Point(0, 0);
             this.pTop.Margin = new System.Windows.Forms.Padding(0);
             this.pTop.Name = "pTop";
-            this.pTop.Size = new System.Drawing.Size(184, 28);
+            this.pTop.Size = new System.Drawing.Size(184, 25);
             this.pTop.TabIndex = 3;
             this.pTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PTop_MouseDown);
             // 
             // pMain
             // 
             this.pMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pMain.Location = new System.Drawing.Point(0, 28);
+            this.pMain.Location = new System.Drawing.Point(0, 25);
             this.pMain.Name = "pMain";
-            this.pMain.Size = new System.Drawing.Size(184, 44);
+            this.pMain.Size = new System.Drawing.Size(184, 47);
             this.pMain.TabIndex = 4;
             // 
             // Main
@@ -70,7 +70,7 @@
             this.Controls.Add(this.pTop);
             this.DoubleBuffered = true;
             this.MaximumSize = new System.Drawing.Size(9000, 9000);
-            this.MinimumSize = new System.Drawing.Size(200, 0);
+            this.MinimumSize = new System.Drawing.Size(200, 39);
             this.Name = "Main";
             this.Opacity = 0D;
             this.ShowIcon = false;

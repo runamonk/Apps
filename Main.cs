@@ -140,12 +140,12 @@ namespace Apps
             if (!pinned)
             {
                 pinned = true;
-                b.AppName = "√";
+                b.AppName = "";
             }
             else
             {
                 pinned = false;
-                b.AppName = "▫";
+                b.AppName = "";
             }
         }
 
@@ -196,7 +196,8 @@ namespace Apps
                 int c = 68;
                 for (int i = 0; i <= Apps.Controls.Count - 1; i++)
                 {
-                    c = c + Apps.Controls[i].Height;
+                    if (Apps.Controls[i].Visible)
+                        c = c + Apps.Controls[i].Height;
                 }
 
                 if (c < MaximumSize.Height)
@@ -204,7 +205,6 @@ namespace Apps
                 else
                     Height = MaximumSize.Height;
             }
-
             // select the first control.
             if (Apps.Controls.Count > 0)
                 Apps.Controls[Apps.Controls.Count-1].Select();
@@ -237,18 +237,23 @@ namespace Apps
                     Parent = pTop,
                     Dock = DockStyle.Left
                 };
-                MenuMainButton.AppName = "...";
+                MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
+                MenuMainButton.AppName = "";
                 MenuMainButton.Click += MainButton_Click;
-                MenuMainButton.Padding = new Padding(0,0,0,3);
+                MenuMainButton.Padding = new Padding(0,0,0,0);
+                MenuMainButton.Margin = new Padding(0,0,0,0);
+
                 PinButton = new AppButton(Config, false, true)
                 {
                     Width = 25,
                     Parent = pTop,
                     Dock = DockStyle.Right
                 };
-                PinButton.AppName = "▫";
+                PinButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
+                PinButton.AppName = "";
                 PinButton.Click += PinButton_Click;
-                PinButton.Padding = new Padding(0, 0, 0, 3);
+                PinButton.Padding = new Padding(0,0,0,0);
+                PinButton.Margin = new Padding(0,0,0,0);
                 notifyApps.ContextMenuStrip = MenuMain;
                 Apps = new AppPanel(Config);
                 Apps.AutoScroll = true;

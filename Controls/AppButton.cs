@@ -121,15 +121,16 @@ namespace Apps
             if (IsFolderButton)
             {
                 FolderArrow.Parent = ButtonPanel;
+                FolderArrow.AutoSize = false;
                 FolderArrow.Dock = DockStyle.Left;
+                FolderArrow.Font = new Font("Segoe UI Symbol", 10, FontStyle.Regular);
                 FolderArrow.Width = 24;
                 FolderArrow.BorderStyle = BorderStyle.None;
                 FolderArrow.Padding = new Padding(0, 0, 0, 0);
-                FolderArrow.Margin = new Padding(0, 0, 0, 0);
-                FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
-                FolderArrow.Text = ">";
-                //FolderArrow.Text = "►";
+                FolderArrow.Margin = new Padding(0, 0, 0, 0);                
+                FolderArrow.Text = "";
                 FolderArrow.Visible = true;
+                FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
             }
             if (!IsHeaderButton() && !IsFolderButton)
