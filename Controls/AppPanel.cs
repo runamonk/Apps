@@ -14,9 +14,17 @@ namespace Apps.Controls
     public partial class AppPanel : Panel
     {
         private Config AppsConfig { get; set; }
-        private bool IsHeader = false;
         public bool InMenu { get; set; }
         public bool InLoad { get; set; }
+
+        public bool InAFolder
+        {
+            get {
+                return (CurrentParentNode != null);
+            }
+        }
+
+
 
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
@@ -27,7 +35,7 @@ namespace Apps.Controls
 
         XmlDocument AppsXml;
         XmlNode AppsNode;
-        XmlNode CurrentParentNode = null;
+        private XmlNode CurrentParentNode = null;
 
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
@@ -43,10 +51,13 @@ namespace Apps.Controls
             t = new ToolStripMenuItem("&Add Application");
             t.Click += new EventHandler(MenuAddApp_Click);
             MenuRC.Items.Add(t);
-            EditMenuItem = new ToolStripMenuItem("&Edit Application");
+            t = new ToolStripMenuItem("Add &Folder");
+            t.Click += new EventHandler(MenuAddFolder_Click);
+            MenuRC.Items.Add(t);
+            EditMenuItem = new ToolStripMenuItem("&Edit");
             EditMenuItem.Click += new EventHandler(MenuEdit_Click);
             MenuRC.Items.Add(EditMenuItem);
-            DeleteMenuItem = new ToolStripMenuItem("&Delete Application");
+            DeleteMenuItem = new ToolStripMenuItem("&Delete");
             DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
             MenuRC.Items.Add(DeleteMenuItem);
             MenuRC.Items.Add(new ToolStripSeparator());
@@ -56,12 +67,6 @@ namespace Apps.Controls
             DownMenuItem = new ToolStripMenuItem("&Move Down");
             DownMenuItem.Click += new EventHandler(MenuDown_Click);
             MenuRC.Items.Add(DownMenuItem);
-            MenuRC.Items.Add(new ToolStripSeparator());
-            t = new ToolStripMenuItem("Add &Folder");
-            t.Click += new EventHandler(MenuAddFolder_Click);
-            MenuRC.Items.Add(t);
-
-
             this.ContextMenuStrip = MenuRC;
             this.AllowDrop = true;
             this.DragOver += new DragEventHandler(OnDragOver);
@@ -99,11 +104,12 @@ namespace Apps.Controls
             return b;
         }
 
-        public void AddItem(string AppId, string FolderName, AppButton ParentButton)
+        public void AddItem(string AppId, string FolderName, AppButton SiblingButton)
         {
             SuspendLayout();
             XmlNode node = null;
             XmlNode nodeSib = null;
+            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
             string appId = "";
             int AddAtIndex = 0;
             
@@ -112,19 +118,21 @@ namespace Apps.Controls
             else
                 appId = AppId;
 
-            if ((ParentButton == null) || (!ParentButton.IsFolderButton))
+            if (SiblingButton != null)
+            {
+                AddAtIndex = Controls.GetChildIndex(SiblingButton);
+                nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            }
+
+            if ((SiblingButton == null) || (!SiblingButton.IsFolderButton))
             {
                 AppButton b = AddAppButton(false, false, true);
                 b.IsFolderButton = true;
                 b.AutoSize = false;
                 b.AppName = FolderName;
                 b.AppId = appId;
+                Controls.SetChildIndex(b, AddAtIndex);
                 node = GetNode(b.AppId);
-                nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-                if (ParentButton != null)
-                {
-                    AddAtIndex = Controls.GetChildIndex(ParentButton);
-                }
             }
 
             if (node == null)
@@ -138,17 +146,17 @@ namespace Apps.Controls
                 XmlAtt.Value = FolderName;
                 node.Attributes.Append(XmlAtt);
 
-                if ((ParentButton != null) && (ParentButton.IsFolderButton))
+                if ((SiblingButton != null) && (SiblingButton.IsFolderButton))
                 {
-                    XmlNode nodeParent = GetNode(ParentButton.AppId);
+                    XmlNode nodeParent = GetNode(SiblingButton.AppId);
                     nodeParent.AppendChild(node);
                 }
                 else
                 {
                     if (nodeSib == null)
-                        AppsNode.AppendChild(node);
+                        ParentNode.AppendChild(node);
                     else
-                        AppsNode.InsertAfter(node, nodeSib);
+                        ParentNode.InsertAfter(node, nodeSib);
                 }
 
                 SaveXML();
@@ -334,13 +342,20 @@ namespace Apps.Controls
             return node.NextSibling;
         }
 
-        public void LoadFolder(string AppId)
+        public void GoBack()
+        {
+            if ((CurrentParentNode.ParentNode != null) && (CurrentParentNode.ParentNode.Attributes["id"] != null))
+                LoadFolder(CurrentParentNode.ParentNode.Attributes["id"].Value);
+            else
+                LoadItems();
+        }
+
+        private void LoadFolder(string AppId)
         {
             SuspendLayout();
             InLoad = true;            
             Controls.Clear();
 
-            // Add a .. button (Up level?)
             CurrentParentNode = GetNode(AppId);
             foreach (XmlNode xn in CurrentParentNode)
             {
@@ -359,6 +374,7 @@ namespace Apps.Controls
         {
             SuspendLayout();
             Controls.Clear();
+            CurrentParentNode = null;
             InLoad = true;
 
             if (!File.Exists(AppsXmlFilePath))
@@ -444,7 +460,10 @@ namespace Apps.Controls
             SaveXML();
             GC.Collect();
 
-            OnAppDeleted?.Invoke();
+            if (CurrentParentNode != null)
+                GoBack();
+            else
+                OnAppDeleted?.Invoke();
             InMenu = false;
         }
 

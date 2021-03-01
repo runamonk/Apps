@@ -34,6 +34,8 @@ namespace Apps
 
         private About AboutForm = new About();
         private AppButton MenuMainButton { get; set; }
+        private AppButton BackButton { get; set; }
+
         private AppButton PinButton { get; set; }
         private AppMenu MenuMain { get; set; }
         private Config Config { get; set; }
@@ -73,6 +75,7 @@ namespace Apps
 
         private void AppsLoaded()
         {
+            BackButton.Visible = (Apps.InAFolder);
             AutoSizeForm(true);
         }
 
@@ -132,6 +135,11 @@ namespace Apps
         {
             AppButton b = ((AppButton)sender);
             MenuMain.Show(b.Left + b.Width + Left, b.Top + b.Height + Top);
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Apps.GoBack();
         }
 
         private void PinButton_Click(object sender, EventArgs e)
@@ -243,6 +251,20 @@ namespace Apps
                 MenuMainButton.Padding = new Padding(0,0,0,0);
                 MenuMainButton.Margin = new Padding(0,0,0,0);
 
+                BackButton = new AppButton(Config, true)
+                {
+                    Width = 25,
+                    Parent = pTop,
+                    Dock = DockStyle.Left,
+                    Visible = false
+                };
+                BackButton.Font = new Font("Segoe UI Symbol", 12, FontStyle.Regular);
+                BackButton.AppName = "⮌";
+                BackButton.Click += BackButton_Click;
+                BackButton.Padding = new Padding(0, 0, 0, 0);
+                BackButton.Margin = new Padding(0, 0, 0, 0);
+                pTop.Controls.SetChildIndex(BackButton, 0);
+
                 PinButton = new AppButton(Config, false, true)
                 {
                     Width = 25,
@@ -255,6 +277,7 @@ namespace Apps
                 PinButton.Padding = new Padding(0,0,0,0);
                 PinButton.Margin = new Padding(0,0,0,0);
                 notifyApps.ContextMenuStrip = MenuMain;
+
                 Apps = new AppPanel(Config);
                 Apps.AutoScroll = true;
                 Apps.OnAppClicked += new AppPanel.AppClickedHandler(AppClicked);
