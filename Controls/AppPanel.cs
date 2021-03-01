@@ -101,37 +101,37 @@ namespace Apps.Controls
         public void AddItem(string AppId, string FolderName, AppButton ParentButton)
         {
             SuspendLayout();
-            AppButton b = AddAppButton(false,false,true);
-            b.IsFolderButton = true;
-
-            if (string.IsNullOrEmpty(AppId))
-                b.AppId = Guid.NewGuid().ToString();
-            else
-                b.AppId = AppId;
-
-            b.AutoSize = false;
-            b.AppName = FolderName;
+            XmlNode node = null;
+            XmlNode nodeSib = null;
+            string appId = "";
             int AddAtIndex = 0;
-            if (ParentButton != null)
-            {
-                AddAtIndex = Controls.GetChildIndex(ParentButton);
-
-            }
-
-            XmlNode node = GetNode(b.AppId);
-            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-
-            if (((ParentButton != null) && (!ParentButton.IsFolderButton)) || (ParentButton == null))
-                Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            
+            if (string.IsNullOrEmpty(AppId))
+                appId = Guid.NewGuid().ToString();
             else
-                b.Visible = false;
+                appId = AppId;
+
+            if ((ParentButton == null) || (!ParentButton.IsFolderButton))
+            {
+                AppButton b = AddAppButton(false, false, true);
+                b.IsFolderButton = true;
+                b.AutoSize = false;
+                b.AppName = FolderName;
+                b.AppId = appId;
+                node = GetNode(b.AppId);
+                nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+                if (ParentButton != null)
+                {
+                    AddAtIndex = Controls.GetChildIndex(ParentButton);
+                }
+            }
 
             if (node == null)
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
                 XmlAttribute XmlAtt;
                 XmlAtt = AppsXml.CreateAttribute("id");
-                XmlAtt.Value = b.AppId;
+                XmlAtt.Value = appId;
                 node.Attributes.Append(XmlAtt);
                 XmlAtt = AppsXml.CreateAttribute("foldername");
                 XmlAtt.Value = FolderName;
@@ -152,7 +152,6 @@ namespace Apps.Controls
 
                 SaveXML();
             }
-
 
             OnAppAdded?.Invoke();
             ResumeLayout();
@@ -180,6 +179,7 @@ namespace Apps.Controls
             
             XmlNode node = GetNode(b.AppId);
             XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
                        
             if (node == null)
@@ -206,6 +206,7 @@ namespace Apps.Controls
                     AppsNode.AppendChild(node);
                 else
                     AppsNode.InsertAfter(node, nodeSib);
+
                 SaveXML();
             }
 
@@ -217,7 +218,13 @@ namespace Apps.Controls
         {
             SuspendLayout();
 
-            OnAppClicked?.Invoke();
+            if (!App.IsFolderButton)
+                OnAppClicked?.Invoke();
+            else
+            {
+                LoadFolder(App.AppId);
+                //MessageBox.Show(Funcs.GetNodePath(xn));
+            }
 
             ResumeLayout();
         }
@@ -290,6 +297,27 @@ namespace Apps.Controls
         private XmlNode GetNextNode(XmlNode node)
         {
             return node.NextSibling;
+        }
+
+        public void LoadFolder(string AppId)
+        {
+            SuspendLayout();
+            InLoad = true;
+            
+            Controls.Clear();
+            // Add a .. button (Up level?)
+            XmlNode SubNodes = GetNode(AppId);
+            foreach (XmlNode xn in SubNodes)
+            {
+                if (xn.Attributes["foldername"] != null)
+                    AddItem(xn.Attributes["id"].Value, xn.Attributes["foldername"].Value, null);
+                else
+                    AddItem(xn.Attributes["id"].Value, xn.Attributes["appname"].Value, xn.Attributes["filename"].Value, xn.Attributes["fileiconpath"].Value, xn.Attributes["fileargs"].Value, 0);
+            }
+
+            InLoad = false;
+            OnAppsLoaded?.Invoke();
+            ResumeLayout();
         }
 
         public void LoadItems()

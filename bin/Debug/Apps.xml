@@ -1,24 +1,15 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="2adc1ad3-bae9-4ffe-9562-6b634a4f51e3" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
-    <APP id="48a98dda-e0a2-4798-891c-89263b8a28ae" appname="Battle.net" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Battle.net.lnk" fileiconpath="" fileargs="" />
+    <APP id="5316bf8e-3e8c-4ea5-9c77-3265344dbd8e" foldername="test">
+      <APP id="1d0d5261-b89d-4bdb-ac5b-11297c188614" foldername="test2">
+        <APP id="7e17e68b-2715-4846-a3c5-3126847ea3fd" foldername="test3" />
+      </APP>
+    </APP>
     <APP id="d0c93fc0-96db-4a3b-9860-95f153ab9a81" appname="WhatInStartup" filename="D:\Tools\WhatInStartup\WhatInStartup.exe" fileiconpath="" fileargs="" />
-    <APP id="3de2e70c-8dad-4a45-a836-6dad7fca6017" appname="PRIME95 Application" filename="D:\Tools\prime95\prime95.exe" fileiconpath="" fileargs="" />
     <APP id="db6e3ce1-04b1-4563-b898-5198875c5234" appname="CPU-Z Application" filename="D:\Tools\CPUZ\cpuz_x64.exe" fileiconpath="" fileargs="" />
     <APP id="f13c91e2-3577-484e-912f-eb66908fc04d" appname="PuTTY suite" filename="D:\Tools\putty.exe" fileiconpath="" fileargs="" />
-    <APP id="6e82e653-073c-4f47-a63c-81ab08f8b441" appname="Assassin's Creed Valhalla" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Assassin's Creed Valhalla.url" fileiconpath="" fileargs="" />
-    <APP id="46dbb803-cec4-4401-b671-e6c4f01b3079" appname="Batman™ Arkham Knight" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Batman™ Arkham Knight.url" fileiconpath="" fileargs="" />
-    <APP id="a6920913-508e-4d36-ba6b-9cff3ae8318e" appname="Process Explorer" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Process Explorer.lnk" fileiconpath="" fileargs="" />
-    <APP id="f3ad1bff-4cd9-48a4-8390-e0be13e1979a" appname="Rage 2" filename="C:\ProgramData\Microsoft\Windows\Start Menu\Rage 2.url" fileiconpath="" fileargs="" />
-    <APP id="bff24cfa-94b2-4104-9515-298eda57a70f" appname="The Long Dark" filename="C:\ProgramData\Microsoft\Windows\Start Menu\The Long Dark.url" fileiconpath="" fileargs="" />
-    <APP id="7c7d6d75-f10b-4430-8b4c-aa3ccff49773" appname="The Medium" filename="C:\ProgramData\Microsoft\Windows\Start Menu\The Medium.url" fileiconpath="" fileargs="" />
-    <APP id="174646c4-4e5d-4870-85a0-c5d91f6afc33" foldername="test">
-      <APP id="1a5354c1-8547-4d9e-b716-c1b5e4c2017a" foldername="test2" />
-      <APP id="7f97f785-2568-4241-a454-76503e801a92" foldername="test3" />
-    </APP>
     <APP id="5eb89e29-bf0a-428a-b047-bdcd090d7608" appname="WinDirStat" filename="D:\Tools\WinDirStat\windirstat.exe" fileiconpath="" fileargs="" />
-    <APP id="69e32539-3fa1-424b-aa74-bd7996dc9964" appname="AIDA64 Engineer" filename="D:\Tools\aida64\aida64.exe" fileiconpath="" fileargs="" />
     <APP id="5fbbd67e-3295-4294-a6ea-95319c5f1a92" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="" fileargs="" />
-    <APP id="d82a3844-67b4-480f-98c7-601bfc86d564" appname="CPUID Hardware Monitor" filename="D:\Tools\hwmonitor\HWMonitor_x64.exe" fileiconpath="" fileargs="" />
   </APPS>
 </xml>

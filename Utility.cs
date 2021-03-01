@@ -77,6 +77,26 @@ namespace Utility
             return FileVersionInfo.GetVersionInfo(fileName);
         }
 
+
+        public static string GetNodePath(XmlNode xmlNode)
+        {
+            string pathName = xmlNode.Name;
+            XmlNode node = xmlNode;
+            while (true)
+            {
+                if (node.ParentNode.Name != "#document")
+                {
+                    pathName = $"{node.ParentNode.Name}/{pathName}";
+                }
+                else
+                {
+                    return pathName;
+
+                }
+                node = node.ParentNode;
+            }
+        }
+
         public static string GetName()
         {
             return Assembly.GetExecutingAssembly().GetName().Name;

@@ -265,7 +265,7 @@ namespace Apps
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (!IsHeaderButton())
+                if (!IsHeaderButton() && !IsFolderButton)
                 {
                     try
                     {
