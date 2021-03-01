@@ -214,6 +214,32 @@ namespace Apps.Controls
             ResumeLayout();
         }
 
+        public void AddToFolder(string AppName, string fileName, AppButton AppParent)
+        {
+            string AppId = Guid.NewGuid().ToString();
+
+            XmlNode node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+            XmlNode ParentNode = GetNode(AppParent.AppId);
+            XmlAttribute XmlAtt;
+            XmlAtt = AppsXml.CreateAttribute("id");
+            XmlAtt.Value = AppId;
+            node.Attributes.Append(XmlAtt);
+            XmlAtt = AppsXml.CreateAttribute("appname");
+            XmlAtt.Value = AppName;
+            node.Attributes.Append(XmlAtt);
+            XmlAtt = AppsXml.CreateAttribute("filename");
+            XmlAtt.Value = fileName;
+            node.Attributes.Append(XmlAtt);
+            XmlAtt = AppsXml.CreateAttribute("fileiconpath");
+            XmlAtt.Value = "";
+            node.Attributes.Append(XmlAtt);
+            XmlAtt = AppsXml.CreateAttribute("fileargs");
+            XmlAtt.Value = "";
+            node.Attributes.Append(XmlAtt);
+            ParentNode.AppendChild(node);
+            SaveXML();
+        }
+
         private void ButtonClicked(AppButton App)
         {
             SuspendLayout();
@@ -223,7 +249,6 @@ namespace Apps.Controls
             else
             {
                 LoadFolder(App.AppId);
-                //MessageBox.Show(Funcs.GetNodePath(xn));
             }
 
             ResumeLayout();
@@ -244,7 +269,11 @@ namespace Apps.Controls
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string filePath in files)
                 {
-                    AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, i);
+                    string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
+                    if (App.IsFolderButton)
+                        AddToFolder(AppName, filePath, App);
+                    else
+                        AddItem(null, AppName, filePath, null, null, i);
                 }
             }
             ResumeLayout();

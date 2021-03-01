@@ -4,6 +4,7 @@
     <APP id="5316bf8e-3e8c-4ea5-9c77-3265344dbd8e" foldername="test">
       <APP id="1d0d5261-b89d-4bdb-ac5b-11297c188614" foldername="test2">
         <APP id="7e17e68b-2715-4846-a3c5-3126847ea3fd" foldername="test3" />
+        <APP id="877f07f2-aeb5-43f9-a256-cf156aa256dc" appname="apollo_update" filename="C:\apollo_update.log" fileiconpath="" fileargs="" />
       </APP>
     </APP>
     <APP id="d0c93fc0-96db-4a3b-9860-95f153ab9a81" appname="WhatInStartup" filename="D:\Tools\WhatInStartup\WhatInStartup.exe" fileiconpath="" fileargs="" />
