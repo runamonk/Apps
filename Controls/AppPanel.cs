@@ -27,6 +27,7 @@ namespace Apps.Controls
 
         XmlDocument AppsXml;
         XmlNode AppsNode;
+        XmlNode CurrentParentNode = null;
 
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
@@ -178,8 +179,9 @@ namespace Apps.Controls
                 b.WatchForIconUpdate = true;
             
             XmlNode node = GetNode(b.AppId);
-            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            XmlNode nodeSib = null;
 
+            nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
                        
             if (node == null)
@@ -202,11 +204,15 @@ namespace Apps.Controls
                 XmlAtt.Value = fileArgs;
                 node.Attributes.Append(XmlAtt);
 
-                if (nodeSib == null)
-                    AppsNode.AppendChild(node);
+                if (CurrentParentNode != null)
+                    CurrentParentNode.AppendChild(node);
                 else
-                    AppsNode.InsertAfter(node, nodeSib);
-
+                {
+                    if (nodeSib == null)
+                        AppsNode.AppendChild(node);
+                    else
+                        AppsNode.InsertAfter(node, nodeSib);
+                }
                 SaveXML();
             }
 
@@ -331,12 +337,12 @@ namespace Apps.Controls
         public void LoadFolder(string AppId)
         {
             SuspendLayout();
-            InLoad = true;
-            
+            InLoad = true;            
             Controls.Clear();
+
             // Add a .. button (Up level?)
-            XmlNode SubNodes = GetNode(AppId);
-            foreach (XmlNode xn in SubNodes)
+            CurrentParentNode = GetNode(AppId);
+            foreach (XmlNode xn in CurrentParentNode)
             {
                 if (xn.Attributes["foldername"] != null)
                     AddItem(xn.Attributes["id"].Value, xn.Attributes["foldername"].Value, null);
@@ -432,7 +438,8 @@ namespace Apps.Controls
             InMenu = true;
             AppButton b = GetAppButton(sender);
             XmlNode node = GetNode(b.AppId);
-            AppsNode.RemoveChild(node);
+            XmlNode parentNode = node.ParentNode;
+            parentNode.RemoveChild(node);
             Controls.Remove(b);
             SaveXML();
             GC.Collect();
