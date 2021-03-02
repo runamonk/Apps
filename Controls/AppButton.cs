@@ -127,8 +127,8 @@ namespace Apps
                 FolderArrow.Width = 24;
                 FolderArrow.BorderStyle = BorderStyle.None;
                 FolderArrow.Padding = new Padding(0, 0, 0, 0);
-                FolderArrow.Margin = new Padding(0, 0, 0, 0);                
-                FolderArrow.Text = "";
+                FolderArrow.Margin = new Padding(0, 0, 0, 0);
+                FolderArrow.Text = ""; // Right Triangle "";
                 FolderArrow.Visible = true;
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
