@@ -19,6 +19,7 @@ namespace Apps.Forms
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
             FolderNameEdit.BackColor = BackColor;
+            FolderNameEdit.ForeColor = ForeColor;
             ButtonOK.BackColor = BackColor;
             ButtonCancel.BackColor = BackColor;
         }

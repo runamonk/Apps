@@ -382,7 +382,7 @@ namespace Apps.Controls
             XmlNode node = GetNode(b.AppId);
             bool CanDelete = true;
             Confirm f = new Confirm(AppsConfig);
-            CanDelete = (f.ShowAsDialog("Delete?", (node.HasChildNodes || b.IsFolderButton ? "Delete folder, sub-folders and applications?" : "Delete application?")) == DialogResult.OK);
+            CanDelete = (f.ShowAsDialog("Delete " + b.AppName + "?", (node.HasChildNodes || b.IsFolderButton ? "Delete folder, sub-folders and applications?" : "Delete application?")) == DialogResult.OK);
 
             if (CanDelete)
             {
