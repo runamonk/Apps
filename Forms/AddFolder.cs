@@ -20,12 +20,23 @@ namespace Apps.Forms
         public string FolderName
         {
             get { return FolderNameEdit.Text.Trim(); }
+            set {
+                FolderNameEdit.Text = value;
+            }
         }
 
         private void FolderName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOK.PerformClick();
+        }
+
+        private void AddFolder_Load(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(FolderNameEdit.Text))
+                Text = "Add Folder";
+            else
+                Text = "Edit Folder";
         }
     }
 }

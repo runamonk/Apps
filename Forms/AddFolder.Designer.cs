@@ -95,6 +95,7 @@
             this.Name = "AddFolder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Folder";
+            this.Load += new System.EventHandler(this.AddFolder_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

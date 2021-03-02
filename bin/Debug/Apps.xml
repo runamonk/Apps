@@ -1,13 +1,12 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="2adc1ad3-bae9-4ffe-9562-6b634a4f51e3" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" />
-    <APP id="5316bf8e-3e8c-4ea5-9c77-3265344dbd8e" foldername="test">
-      <APP id="1d0d5261-b89d-4bdb-ac5b-11297c188614" foldername="test2">
-        <APP id="7e17e68b-2715-4846-a3c5-3126847ea3fd" foldername="test3" />
-        <APP id="877f07f2-aeb5-43f9-a256-cf156aa256dc" appname="apollo_update" filename="C:\apollo_update.log" fileiconpath="" fileargs="" />
-      </APP>
+    <APP id="adcb7a5b-7b13-41b1-b5ad-d167df3daac6" foldername="test">
+      <APP id="79b4cd0a-49e8-4a6d-afa8-71acf2a2a876" appname="Steam" filename="D:\Tools\links\Steam.lnk" fileiconpath="" fileargs="" />
+      <APP id="de269c06-ba7d-4571-965a-f36b03897695" appname="UserBenchMark" filename="D:\Tools\links\UserBenchMark.lnk" fileiconpath="" fileargs="" />
+      <APP id="c024afdf-c54a-4513-b4af-c4ef3b7e90ec" appname="WhatInStartup" filename="D:\Tools\links\WhatInStartup.lnk" fileiconpath="" fileargs="" />
+      <APP id="a64a104f-2424-494a-986e-4b7e069527b4" appname="WhoCrashed" filename="D:\Tools\links\WhoCrashed.lnk" fileiconpath="" fileargs="" />
     </APP>
-    <APP id="d0c93fc0-96db-4a3b-9860-95f153ab9a81" appname="WhatInStartup" filename="D:\Tools\WhatInStartup\WhatInStartup.exe" fileiconpath="" fileargs="" />
     <APP id="db6e3ce1-04b1-4563-b898-5198875c5234" appname="CPU-Z Application" filename="D:\Tools\CPUZ\cpuz_x64.exe" fileiconpath="" fileargs="" />
     <APP id="f13c91e2-3577-484e-912f-eb66908fc04d" appname="PuTTY suite" filename="D:\Tools\putty.exe" fileiconpath="" fileargs="" />
     <APP id="5eb89e29-bf0a-428a-b047-bdcd090d7608" appname="WinDirStat" filename="D:\Tools\WinDirStat\windirstat.exe" fileiconpath="" fileargs="" />

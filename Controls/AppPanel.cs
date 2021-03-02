@@ -435,17 +435,35 @@ namespace Apps.Controls
             InMenu = true;
             SuspendLayout();
             AppButton b = GetAppButton(sender);
-            AppProperties f = new AppProperties();
-            f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs);
-            if (f.ShowDialog(this) == DialogResult.OK)
+
+            if (b.IsFolderButton)
             {
-                XmlNode node = GetNode(b.AppId);
-                int i = Controls.GetChildIndex(b);
-                AppsNode.RemoveChild(node);
-                Controls.Remove(b);
-                AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);
-                SaveXML();
+                AddFolder f = new AddFolder();
+                f.FolderName = b.AppName;
+                if (f.ShowDialog(this) == DialogResult.OK)
+                {
+                    XmlNode node = GetNode(b.AppId);
+                    int i = Controls.GetChildIndex(b);
+                    node.Attributes["foldername"].Value = f.FolderName;
+                    ((AppButton)Controls[i]).AppName = f.FolderName;
+                    SaveXML();
+                }
             }
+            else
+            {
+                AppProperties f = new AppProperties();
+                f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs);
+                if (f.ShowDialog(this) == DialogResult.OK)
+                {
+                    XmlNode node = GetNode(b.AppId);
+                    int i = Controls.GetChildIndex(b);
+                    AppsNode.RemoveChild(node);
+                    Controls.Remove(b);
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);
+                    SaveXML();
+                }
+            }
+
             GC.Collect();
             ResumeLayout();
             InMenu = false;
