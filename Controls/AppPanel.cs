@@ -22,6 +22,15 @@ namespace Apps.Controls
                 return (CurrentParentNode != null);
             }
         }
+        public string CurrentFolderName
+        {
+            get {
+                if (CurrentParentNode != null)
+                    return CurrentParentNode.Attributes["foldername"].Value;
+                else
+                    return "";
+            }
+        }
 
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
@@ -43,26 +52,18 @@ namespace Apps.Controls
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             ToolStripMenuItem t;
             MenuRC = new AppMenu(myConfig);
+            MenuRC.ShowCheckMargin = false;
+            MenuRC.ShowImageMargin = false;
             MenuRC.Opening += new CancelEventHandler(Menu_Opening);
-            t = new ToolStripMenuItem("&Add Application");
-            t.Click += new EventHandler(MenuAddApp_Click);
-            MenuRC.Items.Add(t);
-            t = new ToolStripMenuItem("Add &Folder");
-            t.Click += new EventHandler(MenuAddFolder_Click);
-            MenuRC.Items.Add(t);
-            EditMenuItem = new ToolStripMenuItem("&Edit");
-            EditMenuItem.Click += new EventHandler(MenuEdit_Click);
-            MenuRC.Items.Add(EditMenuItem);
-            DeleteMenuItem = new ToolStripMenuItem("&Delete");
-            DeleteMenuItem.Click += new EventHandler(MenuDelete_Click);
-            MenuRC.Items.Add(DeleteMenuItem);
+
+            Funcs.AddMenuItem(MenuRC, "Add Application", MenuAddApp_Click);
+            Funcs.AddMenuItem(MenuRC, "Add Folder", MenuAddFolder_Click);
+            EditMenuItem = Funcs.AddMenuItem(MenuRC, "Edit", MenuEdit_Click);
+            DeleteMenuItem = Funcs.AddMenuItem(MenuRC, "Delete", MenuDelete_Click);
             MenuRC.Items.Add(new ToolStripSeparator());
-            UpMenuItem = new ToolStripMenuItem("Move &Up");
-            UpMenuItem.Click += new EventHandler(MenuUp_Click);
-            MenuRC.Items.Add(UpMenuItem);
-            DownMenuItem = new ToolStripMenuItem("&Move Down");
-            DownMenuItem.Click += new EventHandler(MenuDown_Click);
-            MenuRC.Items.Add(DownMenuItem);
+            UpMenuItem = Funcs.AddMenuItem(MenuRC, "Move Up", MenuUp_Click);
+            DownMenuItem = Funcs.AddMenuItem(MenuRC, "Move Down", MenuDown_Click);
+
             this.ContextMenuStrip = MenuRC;
             this.AllowDrop = true;
             this.DragOver += new DragEventHandler(OnDragOver);
@@ -128,15 +129,12 @@ namespace Apps.Controls
                 AddAttrib(node, "id", b.AppId);
                 AddAttrib(node, "foldername", FolderName);
 
-                if (CurrentParentNode != null)
-                    CurrentParentNode.AppendChild(node);
+                XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+                if (nodeSib == null)
+                    ParentNode.AppendChild(node);
                 else
-                {
-                    if (nodeSib == null)
-                        AppsNode.AppendChild(node);
-                    else
-                        AppsNode.InsertAfter(node, nodeSib);
-                }
+                    ParentNode.InsertAfter(node, nodeSib);
+
                 SaveXML();
             }
 
@@ -383,16 +381,24 @@ namespace Apps.Controls
             InMenu = true;
             AppButton b = GetAppButton(sender);
             XmlNode node = GetNode(b.AppId);
-            XmlNode parentNode = node.ParentNode;
-            parentNode.RemoveChild(node);
-            Controls.Remove(b);
-            SaveXML();
-            GC.Collect();
+            bool CanDelete = true;
 
-            if ((CurrentParentNode != null) && (Controls.Count == 0))
-                GoBack();
-            else
-                OnAppDeleted?.Invoke();
+            if (node.HasChildNodes)
+                CanDelete = (MessageBox.Show(this.Parent, "Delete folder and sub-folders/applications?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK);
+
+            if (CanDelete)
+            {
+                XmlNode parentNode = node.ParentNode;
+                parentNode.RemoveChild(node);
+                Controls.Remove(b);
+                SaveXML();
+                GC.Collect();
+
+                if ((CurrentParentNode != null) && (Controls.Count == 0))
+                    GoBack();
+                else
+                    OnAppDeleted?.Invoke();
+            }
             InMenu = false;
         }
 
@@ -401,7 +407,8 @@ namespace Apps.Controls
             InMenu = true;
             SuspendLayout();
             AppButton b = GetAppButton(sender);
-            AppsNode.InsertAfter(GetNode(b.AppId), GetNextNode(GetNode(b.AppId)));
+            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+            ParentNode.InsertAfter(GetNode(b.AppId), GetNextNode(GetNode(b.AppId)));
             Controls.SetChildIndex(b, GetAppButtonIndex(b) - 1); // indexes for panels are backwards last control is 0, first control is count. Dumb.
             SaveXML();
             GC.Collect();
@@ -414,7 +421,8 @@ namespace Apps.Controls
             InMenu = true;
             SuspendLayout();
             AppButton b = GetAppButton(sender);
-            AppsNode.InsertBefore(GetNode(b.AppId), GetPrevNode(GetNode(b.AppId)));
+            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+            ParentNode.InsertBefore(GetNode(b.AppId), GetPrevNode(GetNode(b.AppId)));
             Controls.SetChildIndex(b, GetAppButtonIndex(b)+1); // indexes for panels are backwards last control is 0, first control is count. Dumb.
             SaveXML();
             GC.Collect();

@@ -22,8 +22,7 @@ namespace Apps
         private Label ButtonText = new Label();
         private Label FolderArrow = new Label();
         private Timer MissingIconTimer = new Timer();
-
-        
+                
         public new ContextMenuStrip ContextMenuStrip
         {
             get 

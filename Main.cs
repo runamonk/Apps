@@ -35,7 +35,7 @@ namespace Apps
         private About AboutForm = new About();
         private AppButton MenuMainButton { get; set; }
         private AppButton BackButton { get; set; }
-
+        private Label SubfolderName { get; set; }
         private AppButton PinButton { get; set; }
         private AppMenu MenuMain { get; set; }
         private Config Config { get; set; }
@@ -48,7 +48,6 @@ namespace Apps
         private bool pinned = false;
 
         #region Todo
-        // Folders
         // seperators
         #endregion
 
@@ -75,8 +74,11 @@ namespace Apps
 
         private void AppsLoaded()
         {
+            SuspendLayout();
+            SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
             AutoSizeForm(true);
+            ResumeLayout();
         }
 
         private void Main_Deactivate(object sender, EventArgs e)
@@ -228,17 +230,14 @@ namespace Apps
                 MenuMain = new AppMenu(Config);
                 MenuMain.Opening += new System.ComponentModel.CancelEventHandler(MenuApps_Opening);
                 MenuMain.Closed += new ToolStripDropDownClosedEventHandler(MenuApps_Closed);
-                ToolStripMenuItem t;
-                t = new ToolStripMenuItem("&About");
-                t.Click += new EventHandler(MenuAbout_Click);
-                MenuMain.Items.Add(t);
+                MenuMain.ShowCheckMargin = false;
+                MenuMain.ShowImageMargin = false;
+
+                Funcs.AddMenuItem(MenuMain, "About", MenuAbout_Click);
                 MenuMain.Items.Add(new ToolStripSeparator());
-                t = new ToolStripMenuItem("&Settings");
-                t.Click += new EventHandler(MenuSettings_Click);
-                MenuMain.Items.Add(t);
-                t = new ToolStripMenuItem("&Close");
-                t.Click += new EventHandler(MenuClose_Click);
-                MenuMain.Items.Add(t);
+                Funcs.AddMenuItem(MenuMain, "Settings", MenuSettings_Click);
+                Funcs.AddMenuItem(MenuMain, "Close", MenuClose_Click);
+
                 MenuMainButton = new AppButton(Config, true)
                 {
                     Width = 25,
@@ -264,6 +263,19 @@ namespace Apps
                 BackButton.Padding = new Padding(0, 0, 0, 0);
                 BackButton.Margin = new Padding(0, 0, 0, 0);
                 pTop.Controls.SetChildIndex(BackButton, 0);
+
+                SubfolderName = new Label();
+                SubfolderName.AutoSize = false;
+                SubfolderName.UseMnemonic = false;
+                SubfolderName.AutoEllipsis = true;
+                SubfolderName.UseCompatibleTextRendering = true;
+                SubfolderName.BorderStyle = BorderStyle.None;
+                SubfolderName.TextAlign = ContentAlignment.MiddleCenter;
+                SubfolderName.Parent = pTop;
+                SubfolderName.Padding = new Padding(0, 3, 0, 3);
+                SubfolderName.Margin = new Padding(0, 0, 0, 0);
+                pTop.Controls.SetChildIndex(SubfolderName, 0);
+                SubfolderName.Dock = DockStyle.Fill;
 
                 PinButton = new AppButton(Config, false, true)
                 {
@@ -291,6 +303,7 @@ namespace Apps
             Text = Funcs.GetName() + " v" + Funcs.GetVersion();
             pTop.BackColor = Config.AppsHeaderColor;
             BackColor = Config.AppsBackColor;
+            SubfolderName.ForeColor = Config.MenuFontColor;
             RegisterHotKey(this.Handle, 1, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
         }
 

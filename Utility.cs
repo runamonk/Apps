@@ -13,6 +13,14 @@ namespace Utility
 {
     class Funcs
     {
+        public static ToolStripMenuItem AddMenuItem(ToolStrip Menu, string Caption, EventHandler Event)
+        {
+            ToolStripMenuItem t = new ToolStripMenuItem(Caption);
+            t.Click += new EventHandler(Event);
+            Menu.Items.Add(t);
+            return t;
+        }
+
         public static string AppPath(string FileName)
         {
             return Path.GetDirectoryName(Application.ExecutablePath) + "\\" + FileName;

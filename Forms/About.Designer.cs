@@ -85,8 +85,9 @@
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(273, 102);
             this.lblDesc.TabIndex = 4;
-            this.lblDesc.Text = "A simple application launcher tool.";
+            this.lblDesc.Text = "A simple application launcher.";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDesc.UseCompatibleTextRendering = true;
             // 
             // linkEmail
             // 
