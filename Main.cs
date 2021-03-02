@@ -250,15 +250,15 @@ namespace Apps
                 MenuMainButton.Padding = new Padding(0,0,0,0);
                 MenuMainButton.Margin = new Padding(0,0,0,0);
 
-                BackButton = new AppButton(Config, true)
+                BackButton = new AppButton(Config, true, false, false, true)
                 {
                     Width = 25,
                     Parent = pTop,
                     Dock = DockStyle.Left,
                     Visible = false
                 };
-                BackButton.Font = new Font("Segoe UI Symbol", 12, FontStyle.Regular);
-                BackButton.AppName = "⮌";
+                BackButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
+                BackButton.AppName = "\u25C1";
                 BackButton.Click += BackButton_Click;
                 BackButton.Padding = new Padding(0, 0, 0, 0);
                 BackButton.Margin = new Padding(0, 0, 0, 0);

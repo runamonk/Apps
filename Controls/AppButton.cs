@@ -15,6 +15,7 @@ namespace Apps
         public bool IsMenuButton = false;
         public bool IsPinButton = false;
         public bool IsFolderButton = false;
+        public bool IsBackButton = false;
 
         private PictureBox PBox = new PictureBox();
         private Panel BorderPanel = new Panel();
@@ -100,11 +101,12 @@ namespace Apps
         public delegate void AppButtonDropEventhandler(AppButton Button, DragEventArgs e);
         public event AppButtonDropEventhandler OnAppButtonDropped;
 
-        public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false, bool isFolderButton = false)
+        public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false, bool isFolderButton = false, bool isBackButton = false)
         {
             IsMenuButton = isMenuButton;
             IsPinButton = isPinButton;
             IsFolderButton = isFolderButton;
+            IsBackButton = isBackButton;
 
             BorderPanel.Parent = this;
             BorderPanel.Dock = DockStyle.Fill;
@@ -187,6 +189,12 @@ namespace Apps
             {
                 ToolTip PinButtonToolTip = new ToolTip();
                 PinButtonToolTip.SetToolTip(ButtonText, "Click to pin/unpin form (overrides autohide).");
+            }
+            else
+            if (IsBackButton)
+            {
+                ToolTip BackButtonToolTip = new ToolTip();
+                BackButtonToolTip.SetToolTip(ButtonText, "Click to go back.");
             }
 
             AppsConfig = myConfig;

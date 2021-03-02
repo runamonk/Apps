@@ -1,6 +1,7 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="f13c91e2-3577-484e-912f-eb66908fc04d" appname="PuTTY suite" filename="D:\Tools\putty.exe" fileiconpath="" fileargs="" />
+    <APP id="0472f9b4-47ea-493b-98d1-7f608981ac71" foldername="test" />
     <APP id="5eb89e29-bf0a-428a-b047-bdcd090d7608" appname="WinDirStat" filename="D:\Tools\WinDirStat\windirstat.exe" fileiconpath="" fileargs="" />
     <APP id="5fbbd67e-3295-4294-a6ea-95319c5f1a92" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="" fileargs="" />
   </APPS>
