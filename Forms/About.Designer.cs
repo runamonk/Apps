@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblDesc = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.HideForm = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.linkEmail = new System.Windows.Forms.LinkLabel();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.linkEmail = new System.Windows.Forms.LinkLabel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.HideForm = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lblDesc = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -53,6 +53,62 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(275, 150);
             this.panel1.TabIndex = 0;
+            // 
+            // lblDesc
+            // 
+            this.lblDesc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDesc.Location = new System.Drawing.Point(0, 45);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(273, 73);
+            this.lblDesc.TabIndex = 6;
+            this.lblDesc.Text = "A simple application launcher.";
+            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDesc.UseCompatibleTextRendering = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.HideForm);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.linkEmail);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(0, 118);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(273, 30);
+            this.panel2.TabIndex = 5;
+            // 
+            // HideForm
+            // 
+            this.HideForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HideForm.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HideForm.Location = new System.Drawing.Point(246, 5);
+            this.HideForm.Margin = new System.Windows.Forms.Padding(0);
+            this.HideForm.Name = "HideForm";
+            this.HideForm.Size = new System.Drawing.Size(23, 21);
+            this.HideForm.TabIndex = 9;
+            this.HideForm.Text = "✖";
+            this.HideForm.UseCompatibleTextRendering = true;
+            this.HideForm.UseVisualStyleBackColor = false;
+            this.HideForm.Click += new System.EventHandler(this.Close_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "©2021";
+            // 
+            // linkEmail
+            // 
+            this.linkEmail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.linkEmail.Location = new System.Drawing.Point(0, 0);
+            this.linkEmail.Name = "linkEmail";
+            this.linkEmail.Size = new System.Drawing.Size(273, 30);
+            this.linkEmail.TabIndex = 7;
+            this.linkEmail.TabStop = true;
+            this.linkEmail.Text = "runamonk@onlyzuul.org";
+            this.linkEmail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblVersion
             // 
@@ -73,59 +129,6 @@
             this.lblName.TabIndex = 0;
             this.lblName.Text = "[NAME]";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // linkEmail
-            // 
-            this.linkEmail.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.linkEmail.Location = new System.Drawing.Point(0, 0);
-            this.linkEmail.Name = "linkEmail";
-            this.linkEmail.Size = new System.Drawing.Size(273, 30);
-            this.linkEmail.TabIndex = 7;
-            this.linkEmail.TabStop = true;
-            this.linkEmail.Text = "runamonk@onlyzuul.org";
-            this.linkEmail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "©2021";
-            // 
-            // HideForm
-            // 
-            this.HideForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.HideForm.Location = new System.Drawing.Point(246, 5);
-            this.HideForm.Name = "HideForm";
-            this.HideForm.Size = new System.Drawing.Size(23, 21);
-            this.HideForm.TabIndex = 9;
-            this.HideForm.Text = "X";
-            this.HideForm.UseVisualStyleBackColor = false;
-            this.HideForm.Click += new System.EventHandler(this.Close_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.HideForm);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.linkEmail);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 118);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(273, 30);
-            this.panel2.TabIndex = 5;
-            // 
-            // lblDesc
-            // 
-            this.lblDesc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDesc.Location = new System.Drawing.Point(0, 45);
-            this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(273, 73);
-            this.lblDesc.TabIndex = 6;
-            this.lblDesc.Text = "A simple application launcher.";
-            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblDesc.UseCompatibleTextRendering = true;
             // 
             // About
             // 
