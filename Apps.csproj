@@ -170,7 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Apps.ico" />
-    <Content Include="Clips.ico" />
     <Content Include="Window-Open.ico" />
   </ItemGroup>
   <ItemGroup>
