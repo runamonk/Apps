@@ -36,7 +36,7 @@ namespace Apps
             AppFontColor.BackColor = Color.Black;
             AppSelectedColor.BackColor = Color.Gray;
             MenuBackColor.BackColor = Color.White;
-            MenuBorderColor.BackColor = Color.Gray;
+            MenuBorderColor.BackColor = Color.White;
             MenuButtonColor.BackColor = Color.White;
             MenuFontColor.BackColor = Color.Black;
             MenuSelectedColor.BackColor = Color.Gray;

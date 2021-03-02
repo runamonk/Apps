@@ -452,7 +452,6 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label11.Location = new System.Drawing.Point(38, 25);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(28, 13);
@@ -499,7 +498,6 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label9.Location = new System.Drawing.Point(42, 25);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(42, 13);
@@ -530,7 +528,6 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(42, 58);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(28, 13);
