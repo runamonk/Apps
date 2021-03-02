@@ -1,11 +1,5 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="adcb7a5b-7b13-41b1-b5ad-d167df3daac6" foldername="test">
-      <APP id="79b4cd0a-49e8-4a6d-afa8-71acf2a2a876" appname="Steam" filename="D:\Tools\links\Steam.lnk" fileiconpath="" fileargs="" />
-      <APP id="de269c06-ba7d-4571-965a-f36b03897695" appname="UserBenchMark" filename="D:\Tools\links\UserBenchMark.lnk" fileiconpath="" fileargs="" />
-      <APP id="c024afdf-c54a-4513-b4af-c4ef3b7e90ec" appname="WhatInStartup" filename="D:\Tools\links\WhatInStartup.lnk" fileiconpath="" fileargs="" />
-      <APP id="a64a104f-2424-494a-986e-4b7e069527b4" appname="WhoCrashed" filename="D:\Tools\links\WhoCrashed.lnk" fileiconpath="" fileargs="" />
-    </APP>
     <APP id="f13c91e2-3577-484e-912f-eb66908fc04d" appname="PuTTY suite" filename="D:\Tools\putty.exe" fileiconpath="" fileargs="" />
     <APP id="5eb89e29-bf0a-428a-b047-bdcd090d7608" appname="WinDirStat" filename="D:\Tools\WinDirStat\windirstat.exe" fileiconpath="" fileargs="" />
     <APP id="5fbbd67e-3295-4294-a6ea-95319c5f1a92" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="" fileargs="" />
