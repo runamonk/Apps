@@ -7,9 +7,15 @@ namespace Apps
 {
     public partial class About : Form
     {
-        public About()
+        public About(Config myConfig)
         {
             InitializeComponent();
+            BackColor = myConfig.AppsBackColor;
+            ForeColor = myConfig.AppsFontColor;
+            HideForm.BackColor = BackColor;
+            HideForm.ForeColor = ForeColor;
+            linkEmail.ForeColor = ForeColor;
+            linkEmail.LinkColor = ForeColor;
         }
 
         private void About_Load(object sender, EventArgs e)

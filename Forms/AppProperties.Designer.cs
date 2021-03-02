@@ -31,10 +31,10 @@
             this.PanelBack = new System.Windows.Forms.Panel();
             this.EditFileArgs = new System.Windows.Forms.TextBox();
             this.PanelLeft = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.ArgsLabel = new System.Windows.Forms.Label();
+            this.IconLabel = new System.Windows.Forms.Label();
+            this.PathLabel = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
             this.Browse = new System.Windows.Forms.Button();
             this.EditAppFilePath = new System.Windows.Forms.TextBox();
             this.EditAppIcon = new System.Windows.Forms.PictureBox();
@@ -64,6 +64,7 @@
             // 
             // EditFileArgs
             // 
+            this.EditFileArgs.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EditFileArgs.Location = new System.Drawing.Point(72, 93);
             this.EditFileArgs.Name = "EditFileArgs";
             this.EditFileArgs.Size = new System.Drawing.Size(294, 20);
@@ -71,69 +72,72 @@
             // 
             // PanelLeft
             // 
-            this.PanelLeft.Controls.Add(this.label4);
-            this.PanelLeft.Controls.Add(this.label3);
-            this.PanelLeft.Controls.Add(this.label2);
-            this.PanelLeft.Controls.Add(this.label1);
+            this.PanelLeft.Controls.Add(this.ArgsLabel);
+            this.PanelLeft.Controls.Add(this.IconLabel);
+            this.PanelLeft.Controls.Add(this.PathLabel);
+            this.PanelLeft.Controls.Add(this.NameLabel);
             this.PanelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.PanelLeft.Location = new System.Drawing.Point(0, 0);
             this.PanelLeft.Name = "PanelLeft";
             this.PanelLeft.Size = new System.Drawing.Size(68, 186);
             this.PanelLeft.TabIndex = 12;
             // 
-            // label4
+            // ArgsLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 95);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Arguments";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ArgsLabel.AutoSize = true;
+            this.ArgsLabel.Location = new System.Drawing.Point(9, 95);
+            this.ArgsLabel.Name = "ArgsLabel";
+            this.ArgsLabel.Size = new System.Drawing.Size(57, 13);
+            this.ArgsLabel.TabIndex = 15;
+            this.ArgsLabel.Text = "Arguments";
+            this.ArgsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label3
+            // IconLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 120);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(28, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Icon";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.IconLabel.AutoSize = true;
+            this.IconLabel.Location = new System.Drawing.Point(38, 120);
+            this.IconLabel.Name = "IconLabel";
+            this.IconLabel.Size = new System.Drawing.Size(28, 13);
+            this.IconLabel.TabIndex = 14;
+            this.IconLabel.Text = "Icon";
+            this.IconLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label2
+            // PathLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Path";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.PathLabel.AutoSize = true;
+            this.PathLabel.Location = new System.Drawing.Point(37, 33);
+            this.PathLabel.Name = "PathLabel";
+            this.PathLabel.Size = new System.Drawing.Size(29, 13);
+            this.PathLabel.TabIndex = 13;
+            this.PathLabel.Text = "Path";
+            this.PathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
+            // NameLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(31, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Name";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(31, 8);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(35, 13);
+            this.NameLabel.TabIndex = 12;
+            this.NameLabel.Text = "Name";
+            this.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Browse
             // 
-            this.Browse.Location = new System.Drawing.Point(368, 29);
+            this.Browse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Browse.Location = new System.Drawing.Point(368, 30);
             this.Browse.Margin = new System.Windows.Forms.Padding(0);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(24, 24);
             this.Browse.TabIndex = 3;
             this.Browse.Text = "...";
+            this.Browse.UseCompatibleTextRendering = true;
             this.Browse.UseVisualStyleBackColor = true;
             this.Browse.Click += new System.EventHandler(this.Browse_Click);
             // 
             // EditAppFilePath
             // 
+            this.EditAppFilePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EditAppFilePath.Location = new System.Drawing.Point(72, 30);
             this.EditAppFilePath.Margin = new System.Windows.Forms.Padding(0);
             this.EditAppFilePath.Multiline = true;
@@ -155,6 +159,7 @@
             // 
             // EditAppName
             // 
+            this.EditAppName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.EditAppName.Location = new System.Drawing.Point(72, 5);
             this.EditAppName.Name = "EditAppName";
             this.EditAppName.Size = new System.Drawing.Size(320, 20);
@@ -164,6 +169,7 @@
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonCancel.Location = new System.Drawing.Point(317, 158);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
@@ -175,6 +181,7 @@
             // ButtonOK
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonOK.Location = new System.Drawing.Point(236, 158);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
@@ -212,10 +219,10 @@
         private System.Windows.Forms.Button ButtonOK;
         private System.Windows.Forms.Button Browse;
         private System.Windows.Forms.Panel PanelLeft;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label IconLabel;
+        private System.Windows.Forms.Label PathLabel;
+        private System.Windows.Forms.Label NameLabel;
+        private System.Windows.Forms.Label ArgsLabel;
         private System.Windows.Forms.TextBox EditAppName;
         private System.Windows.Forms.PictureBox EditAppIcon;
         private System.Windows.Forms.TextBox EditAppFilePath;

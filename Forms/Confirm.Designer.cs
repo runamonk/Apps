@@ -43,15 +43,16 @@ namespace Apps.Forms
             this.panel2.Controls.Add(this.ButtonCancel);
             this.panel2.Controls.Add(this.ButtonOK);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 97);
+            this.panel2.Location = new System.Drawing.Point(0, 37);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(409, 49);
+            this.panel2.Size = new System.Drawing.Size(409, 43);
             this.panel2.TabIndex = 1;
             // 
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(207, 13);
+            this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonCancel.Location = new System.Drawing.Point(207, 9);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 5;
@@ -61,7 +62,8 @@ namespace Apps.Forms
             // ButtonOK
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonOK.Location = new System.Drawing.Point(126, 13);
+            this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonOK.Location = new System.Drawing.Point(126, 9);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 4;
@@ -75,7 +77,7 @@ namespace Apps.Forms
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(409, 97);
+            this.panel1.Size = new System.Drawing.Size(409, 37);
             this.panel1.TabIndex = 2;
             // 
             // ConfirmText
@@ -83,7 +85,7 @@ namespace Apps.Forms
             this.ConfirmText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ConfirmText.Location = new System.Drawing.Point(0, 0);
             this.ConfirmText.Name = "ConfirmText";
-            this.ConfirmText.Size = new System.Drawing.Size(409, 97);
+            this.ConfirmText.Size = new System.Drawing.Size(409, 37);
             this.ConfirmText.TabIndex = 0;
             this.ConfirmText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.ConfirmText.UseCompatibleTextRendering = true;
@@ -93,13 +95,19 @@ namespace Apps.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 146);
+            this.ClientSize = new System.Drawing.Size(409, 80);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Confirm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Confirm";
+            this.TopMost = true;
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

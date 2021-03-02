@@ -9,9 +9,17 @@ namespace Apps.Forms
 {
     public partial class AppProperties : Form
     {
-        public AppProperties()
+        public AppProperties(Config myConfig)
         {
             InitializeComponent();
+            BackColor = myConfig.AppsBackColor;
+            ForeColor = myConfig.AppsFontColor;
+            EditAppFilePath.BackColor = myConfig.AppsBackColor;
+            EditAppFilePath.ForeColor = myConfig.AppsFontColor;
+            EditAppName.BackColor = myConfig.AppsBackColor;
+            EditAppName.ForeColor = myConfig.AppsFontColor;
+            EditFileArgs.BackColor = myConfig.AppsBackColor;
+            EditFileArgs.ForeColor = myConfig.AppsFontColor;
         }
 
         public string AppFileName

@@ -12,9 +12,15 @@ namespace Apps.Forms
 {
     public partial class AddFolder : Form
     {
-        public AddFolder()
+        public AddFolder(Config myConfig)
         {
             InitializeComponent();
+
+            BackColor = myConfig.AppsBackColor;
+            ForeColor = myConfig.AppsFontColor;
+            FolderNameEdit.BackColor = BackColor;
+            ButtonOK.BackColor = BackColor;
+            ButtonCancel.BackColor = BackColor;
         }
 
         public string FolderName

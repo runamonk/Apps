@@ -56,6 +56,18 @@ namespace Apps
                     MenuFontColor.BackColor = _Config.MenuFontColor;
                     MenuSelectedColor.BackColor = _Config.MenuSelectedColor;
                     OpenAtMouse.Checked = _Config.OpenFormAtCursor;
+
+                    BackColor = Config.AppsBackColor;
+                    ForeColor = Config.AppsFontColor;
+                    OK.BackColor = BackColor;
+                    Cancel.BackColor = BackColor;
+                    Key.BackColor = BackColor;
+                    Key.ForeColor = ForeColor;
+                    GroupApps.ForeColor = ForeColor;
+                    GroupHotkey.ForeColor = ForeColor;
+                    GroupMenu.ForeColor = ForeColor;
+                    GroupOptions.ForeColor = ForeColor;
+                    GroupTheme.ForeColor = ForeColor;
                 }
             }
 

@@ -50,7 +50,6 @@ namespace Apps.Controls
         {
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
-            ToolStripMenuItem t;
             MenuRC = new AppMenu(myConfig);
             MenuRC.ShowCheckMargin = false;
             MenuRC.ShowImageMargin = false;
@@ -333,7 +332,7 @@ namespace Apps.Controls
         private void MenuAddApp_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            AppProperties f = new AppProperties();
+            AppProperties f = new AppProperties(AppsConfig);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
@@ -356,7 +355,7 @@ namespace Apps.Controls
         private void MenuAddFolder_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            AddFolder f = new AddFolder();
+            AddFolder f = new AddFolder(AppsConfig);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
@@ -382,9 +381,8 @@ namespace Apps.Controls
             AppButton b = GetAppButton(sender);
             XmlNode node = GetNode(b.AppId);
             bool CanDelete = true;
-
-            if (node.HasChildNodes)
-                CanDelete = (MessageBox.Show(this.Parent, "Delete folder and sub-folders/applications?", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK);
+            Confirm f = new Confirm(AppsConfig);
+            CanDelete = (f.ShowAsDialog("Delete?", (node.HasChildNodes || b.IsFolderButton ? "Delete folder, sub-folders and applications?" : "Delete application?")) == DialogResult.OK);
 
             if (CanDelete)
             {
@@ -438,7 +436,7 @@ namespace Apps.Controls
 
             if (b.IsFolderButton)
             {
-                AddFolder f = new AddFolder();
+                AddFolder f = new AddFolder(AppsConfig);
                 f.FolderName = b.AppName;
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
@@ -451,7 +449,7 @@ namespace Apps.Controls
             }
             else
             {
-                AppProperties f = new AppProperties();
+                AppProperties f = new AppProperties(AppsConfig);
                 f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {

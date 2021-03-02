@@ -48,8 +48,8 @@
             this.Cancel = new System.Windows.Forms.Button();
             this.OK = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupOther = new System.Windows.Forms.GroupBox();
-            this.gbHotkey = new System.Windows.Forms.GroupBox();
+            this.GroupOptions = new System.Windows.Forms.GroupBox();
+            this.GroupHotkey = new System.Windows.Forms.GroupBox();
             this.Clear = new System.Windows.Forms.Button();
             this.Windows = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,16 +57,16 @@
             this.Alt = new System.Windows.Forms.CheckBox();
             this.Control = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.GroupTheme = new System.Windows.Forms.GroupBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.GroupMenu = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.GroupApps = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -77,21 +77,22 @@
             this.LightTheme = new System.Windows.Forms.RadioButton();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupOther.SuspendLayout();
-            this.gbHotkey.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this.GroupOptions.SuspendLayout();
+            this.GroupHotkey.SuspendLayout();
+            this.GroupTheme.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.GroupMenu.SuspendLayout();
+            this.GroupApps.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // AutoSizeHeight
             // 
             this.AutoSizeHeight.AutoSize = true;
+            this.AutoSizeHeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AutoSizeHeight.Location = new System.Drawing.Point(6, 60);
             this.AutoSizeHeight.Name = "AutoSizeHeight";
-            this.AutoSizeHeight.Size = new System.Drawing.Size(101, 17);
+            this.AutoSizeHeight.Size = new System.Drawing.Size(98, 17);
             this.AutoSizeHeight.TabIndex = 2;
             this.AutoSizeHeight.Text = "Auto size height";
             this.toolTip1.SetToolTip(this.AutoSizeHeight, "Check to automatically size Apps height to the number of Apps.");
@@ -100,9 +101,10 @@
             // OpenAtMouse
             // 
             this.OpenAtMouse.AutoSize = true;
+            this.OpenAtMouse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenAtMouse.Location = new System.Drawing.Point(6, 39);
             this.OpenAtMouse.Name = "OpenAtMouse";
-            this.OpenAtMouse.Size = new System.Drawing.Size(98, 17);
+            this.OpenAtMouse.Size = new System.Drawing.Size(95, 17);
             this.OpenAtMouse.TabIndex = 1;
             this.OpenAtMouse.Text = "Open at mouse";
             this.toolTip1.SetToolTip(this.OpenAtMouse, "Check to automatically display Apps at mouse.");
@@ -111,9 +113,10 @@
             // Startup
             // 
             this.Startup.AutoSize = true;
+            this.Startup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Startup.Location = new System.Drawing.Point(6, 18);
             this.Startup.Name = "Startup";
-            this.Startup.Size = new System.Drawing.Size(112, 17);
+            this.Startup.Size = new System.Drawing.Size(109, 17);
             this.Startup.TabIndex = 0;
             this.Startup.Text = "Start automatically";
             this.toolTip1.SetToolTip(this.Startup, "Check to automatically start Apps.");
@@ -121,6 +124,7 @@
             // 
             // Key
             // 
+            this.Key.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Key.Location = new System.Drawing.Point(63, 19);
             this.Key.Name = "Key";
             this.Key.Size = new System.Drawing.Size(80, 20);
@@ -228,7 +232,7 @@
             this.groupBox2.Controls.Add(this.Cancel);
             this.groupBox2.Controls.Add(this.OK);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(5, 327);
+            this.groupBox2.Location = new System.Drawing.Point(5, 302);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(439, 54);
             this.groupBox2.TabIndex = 4;
@@ -237,6 +241,7 @@
             // Cancel
             // 
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Cancel.Location = new System.Drawing.Point(90, 14);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(76, 33);
@@ -247,6 +252,7 @@
             // OK
             // 
             this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OK.Location = new System.Drawing.Point(7, 14);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(76, 33);
@@ -256,58 +262,63 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.groupOther);
-            this.panel1.Controls.Add(this.gbHotkey);
+            this.panel1.Controls.Add(this.GroupOptions);
+            this.panel1.Controls.Add(this.GroupHotkey);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(5, 5);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(439, 117);
+            this.panel1.Size = new System.Drawing.Size(439, 89);
             this.panel1.TabIndex = 6;
             // 
-            // groupOther
+            // GroupOptions
             // 
-            this.groupOther.Controls.Add(this.AutoSizeHeight);
-            this.groupOther.Controls.Add(this.OpenAtMouse);
-            this.groupOther.Controls.Add(this.Startup);
-            this.groupOther.Location = new System.Drawing.Point(311, 3);
-            this.groupOther.Name = "groupOther";
-            this.groupOther.Size = new System.Drawing.Size(122, 109);
-            this.groupOther.TabIndex = 5;
-            this.groupOther.TabStop = false;
+            this.GroupOptions.Controls.Add(this.AutoSizeHeight);
+            this.GroupOptions.Controls.Add(this.OpenAtMouse);
+            this.GroupOptions.Controls.Add(this.Startup);
+            this.GroupOptions.Location = new System.Drawing.Point(305, 3);
+            this.GroupOptions.Margin = new System.Windows.Forms.Padding(0);
+            this.GroupOptions.Name = "GroupOptions";
+            this.GroupOptions.Size = new System.Drawing.Size(133, 80);
+            this.GroupOptions.TabIndex = 5;
+            this.GroupOptions.TabStop = false;
             // 
-            // gbHotkey
+            // GroupHotkey
             // 
-            this.gbHotkey.Controls.Add(this.Clear);
-            this.gbHotkey.Controls.Add(this.Key);
-            this.gbHotkey.Controls.Add(this.Windows);
-            this.gbHotkey.Controls.Add(this.label2);
-            this.gbHotkey.Controls.Add(this.Shift);
-            this.gbHotkey.Controls.Add(this.Alt);
-            this.gbHotkey.Controls.Add(this.Control);
-            this.gbHotkey.Controls.Add(this.label1);
-            this.gbHotkey.Location = new System.Drawing.Point(6, 3);
-            this.gbHotkey.Name = "gbHotkey";
-            this.gbHotkey.Size = new System.Drawing.Size(299, 109);
-            this.gbHotkey.TabIndex = 4;
-            this.gbHotkey.TabStop = false;
-            this.gbHotkey.Text = "Popup Hotkey";
+            this.GroupHotkey.Controls.Add(this.Clear);
+            this.GroupHotkey.Controls.Add(this.Key);
+            this.GroupHotkey.Controls.Add(this.Windows);
+            this.GroupHotkey.Controls.Add(this.label2);
+            this.GroupHotkey.Controls.Add(this.Shift);
+            this.GroupHotkey.Controls.Add(this.Alt);
+            this.GroupHotkey.Controls.Add(this.Control);
+            this.GroupHotkey.Controls.Add(this.label1);
+            this.GroupHotkey.Location = new System.Drawing.Point(0, 3);
+            this.GroupHotkey.Name = "GroupHotkey";
+            this.GroupHotkey.Size = new System.Drawing.Size(299, 80);
+            this.GroupHotkey.TabIndex = 4;
+            this.GroupHotkey.TabStop = false;
+            this.GroupHotkey.Text = "Popup Hotkey";
             // 
             // Clear
             // 
+            this.Clear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Clear.Location = new System.Drawing.Point(156, 19);
             this.Clear.Name = "Clear";
             this.Clear.Size = new System.Drawing.Size(46, 20);
             this.Clear.TabIndex = 7;
             this.Clear.Text = "Clear";
+            this.Clear.UseCompatibleTextRendering = true;
             this.Clear.UseVisualStyleBackColor = true;
             this.Clear.Click += new System.EventHandler(this.Clear_Click);
             // 
             // Windows
             // 
             this.Windows.AutoSize = true;
+            this.Windows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Windows.Location = new System.Drawing.Point(209, 45);
             this.Windows.Name = "Windows";
-            this.Windows.Size = new System.Drawing.Size(70, 17);
+            this.Windows.Size = new System.Drawing.Size(67, 17);
             this.Windows.TabIndex = 4;
             this.Windows.Text = "Windows";
             this.Windows.UseVisualStyleBackColor = true;
@@ -325,9 +336,10 @@
             // Shift
             // 
             this.Shift.AutoSize = true;
+            this.Shift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Shift.Location = new System.Drawing.Point(162, 45);
             this.Shift.Name = "Shift";
-            this.Shift.Size = new System.Drawing.Size(47, 17);
+            this.Shift.Size = new System.Drawing.Size(44, 17);
             this.Shift.TabIndex = 3;
             this.Shift.Text = "Shift";
             this.Shift.UseVisualStyleBackColor = true;
@@ -335,9 +347,10 @@
             // Alt
             // 
             this.Alt.AutoSize = true;
+            this.Alt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Alt.Location = new System.Drawing.Point(123, 45);
             this.Alt.Name = "Alt";
-            this.Alt.Size = new System.Drawing.Size(38, 17);
+            this.Alt.Size = new System.Drawing.Size(35, 17);
             this.Alt.TabIndex = 2;
             this.Alt.Text = "Alt";
             this.Alt.UseVisualStyleBackColor = true;
@@ -345,9 +358,10 @@
             // Control
             // 
             this.Control.AutoSize = true;
+            this.Control.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Control.Location = new System.Drawing.Point(63, 45);
             this.Control.Name = "Control";
-            this.Control.Size = new System.Drawing.Size(59, 17);
+            this.Control.Size = new System.Drawing.Size(56, 17);
             this.Control.TabIndex = 1;
             this.Control.Text = "Control";
             this.Control.UseVisualStyleBackColor = true;
@@ -362,48 +376,48 @@
             this.label1.Text = "Key";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // groupBox6
+            // GroupTheme
             // 
-            this.groupBox6.Controls.Add(this.panel4);
-            this.groupBox6.Controls.Add(this.panel5);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox6.Location = new System.Drawing.Point(5, 122);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(439, 205);
-            this.groupBox6.TabIndex = 7;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Colors";
+            this.GroupTheme.Controls.Add(this.panel4);
+            this.GroupTheme.Controls.Add(this.panel5);
+            this.GroupTheme.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupTheme.Location = new System.Drawing.Point(5, 94);
+            this.GroupTheme.Name = "GroupTheme";
+            this.GroupTheme.Size = new System.Drawing.Size(439, 208);
+            this.GroupTheme.TabIndex = 7;
+            this.GroupTheme.TabStop = false;
+            this.GroupTheme.Text = "Colors";
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.groupBox3);
+            this.panel4.Controls.Add(this.GroupMenu);
             this.panel4.Controls.Add(this.panel2);
-            this.panel4.Controls.Add(this.groupBox4);
+            this.panel4.Controls.Add(this.GroupApps);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 49);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(433, 153);
+            this.panel4.Size = new System.Drawing.Size(433, 156);
             this.panel4.TabIndex = 1;
             // 
-            // groupBox3
+            // GroupMenu
             // 
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.MenuButtonColor);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.MenuSelectedColor);
-            this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.MenuBorderColor);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.MenuFontColor);
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.MenuBackColor);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(205, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(228, 153);
-            this.groupBox3.TabIndex = 24;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Menu";
+            this.GroupMenu.Controls.Add(this.label15);
+            this.GroupMenu.Controls.Add(this.MenuButtonColor);
+            this.GroupMenu.Controls.Add(this.label13);
+            this.GroupMenu.Controls.Add(this.MenuSelectedColor);
+            this.GroupMenu.Controls.Add(this.label12);
+            this.GroupMenu.Controls.Add(this.MenuBorderColor);
+            this.GroupMenu.Controls.Add(this.label11);
+            this.GroupMenu.Controls.Add(this.MenuFontColor);
+            this.GroupMenu.Controls.Add(this.label10);
+            this.GroupMenu.Controls.Add(this.MenuBackColor);
+            this.GroupMenu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupMenu.Location = new System.Drawing.Point(203, 0);
+            this.GroupMenu.Name = "GroupMenu";
+            this.GroupMenu.Size = new System.Drawing.Size(230, 156);
+            this.GroupMenu.TabIndex = 24;
+            this.GroupMenu.TabStop = false;
+            this.GroupMenu.Text = "Menu";
             // 
             // label15
             // 
@@ -461,26 +475,26 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(197, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(8, 153);
+            this.panel2.Size = new System.Drawing.Size(6, 156);
             this.panel2.TabIndex = 23;
             // 
-            // groupBox4
+            // GroupApps
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.AppHeaderColor);
-            this.groupBox4.Controls.Add(this.label8);
-            this.groupBox4.Controls.Add(this.AppSelectedColor);
-            this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.AppBackColor);
-            this.groupBox4.Controls.Add(this.AppFontColor);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox4.Location = new System.Drawing.Point(0, 0);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(197, 153);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Apps";
+            this.GroupApps.Controls.Add(this.label9);
+            this.GroupApps.Controls.Add(this.AppHeaderColor);
+            this.GroupApps.Controls.Add(this.label8);
+            this.GroupApps.Controls.Add(this.AppSelectedColor);
+            this.GroupApps.Controls.Add(this.label3);
+            this.GroupApps.Controls.Add(this.label5);
+            this.GroupApps.Controls.Add(this.AppBackColor);
+            this.GroupApps.Controls.Add(this.AppFontColor);
+            this.GroupApps.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GroupApps.Location = new System.Drawing.Point(0, 0);
+            this.GroupApps.Name = "GroupApps";
+            this.GroupApps.Size = new System.Drawing.Size(197, 156);
+            this.GroupApps.TabIndex = 0;
+            this.GroupApps.TabStop = false;
+            this.GroupApps.Text = "Apps";
             // 
             // label9
             // 
@@ -572,8 +586,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 386);
-            this.Controls.Add(this.groupBox6);
+            this.ClientSize = new System.Drawing.Size(449, 361);
+            this.Controls.Add(this.GroupTheme);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -590,16 +604,16 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormConfig_KeyDown);
             this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.groupOther.ResumeLayout(false);
-            this.groupOther.PerformLayout();
-            this.gbHotkey.ResumeLayout(false);
-            this.gbHotkey.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
+            this.GroupOptions.ResumeLayout(false);
+            this.GroupOptions.PerformLayout();
+            this.GroupHotkey.ResumeLayout(false);
+            this.GroupHotkey.PerformLayout();
+            this.GroupTheme.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.GroupMenu.ResumeLayout(false);
+            this.GroupMenu.PerformLayout();
+            this.GroupApps.ResumeLayout(false);
+            this.GroupApps.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.ResumeLayout(false);
@@ -613,11 +627,9 @@
         public System.Windows.Forms.Button Cancel;
         public System.Windows.Forms.Button OK;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox groupOther;
         public System.Windows.Forms.CheckBox AutoSizeHeight;
         public System.Windows.Forms.CheckBox OpenAtMouse;
         public System.Windows.Forms.CheckBox Startup;
-        private System.Windows.Forms.GroupBox gbHotkey;
         public System.Windows.Forms.TextBox Key;
         public System.Windows.Forms.CheckBox Windows;
         private System.Windows.Forms.Label label2;
@@ -625,9 +637,7 @@
         public System.Windows.Forms.CheckBox Alt;
         public System.Windows.Forms.CheckBox Control;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.Panel AppHeaderColor;
         private System.Windows.Forms.Label label8;
@@ -640,7 +650,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.RadioButton DarkTheme;
         private System.Windows.Forms.RadioButton LightTheme;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label15;
         public System.Windows.Forms.Panel MenuButtonColor;
         private System.Windows.Forms.Label label13;
@@ -653,5 +662,10 @@
         public System.Windows.Forms.Panel MenuBackColor;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button Clear;
+        public System.Windows.Forms.GroupBox GroupOptions;
+        public System.Windows.Forms.GroupBox GroupHotkey;
+        public System.Windows.Forms.GroupBox GroupTheme;
+        public System.Windows.Forms.GroupBox GroupApps;
+        public System.Windows.Forms.GroupBox GroupMenu;
     }
 }

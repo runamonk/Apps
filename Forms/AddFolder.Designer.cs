@@ -51,6 +51,7 @@
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonCancel.Location = new System.Drawing.Point(126, 43);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
@@ -61,6 +62,7 @@
             // ButtonOK
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonOK.Location = new System.Drawing.Point(45, 43);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
@@ -79,6 +81,7 @@
             // 
             // FolderNameEdit
             // 
+            this.FolderNameEdit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.FolderNameEdit.Location = new System.Drawing.Point(46, 10);
             this.FolderNameEdit.Name = "FolderNameEdit";
             this.FolderNameEdit.Size = new System.Drawing.Size(154, 20);

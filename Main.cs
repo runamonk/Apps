@@ -31,8 +31,7 @@ namespace Apps
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-
-        private About AboutForm = new About();
+                
         private AppButton MenuMainButton { get; set; }
         private AppButton BackButton { get; set; }
         private Label SubfolderName { get; set; }
@@ -107,6 +106,7 @@ namespace Apps
         private void MenuAbout_Click(object sender, EventArgs e)
         {
             inAbout = true;
+            About AboutForm = new About(Config);
             AboutForm.Show(this);
             inAbout = false;
         }
