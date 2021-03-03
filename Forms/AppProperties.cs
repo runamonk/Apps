@@ -54,7 +54,6 @@ namespace Apps.Forms
             get { return this.EditWorkingFolder.Text.Trim(); }
         }
 
-
         public string AppIconPath
         {
             get { return FAppIconPath; }
