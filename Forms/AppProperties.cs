@@ -12,6 +12,7 @@ namespace Apps.Forms
         public AppProperties(Config myConfig)
         {
             InitializeComponent();
+            AppsConfig = myConfig;
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
             EditAppFilePath.BackColor = myConfig.AppsBackColor;
@@ -22,9 +23,13 @@ namespace Apps.Forms
             EditFileArgs.ForeColor = myConfig.AppsFontColor;
             ButtonParseShortcut.BackColor = myConfig.AppsBackColor;
             ButtonParseShortcut.ForeColor = myConfig.AppsFontColor;
+            EditWorkingFolder.BackColor = myConfig.AppsBackColor;
+            EditWorkingFolder.ForeColor = myConfig.AppsFontColor;
             toolTip.SetToolTip(Browse, "Click to browse for file(s).");
             toolTip.SetToolTip(ButtonParseShortcut, "Click to replace file properties from the shortcut.");
         }
+
+        private Config AppsConfig;
 
         public string AppFileName
         {
@@ -44,16 +49,23 @@ namespace Apps.Forms
             get { return this.EditFileArgs.Text.Trim(); }
         }
 
+        public string AppFileWorkingFolder
+        {
+            get { return this.EditWorkingFolder.Text.Trim(); }
+        }
+
+
         public string AppIconPath
         {
             get { return FAppIconPath; }
         }
 
-        public void SetFileProperties(string appName, string filePath, string fileIcon, string fileArgs)
+        public void SetFileProperties(string appName, string filePath, string fileIcon, string fileArgs, string fileWorkingFolder)
         {
             EditAppName.Text = appName;
             EditAppFilePath.Text = filePath;
             EditFileArgs.Text = fileArgs;
+            EditWorkingFolder.Text = fileWorkingFolder;
 
             string s = fileIcon;
 
@@ -70,7 +82,7 @@ namespace Apps.Forms
             if (fileName != "")
             {
                 FileVersionInfo f = Funcs.GetFileInfo(fileName);
-                SetFileProperties(f.ProductName, f.FileName, null, null);
+                SetFileProperties(f.ProductName, f.FileName, null, null, null);
             }
         }
 
@@ -86,7 +98,14 @@ namespace Apps.Forms
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            IsCancelled = false;
+            EditWorkingFolder.Text = EditWorkingFolder.Text.Trim();
+            if ((EditWorkingFolder.Text != "") && (!Directory.Exists(EditWorkingFolder.Text)))
+            {            
+                Confirm d = new Confirm(AppsConfig);
+                IsCancelled = (d.ShowAsDialog("Are you sure?","Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.OK);             
+            }
+            else
+                IsCancelled = false;
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -148,8 +167,16 @@ namespace Apps.Forms
             string FileName = "";
             string FileIcon = "";
             string FileArgs = "";
-            Funcs.ParseShortcut(EditAppFilePath.Text, out FileName, out FileIcon, out FileArgs);
-            SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileArgs);
+            string FileWF = "";
+            Funcs.ParseShortcut(EditAppFilePath.Text, out FileName, out FileIcon, out FileArgs, out FileWF);
+            SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileArgs, FileWF);
+        }
+
+        private void BrowseWF_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            if ((f.ShowDialog() == DialogResult.OK) && (Directory.Exists(f.SelectedPath)))
+                EditWorkingFolder.Text = f.SelectedPath;
         }
     }
 }

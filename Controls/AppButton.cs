@@ -74,7 +74,7 @@ namespace Apps
             }
         }
         public string FileArgs { get; set; }
-
+        public string FileWorkingFolder { get; set; }
         public Image FileIconImage
         {
             set 
@@ -280,7 +280,7 @@ namespace Apps
                     try
                     {
                         ProcessStartInfo procStartInfo = new ProcessStartInfo(FileName, FileArgs);
-                        procStartInfo.WorkingDirectory = Path.GetDirectoryName(FileName);
+                        procStartInfo.WorkingDirectory = FileWorkingFolder;
                         Process.Start(procStartInfo);
                     }
                     catch (Exception error)
