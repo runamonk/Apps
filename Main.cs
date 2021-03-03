@@ -46,8 +46,16 @@ namespace Apps
         private bool inSettings = false;
         private bool pinned = false;
 
+        private string ICON_PINNED_W7 = "\u25FC";
+        private string ICON_UNPINNED_W7 = "\u25FB";
+        private string ICON_PINNED = "\uE1F6";
+        private string ICON_UNPINNED = "\uE1F7";
+        private string ICON_MAINMENU = "\uE0C2";
+        private string ICON_MAINMENU_W7 = "\u268A";
+
         #region Todo
         // seperators
+        // link and open a literal folder
         #endregion
 
         #region Events
@@ -150,12 +158,12 @@ namespace Apps
             if (!pinned)
             {
                 pinned = true;
-                b.AppName = "";
+                b.AppName = (Funcs.IsWindows7() ? ICON_PINNED_W7 : ICON_PINNED);
             }
             else
             {
                 pinned = false;
-                b.AppName = "";
+                b.AppName = (Funcs.IsWindows7() ? ICON_UNPINNED_W7 : ICON_UNPINNED);
             }
         }
 
@@ -244,8 +252,8 @@ namespace Apps
                     Parent = pTop,
                     Dock = DockStyle.Left
                 };
-                MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                MenuMainButton.AppName = "";
+                MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);             
+                MenuMainButton.AppName = (Funcs.IsWindows7() ? ICON_MAINMENU_W7 : ICON_MAINMENU);
                 MenuMainButton.Click += MainButton_Click;
                 MenuMainButton.Padding = new Padding(0,0,0,0);
                 MenuMainButton.Margin = new Padding(0,0,0,0);
@@ -284,7 +292,7 @@ namespace Apps
                     Dock = DockStyle.Right
                 };
                 PinButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                PinButton.AppName = "";
+                PinButton.AppName = (Funcs.IsWindows7() ? ICON_UNPINNED_W7 : ICON_UNPINNED);
                 PinButton.Click += PinButton_Click;
                 PinButton.Padding = new Padding(0,0,0,0);
                 PinButton.Margin = new Padding(0,0,0,0);

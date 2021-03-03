@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using Utility;
 
@@ -20,6 +20,10 @@ namespace Apps.Forms
             EditAppName.ForeColor = myConfig.AppsFontColor;
             EditFileArgs.BackColor = myConfig.AppsBackColor;
             EditFileArgs.ForeColor = myConfig.AppsFontColor;
+            ButtonParseShortcut.BackColor = myConfig.AppsBackColor;
+            ButtonParseShortcut.ForeColor = myConfig.AppsFontColor;
+            toolTip.SetToolTip(Browse, "Click to browse for file(s).");
+            toolTip.SetToolTip(ButtonParseShortcut, "Click to replace file properties from the shortcut.");
         }
 
         public string AppFileName
@@ -56,6 +60,7 @@ namespace Apps.Forms
             if (string.IsNullOrEmpty(s))
                 s = filePath;
 
+            FAppIconPath = s;
             EditAppIcon.Image = Funcs.GetIcon(s);
         }
 
@@ -131,6 +136,20 @@ namespace Apps.Forms
                 EditAppFilePath.ReadOnly = true;
                 EditAppIcon.Enabled = true;
             }
+        }
+
+        private void EditAppFilePath_TextChanged(object sender, EventArgs e)
+        {
+            ButtonParseShortcut.Enabled = Funcs.IsShortcut(EditAppFilePath.Text);
+        }
+
+        private void ButtonParseShortcut_Click(object sender, EventArgs e)
+        {
+            string FileName = "";
+            string FileIcon = "";
+            string FileArgs = "";
+            Funcs.ParseShortcut(EditAppFilePath.Text, out FileName, out FileIcon, out FileArgs);
+            SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileArgs);
         }
     }
 }

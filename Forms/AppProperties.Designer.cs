@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.PanelBack = new System.Windows.Forms.Panel();
+            this.ButtonParseShortcut = new System.Windows.Forms.Button();
             this.EditFileArgs = new System.Windows.Forms.TextBox();
             this.PanelLeft = new System.Windows.Forms.Panel();
             this.ArgsLabel = new System.Windows.Forms.Label();
@@ -41,6 +43,7 @@
             this.EditAppName = new System.Windows.Forms.TextBox();
             this.ButtonCancel = new System.Windows.Forms.Button();
             this.ButtonOK = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.PanelBack.SuspendLayout();
             this.PanelLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditAppIcon)).BeginInit();
@@ -48,6 +51,7 @@
             // 
             // PanelBack
             // 
+            this.PanelBack.Controls.Add(this.ButtonParseShortcut);
             this.PanelBack.Controls.Add(this.EditFileArgs);
             this.PanelBack.Controls.Add(this.PanelLeft);
             this.PanelBack.Controls.Add(this.Browse);
@@ -61,6 +65,20 @@
             this.PanelBack.Name = "PanelBack";
             this.PanelBack.Size = new System.Drawing.Size(397, 186);
             this.PanelBack.TabIndex = 0;
+            // 
+            // ButtonParseShortcut
+            // 
+            this.ButtonParseShortcut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonParseShortcut.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ButtonParseShortcut.Location = new System.Drawing.Point(368, 58);
+            this.ButtonParseShortcut.Margin = new System.Windows.Forms.Padding(0);
+            this.ButtonParseShortcut.Name = "ButtonParseShortcut";
+            this.ButtonParseShortcut.Size = new System.Drawing.Size(24, 24);
+            this.ButtonParseShortcut.TabIndex = 13;
+            this.ButtonParseShortcut.Text = "✔";
+            this.ButtonParseShortcut.UseCompatibleTextRendering = true;
+            this.ButtonParseShortcut.UseVisualStyleBackColor = true;
+            this.ButtonParseShortcut.Click += new System.EventHandler(this.ButtonParseShortcut_Click);
             // 
             // EditFileArgs
             // 
@@ -125,7 +143,7 @@
             // Browse
             // 
             this.Browse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Browse.Location = new System.Drawing.Point(368, 30);
+            this.Browse.Location = new System.Drawing.Point(368, 29);
             this.Browse.Margin = new System.Windows.Forms.Padding(0);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(24, 24);
@@ -138,13 +156,14 @@
             // EditAppFilePath
             // 
             this.EditAppFilePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.EditAppFilePath.Location = new System.Drawing.Point(72, 30);
+            this.EditAppFilePath.Location = new System.Drawing.Point(72, 29);
             this.EditAppFilePath.Margin = new System.Windows.Forms.Padding(0);
             this.EditAppFilePath.Multiline = true;
             this.EditAppFilePath.Name = "EditAppFilePath";
             this.EditAppFilePath.ReadOnly = true;
             this.EditAppFilePath.Size = new System.Drawing.Size(294, 60);
             this.EditAppFilePath.TabIndex = 2;
+            this.EditAppFilePath.TextChanged += new System.EventHandler(this.EditAppFilePath_TextChanged);
             // 
             // EditAppIcon
             // 
@@ -227,5 +246,7 @@
         private System.Windows.Forms.PictureBox EditAppIcon;
         private System.Windows.Forms.TextBox EditAppFilePath;
         private System.Windows.Forms.TextBox EditFileArgs;
+        private System.Windows.Forms.Button ButtonParseShortcut;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

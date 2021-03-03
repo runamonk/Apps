@@ -56,6 +56,7 @@ namespace Apps
                     MenuFontColor.BackColor = _Config.MenuFontColor;
                     MenuSelectedColor.BackColor = _Config.MenuSelectedColor;
                     OpenAtMouse.Checked = _Config.OpenFormAtCursor;
+                    ChkParseShortcuts.Checked = _Config.ParseShortcuts;
 
                     BackColor = Config.AppsBackColor;
                     ForeColor = Config.AppsFontColor;
@@ -105,6 +106,7 @@ namespace Apps
                 _Config.OpenFormAtCursor = OpenAtMouse.Checked;
                 _Config.PopupHotkeyModifier = i;
                 _Config.StartWithWindows = Startup.Checked;
+                _Config.ParseShortcuts = ChkParseShortcuts.Checked;
 
                 DialogResult = System.Windows.Forms.DialogResult.OK;
             }
@@ -396,6 +398,17 @@ namespace Apps
                 return bool.Parse(s);
             }
             set { SetKey("open_form_at_cursor", value.ToString()); }
+        }
+
+        public Boolean ParseShortcuts
+        {
+            get {
+                string s = FindKey("parse_shortcuts");
+                if (s == "")
+                    s = SetKey("parse_shortcuts", "false");
+                return bool.Parse(s);
+            }
+            set { SetKey("parse_shortcuts", value.ToString()); }
         }
 
         public string PopupHotkey

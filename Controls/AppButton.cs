@@ -23,7 +23,10 @@ namespace Apps
         private Label ButtonText = new Label();
         private Label FolderArrow = new Label();
         private Timer MissingIconTimer = new Timer();
-                
+
+        private string ICON_FOLDER = "\uE188";
+        private string ICON_FOLDER_W7 = "\u25B7";
+
         public new ContextMenuStrip ContextMenuStrip
         {
             get 
@@ -125,11 +128,11 @@ namespace Apps
                 FolderArrow.AutoSize = false;
                 FolderArrow.Dock = DockStyle.Left;
                 FolderArrow.Font = new Font("Segoe UI Symbol", 10, FontStyle.Regular);
-                FolderArrow.Width = 24;
+                FolderArrow.Width = 22;
                 FolderArrow.BorderStyle = BorderStyle.None;
                 FolderArrow.Padding = new Padding(0, 0, 0, 0);
                 FolderArrow.Margin = new Padding(0, 0, 0, 0);
-                FolderArrow.Text = ""; // Right Triangle "";
+                FolderArrow.Text = (Funcs.IsWindows7() ? ICON_FOLDER_W7 : ICON_FOLDER);
                 FolderArrow.Visible = true;
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
@@ -138,7 +141,7 @@ namespace Apps
             {
                 PBox.Parent = ButtonPanel;
                 PBox.Dock = DockStyle.Left;
-                PBox.Width = 24;
+                PBox.Width = 22;
                 PBox.BorderStyle = BorderStyle.None;
                 PBox.Padding = new Padding(0, 0, 0, 0);
                 PBox.Margin = new Padding(0, 0, 0, 0);

@@ -56,6 +56,7 @@ namespace Apps.Controls
             MenuRC.Opening += new CancelEventHandler(Menu_Opening);
 
             Funcs.AddMenuItem(MenuRC, "Add Application", MenuAddApp_Click);
+            Funcs.AddMenuItem(MenuRC, "Add Folder Link", MenuAddFolderLink_Click);
             Funcs.AddMenuItem(MenuRC, "Add Folder", MenuAddFolder_Click);
             EditMenuItem = Funcs.AddMenuItem(MenuRC, "Edit", MenuEdit_Click);
             DeleteMenuItem = Funcs.AddMenuItem(MenuRC, "Delete", MenuDelete_Click);
@@ -150,12 +151,6 @@ namespace Apps.Controls
             else
                 b.AppId = AppId;
             b.AutoSize = false;
-            b.AppName = AppName;
-            b.FileName = fileName;
-            b.FileArgs = fileArgs;
-            b.FileIconPath = fileIconPath;
-            if (b.FileIconImage == null)
-                b.WatchForIconUpdate = true;
             
             XmlNode node = GetNode(b.AppId);
             XmlNode nodeSib = null;
@@ -164,13 +159,18 @@ namespace Apps.Controls
                        
             if (node == null)
             {
+                if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(fileName))
+                {
+                    AppName = Path.GetFileNameWithoutExtension(fileName);
+                    Funcs.ParseShortcut(fileName, out fileName, out fileIconPath, out fileArgs);
+                }
+
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
                 AddAttrib(node, "id", b.AppId);
                 AddAttrib(node, "appname", AppName);
                 AddAttrib(node, "filename", fileName);
                 AddAttrib(node, "fileiconpath", fileIconPath);
                 AddAttrib(node, "fileargs", fileArgs);
-
                 XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
                 if (nodeSib == null)
                     ParentNode.AppendChild(node);
@@ -178,6 +178,14 @@ namespace Apps.Controls
                     ParentNode.InsertAfter(node, nodeSib);
                 SaveXML();
             }
+
+            b.AppName = AppName;
+            b.FileName = fileName;
+            b.FileArgs = fileArgs;
+            b.FileIconPath = fileIconPath;
+            if (b.FileIconImage == null)
+                b.WatchForIconUpdate = true;
+
             OnAppAdded?.Invoke();
             ResumeLayout();
         }
@@ -204,6 +212,7 @@ namespace Apps.Controls
         private void DropToButton(AppButton App, DragEventArgs e)
         {
             SuspendLayout();
+
             int i = Controls.GetChildIndex(App);
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -211,8 +220,12 @@ namespace Apps.Controls
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string filePath in files)
                 {
-                    string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
-                    AddItem(null, AppName, filePath, null, null, i);
+                    if (File.Exists(filePath))
+                    {
+                        string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
+                        AddItem(null, AppName, filePath, null, null, i);
+
+                    }
                 }
             }
             ResumeLayout();
@@ -227,7 +240,10 @@ namespace Apps.Controls
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 foreach (string filePath in files)
                 {
-                    AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, 0);
+                    if (File.Exists(filePath))
+                    {
+                        AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, 0);
+                    }
                 }
             }
             ResumeLayout();
@@ -375,6 +391,29 @@ namespace Apps.Controls
             InMenu = false;
         }
 
+        private void MenuAddFolderLink_Click(object sender, EventArgs e)
+        {
+            InMenu = true;
+            //AddFolder f = new AddFolder(AppsConfig);
+
+            //if (f.ShowDialog(this) == DialogResult.OK)
+            //{
+            //    var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+            //    if (c is AppPanel)
+            //    {
+            //        AddItem(null, f.FolderName, 0);
+            //    }
+            //    else
+            //    {
+            //        AppButton b = GetAppButton(sender);
+            //        int i = Controls.GetChildIndex(b);
+            //        AddItem(null, f.FolderName, i);
+            //    }
+            //}
+            GC.Collect();
+            InMenu = false;
+        }
+
         private void MenuDelete_Click(object sender, EventArgs e)
         {
             InMenu = true;
@@ -391,11 +430,7 @@ namespace Apps.Controls
                 Controls.Remove(b);
                 SaveXML();
                 GC.Collect();
-
-                if ((CurrentParentNode != null) && (Controls.Count == 0))
-                    GoBack();
-                else
-                    OnAppDeleted?.Invoke();
+                OnAppDeleted?.Invoke();
             }
             InMenu = false;
         }
@@ -455,7 +490,8 @@ namespace Apps.Controls
                 {
                     XmlNode node = GetNode(b.AppId);
                     int i = Controls.GetChildIndex(b);
-                    AppsNode.RemoveChild(node);
+                    XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+                    ParentNode.RemoveChild(node);
                     Controls.Remove(b);
                     AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, i);
                     SaveXML();
