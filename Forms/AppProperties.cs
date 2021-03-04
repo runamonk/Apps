@@ -97,14 +97,7 @@ namespace Apps.Forms
 
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            EditWorkingFolder.Text = EditWorkingFolder.Text.Trim();
-            if ((EditWorkingFolder.Text != "") && (!Directory.Exists(EditWorkingFolder.Text)))
-            {            
-                Confirm d = new Confirm(AppsConfig);
-                IsCancelled = (d.ShowAsDialog("Are you sure?","Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.OK);             
-            }
-            else
-                IsCancelled = false;
+
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -116,23 +109,23 @@ namespace Apps.Forms
         {
             if (!IsCancelled)
             {
-                // We'll use this for seperators.
-                if (AppName == "-")
+                string ErrorStr = "";
+                if (AppName == "")
+                    ErrorStr = "Please enter a name.";
+                if (AppFileName == "")
+                    ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please browse to a file to launch.";
+
+                EditWorkingFolder.Text = EditWorkingFolder.Text.Trim();
+
+                if ((EditWorkingFolder.Text != "") && (!Directory.Exists(EditWorkingFolder.Text)))
                 {
-                    
+                    e.Cancel = (Misc.ConfirmDialog(AppsConfig, "Are you sure?", "Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.OK);
                 }
-                else
+  
+                if (ErrorStr != "")
                 {
-                    string ErrorStr = "";
-                    if (AppName == "")
-                        ErrorStr = "Please enter a name.";
-                    if (AppFileName == "")
-                        ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please browse to a file to launch.";
-                    if (ErrorStr != "")
-                    {
-                        MessageBox.Show(this, ErrorStr, "Error");
-                        e.Cancel = true;
-                    }
+                    Misc.ShowMessage(AppsConfig,"Error", ErrorStr);
+                    e.Cancel = true;
                 }
             }
         }
@@ -176,6 +169,15 @@ namespace Apps.Forms
             FolderBrowserDialog f = new FolderBrowserDialog();
             if ((f.ShowDialog() == DialogResult.OK) && (Directory.Exists(f.SelectedPath)))
                 EditWorkingFolder.Text = f.SelectedPath;
+        }
+
+        private void AppProperties_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ButtonOK.PerformClick();
+            else
+            if (e.KeyCode == Keys.Escape)
+                ButtonCancel.PerformClick();
         }
     }
 }

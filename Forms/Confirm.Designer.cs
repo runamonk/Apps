@@ -100,6 +100,7 @@ namespace Apps.Forms
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Confirm";
@@ -108,6 +109,7 @@ namespace Apps.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Confirm";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Confirm_KeyDown);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

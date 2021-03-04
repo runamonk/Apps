@@ -10,31 +10,30 @@ using System.Windows.Forms;
 
 namespace Apps.Forms
 {
-    public partial class Confirm : Form
+    public partial class Message : Form
     {
-        public Confirm(Config myConfig)
+        public Message(Config myConfig)
         {
             InitializeComponent();
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
             ButtonOK.BackColor = BackColor;
-            ButtonCancel.BackColor = BackColor;
         }
 
-        public DialogResult ShowAsDialog(string Caption, string Message)
-        {
-            Text = Caption;
-            ConfirmText.Text = Message;
-            return ShowDialog();
-        }
-
-        private void Confirm_KeyDown(object sender, KeyEventArgs e)
+        private void Message_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOK.PerformClick();
             else
             if (e.KeyCode == Keys.Escape)
-                ButtonCancel.PerformClick();
+                ButtonOK.PerformClick();
+        }
+
+        public DialogResult ShowAsDialog(string Caption, string Message)
+        {
+            Text = Caption;
+            MessageText.Text = Message;
+            return ShowDialog();
         }
     }
 }

@@ -187,7 +187,7 @@ namespace Apps
         {
             if (RunningInstance() != null)
             {
-                MessageBox.Show("There is already a version of Apps running.");
+                Misc.ShowMessage(Config, "", "There is already a version of Apps running.");
                 Application.Exit();
             }
             else

@@ -58,6 +58,7 @@
             this.ButtonCancel.TabIndex = 3;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // ButtonOK
             // 
@@ -86,7 +87,6 @@
             this.FolderNameEdit.Name = "FolderNameEdit";
             this.FolderNameEdit.Size = new System.Drawing.Size(154, 20);
             this.FolderNameEdit.TabIndex = 0;
-            this.FolderNameEdit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FolderName_KeyDown);
             // 
             // AddFolder
             // 
@@ -95,10 +95,13 @@
             this.ClientSize = new System.Drawing.Size(210, 79);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.Name = "AddFolder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Folder";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddFolder_FormClosing);
             this.Load += new System.EventHandler(this.AddFolder_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AddFolder_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

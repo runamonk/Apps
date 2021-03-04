@@ -16,7 +16,7 @@ namespace Apps
             if (e.KeyCode == Keys.Enter)
                 OK.PerformClick();
             else
-                if (e.KeyCode == Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
                 Cancel.PerformClick();
         }
 
