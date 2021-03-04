@@ -12,8 +12,6 @@ namespace Apps
             InitializeComponent();
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
-            HideForm.BackColor = BackColor;
-            HideForm.ForeColor = ForeColor;
             linkEmail.ForeColor = ForeColor;
             linkEmail.LinkColor = ForeColor;
         }
@@ -47,7 +45,7 @@ namespace Apps
         private void About_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-                HideForm.PerformClick();
+                Hide();
         }
     }
 }

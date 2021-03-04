@@ -8,6 +8,7 @@ using Utility;
 using System.Diagnostics;
 using System.Reflection;
 using Apps.Controls;
+using Apps.Forms;
 
 namespace Apps
 {
@@ -199,14 +200,14 @@ namespace Apps
         {
             if (RunningInstance() != null)
             {
-                Misc.ShowMessage(Config, "", "There is already a version of Apps running.");
+                MessageBox.Show("There is already a version of Apps running.");
                 Application.Exit();
             }
             else
                 base.OnLoad(e);
         }
 
-        protected override void WndProc(ref Message m)
+        protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             if (m.Msg == 0x0312) //WM_HOTKEY
             {

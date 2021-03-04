@@ -80,7 +80,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(400, 80);
-            this.ControlBox = false;
             this.Controls.Add(this.PanelTop);
             this.Controls.Add(this.PanelBottom);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -88,7 +87,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Message";
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Message";

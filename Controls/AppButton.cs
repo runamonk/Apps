@@ -39,8 +39,7 @@ namespace Apps
 
         private string ICON_FOLDER = "\uE188";
         private string ICON_FOLDER_W7 = "\u25B7";
-        private string ICON_FOLDER_LINK = "\u23FA";
-        private string ICON_FOLDER_LINK_W7 = "\u25CF";
+        private string ICON_FOLDER_LINK = "\u25CF";
 
         public new ContextMenuStrip ContextMenuStrip
         {
@@ -175,7 +174,7 @@ namespace Apps
                 FolderArrow.BorderStyle = BorderStyle.None;
                 FolderArrow.Padding = new Padding(0, 0, 0, 0);
                 FolderArrow.Margin = new Padding(0, 0, 0, 0);
-                FolderArrow.Text = (Funcs.IsWindows7() ? ICON_FOLDER_LINK_W7 : ICON_FOLDER_LINK); 
+                FolderArrow.Text = ICON_FOLDER_LINK; 
                 FolderArrow.Visible = true;
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);

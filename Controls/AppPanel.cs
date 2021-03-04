@@ -46,7 +46,7 @@ namespace Apps.Controls
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
         private string AppIdLookup = "//APPS//APP[@id='{0}']";
 
-        public AppPanel(Config myConfig)
+        public AppPanel(Config myConfig)    
         {
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
@@ -466,7 +466,17 @@ namespace Apps.Controls
             AppButton b = GetAppButton(sender);
             XmlNode node = GetNode(b.AppId);
             bool CanDelete = true;
-            CanDelete = (Misc.ConfirmDialog(AppsConfig, "Delete " + b.AppName + "?", (node.HasChildNodes || b.IsFolderButton ? "Delete folder, sub-folders and applications?" : "Delete application?")) == DialogResult.OK);
+            string s = "";
+            if (b.IsAppButton)
+                s = "application?";
+            else
+            if (b.IsFolderButton)
+                s = "folder and all children?";
+            else
+            if (b.IsFolderLinkButton)
+                s = "folder link?";
+
+            CanDelete = (Misc.ConfirmDialog(AppsConfig, "Delete " + b.AppName + "?", "Delete " + s) == DialogResult.OK);
 
             if (CanDelete)
             {

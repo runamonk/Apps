@@ -32,7 +32,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblDesc = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.HideForm = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.linkEmail = new System.Windows.Forms.LinkLabel();
             this.lblVersion = new System.Windows.Forms.Label();
@@ -67,7 +66,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.HideForm);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.linkEmail);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -75,20 +73,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(273, 30);
             this.panel2.TabIndex = 5;
-            // 
-            // HideForm
-            // 
-            this.HideForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.HideForm.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HideForm.Location = new System.Drawing.Point(246, 5);
-            this.HideForm.Margin = new System.Windows.Forms.Padding(0);
-            this.HideForm.Name = "HideForm";
-            this.HideForm.Size = new System.Drawing.Size(23, 21);
-            this.HideForm.TabIndex = 9;
-            this.HideForm.Text = "✖";
-            this.HideForm.UseCompatibleTextRendering = true;
-            this.HideForm.UseVisualStyleBackColor = false;
-            this.HideForm.Click += new System.EventHandler(this.Close_Click);
             // 
             // label1
             // 
@@ -135,12 +119,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(275, 150);
-            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "About";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "                                                         ";
             this.TopMost = true;
@@ -160,7 +147,6 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button HideForm;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkEmail;
         private System.Windows.Forms.Label lblDesc;

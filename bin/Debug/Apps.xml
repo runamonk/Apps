@@ -1,7 +1,8 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="06146521-c1d1-4f91-8f9e-23cb2456011d" appname="Origin" filename="D:\Games\Origin\Origin.exe" fileiconpath="" fileargs="" />
-    <APP id="af2e165f-31c4-455a-a5f4-0b5dcbee2a62" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileargs="" fileworkingfolder="D:\Tools\WhoCrashed" />
+    <APP id="28b2cec7-8b59-40b3-b301-d728787643b1" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileargs="" fileworkingfolder="" />
+    <APP id="064681e0-c454-4e6c-8799-519df42839ac" appname="World War Z" filename="com.epicgames.launcher://apps/Wombat?action=launch&amp;silent=true" fileiconpath="D:\Games\WorldWarZ\en_us\client\bin\pc\wwzRetailEgs.exe" fileargs="" fileworkingfolder="D:\Games\Epic Game Launcher\Epic Games" />
     <APP id="cf850765-237c-46a6-9691-75d35ecd2e0c" appname="Steam" filename="D:\Games\Steam\Steam.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Games\Steam" />
     <APP id="0d7f950f-f0fa-48ef-8b12-9b0d1a740a72" appname="GOG Galaxy" filename="D:\Games\GOG Galaxy\GalaxyClient.exe" fileiconpath="" fileargs="" />
     <APP id="6a92ac0b-534a-4e17-8165-7d6f33fe3e5c" appname="Cities XXL" filename="steam://rungameid/313010" fileiconpath="D:\Games\Steam\steam\games\3b000d11e4867ac5c05c6a26fc17c9fce56ee0a9.ico" fileargs="" fileworkingfolder="" />
@@ -10,9 +11,9 @@
     <APP id="ccea92b5-94cc-4e8a-b82b-2a4029aa7234" appname="Battle.net" filename="D:\Games\Battle.net\Battle.net.exe" fileiconpath="" fileargs="" />
     <APP id="c6048b4f-eb43-4a78-b254-9c80b019b137" appname="The Long Dark" filename="D:\Games\TheLongDark\tld.exe" fileiconpath="" fileargs="" />
     <APP id="9e1ce954-5c89-4357-bccf-08507b240ff4" appname="Batman: Arkham Knight" filename="D:\Games\BatmanArkhamKnight\Binaries\Win64\BatmanAK.exe" fileiconpath="" fileargs="" />
+    <APP id="b4785250-250d-4167-b6c3-d38baca3097d" appname="World War Z" filename="com.epicgames.launcher://apps/Wombat?action=launch&amp;silent=true" fileiconpath="D:\Games\WorldWarZ\en_us\client\bin\pc\wwzRetailEgs.exe" fileargs="" fileworkingfolder="" />
     <APP id="d2d95656-d37e-4af2-bd3b-13c62e9ec028" appname="RAGE2" filename="D:\Games\Rage2\RAGE2.exe" fileiconpath="" fileargs="" />
     <APP id="63d8e0a6-538e-4e13-ba64-eb472f34bca3" appname="The Medium" filename="D:\Games\TheMedium\Medium.exe" fileiconpath="" fileargs="" />
-    <APP id="089f1944-0a63-4e7e-b55f-7543de101bde" appname="World War Z" filename="com.epicgames.launcher://apps/Wombat?action=launch&amp;silent=true" fileiconpath="D:\Games\WorldWarZ\en_us\client\bin\pc\wwzRetailEgs.exe" fileargs="" />
     <APP id="d5612278-e9f3-44a6-bc32-335f694d629c" appname="Steam" filename="D:\Games\Steam\steam.exe" fileiconpath="D:\Games\Steam\steam.exe" fileargs="" fileworkingfolder="asdfasdfasfd" />
     <APP id="666aab76-8c5b-4569-ac50-3447f3b33ff7" appname="Visual Studio 2019" filename="D:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" fileiconpath="D:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" fileargs="" fileworkingfolder="" />
   </APPS>
