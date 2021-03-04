@@ -362,6 +362,9 @@ namespace Apps
         {
             if (e.KeyCode == Keys.Escape)
                 ToggleShow(true);
+            else
+            if (e.KeyCode == Keys.P)
+                PinButton.PerformClick();
         }
     } // Main
 }

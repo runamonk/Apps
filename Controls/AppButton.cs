@@ -162,7 +162,6 @@ namespace Apps
                 PBox.MouseClick += new MouseEventHandler(TextOnClick);
             }                
             
-            
             ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
             ButtonText.Dock = DockStyle.Fill;
@@ -172,28 +171,23 @@ namespace Apps
             ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
             
             if (IsHeaderButton())
+            {
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
+                ButtonText.TextAlign = ContentAlignment.MiddleCenter;
+                BorderPanel.Padding = new Padding(1, 1, 1, 1);
+            }
             else
             {
                 ButtonText.Padding = new Padding(25, 0, 0, 0);
+                ButtonText.TextAlign = ContentAlignment.MiddleLeft;
+                BorderPanel.Padding = new Padding(0, 0, 0, 0);
                 ButtonText.AllowDrop = true;
                 ButtonText.DragOver += new DragEventHandler(OnDragOver);
                 ButtonText.DragDrop += new DragEventHandler(OnDrop);
             }
 
             ButtonText.Margin = new Padding(0, 0, 0, 0);
-
-            if (IsHeaderButton())
-                ButtonText.TextAlign = ContentAlignment.MiddleCenter;
-            else
-                ButtonText.TextAlign = ContentAlignment.MiddleLeft;
-
             ButtonText.MouseClick += new MouseEventHandler(TextOnClick);
-
-            if (IsHeaderButton())
-                BorderPanel.Padding = new Padding(1, 1, 1, 1);
-            else
-                BorderPanel.Padding = new Padding(0, 0, 0, 0);
 
             AutoSize = false;
 
@@ -256,6 +250,11 @@ namespace Apps
             OnAppButtonDropped?.Invoke(this, e);
         }
 
+        public void PerformClick()
+        {
+            TextOnClick(this, null);
+        }
+
         private void TextMouseEnter(object sender, EventArgs e)
         {
             if (IsHeaderButton())
@@ -282,7 +281,7 @@ namespace Apps
 
         private void TextOnClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if ((e == null) || (e.Button == MouseButtons.Left))
             {
                 if (!IsHeaderButton() && !IsFolderButton)
                 {
