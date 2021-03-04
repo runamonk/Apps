@@ -56,15 +56,17 @@
             // 
             this.pMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pMain.Location = new System.Drawing.Point(0, 25);
+            this.pMain.Margin = new System.Windows.Forms.Padding(0);
             this.pMain.Name = "pMain";
-            this.pMain.Size = new System.Drawing.Size(184, 26);
+            this.pMain.Padding = new System.Windows.Forms.Padding(1);
+            this.pMain.Size = new System.Drawing.Size(184, 49);
             this.pMain.TabIndex = 4;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 51);
+            this.ClientSize = new System.Drawing.Size(184, 74);
             this.ControlBox = false;
             this.Controls.Add(this.pMain);
             this.Controls.Add(this.pTop);

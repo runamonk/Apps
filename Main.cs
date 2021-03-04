@@ -212,7 +212,7 @@ namespace Apps
 
             if (Config.AutoSizeHeight)
             {
-                int c = 68;
+                int c = 66;
                 for (int i = 0; i <= Apps.Controls.Count - 1; i++)
                 {
                     if (Apps.Controls[i].Visible)
@@ -220,7 +220,7 @@ namespace Apps
                 }
 
                 if (c < MaximumSize.Height)
-                    Height = c;
+                    Height = c; //+ pMain.Padding.All;
                 else
                     Height = MaximumSize.Height;
             }

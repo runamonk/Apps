@@ -108,6 +108,18 @@ namespace Apps.Controls
             Node.Attributes.Append(XmlAtt);
         }
 
+        private void AddFiles(string[] Files, int AddAtIndex)
+        {
+            foreach (string filePath in Files)
+            {
+                if (File.Exists(filePath))
+                {
+                    string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
+                    AddItem(null, AppName, filePath, null, null, null, AddAtIndex);
+                }
+            }
+        }
+
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
         {
             SuspendLayout();
@@ -214,21 +226,10 @@ namespace Apps.Controls
         private void DropToButton(AppButton App, DragEventArgs e)
         {
             SuspendLayout();
-
             int i = Controls.GetChildIndex(App);
-
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach (string filePath in files)
-                {
-                    if (File.Exists(filePath))
-                    {
-                        string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
-                        AddItem(null, AppName, filePath, null, null, null, i);
-
-                    }
-                }
+                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop),i);
             }
             ResumeLayout();
         }
@@ -239,14 +240,7 @@ namespace Apps.Controls
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach (string filePath in files)
-                {
-                    if (File.Exists(filePath))
-                    {
-                        AddItem(null, (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName), filePath, null, null, null, 0);
-                    }
-                }
+                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop),0);
             }
             ResumeLayout();
         }
@@ -264,7 +258,6 @@ namespace Apps.Controls
                 return ((AppButton)(c.Parent.Parent.Parent)); // Label > Panel > Panel > AppButton
             }
         }
-
 
         private int GetAppButtonIndex(AppButton appButton)
         {
