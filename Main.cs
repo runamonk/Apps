@@ -247,7 +247,7 @@ namespace Apps
                 Funcs.AddMenuItem(MenuMain, "Settings", MenuSettings_Click);
                 Funcs.AddMenuItem(MenuMain, "Close", MenuClose_Click);
 
-                MenuMainButton = new AppButton(Config, true)
+                MenuMainButton = new AppButton(Config, ButtonType.Menu)
                 {
                     Width = 25,
                     Parent = pTop,
@@ -259,7 +259,7 @@ namespace Apps
                 MenuMainButton.Padding = new Padding(0,0,0,0);
                 MenuMainButton.Margin = new Padding(0,0,0,0);
 
-                BackButton = new AppButton(Config, true, false, false, true)
+                BackButton = new AppButton(Config, ButtonType.Back)
                 {
                     Width = 25,
                     Parent = pTop,
@@ -286,7 +286,7 @@ namespace Apps
                 pTop.Controls.SetChildIndex(SubfolderName, 0);
                 SubfolderName.Dock = DockStyle.Fill;
 
-                PinButton = new AppButton(Config, false, true)
+                PinButton = new AppButton(Config, ButtonType.Pin)
                 {
                     Width = 25,
                     Parent = pTop,

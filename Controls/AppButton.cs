@@ -8,14 +8,27 @@ using System.IO;
 
 namespace Apps
 {
+    public enum ButtonType
+    {
+        App,
+        Menu,
+        Pin,
+        Folder,
+        FolderLink,
+        Back
+    }
 
     public partial class AppButton : Panel
     {
         private Config AppsConfig { get; set; }
-        public bool IsMenuButton = false;
-        public bool IsPinButton = false;
-        public bool IsFolderButton = false;
-        public bool IsBackButton = false;
+        private ButtonType FButtonType;
+
+        public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
+        public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
+        public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
+        public bool IsBackButton { get { return (FButtonType == ButtonType.Back); } }
+        public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
+        public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
 
         private PictureBox PBox = new PictureBox();
         private Panel BorderPanel = new Panel();
@@ -104,13 +117,9 @@ namespace Apps
         public delegate void AppButtonDropEventhandler(AppButton Button, DragEventArgs e);
         public event AppButtonDropEventhandler OnAppButtonDropped;
 
-        public AppButton(Config myConfig, bool isMenuButton = false, bool isPinButton = false, bool isFolderButton = false, bool isBackButton = false)
+        public AppButton(Config myConfig, ButtonType buttonType)
         {
-            IsMenuButton = isMenuButton;
-            IsPinButton = isPinButton;
-            IsFolderButton = isFolderButton;
-            IsBackButton = isBackButton;
-
+            FButtonType = buttonType;
             BorderPanel.Parent = this;
             BorderPanel.Dock = DockStyle.Fill;
             BorderPanel.Margin = new Padding(0, 0, 0, 0);
@@ -188,7 +197,7 @@ namespace Apps
 
             AutoSize = false;
 
-            if (isPinButton)
+            if (IsPinButton)
             {
                 ToolTip PinButtonToolTip = new ToolTip();
                 PinButtonToolTip.SetToolTip(ButtonText, "Click to pin/unpin form (overrides autohide).");
@@ -234,7 +243,7 @@ namespace Apps
 
         private bool IsHeaderButton()
         {
-            return ((IsMenuButton) || (IsPinButton));
+            return (IsMenuButton || IsPinButton || IsBackButton);
         }
 
         private void OnDragOver(object sender, DragEventArgs e)

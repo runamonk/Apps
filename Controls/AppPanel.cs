@@ -86,9 +86,9 @@ namespace Apps.Controls
         public event AppsLoadedHandler OnAppsLoaded;
         #endregion
         
-        private AppButton AddAppButton(bool isMenuButton = false, bool isPinButton = false, bool isFolderButton = false)
+        private AppButton AddAppButton(ButtonType buttonType)
         {
-            AppButton b = new AppButton(AppsConfig,isMenuButton,isPinButton,isFolderButton);
+            AppButton b = new AppButton(AppsConfig, buttonType);
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
             b.OnAppButtonDropped += new AppButton.AppButtonDropEventhandler(DropToButton);
             b.ContextMenuStrip = MenuRC;
@@ -120,10 +120,11 @@ namespace Apps.Controls
             }
         }
 
+
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
         {
             SuspendLayout();
-            AppButton b = AddAppButton(false, false, true);
+            AppButton b = AddAppButton(ButtonType.Folder);
             if (string.IsNullOrEmpty(AppId))
                 b.AppId = Guid.NewGuid().ToString();
             else
@@ -157,7 +158,7 @@ namespace Apps.Controls
         public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, string fileWorkingFolder, int AddAtIndex)
         {
             SuspendLayout();
-            AppButton b = AddAppButton();
+            AppButton b = AddAppButton(ButtonType.App);
             if (string.IsNullOrEmpty(AppId))
                 b.AppId = Guid.NewGuid().ToString();
             else
@@ -199,6 +200,40 @@ namespace Apps.Controls
             b.FileWorkingFolder = fileWorkingFolder;
             if (b.FileIconImage == null)
                 b.WatchForIconUpdate = true;
+
+            OnAppAdded?.Invoke();
+            ResumeLayout();
+        }
+
+        public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath ,int AddAtIndex)
+        {
+            SuspendLayout();
+            AppButton b = AddAppButton(ButtonType.FolderLink);
+            if (string.IsNullOrEmpty(AppId))
+                b.AppId = Guid.NewGuid().ToString();
+            else
+                b.AppId = AppId;
+
+            b.AutoSize = false;
+            b.AppName = FolderLinkName;
+            XmlNode node = GetNode(b.AppId);
+            XmlNode nodeSib = null;
+            nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            if (node == null)
+            {
+                node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+                AddAttrib(node, "id", b.AppId);
+                AddAttrib(node, "foldername", FolderLinkName);
+
+                XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+                if (nodeSib == null)
+                    ParentNode.AppendChild(node);
+                else
+                    ParentNode.InsertAfter(node, nodeSib);
+
+                SaveXML();
+            }
 
             OnAppAdded?.Invoke();
             ResumeLayout();
