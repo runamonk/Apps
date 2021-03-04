@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace Apps.Forms
         public FolderLink(Config myConfig)
         {
             InitializeComponent();
+            AppsConfig = myConfig;
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
             EditFolderName.BackColor = BackColor;
@@ -23,6 +25,24 @@ namespace Apps.Forms
             EditFolderPath.ForeColor = ForeColor;
             ButtonOK.BackColor = BackColor;
             ButtonCancel.BackColor = BackColor;
+        }
+        Config AppsConfig;
+        bool IsCancelled = false;
+
+        public string FolderName
+        {
+            get { return EditFolderName.Text.Trim(); }
+            set {
+                EditFolderName.Text = value;
+            }
+        }
+
+        public string FolderPath
+        {
+            get { return EditFolderPath.Text.Trim(); }
+            set {
+                EditFolderPath.Text = value;
+            }
         }
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
@@ -40,6 +60,44 @@ namespace Apps.Forms
                 Text = "Add Folder Link";
             else
                 Text = "Edit Folder Link";
+        }
+
+        private void FolderLink_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!IsCancelled)
+            {
+                {
+                    string ErrorStr = "";
+
+                    if (FolderName == "")
+                        ErrorStr = "Please enter a folder name.";
+
+                    if (FolderPath == "")
+                        ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please enter a folder path.";
+
+                    if ((FolderPath != "") && (!Directory.Exists(FolderPath)))
+                    {
+                        e.Cancel = (Misc.ConfirmDialog(AppsConfig, "Are you sure?", "Folder: " + FolderPath + " cannot be found.") != DialogResult.OK);
+                    }
+
+                    if (ErrorStr != "")
+                    {
+                        Message f = new Message(AppsConfig);
+                        f.ShowAsDialog("Error", ErrorStr);
+                        e.Cancel = true;
+                    }
+                }
+            }
+        }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            IsCancelled = true;
+        }
+
+        private void ButtonOK_Click(object sender, EventArgs e)
+        {
+            IsCancelled = false;
         }
     }
 }

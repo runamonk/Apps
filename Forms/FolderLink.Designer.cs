@@ -106,6 +106,7 @@ namespace Apps.Forms
             this.ButtonCancel.TabIndex = 8;
             this.ButtonCancel.Text = "Cancel";
             this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // ButtonOK
             // 
@@ -117,6 +118,7 @@ namespace Apps.Forms
             this.ButtonOK.TabIndex = 7;
             this.ButtonOK.Text = "OK";
             this.ButtonOK.UseVisualStyleBackColor = true;
+            this.ButtonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
             // PanelLeft
             // 
@@ -155,8 +157,11 @@ namespace Apps.Forms
             this.ClientSize = new System.Drawing.Size(430, 107);
             this.ControlBox = false;
             this.Controls.Add(this.PanelMain);
+            this.KeyPreview = true;
             this.Name = "FolderLink";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FolderLink";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FolderLink_FormClosing);
             this.Load += new System.EventHandler(this.Form_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
             this.PanelMain.ResumeLayout(false);

@@ -396,24 +396,22 @@ namespace Apps.Controls
         private void MenuAddFolderLink_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            FolderBrowserDialog f = new FolderBrowserDialog();
+            FolderLink f = new FolderLink(AppsConfig);
+            if (f.ShowDialog(this) == DialogResult.OK)
+            {
+                var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
+                if (c is AppPanel)
+                {
+                    //AddItem(null, f.FolderName, 0);
+                }
+                else
+                {
+                    AppButton b = GetAppButton(sender);
+                    int i = Controls.GetChildIndex(b);
+                    //AddItem(null, f.FolderName, i);
+                }
+            }
 
-            //AddFolder f = new AddFolder(AppsConfig);
-
-            //if (f.ShowDialog(this) == DialogResult.OK)
-            //{
-            //    var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
-            //    if (c is AppPanel)
-            //    {
-            //        AddItem(null, f.FolderName, 0);
-            //    }
-            //    else
-            //    {
-            //        AppButton b = GetAppButton(sender);
-            //        int i = Controls.GetChildIndex(b);
-            //        AddItem(null, f.FolderName, i);
-            //    }
-            //}
             GC.Collect();
             InMenu = false;
         }
