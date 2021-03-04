@@ -39,6 +39,8 @@ namespace Apps
 
         private string ICON_FOLDER = "\uE188";
         private string ICON_FOLDER_W7 = "\u25B7";
+        private string ICON_FOLDER_LINK = "\u23FA";
+        private string ICON_FOLDER_LINK_W7 = "\u25CF";
 
         public new ContextMenuStrip ContextMenuStrip
         {
@@ -131,6 +133,22 @@ namespace Apps
             PBox.Visible = false;
             FolderArrow.Visible = false;
 
+            if (IsAppButton)
+            {
+                PBox.Parent = ButtonPanel;
+                PBox.Dock = DockStyle.Left;
+                PBox.Width = 22;
+                PBox.BorderStyle = BorderStyle.None;
+                PBox.Padding = new Padding(0, 0, 0, 0);
+                PBox.Margin = new Padding(0, 0, 0, 0);
+                PBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                MissingIconTimer.Enabled = false;
+                MissingIconTimer.Interval = 10000;
+                MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
+                PBox.Visible = true;
+                PBox.MouseClick += new MouseEventHandler(TextOnClick);
+            }
+            else
             if (IsFolderButton)
             {
                 FolderArrow.Parent = ButtonPanel;
@@ -146,21 +164,22 @@ namespace Apps
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
             }
-            if (!IsHeaderButton() && !IsFolderButton)
+            else
+            if (IsFolderLinkButton)
             {
-                PBox.Parent = ButtonPanel;
-                PBox.Dock = DockStyle.Left;
-                PBox.Width = 22;
-                PBox.BorderStyle = BorderStyle.None;
-                PBox.Padding = new Padding(0, 0, 0, 0);
-                PBox.Margin = new Padding(0, 0, 0, 0);
-                PBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                MissingIconTimer.Enabled = false;
-                MissingIconTimer.Interval = 10000;
-                MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
-                PBox.Visible = true;
-                PBox.MouseClick += new MouseEventHandler(TextOnClick);
-            }                
+                FolderArrow.Parent = ButtonPanel;
+                FolderArrow.AutoSize = false;
+                FolderArrow.Dock = DockStyle.Left;
+                FolderArrow.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
+                FolderArrow.Width = 22;
+                FolderArrow.BorderStyle = BorderStyle.None;
+                FolderArrow.Padding = new Padding(0, 0, 0, 0);
+                FolderArrow.Margin = new Padding(0, 0, 0, 0);
+                FolderArrow.Text = (Funcs.IsWindows7() ? ICON_FOLDER_LINK_W7 : ICON_FOLDER_LINK); 
+                FolderArrow.Visible = true;
+                FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
+                FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
+            }
             
             ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
@@ -283,7 +302,7 @@ namespace Apps
         {
             if ((e == null) || (e.Button == MouseButtons.Left))
             {
-                if (!IsHeaderButton() && !IsFolderButton)
+                if (IsAppButton || IsFolderLinkButton)
                 {
                     try
                     {

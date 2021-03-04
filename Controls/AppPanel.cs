@@ -120,7 +120,6 @@ namespace Apps.Controls
             }
         }
 
-
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
         {
             SuspendLayout();
@@ -216,6 +215,7 @@ namespace Apps.Controls
 
             b.AutoSize = false;
             b.AppName = FolderLinkName;
+            b.FileName = FolderPath;
             XmlNode node = GetNode(b.AppId);
             XmlNode nodeSib = null;
             nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
@@ -224,8 +224,8 @@ namespace Apps.Controls
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
                 AddAttrib(node, "id", b.AppId);
-                AddAttrib(node, "foldername", FolderLinkName);
-
+                AddAttrib(node, "folderlinkname", FolderLinkName);
+                AddAttrib(node, "folderlinkpath", FolderPath);
                 XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
                 if (nodeSib == null)
                     ParentNode.AppendChild(node);
@@ -334,6 +334,9 @@ namespace Apps.Controls
         {
             foreach (XmlNode xn in Nodes)
             {
+                if (xn.Attributes["folderlinkname"] != null)
+                    AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
+                else
                 if (xn.Attributes["foldername"] != null)
                     AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
                 else
@@ -437,13 +440,13 @@ namespace Apps.Controls
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    //AddItem(null, f.FolderName, 0);
+                    AddFolderLink(null, f.FolderName, f.FolderPath, 0);
                 }
                 else
                 {
                     AppButton b = GetAppButton(sender);
                     int i = Controls.GetChildIndex(b);
-                    //AddItem(null, f.FolderName, i);
+                    AddFolderLink(null, f.FolderName, f.FolderPath, i);
                 }
             }
 

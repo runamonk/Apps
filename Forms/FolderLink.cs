@@ -99,5 +99,12 @@ namespace Apps.Forms
         {
             IsCancelled = false;
         }
+
+        private void BrowseWF_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            if ((f.ShowDialog() == DialogResult.OK) && (Directory.Exists(f.SelectedPath)))
+                EditFolderPath.Text = f.SelectedPath;
+        }
     }
 }

@@ -1,6 +1,7 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="06146521-c1d1-4f91-8f9e-23cb2456011d" appname="Origin" filename="D:\Games\Origin\Origin.exe" fileiconpath="" fileargs="" />
+    <APP id="5ff546c6-aabc-4d8b-8301-9bea4dff9e6c" folderlinkname="TEASDFASF" folderlinkpath="C:\temp" />
     <APP id="af2e165f-31c4-455a-a5f4-0b5dcbee2a62" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileargs="" fileworkingfolder="D:\Tools\WhoCrashed" />
     <APP id="cf850765-237c-46a6-9691-75d35ecd2e0c" appname="Steam" filename="D:\Games\Steam\Steam.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Games\Steam" />
     <APP id="0d7f950f-f0fa-48ef-8b12-9b0d1a740a72" appname="GOG Galaxy" filename="D:\Games\GOG Galaxy\GalaxyClient.exe" fileiconpath="" fileargs="" />

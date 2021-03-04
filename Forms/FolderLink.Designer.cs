@@ -79,6 +79,7 @@ namespace Apps.Forms
             this.BrowseWF.Text = "...";
             this.BrowseWF.UseCompatibleTextRendering = true;
             this.BrowseWF.UseVisualStyleBackColor = true;
+            this.BrowseWF.Click += new System.EventHandler(this.BrowseWF_Click);
             // 
             // EditFolderPath
             // 
