@@ -174,7 +174,7 @@ namespace Apps.Controls
                 if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(fileName))
                 {
                     AppName = Path.GetFileNameWithoutExtension(fileName);
-                    Funcs.ParseShortcut(fileName, out fileName, out fileIconPath, out fileArgs, out fileWorkingFolder);
+                    Funcs.ParseShortcut(fileName, ref fileName, ref fileIconPath, ref fileArgs, ref fileWorkingFolder);
                 }
 
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);

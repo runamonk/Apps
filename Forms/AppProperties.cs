@@ -144,7 +144,7 @@ namespace Apps.Forms
             string FileIcon = "";
             string FileArgs = "";
             string FileWF = "";
-            Funcs.ParseShortcut(EditAppFilePath.Text, out FileName, out FileIcon, out FileArgs, out FileWF);
+            Funcs.ParseShortcut(EditAppFilePath.Text, ref FileName, ref FileIcon, ref FileArgs, ref FileWF);
             SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileArgs, FileWF);
         }
 

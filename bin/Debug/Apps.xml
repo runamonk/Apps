@@ -1,7 +1,8 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
     <APP id="06146521-c1d1-4f91-8f9e-23cb2456011d" appname="Origin" filename="D:\Games\Origin\Origin.exe" fileiconpath="" fileargs="" />
-    <APP id="8e000f20-0788-4ff3-9219-0035dffca35b" appname="Steam" filename="D:\Tools\links\Steam.lnk" fileiconpath="" fileargs="" fileworkingfolder="" />
+    <APP id="8a9ae5ed-ca0a-4684-9dac-f963addf1841" appname="Steam" filename="D:\Tools\links\Steam.lnk" fileiconpath="" fileargs="" fileworkingfolder="" />
+    <APP id="cf850765-237c-46a6-9691-75d35ecd2e0c" appname="Steam" filename="D:\Games\Steam\Steam.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Games\Steam" />
     <APP id="0d7f950f-f0fa-48ef-8b12-9b0d1a740a72" appname="GOG Galaxy" filename="D:\Games\GOG Galaxy\GalaxyClient.exe" fileiconpath="" fileargs="" />
     <APP id="6a92ac0b-534a-4e17-8165-7d6f33fe3e5c" appname="Cities XXL" filename="steam://rungameid/313010" fileiconpath="D:\Games\Steam\steam\games\3b000d11e4867ac5c05c6a26fc17c9fce56ee0a9.ico" fileargs="" fileworkingfolder="" />
     <APP id="49275be0-a6fa-4598-acbb-779c03a11c14" appname="EpicGamesLauncher" filename="D:\Games\Epic Game Launcher\Epic Games\Launcher\Engine\Binaries\Win64\EpicGamesLauncher.exe" fileiconpath="" fileargs="" />
@@ -14,6 +15,5 @@
     <APP id="089f1944-0a63-4e7e-b55f-7543de101bde" appname="World War Z" filename="com.epicgames.launcher://apps/Wombat?action=launch&amp;silent=true" fileiconpath="D:\Games\WorldWarZ\en_us\client\bin\pc\wwzRetailEgs.exe" fileargs="" />
     <APP id="d5612278-e9f3-44a6-bc32-335f694d629c" appname="Steam" filename="D:\Games\Steam\steam.exe" fileiconpath="D:\Games\Steam\steam.exe" fileargs="" fileworkingfolder="asdfasdfasfd" />
     <APP id="666aab76-8c5b-4569-ac50-3447f3b33ff7" appname="Visual Studio 2019" filename="D:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" fileiconpath="D:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" fileargs="" fileworkingfolder="" />
-    <APP id="173a71d0-b8db-4963-811a-2fb5bd7e0b56" appname="ACValhalla" filename="D:\Games\AssassinsCreedValhalla\ACValhalla.exe" fileiconpath="D:\Games\AssassinsCreedValhalla\ACValhalla.exe" fileargs="" fileworkingfolder="" />
   </APPS>
 </xml>
