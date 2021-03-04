@@ -112,6 +112,12 @@ namespace Apps.Controls
         {
             foreach (string filePath in Files)
             {
+                if (!File.Exists(filePath) && Directory.Exists(filePath))
+                {
+                    string AppName = Path.GetFileName(filePath);
+                    AddFolderLink(null, AppName, filePath, AddAtIndex);
+                }
+                else
                 if (File.Exists(filePath))
                 {
                     string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
@@ -508,6 +514,24 @@ namespace Apps.Controls
             SuspendLayout();
             AppButton b = GetAppButton(sender);
 
+            if (b.IsFolderLinkButton)
+            {
+                FolderLink f = new FolderLink(AppsConfig);
+                f.FolderName = b.AppName;
+                f.FolderPath = b.FileName;
+
+                if (f.ShowDialog(this) == DialogResult.OK)
+                {
+                    XmlNode node = GetNode(b.AppId);
+                    int i = Controls.GetChildIndex(b);
+                    node.Attributes["folderlinkname"].Value = f.FolderName;
+                    node.Attributes["folderlinkpath"].Value = f.FolderPath;
+                    ((AppButton)Controls[i]).AppName = f.FolderName;
+                    ((AppButton)Controls[i]).FileName = f.FolderPath;
+                    SaveXML();
+                }
+            }
+            else
             if (b.IsFolderButton)
             {
                 Folder f = new Folder(AppsConfig);

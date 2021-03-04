@@ -104,7 +104,10 @@ namespace Apps.Forms
         {
             FolderBrowserDialog f = new FolderBrowserDialog();
             if ((f.ShowDialog() == DialogResult.OK) && (Directory.Exists(f.SelectedPath)))
+            {
+                EditFolderName.Text = Path.GetFileName(f.SelectedPath);
                 EditFolderPath.Text = f.SelectedPath;
+            }                
         }
     }
 }
