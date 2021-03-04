@@ -30,3 +30,4 @@ D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.FolderLink.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Message.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Folder.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Properties.resources
+D:\Dropbox\code\C#\Apps\obj\Debug\Apps.csprojAssemblyReference.cache

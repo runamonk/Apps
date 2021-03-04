@@ -100,6 +100,18 @@ namespace Apps
             inClose = true;
         }
 
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                ToggleShow(true);
+            else
+            if (e.KeyCode == Keys.P)
+                PinButton.PerformClick();
+            else
+            if ((e.KeyCode == Keys.Back) && (BackButton.Visible))
+                Apps.GoBack();
+        }
+
         private void Main_Load(object sender, EventArgs e)
         {
             LoadConfig();
@@ -357,14 +369,5 @@ namespace Apps
         }
 
         #endregion
-
-        private void Main_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-                ToggleShow(true);
-            else
-            if (e.KeyCode == Keys.P)
-                PinButton.PerformClick();
-        }
     } // Main
 }
