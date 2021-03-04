@@ -150,6 +150,7 @@
             this.EditAppFilePath.Size = new System.Drawing.Size(294, 45);
             this.EditAppFilePath.TabIndex = 1;
             this.EditAppFilePath.TabStop = false;
+            this.EditAppFilePath.TextChanged += new System.EventHandler(this.EditAppFilePath_TextChanged);
             // 
             // EditAppIcon
             // 
@@ -191,7 +192,6 @@
             this.ButtonOK.TabIndex = 7;
             this.ButtonOK.Text = "OK";
             this.ButtonOK.UseVisualStyleBackColor = true;
-            this.ButtonOK.Click += new System.EventHandler(this.ButtonOK_Click);
             // 
             // PanelLeft
             // 

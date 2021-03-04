@@ -80,8 +80,16 @@ namespace Apps.Forms
             string fileName = Funcs.BrowseForFile();   
             if (fileName != "")
             {
-                FileVersionInfo f = Funcs.GetFileInfo(fileName);
-                SetFileProperties(f.ProductName, f.FileName, null, null, null);
+                if (AppsConfig.ParseShortcuts && Funcs.IsShortcut(fileName))
+                {
+                    EditAppFilePath.Text = fileName;
+                    ButtonParseShortcut.PerformClick();
+                }
+                else
+                {
+                    FileVersionInfo f = Funcs.GetFileInfo(fileName);
+                    SetFileProperties(f.ProductName, fileName, null, null, null);
+                }
             }
         }
 
@@ -93,11 +101,6 @@ namespace Apps.Forms
                 FAppIconPath = fileName;
                 EditAppIcon.Image = Funcs.GetIcon(fileName);
             }
-        }
-
-        private void ButtonOK_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -127,25 +130,6 @@ namespace Apps.Forms
                     Misc.ShowMessage(AppsConfig,"Error", ErrorStr);
                     e.Cancel = true;
                 }
-            }
-        }
-
-        private void EditAppName_TextChanged(object sender, EventArgs e)
-        {
-            if (EditAppName.Text.Trim() == "-")
-            {
-                EditFileArgs.Text = "";
-                EditFileArgs.ReadOnly = true;
-                EditAppFilePath.Text = "";
-                EditAppFilePath.ReadOnly = true;
-                EditAppIcon.Image = null;
-                EditAppIcon.Enabled = false;
-            }
-            else
-            {
-                EditFileArgs.ReadOnly = true;
-                EditAppFilePath.ReadOnly = true;
-                EditAppIcon.Enabled = true;
             }
         }
 
