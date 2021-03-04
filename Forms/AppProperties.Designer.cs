@@ -90,7 +90,7 @@
             this.BrowseWF.Margin = new System.Windows.Forms.Padding(0);
             this.BrowseWF.Name = "BrowseWF";
             this.BrowseWF.Size = new System.Drawing.Size(24, 20);
-            this.BrowseWF.TabIndex = 22;
+            this.BrowseWF.TabIndex = 5;
             this.BrowseWF.Text = "...";
             this.BrowseWF.UseCompatibleTextRendering = true;
             this.BrowseWF.UseVisualStyleBackColor = true;
@@ -102,7 +102,7 @@
             this.EditWorkingFolder.Location = new System.Drawing.Point(6, 84);
             this.EditWorkingFolder.Name = "EditWorkingFolder";
             this.EditWorkingFolder.Size = new System.Drawing.Size(294, 20);
-            this.EditWorkingFolder.TabIndex = 5;
+            this.EditWorkingFolder.TabIndex = 4;
             // 
             // ButtonParseShortcut
             // 
@@ -112,7 +112,7 @@
             this.ButtonParseShortcut.Margin = new System.Windows.Forms.Padding(0);
             this.ButtonParseShortcut.Name = "ButtonParseShortcut";
             this.ButtonParseShortcut.Size = new System.Drawing.Size(24, 20);
-            this.ButtonParseShortcut.TabIndex = 4;
+            this.ButtonParseShortcut.TabIndex = 3;
             this.ButtonParseShortcut.Text = "✔";
             this.ButtonParseShortcut.UseCompatibleTextRendering = true;
             this.ButtonParseShortcut.UseVisualStyleBackColor = true;
@@ -133,7 +133,7 @@
             this.Browse.Margin = new System.Windows.Forms.Padding(0);
             this.Browse.Name = "Browse";
             this.Browse.Size = new System.Drawing.Size(24, 20);
-            this.Browse.TabIndex = 3;
+            this.Browse.TabIndex = 2;
             this.Browse.Text = "...";
             this.Browse.UseCompatibleTextRendering = true;
             this.Browse.UseVisualStyleBackColor = true;
