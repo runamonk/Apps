@@ -284,8 +284,8 @@ namespace Apps
                         Process.Start(procStartInfo);
                     }
                     catch (Exception error)
-                    {
-                        MessageBox.Show("Error while launching " + AppName + "\n\r" + error.Message.ToString());
+                    {                      
+                        Misc.ShowMessage(AppsConfig, "Error", "Error while launching " + AppName + "\n\r" + error.Message.ToString());
                     }
                 }
                 OnClick(e);

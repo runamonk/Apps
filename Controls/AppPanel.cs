@@ -396,6 +396,8 @@ namespace Apps.Controls
         private void MenuAddFolderLink_Click(object sender, EventArgs e)
         {
             InMenu = true;
+            FolderBrowserDialog f = new FolderBrowserDialog();
+
             //AddFolder f = new AddFolder(AppsConfig);
 
             //if (f.ShowDialog(this) == DialogResult.OK)
@@ -422,8 +424,7 @@ namespace Apps.Controls
             AppButton b = GetAppButton(sender);
             XmlNode node = GetNode(b.AppId);
             bool CanDelete = true;
-            Confirm f = new Confirm(AppsConfig);
-            CanDelete = (f.ShowAsDialog("Delete " + b.AppName + "?", (node.HasChildNodes || b.IsFolderButton ? "Delete folder, sub-folders and applications?" : "Delete application?")) == DialogResult.OK);
+            CanDelete = (Misc.ConfirmDialog(AppsConfig, "Delete " + b.AppName + "?", (node.HasChildNodes || b.IsFolderButton ? "Delete folder, sub-folders and applications?" : "Delete application?")) == DialogResult.OK);
 
             if (CanDelete)
             {

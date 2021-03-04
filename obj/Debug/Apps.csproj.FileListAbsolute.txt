@@ -28,3 +28,5 @@ D:\Dropbox\code\C#\Apps\obj\Debug\Apps.exe
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.pdb
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.csproj.ResolveComReference.cache
 D:\Dropbox\code\C#\Apps\obj\Debug\Interop.IWshRuntimeLibrary.dll
+D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.FolderLink.resources
+D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Message.resources
