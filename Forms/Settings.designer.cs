@@ -30,63 +30,212 @@
         {
             this.components = new System.ComponentModel.Container();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.Key = new System.Windows.Forms.TextBox();
+            this.ChkParseShortcuts = new System.Windows.Forms.CheckBox();
+            this.AutoSizeHeight = new System.Windows.Forms.CheckBox();
+            this.OpenAtMouse = new System.Windows.Forms.CheckBox();
+            this.Startup = new System.Windows.Forms.CheckBox();
+            this.MenuButtonColor = new System.Windows.Forms.Panel();
+            this.MenuSelectedColor = new System.Windows.Forms.Panel();
+            this.MenuBorderColor = new System.Windows.Forms.Panel();
+            this.MenuFontColor = new System.Windows.Forms.Panel();
+            this.MenuBackColor = new System.Windows.Forms.Panel();
+            this.AppHeaderColor = new System.Windows.Forms.Panel();
+            this.AppSelectedColor = new System.Windows.Forms.Panel();
+            this.AppBackColor = new System.Windows.Forms.Panel();
+            this.AppFontColor = new System.Windows.Forms.Panel();
             this.dlgColor = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.PanelBottom = new System.Windows.Forms.Panel();
-            this.Cancel = new System.Windows.Forms.Button();
-            this.OK = new System.Windows.Forms.Button();
+            this.GroupOptions = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.GroupHotkey = new System.Windows.Forms.GroupBox();
             this.Clear = new System.Windows.Forms.Button();
-            this.Key = new System.Windows.Forms.TextBox();
             this.Windows = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Shift = new System.Windows.Forms.CheckBox();
             this.Alt = new System.Windows.Forms.CheckBox();
             this.Control = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.GroupOptions = new System.Windows.Forms.GroupBox();
-            this.ChkParseShortcuts = new System.Windows.Forms.CheckBox();
-            this.AutoSizeHeight = new System.Windows.Forms.CheckBox();
-            this.OpenAtMouse = new System.Windows.Forms.CheckBox();
-            this.Startup = new System.Windows.Forms.CheckBox();
+            this.PanelBottom = new System.Windows.Forms.Panel();
+            this.Cancel = new System.Windows.Forms.Button();
+            this.OK = new System.Windows.Forms.Button();
             this.GroupTheme = new System.Windows.Forms.GroupBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.GroupMenu = new System.Windows.Forms.GroupBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.MenuButtonColor = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
-            this.MenuSelectedColor = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
-            this.MenuBorderColor = new System.Windows.Forms.Panel();
             this.label11 = new System.Windows.Forms.Label();
-            this.MenuFontColor = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
-            this.MenuBackColor = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.GroupApps = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.AppHeaderColor = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.AppSelectedColor = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.AppBackColor = new System.Windows.Forms.Panel();
-            this.AppFontColor = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.DarkTheme = new System.Windows.Forms.RadioButton();
             this.LightTheme = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
-            this.PanelBottom.SuspendLayout();
-            this.GroupHotkey.SuspendLayout();
             this.GroupOptions.SuspendLayout();
+            this.GroupHotkey.SuspendLayout();
+            this.PanelBottom.SuspendLayout();
             this.GroupTheme.SuspendLayout();
             this.panel4.SuspendLayout();
             this.GroupMenu.SuspendLayout();
             this.GroupApps.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // Key
+            // 
+            this.Key.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Key.Location = new System.Drawing.Point(63, 19);
+            this.Key.Name = "Key";
+            this.Key.Size = new System.Drawing.Size(80, 20);
+            this.Key.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.Key, "Press key to define as a hotkey.");
+            this.Key.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Key_KeyDown);
+            this.Key.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Key_KeyPress);
+            // 
+            // ChkParseShortcuts
+            // 
+            this.ChkParseShortcuts.AutoSize = true;
+            this.ChkParseShortcuts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChkParseShortcuts.Location = new System.Drawing.Point(6, 80);
+            this.ChkParseShortcuts.Name = "ChkParseShortcuts";
+            this.ChkParseShortcuts.Size = new System.Drawing.Size(117, 17);
+            this.ChkParseShortcuts.TabIndex = 3;
+            this.ChkParseShortcuts.Text = "Parse .lnk && .url files";
+            this.toolTip1.SetToolTip(this.ChkParseShortcuts, "Check to automatically parse .lnk and .url files when adding a new application.");
+            this.ChkParseShortcuts.UseVisualStyleBackColor = true;
+            // 
+            // AutoSizeHeight
+            // 
+            this.AutoSizeHeight.AutoSize = true;
+            this.AutoSizeHeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AutoSizeHeight.Location = new System.Drawing.Point(6, 60);
+            this.AutoSizeHeight.Name = "AutoSizeHeight";
+            this.AutoSizeHeight.Size = new System.Drawing.Size(98, 17);
+            this.AutoSizeHeight.TabIndex = 2;
+            this.AutoSizeHeight.Text = "Auto size height";
+            this.toolTip1.SetToolTip(this.AutoSizeHeight, "Check to automatically size Apps height to the number of Apps.");
+            this.AutoSizeHeight.UseVisualStyleBackColor = true;
+            // 
+            // OpenAtMouse
+            // 
+            this.OpenAtMouse.AutoSize = true;
+            this.OpenAtMouse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OpenAtMouse.Location = new System.Drawing.Point(6, 39);
+            this.OpenAtMouse.Name = "OpenAtMouse";
+            this.OpenAtMouse.Size = new System.Drawing.Size(95, 17);
+            this.OpenAtMouse.TabIndex = 1;
+            this.OpenAtMouse.Text = "Open at mouse";
+            this.toolTip1.SetToolTip(this.OpenAtMouse, "Check to automatically display Apps at mouse.");
+            this.OpenAtMouse.UseVisualStyleBackColor = true;
+            // 
+            // Startup
+            // 
+            this.Startup.AutoSize = true;
+            this.Startup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Startup.Location = new System.Drawing.Point(6, 18);
+            this.Startup.Name = "Startup";
+            this.Startup.Size = new System.Drawing.Size(109, 17);
+            this.Startup.TabIndex = 0;
+            this.Startup.Text = "Start automatically";
+            this.toolTip1.SetToolTip(this.Startup, "Check to automatically start Apps.");
+            this.Startup.UseVisualStyleBackColor = true;
+            // 
+            // MenuButtonColor
+            // 
+            this.MenuButtonColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuButtonColor.Location = new System.Drawing.Point(119, 18);
+            this.MenuButtonColor.Name = "MenuButtonColor";
+            this.MenuButtonColor.Size = new System.Drawing.Size(26, 27);
+            this.MenuButtonColor.TabIndex = 20;
+            this.toolTip1.SetToolTip(this.MenuButtonColor, "Click to set color.");
+            this.MenuButtonColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // MenuSelectedColor
+            // 
+            this.MenuSelectedColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuSelectedColor.Location = new System.Drawing.Point(6, 117);
+            this.MenuSelectedColor.Name = "MenuSelectedColor";
+            this.MenuSelectedColor.Size = new System.Drawing.Size(26, 27);
+            this.MenuSelectedColor.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.MenuSelectedColor, "Click to set color.");
+            this.MenuSelectedColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // MenuBorderColor
+            // 
+            this.MenuBorderColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuBorderColor.Location = new System.Drawing.Point(6, 84);
+            this.MenuBorderColor.Name = "MenuBorderColor";
+            this.MenuBorderColor.Size = new System.Drawing.Size(26, 27);
+            this.MenuBorderColor.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.MenuBorderColor, "Click to set color.");
+            this.MenuBorderColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // MenuFontColor
+            // 
+            this.MenuFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuFontColor.Location = new System.Drawing.Point(6, 18);
+            this.MenuFontColor.Name = "MenuFontColor";
+            this.MenuFontColor.Size = new System.Drawing.Size(26, 27);
+            this.MenuFontColor.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.MenuFontColor, "Click to set color.");
+            this.MenuFontColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // MenuBackColor
+            // 
+            this.MenuBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuBackColor.Location = new System.Drawing.Point(6, 51);
+            this.MenuBackColor.Name = "MenuBackColor";
+            this.MenuBackColor.Size = new System.Drawing.Size(26, 27);
+            this.MenuBackColor.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.MenuBackColor, "Click to set color.");
+            this.MenuBackColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // AppHeaderColor
+            // 
+            this.AppHeaderColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AppHeaderColor.Location = new System.Drawing.Point(10, 18);
+            this.AppHeaderColor.Name = "AppHeaderColor";
+            this.AppHeaderColor.Size = new System.Drawing.Size(26, 27);
+            this.AppHeaderColor.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.AppHeaderColor, "Click to set color.");
+            this.AppHeaderColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // AppSelectedColor
+            // 
+            this.AppSelectedColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AppSelectedColor.Location = new System.Drawing.Point(10, 117);
+            this.AppSelectedColor.Name = "AppSelectedColor";
+            this.AppSelectedColor.Size = new System.Drawing.Size(26, 27);
+            this.AppSelectedColor.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.AppSelectedColor, "Click to set color.");
+            this.AppSelectedColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // AppBackColor
+            // 
+            this.AppBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AppBackColor.Location = new System.Drawing.Point(10, 84);
+            this.AppBackColor.Name = "AppBackColor";
+            this.AppBackColor.Size = new System.Drawing.Size(26, 27);
+            this.AppBackColor.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.AppBackColor, "Click to set color.");
+            this.AppBackColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // AppFontColor
+            // 
+            this.AppFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AppFontColor.Location = new System.Drawing.Point(10, 51);
+            this.AppFontColor.Name = "AppFontColor";
+            this.AppFontColor.Size = new System.Drawing.Size(26, 27);
+            this.AppFontColor.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.AppFontColor, "Click to set color.");
+            this.AppFontColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
             // dlgColor
             // 
@@ -104,37 +253,27 @@
             this.panel1.Size = new System.Drawing.Size(418, 102);
             this.panel1.TabIndex = 6;
             // 
-            // PanelBottom
+            // GroupOptions
             // 
-            this.PanelBottom.Controls.Add(this.Cancel);
-            this.PanelBottom.Controls.Add(this.OK);
-            this.PanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelBottom.Location = new System.Drawing.Point(5, 312);
-            this.PanelBottom.Name = "PanelBottom";
-            this.PanelBottom.Size = new System.Drawing.Size(418, 38);
-            this.PanelBottom.TabIndex = 8;
+            this.GroupOptions.Controls.Add(this.ChkParseShortcuts);
+            this.GroupOptions.Controls.Add(this.AutoSizeHeight);
+            this.GroupOptions.Controls.Add(this.OpenAtMouse);
+            this.GroupOptions.Controls.Add(this.Startup);
+            this.GroupOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupOptions.Location = new System.Drawing.Point(287, 0);
+            this.GroupOptions.Margin = new System.Windows.Forms.Padding(0);
+            this.GroupOptions.Name = "GroupOptions";
+            this.GroupOptions.Size = new System.Drawing.Size(131, 102);
+            this.GroupOptions.TabIndex = 12;
+            this.GroupOptions.TabStop = false;
             // 
-            // Cancel
+            // panel3
             // 
-            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel.Location = new System.Drawing.Point(213, 8);
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 3;
-            this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
-            // 
-            // OK
-            // 
-            this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OK.Location = new System.Drawing.Point(130, 8);
-            this.OK.Name = "OK";
-            this.OK.Size = new System.Drawing.Size(75, 23);
-            this.OK.TabIndex = 2;
-            this.OK.Text = "OK";
-            this.OK.UseVisualStyleBackColor = true;
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Location = new System.Drawing.Point(282, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(5, 102);
+            this.panel3.TabIndex = 11;
             // 
             // GroupHotkey
             // 
@@ -165,17 +304,6 @@
             this.Clear.UseCompatibleTextRendering = true;
             this.Clear.UseVisualStyleBackColor = true;
             this.Clear.Click += new System.EventHandler(this.Clear_Click);
-            // 
-            // Key
-            // 
-            this.Key.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Key.Location = new System.Drawing.Point(63, 19);
-            this.Key.Name = "Key";
-            this.Key.Size = new System.Drawing.Size(80, 20);
-            this.Key.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.Key, "Press key to define as a hotkey.");
-            this.Key.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Key_KeyDown);
-            this.Key.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Key_KeyPress);
             // 
             // Windows
             // 
@@ -241,75 +369,37 @@
             this.label1.Text = "Key";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel3
+            // PanelBottom
             // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(282, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(5, 102);
-            this.panel3.TabIndex = 11;
+            this.PanelBottom.Controls.Add(this.Cancel);
+            this.PanelBottom.Controls.Add(this.OK);
+            this.PanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.PanelBottom.Location = new System.Drawing.Point(5, 312);
+            this.PanelBottom.Name = "PanelBottom";
+            this.PanelBottom.Size = new System.Drawing.Size(418, 38);
+            this.PanelBottom.TabIndex = 8;
             // 
-            // GroupOptions
+            // Cancel
             // 
-            this.GroupOptions.Controls.Add(this.ChkParseShortcuts);
-            this.GroupOptions.Controls.Add(this.AutoSizeHeight);
-            this.GroupOptions.Controls.Add(this.OpenAtMouse);
-            this.GroupOptions.Controls.Add(this.Startup);
-            this.GroupOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupOptions.Location = new System.Drawing.Point(287, 0);
-            this.GroupOptions.Margin = new System.Windows.Forms.Padding(0);
-            this.GroupOptions.Name = "GroupOptions";
-            this.GroupOptions.Size = new System.Drawing.Size(131, 102);
-            this.GroupOptions.TabIndex = 12;
-            this.GroupOptions.TabStop = false;
+            this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Cancel.Location = new System.Drawing.Point(213, 8);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 3;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = true;
             // 
-            // ChkParseShortcuts
+            // OK
             // 
-            this.ChkParseShortcuts.AutoSize = true;
-            this.ChkParseShortcuts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkParseShortcuts.Location = new System.Drawing.Point(6, 80);
-            this.ChkParseShortcuts.Name = "ChkParseShortcuts";
-            this.ChkParseShortcuts.Size = new System.Drawing.Size(117, 17);
-            this.ChkParseShortcuts.TabIndex = 3;
-            this.ChkParseShortcuts.Text = "Parse .lnk && .url files";
-            this.toolTip1.SetToolTip(this.ChkParseShortcuts, "Check to automatically parse .lnk and .url files when adding a new application.");
-            this.ChkParseShortcuts.UseVisualStyleBackColor = true;
-            // 
-            // AutoSizeHeight
-            // 
-            this.AutoSizeHeight.AutoSize = true;
-            this.AutoSizeHeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AutoSizeHeight.Location = new System.Drawing.Point(6, 60);
-            this.AutoSizeHeight.Name = "AutoSizeHeight";
-            this.AutoSizeHeight.Size = new System.Drawing.Size(98, 17);
-            this.AutoSizeHeight.TabIndex = 2;
-            this.AutoSizeHeight.Text = "Auto size height";
-            this.toolTip1.SetToolTip(this.AutoSizeHeight, "Check to automatically size Apps height to the number of Apps.");
-            this.AutoSizeHeight.UseVisualStyleBackColor = true;
-            // 
-            // OpenAtMouse
-            // 
-            this.OpenAtMouse.AutoSize = true;
-            this.OpenAtMouse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenAtMouse.Location = new System.Drawing.Point(6, 39);
-            this.OpenAtMouse.Name = "OpenAtMouse";
-            this.OpenAtMouse.Size = new System.Drawing.Size(95, 17);
-            this.OpenAtMouse.TabIndex = 1;
-            this.OpenAtMouse.Text = "Open at mouse";
-            this.toolTip1.SetToolTip(this.OpenAtMouse, "Check to automatically display Apps at mouse.");
-            this.OpenAtMouse.UseVisualStyleBackColor = true;
-            // 
-            // Startup
-            // 
-            this.Startup.AutoSize = true;
-            this.Startup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Startup.Location = new System.Drawing.Point(6, 18);
-            this.Startup.Name = "Startup";
-            this.Startup.Size = new System.Drawing.Size(109, 17);
-            this.Startup.TabIndex = 0;
-            this.Startup.Text = "Start automatically";
-            this.toolTip1.SetToolTip(this.Startup, "Check to automatically start Apps.");
-            this.Startup.UseVisualStyleBackColor = true;
+            this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.OK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.OK.Location = new System.Drawing.Point(130, 8);
+            this.OK.Name = "OK";
+            this.OK.Size = new System.Drawing.Size(75, 23);
+            this.OK.TabIndex = 2;
+            this.OK.Text = "OK";
+            this.OK.UseVisualStyleBackColor = true;
             // 
             // GroupTheme
             // 
@@ -364,16 +454,6 @@
             this.label15.Text = "Button";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // MenuButtonColor
-            // 
-            this.MenuButtonColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MenuButtonColor.Location = new System.Drawing.Point(119, 18);
-            this.MenuButtonColor.Name = "MenuButtonColor";
-            this.MenuButtonColor.Size = new System.Drawing.Size(26, 27);
-            this.MenuButtonColor.TabIndex = 20;
-            this.toolTip1.SetToolTip(this.MenuButtonColor, "Click to set color.");
-            this.MenuButtonColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -383,16 +463,6 @@
             this.label13.TabIndex = 19;
             this.label13.Text = "Selected";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // MenuSelectedColor
-            // 
-            this.MenuSelectedColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MenuSelectedColor.Location = new System.Drawing.Point(6, 117);
-            this.MenuSelectedColor.Name = "MenuSelectedColor";
-            this.MenuSelectedColor.Size = new System.Drawing.Size(26, 27);
-            this.MenuSelectedColor.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.MenuSelectedColor, "Click to set color.");
-            this.MenuSelectedColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
             // label12
             // 
@@ -404,16 +474,6 @@
             this.label12.Text = "Border";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // MenuBorderColor
-            // 
-            this.MenuBorderColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MenuBorderColor.Location = new System.Drawing.Point(6, 84);
-            this.MenuBorderColor.Name = "MenuBorderColor";
-            this.MenuBorderColor.Size = new System.Drawing.Size(26, 27);
-            this.MenuBorderColor.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.MenuBorderColor, "Click to set color.");
-            this.MenuBorderColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -424,16 +484,6 @@
             this.label11.Text = "Font";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // MenuFontColor
-            // 
-            this.MenuFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MenuFontColor.Location = new System.Drawing.Point(6, 18);
-            this.MenuFontColor.Name = "MenuFontColor";
-            this.MenuFontColor.Size = new System.Drawing.Size(26, 27);
-            this.MenuFontColor.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.MenuFontColor, "Click to set color.");
-            this.MenuFontColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -443,16 +493,6 @@
             this.label10.TabIndex = 13;
             this.label10.Text = "Background";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // MenuBackColor
-            // 
-            this.MenuBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MenuBackColor.Location = new System.Drawing.Point(6, 51);
-            this.MenuBackColor.Name = "MenuBackColor";
-            this.MenuBackColor.Size = new System.Drawing.Size(26, 27);
-            this.MenuBackColor.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.MenuBackColor, "Click to set color.");
-            this.MenuBackColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
             // panel2
             // 
@@ -490,16 +530,6 @@
             this.label9.Text = "Header";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // AppHeaderColor
-            // 
-            this.AppHeaderColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AppHeaderColor.Location = new System.Drawing.Point(10, 18);
-            this.AppHeaderColor.Name = "AppHeaderColor";
-            this.AppHeaderColor.Size = new System.Drawing.Size(26, 27);
-            this.AppHeaderColor.TabIndex = 0;
-            this.toolTip1.SetToolTip(this.AppHeaderColor, "Click to set color.");
-            this.AppHeaderColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -509,16 +539,6 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Selected";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AppSelectedColor
-            // 
-            this.AppSelectedColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AppSelectedColor.Location = new System.Drawing.Point(10, 117);
-            this.AppSelectedColor.Name = "AppSelectedColor";
-            this.AppSelectedColor.Size = new System.Drawing.Size(26, 27);
-            this.AppSelectedColor.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.AppSelectedColor, "Click to set color.");
-            this.AppSelectedColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
             // label3
             // 
@@ -539,26 +559,6 @@
             this.label5.TabIndex = 10;
             this.label5.Text = "Font";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AppBackColor
-            // 
-            this.AppBackColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AppBackColor.Location = new System.Drawing.Point(10, 84);
-            this.AppBackColor.Name = "AppBackColor";
-            this.AppBackColor.Size = new System.Drawing.Size(26, 27);
-            this.AppBackColor.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.AppBackColor, "Click to set color.");
-            this.AppBackColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
-            // 
-            // AppFontColor
-            // 
-            this.AppFontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.AppFontColor.Location = new System.Drawing.Point(10, 51);
-            this.AppFontColor.Name = "AppFontColor";
-            this.AppFontColor.Size = new System.Drawing.Size(26, 27);
-            this.AppFontColor.TabIndex = 1;
-            this.toolTip1.SetToolTip(this.AppFontColor, "Click to set color.");
-            this.AppFontColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
             // panel5
             // 
@@ -590,6 +590,7 @@
             this.DarkTheme.TabStop = true;
             this.DarkTheme.Text = "Dark";
             this.DarkTheme.UseVisualStyleBackColor = true;
+            this.DarkTheme.Click += new System.EventHandler(this.DarkTheme_Click);
             // 
             // LightTheme
             // 
@@ -601,6 +602,7 @@
             this.LightTheme.TabStop = true;
             this.LightTheme.Text = "Light";
             this.LightTheme.UseVisualStyleBackColor = true;
+            this.LightTheme.Click += new System.EventHandler(this.LightTheme_Click);
             // 
             // Settings
             // 
@@ -623,11 +625,11 @@
             this.TopMost = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormConfig_KeyDown);
             this.panel1.ResumeLayout(false);
-            this.PanelBottom.ResumeLayout(false);
-            this.GroupHotkey.ResumeLayout(false);
-            this.GroupHotkey.PerformLayout();
             this.GroupOptions.ResumeLayout(false);
             this.GroupOptions.PerformLayout();
+            this.GroupHotkey.ResumeLayout(false);
+            this.GroupHotkey.PerformLayout();
+            this.PanelBottom.ResumeLayout(false);
             this.GroupTheme.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.GroupMenu.ResumeLayout(false);
