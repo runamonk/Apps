@@ -16,8 +16,6 @@ D:\Dropbox\code\C#\Apps\bin\Debug\Apps.exe.config
 D:\Dropbox\code\C#\Apps\bin\Debug\Apps.exe
 D:\Dropbox\code\C#\Apps\bin\Debug\Apps.pdb
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.About.resources
-D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.AddFolder.resources
-D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.AppProperties.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Confirm.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Settings.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Main.resources
@@ -30,3 +28,5 @@ D:\Dropbox\code\C#\Apps\obj\Debug\Apps.csproj.ResolveComReference.cache
 D:\Dropbox\code\C#\Apps\obj\Debug\Interop.IWshRuntimeLibrary.dll
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.FolderLink.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Message.resources
+D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Folder.resources
+D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Properties.resources

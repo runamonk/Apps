@@ -350,7 +350,7 @@ namespace Apps.Controls
         private void MenuAddApp_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            AppProperties f = new AppProperties(AppsConfig);
+            Forms.Properties f = new Forms.Properties(AppsConfig);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
@@ -373,7 +373,7 @@ namespace Apps.Controls
         private void MenuAddFolder_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            AddFolder f = new AddFolder(AppsConfig);
+            Folder f = new Folder(AppsConfig);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
@@ -474,7 +474,7 @@ namespace Apps.Controls
 
             if (b.IsFolderButton)
             {
-                AddFolder f = new AddFolder(AppsConfig);
+                Folder f = new Folder(AppsConfig);
                 f.FolderName = b.AppName;
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
@@ -487,7 +487,7 @@ namespace Apps.Controls
             }
             else
             {
-                AppProperties f = new AppProperties(AppsConfig);
+                Forms.Properties f = new Forms.Properties(AppsConfig);
                 f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs, b.FileWorkingFolder);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {

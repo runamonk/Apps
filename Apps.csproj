@@ -94,17 +94,17 @@
     <Compile Include="Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AddFolder.cs">
+    <Compile Include="Forms\Folder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AddFolder.Designer.cs">
-      <DependentUpon>AddFolder.cs</DependentUpon>
+    <Compile Include="Forms\Folder.Designer.cs">
+      <DependentUpon>Folder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AppProperties.cs">
+    <Compile Include="Forms\Properties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AppProperties.Designer.cs">
-      <DependentUpon>AppProperties.cs</DependentUpon>
+    <Compile Include="Forms\Properties.Designer.cs">
+      <DependentUpon>Properties.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Confirm.cs">
       <SubType>Form</SubType>
@@ -142,11 +142,11 @@
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AddFolder.resx">
-      <DependentUpon>AddFolder.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Folder.resx">
+      <DependentUpon>Folder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AppProperties.resx">
-      <DependentUpon>AppProperties.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Properties.resx">
+      <DependentUpon>Properties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Confirm.resx">
       <DependentUpon>Confirm.cs</DependentUpon>
