@@ -358,5 +358,10 @@ namespace Apps
 
         #endregion
 
+        private void Main_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                ToggleShow(true);
+        }
     } // Main
 }

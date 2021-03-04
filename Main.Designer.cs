@@ -71,6 +71,7 @@
             this.Controls.Add(this.pMain);
             this.Controls.Add(this.pTop);
             this.DoubleBuffered = true;
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(9000, 9000);
             this.MinimumSize = new System.Drawing.Size(200, 90);
             this.Name = "Main";
@@ -84,6 +85,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.ResizeEnd += new System.EventHandler(this.Main_ResizeEnd);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Main_KeyDown);
             this.ResumeLayout(false);
 
         }

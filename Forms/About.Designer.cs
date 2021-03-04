@@ -139,12 +139,14 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "About";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "                                                         ";
             this.TopMost = true;
             this.Deactivate += new System.EventHandler(this.About_Deactivate);
             this.Load += new System.EventHandler(this.About_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.About_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();

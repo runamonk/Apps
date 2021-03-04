@@ -43,5 +43,11 @@ namespace Apps
         {
             Hide();
         }
+
+        private void About_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                HideForm.PerformClick();
+        }
     }
 }
