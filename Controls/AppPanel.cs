@@ -249,41 +249,17 @@ namespace Apps.Controls
 
         private void ButtonClicked(AppButton App)
         {
-            SuspendLayout();
-
             if (!App.IsFolderButton)
                 OnAppClicked?.Invoke();
             else
             {
                 LoadFolder(App.AppId);
             }
-
-            ResumeLayout();
         }
 
         private void ConfigChanged(object sender, EventArgs e)
         {
             SetColors();
-        }
-
-        private void MoveButton(AppButton FromButton, AppButton ToButton)
-        {
-            SuspendLayout();
-            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
-            if (ToButton == null)
-            {
-                ParentNode.AppendChild(GetNode(FromButton.AppId));
-                Controls.SetChildIndex(FromButton, 0);
-            }
-            else
-            {
-                ParentNode.InsertAfter(GetNode(ToButton.AppId), GetNextNode(GetNode(FromButton.AppId)));
-                Controls.SetChildIndex(FromButton, GetAppButtonIndex(ToButton));
-            }
-            
-            SaveXML();
-            GC.Collect();
-            ResumeLayout();
         }
 
         private void DropToButton(AppButton ToAppButton, DragEventArgs e)
@@ -612,6 +588,26 @@ namespace Apps.Controls
                 UpMenuItem.Enabled = false;
                 DownMenuItem.Enabled = false;
             }
+        }
+
+        private void MoveButton(AppButton FromButton, AppButton ToButton)
+        {
+            SuspendLayout();
+            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+            if (ToButton == null)
+            {
+                ParentNode.AppendChild(GetNode(FromButton.AppId));
+                Controls.SetChildIndex(FromButton, 0);
+            }
+            else
+            {
+                ParentNode.InsertAfter(GetNode(ToButton.AppId), GetNextNode(GetNode(FromButton.AppId)));
+                Controls.SetChildIndex(FromButton, GetAppButtonIndex(ToButton));
+            }
+
+            SaveXML();
+            GC.Collect();
+            ResumeLayout();
         }
 
         private void OnDragOver(object sender, DragEventArgs e)
