@@ -115,7 +115,7 @@ namespace Apps
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
 
-        public delegate void AppButtonDropEventhandler(AppButton Button, DragEventArgs e);
+        public delegate void AppButtonDropEventhandler(AppButton DropToButton, DragEventArgs e);
         public event AppButtonDropEventhandler OnAppButtonDropped;
 
         public AppButton(Config myConfig, ButtonType buttonType)
@@ -128,7 +128,7 @@ namespace Apps
             ButtonPanel.Dock = DockStyle.Fill;
             ButtonPanel.Margin = new Padding(0, 0, 0, 0);
             ButtonPanel.BorderStyle = BorderStyle.None;
-
+            
             PBox.Visible = false;
             FolderArrow.Visible = false;
 
@@ -188,6 +188,7 @@ namespace Apps
             ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
             ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
             
+                        
             if (IsHeaderButton())
             {
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
@@ -202,6 +203,7 @@ namespace Apps
                 ButtonText.AllowDrop = true;
                 ButtonText.DragOver += new DragEventHandler(OnDragOver);
                 ButtonText.DragDrop += new DragEventHandler(OnDrop);
+                ButtonText.MouseDown += new MouseEventHandler(TextMouseDown);
             }
 
             ButtonText.Margin = new Padding(0, 0, 0, 0);
@@ -260,17 +262,28 @@ namespace Apps
 
         private void OnDragOver(object sender, DragEventArgs e)
         {
-            e.Effect = (DragDropEffects.Copy | DragDropEffects.Link);
+            e.Effect = (DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move);
         }
 
         private void OnDrop(object sender, DragEventArgs e)
-        {
+        {       
             OnAppButtonDropped?.Invoke(this, e);
         }
 
         public void PerformClick()
         {
             TextOnClick(this, null);
+        }
+
+        private void TextMouseDown(object sender, MouseEventArgs e)
+        {
+            if ((e == null) || (e.Button == MouseButtons.Left))
+            {
+                if (IsAppButton | IsFolderButton | IsFolderLinkButton && (ModifierKeys == Keys.Control))
+                {
+                    DoDragDrop(this, DragDropEffects.Move);
+                }
+            }
         }
 
         private void TextMouseEnter(object sender, EventArgs e)

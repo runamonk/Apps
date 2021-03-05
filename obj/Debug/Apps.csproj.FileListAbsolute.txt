@@ -25,7 +25,6 @@ D:\Dropbox\code\C#\Apps\obj\Debug\Apps.pdb
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.csproj.ResolveComReference.cache
 D:\Dropbox\code\C#\Apps\obj\Debug\Interop.IWshRuntimeLibrary.dll
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Settings.resources
-D:\Dropbox\code\C#\Apps\obj\Debug\Apps.csprojAssemblyReference.cache
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Folder.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Properties.resources
 D:\Dropbox\code\C#\Apps\obj\Debug\Apps.Forms.Confirm.resources

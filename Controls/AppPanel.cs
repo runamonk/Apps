@@ -110,6 +110,7 @@ namespace Apps.Controls
 
         private void AddFiles(string[] Files, int AddAtIndex)
         {
+            SuspendLayout();
             foreach (string filePath in Files)
             {
                 if (!File.Exists(filePath) && Directory.Exists(filePath))
@@ -124,6 +125,7 @@ namespace Apps.Controls
                     AddItem(null, AppName, filePath, null, null, null, AddAtIndex);
                 }
             }
+            ResumeLayout();
         }
 
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
@@ -264,26 +266,52 @@ namespace Apps.Controls
             SetColors();
         }
 
-        private void DropToButton(AppButton App, DragEventArgs e)
+        private void MoveButton(AppButton FromButton, AppButton ToButton)
         {
             SuspendLayout();
-            int i = Controls.GetChildIndex(App);
+            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
+            if (ToButton == null)
+            {
+                ParentNode.AppendChild(GetNode(FromButton.AppId));
+                Controls.SetChildIndex(FromButton, 0);
+            }
+            else
+            {
+                ParentNode.InsertAfter(GetNode(ToButton.AppId), GetNextNode(GetNode(FromButton.AppId)));
+                Controls.SetChildIndex(FromButton, GetAppButtonIndex(ToButton));
+            }
+            
+            SaveXML();
+            GC.Collect();
+            ResumeLayout();
+        }
+
+        private void DropToButton(AppButton ToAppButton, DragEventArgs e)
+        {        
+            object objRef = (object)e.Data.GetData(typeof(AppButton));
+            if ((objRef != null) && (objRef is AppButton))
+            {
+                MoveButton((AppButton)objRef, ToAppButton);
+            }
+            else
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop),i);
+                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop), Controls.GetChildIndex(ToAppButton));
             }
-            ResumeLayout();
         }
 
         private void DropToPanel(object sender, DragEventArgs e)
         {
-            SuspendLayout();
-
+            object objRef = (object)e.Data.GetData(typeof(AppButton));
+            if ((objRef != null) && (objRef is AppButton))
+            {
+                MoveButton((AppButton)objRef, null);
+            }
+            else
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 AddFiles((string[])e.Data.GetData(DataFormats.FileDrop),0);
             }
-            ResumeLayout();
         }
 
         private AppButton GetAppButton(object sender)
@@ -493,28 +521,14 @@ namespace Apps.Controls
         private void MenuDown_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            SuspendLayout();
-            AppButton b = GetAppButton(sender);
-            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
-            ParentNode.InsertAfter(GetNode(b.AppId), GetNextNode(GetNode(b.AppId)));
-            Controls.SetChildIndex(b, GetAppButtonIndex(b) - 1); // indexes for panels are backwards last control is 0, first control is count. Dumb.
-            SaveXML();
-            GC.Collect();
-            ResumeLayout();
+            MoveButton(GetAppButton(sender), (AppButton)Controls[GetAppButtonIndex(GetAppButton(sender)) - 1]);
             InMenu = false;
         }
 
         private void MenuUp_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            SuspendLayout();
-            AppButton b = GetAppButton(sender);
-            XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
-            ParentNode.InsertBefore(GetNode(b.AppId), GetPrevNode(GetNode(b.AppId)));
-            Controls.SetChildIndex(b, GetAppButtonIndex(b)+1); // indexes for panels are backwards last control is 0, first control is count. Dumb.
-            SaveXML();
-            GC.Collect();
-            ResumeLayout();
+            MoveButton(GetAppButton(sender), (AppButton)Controls[GetAppButtonIndex(GetAppButton(sender)) + 1]);
             InMenu = false;
         }
 
@@ -602,7 +616,7 @@ namespace Apps.Controls
 
         private void OnDragOver(object sender, DragEventArgs e)
         {
-            e.Effect = (DragDropEffects.Copy | DragDropEffects.Link);
+            e.Effect = (DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move);
         }
 
         private void SaveXML()
