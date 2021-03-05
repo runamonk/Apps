@@ -114,7 +114,6 @@ namespace Apps
 
         public delegate void AppButtonClickedHandler(AppButton Button);
         public event AppButtonClickedHandler OnAppButtonClicked;
-
         public delegate void AppButtonDropEventhandler(AppButton DropToButton, DragEventArgs e);
         public event AppButtonDropEventhandler OnAppButtonDropped;
 
@@ -227,7 +226,6 @@ namespace Apps
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             SetColors();
         }
-
         private void CheckForMissingIcon(object sender, EventArgs e)
         {
             if (FileIconImage == null)
@@ -249,32 +247,44 @@ namespace Apps
                 MissingIconTimer.Enabled = false;
             }
         }
-
         private void ConfigChanged(object sender, EventArgs e)
         {
             SetColors();
         }
-
         private bool IsHeaderButton()
         {
             return (IsMenuButton || IsPinButton || IsBackButton);
         }
-
         private void OnDragOver(object sender, DragEventArgs e)
         {
             e.Effect = (DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move);
         }
-
         private void OnDrop(object sender, DragEventArgs e)
         {       
             OnAppButtonDropped?.Invoke(this, e);
         }
-
         public void PerformClick()
         {
             TextOnClick(this, null);
         }
-
+        private void SetColors()
+        {
+            if (IsHeaderButton())
+            {
+                BorderColor = AppsConfig.MenuBorderColor;
+                ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
+                ButtonText.ForeColor = AppsConfig.MenuFontColor;
+                ButtonText.BackColor = AppsConfig.MenuButtonColor;
+            }
+            else
+            {
+                FolderArrow.ForeColor = AppsConfig.AppsFontColor;
+                FolderArrow.BackColor = AppsConfig.AppsBackColor;
+                ButtonPanel.BackColor = AppsConfig.AppsBackColor;
+                ButtonText.ForeColor = AppsConfig.AppsFontColor;
+                ButtonText.BackColor = AppsConfig.AppsBackColor;
+            }
+        }
         private void TextMouseDown(object sender, MouseEventArgs e)
         {
             if ((e == null) || (e.Button == MouseButtons.Left))
@@ -285,7 +295,6 @@ namespace Apps
                 }
             }
         }
-
         private void TextMouseEnter(object sender, EventArgs e)
         {
             if (IsHeaderButton())
@@ -297,7 +306,6 @@ namespace Apps
                 ButtonText.BackColor = AppsConfig.AppsSelectedBackColor;
             }
         }
-
         private void TextMouseLeave(object sender, EventArgs e)
         {
             if (IsHeaderButton())
@@ -309,7 +317,6 @@ namespace Apps
                 ButtonText.BackColor = AppsConfig.AppsBackColor;
             }
         }
-
         private void TextOnClick(object sender, MouseEventArgs e)
         {
             if ((e == null) || (e.Button == MouseButtons.Left))
@@ -330,33 +337,12 @@ namespace Apps
                 OnClick(e);
             }               
         }
-
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
 
             OnAppButtonClicked?.Invoke(this);
         }
-               
-        private void SetColors()
-        {
-            if (IsHeaderButton())
-            {
-                BorderColor = AppsConfig.MenuBorderColor;
-                ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
-                ButtonText.ForeColor = AppsConfig.MenuFontColor;
-                ButtonText.BackColor = AppsConfig.MenuButtonColor;
-            }
-            else
-            {
-                FolderArrow.ForeColor = AppsConfig.AppsFontColor;
-                FolderArrow.BackColor = AppsConfig.AppsBackColor;
-                ButtonPanel.BackColor = AppsConfig.AppsBackColor;
-                ButtonText.ForeColor = AppsConfig.AppsFontColor;
-                ButtonText.BackColor = AppsConfig.AppsBackColor;
-            }
-        }
-
         protected override bool ShowFocusCues
         {
             get {

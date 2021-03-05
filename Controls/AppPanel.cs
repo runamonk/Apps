@@ -37,6 +37,8 @@ namespace Apps.Controls
         private ToolStripMenuItem EditMenuItem;
         private ToolStripMenuItem UpMenuItem;
         private ToolStripMenuItem DownMenuItem;
+        private ToolStripMenuItem MoveToParentItem;
+ 
         //private ToolStripMenuItem AddSepMenuItem;
 
         XmlDocument AppsXml;
@@ -61,6 +63,7 @@ namespace Apps.Controls
             EditMenuItem = Funcs.AddMenuItem(MenuRC, "Edit", MenuEdit_Click);
             DeleteMenuItem = Funcs.AddMenuItem(MenuRC, "Delete", MenuDelete_Click);
             MenuRC.Items.Add(new ToolStripSeparator());
+            MoveToParentItem = Funcs.AddMenuItem(MenuRC, "Move To Parent", MenuMoveToParent_Click);
             UpMenuItem = Funcs.AddMenuItem(MenuRC, "Move Up", MenuUp_Click);
             DownMenuItem = Funcs.AddMenuItem(MenuRC, "Move Down", MenuDown_Click);
 
@@ -263,17 +266,32 @@ namespace Apps.Controls
         }
 
         private void DropToButton(AppButton ToAppButton, DragEventArgs e)
-        {        
+        {
+            InMenu = true;
             object objRef = (object)e.Data.GetData(typeof(AppButton));
             if ((objRef != null) && (objRef is AppButton))
             {
-                MoveButton((AppButton)objRef, ToAppButton);
+                AppButton b = (AppButton)objRef;
+                if (ToAppButton.IsFolderButton)
+                {
+                    Confirm c = new Confirm(AppsConfig);
+                    DialogResult r = c.ShowAsDialog("Move", "Click ok to move into folder or click cancel to move after folder.");
+                    if (r == DialogResult.OK)
+                    {
+                        MoveButtonInto(b, ToAppButton);
+                    }
+                    else
+                        MoveButton(b, ToAppButton);
+                }
+                else
+                    MoveButton(b, ToAppButton);
             }
             else
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 AddFiles((string[])e.Data.GetData(DataFormats.FileDrop), Controls.GetChildIndex(ToAppButton));
             }
+            InMenu = false;
         }
 
         private void DropToPanel(object sender, DragEventArgs e)
@@ -332,14 +350,6 @@ namespace Apps.Controls
             return node.NextSibling;
         }
 
-        public void GoBack()
-        {
-            if ((CurrentParentNode.ParentNode != null) && (CurrentParentNode.ParentNode.Attributes["id"] != null))
-                LoadFolder(CurrentParentNode.ParentNode.Attributes["id"].Value);
-            else
-                LoadItems();
-        }
-
         private void AddFromNodes(XmlNode Nodes)
         {
             foreach (XmlNode xn in Nodes)
@@ -352,6 +362,14 @@ namespace Apps.Controls
                 else
                     AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
             }
+        }
+
+        public void GoBack()
+        {
+            if ((CurrentParentNode.ParentNode != null) && (CurrentParentNode.ParentNode.Attributes["id"] != null))
+                LoadFolder(CurrentParentNode.ParentNode.Attributes["id"].Value);
+            else
+                LoadItems();
         }
 
         private void LoadFolder(string AppId)
@@ -566,6 +584,19 @@ namespace Apps.Controls
             InMenu = false;
         }
 
+        private void MenuMoveToParent_Click(object sender, EventArgs e)
+        {
+            SuspendLayout();
+            AppButton b = GetAppButton(sender);
+            XmlNode xn = GetNode(b.AppId);
+            XmlNode pn = xn.ParentNode.ParentNode;                                                                                                     
+            pn.AppendChild(xn);
+            Controls.Remove(b);
+            SaveXML();
+            GC.Collect();
+            ResumeLayout();
+        }
+
         private void Menu_Opening(object sender, CancelEventArgs e)
         {
             bool b = false;
@@ -580,6 +611,7 @@ namespace Apps.Controls
             EditMenuItem.Enabled = b;
             if (b)
             {
+                MoveToParentItem.Enabled = (GetNode(GetAppButton(sender).AppId).ParentNode.ParentNode.Name.ToLower() != "xml");
                 UpMenuItem.Enabled = (GetPrevNode(GetNode(GetAppButton(sender).AppId)) != null);
                 DownMenuItem.Enabled = (GetNextNode(GetNode(GetAppButton(sender).AppId)) != null);
             }
@@ -601,10 +633,28 @@ namespace Apps.Controls
             }
             else
             {
-                ParentNode.InsertAfter(GetNode(ToButton.AppId), GetNextNode(GetNode(FromButton.AppId)));
-                Controls.SetChildIndex(FromButton, GetAppButtonIndex(ToButton));
+                int t = GetAppButtonIndex(ToButton);
+                int f = GetAppButtonIndex(FromButton);
+
+                if (t < f)
+                    ParentNode.InsertAfter(GetNode(FromButton.AppId), GetNode(ToButton.AppId));
+                else
+                    ParentNode.InsertBefore(GetNode(FromButton.AppId), GetNode(ToButton.AppId));
+                
+                Controls.SetChildIndex(FromButton, t);
             }
 
+            SaveXML();
+            GC.Collect();
+            ResumeLayout();
+        }
+
+        private void MoveButtonInto(AppButton FromButton, AppButton ToButton)
+        {
+            SuspendLayout();
+            XmlNode ParentNode = GetNode(ToButton.AppId);
+            ParentNode.AppendChild(GetNode(FromButton.AppId));
+            Controls.Remove(FromButton);
             SaveXML();
             GC.Collect();
             ResumeLayout();

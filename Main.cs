@@ -56,8 +56,6 @@ namespace Apps
 
         #region Todo
         // seperators
-        // link and open a literal folder
-        // drag and drop to rearrange
         #endregion
 
         #region Events
