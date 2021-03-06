@@ -103,7 +103,7 @@
             // 
             this.ChkParseShortcuts.AutoSize = true;
             this.ChkParseShortcuts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkParseShortcuts.Location = new System.Drawing.Point(6, 80);
+            this.ChkParseShortcuts.Location = new System.Drawing.Point(6, 65);
             this.ChkParseShortcuts.Name = "ChkParseShortcuts";
             this.ChkParseShortcuts.Size = new System.Drawing.Size(117, 17);
             this.ChkParseShortcuts.TabIndex = 3;
@@ -115,7 +115,7 @@
             // 
             this.AutoSizeHeight.AutoSize = true;
             this.AutoSizeHeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AutoSizeHeight.Location = new System.Drawing.Point(6, 60);
+            this.AutoSizeHeight.Location = new System.Drawing.Point(6, 48);
             this.AutoSizeHeight.Name = "AutoSizeHeight";
             this.AutoSizeHeight.Size = new System.Drawing.Size(98, 17);
             this.AutoSizeHeight.TabIndex = 2;
@@ -127,7 +127,7 @@
             // 
             this.OpenAtMouse.AutoSize = true;
             this.OpenAtMouse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenAtMouse.Location = new System.Drawing.Point(6, 39);
+            this.OpenAtMouse.Location = new System.Drawing.Point(6, 31);
             this.OpenAtMouse.Name = "OpenAtMouse";
             this.OpenAtMouse.Size = new System.Drawing.Size(95, 17);
             this.OpenAtMouse.TabIndex = 1;
@@ -139,7 +139,7 @@
             // 
             this.Startup.AutoSize = true;
             this.Startup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Startup.Location = new System.Drawing.Point(6, 18);
+            this.Startup.Location = new System.Drawing.Point(6, 14);
             this.Startup.Name = "Startup";
             this.Startup.Size = new System.Drawing.Size(109, 17);
             this.Startup.TabIndex = 0;
@@ -250,7 +250,7 @@
             this.panel1.Location = new System.Drawing.Point(5, 5);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(418, 102);
+            this.panel1.Size = new System.Drawing.Size(418, 87);
             this.panel1.TabIndex = 6;
             // 
             // GroupOptions
@@ -263,7 +263,7 @@
             this.GroupOptions.Location = new System.Drawing.Point(287, 0);
             this.GroupOptions.Margin = new System.Windows.Forms.Padding(0);
             this.GroupOptions.Name = "GroupOptions";
-            this.GroupOptions.Size = new System.Drawing.Size(131, 102);
+            this.GroupOptions.Size = new System.Drawing.Size(131, 87);
             this.GroupOptions.TabIndex = 12;
             this.GroupOptions.TabStop = false;
             // 
@@ -272,7 +272,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(282, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(5, 102);
+            this.panel3.Size = new System.Drawing.Size(5, 87);
             this.panel3.TabIndex = 11;
             // 
             // GroupHotkey
@@ -288,7 +288,7 @@
             this.GroupHotkey.Dock = System.Windows.Forms.DockStyle.Left;
             this.GroupHotkey.Location = new System.Drawing.Point(0, 0);
             this.GroupHotkey.Name = "GroupHotkey";
-            this.GroupHotkey.Size = new System.Drawing.Size(282, 102);
+            this.GroupHotkey.Size = new System.Drawing.Size(282, 87);
             this.GroupHotkey.TabIndex = 6;
             this.GroupHotkey.TabStop = false;
             this.GroupHotkey.Text = "Popup Hotkey";
@@ -324,7 +324,7 @@
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Modifier";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Shift
             // 
@@ -367,7 +367,7 @@
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Key";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // PanelBottom
             // 
@@ -383,9 +383,9 @@
             // 
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Cancel.Location = new System.Drawing.Point(213, 8);
+            this.Cancel.Location = new System.Drawing.Point(213, 7);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.Size = new System.Drawing.Size(75, 25);
             this.Cancel.TabIndex = 3;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
@@ -394,9 +394,9 @@
             // 
             this.OK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OK.Location = new System.Drawing.Point(130, 8);
+            this.OK.Location = new System.Drawing.Point(130, 7);
             this.OK.Name = "OK";
-            this.OK.Size = new System.Drawing.Size(75, 23);
+            this.OK.Size = new System.Drawing.Size(75, 25);
             this.OK.TabIndex = 2;
             this.OK.Text = "OK";
             this.OK.UseVisualStyleBackColor = true;
@@ -406,9 +406,9 @@
             this.GroupTheme.Controls.Add(this.panel4);
             this.GroupTheme.Controls.Add(this.panel5);
             this.GroupTheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupTheme.Location = new System.Drawing.Point(5, 107);
+            this.GroupTheme.Location = new System.Drawing.Point(5, 92);
             this.GroupTheme.Name = "GroupTheme";
-            this.GroupTheme.Size = new System.Drawing.Size(418, 205);
+            this.GroupTheme.Size = new System.Drawing.Size(418, 220);
             this.GroupTheme.TabIndex = 9;
             this.GroupTheme.TabStop = false;
             this.GroupTheme.Text = "Colors";
@@ -421,7 +421,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 49);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(412, 153);
+            this.panel4.Size = new System.Drawing.Size(412, 168);
             this.panel4.TabIndex = 1;
             // 
             // GroupMenu
@@ -439,7 +439,7 @@
             this.GroupMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupMenu.Location = new System.Drawing.Point(209, 0);
             this.GroupMenu.Name = "GroupMenu";
-            this.GroupMenu.Size = new System.Drawing.Size(203, 153);
+            this.GroupMenu.Size = new System.Drawing.Size(203, 168);
             this.GroupMenu.TabIndex = 24;
             this.GroupMenu.TabStop = false;
             this.GroupMenu.Text = "Menu";
@@ -499,7 +499,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(203, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(6, 153);
+            this.panel2.Size = new System.Drawing.Size(6, 168);
             this.panel2.TabIndex = 23;
             // 
             // GroupApps
@@ -515,7 +515,7 @@
             this.GroupApps.Dock = System.Windows.Forms.DockStyle.Left;
             this.GroupApps.Location = new System.Drawing.Point(0, 0);
             this.GroupApps.Name = "GroupApps";
-            this.GroupApps.Size = new System.Drawing.Size(203, 153);
+            this.GroupApps.Size = new System.Drawing.Size(203, 168);
             this.GroupApps.TabIndex = 0;
             this.GroupApps.TabStop = false;
             this.GroupApps.Text = "Apps";
