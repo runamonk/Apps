@@ -196,6 +196,7 @@ namespace Apps
 
         protected override void OnLoad(EventArgs e)
         {
+            
             if (RunningInstance() != null)
             {
                 MessageBox.Show("There is already a version of Apps running.");
@@ -329,6 +330,7 @@ namespace Apps
 
         private Process RunningInstance()
         {
+#if !DEBUG
             Process current = Process.GetCurrentProcess();
             Process[] processes = Process.GetProcessesByName(current.ProcessName);
 
@@ -336,6 +338,7 @@ namespace Apps
                 if (process.Id != current.Id)
                     if (Assembly.GetExecutingAssembly().Location.Replace("/", "\\") == current.MainModule.FileName)
                         return process;
+#endif
             return null;
         }
 
