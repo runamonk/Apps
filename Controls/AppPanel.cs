@@ -646,6 +646,7 @@ namespace Apps.Controls
 
             SaveXML();
             GC.Collect();
+            OnAppAdded?.Invoke();
             ResumeLayout();
         }
 
@@ -657,6 +658,7 @@ namespace Apps.Controls
             Controls.Remove(FromButton);
             SaveXML();
             GC.Collect();
+            OnAppDeleted?.Invoke();
             ResumeLayout();
         }
 

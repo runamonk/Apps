@@ -87,7 +87,7 @@ namespace Apps
             SuspendLayout();
             SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
-            AutoSizeForm(true);
+            AutoSizeForm(true);            
             ResumeLayout();
         }
 
@@ -242,6 +242,20 @@ namespace Apps
             // select the first control.
             if (Apps.Controls.Count > 0)
                 Apps.Controls[Apps.Controls.Count-1].Select();
+
+            //Height
+            if ((this.Top + this.Size.Height) > Screen.PrimaryScreen.WorkingArea.Height)
+            {
+                
+                this.Top = (this.Top - ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
+            }
+
+            //Width
+            //if ((p.X + form.Size.Width) > Screen.PrimaryScreen.WorkingArea.Width)
+            //{
+            //    p.X = (p.X - ((p.X + form.Size.Width) - Screen.PrimaryScreen.WorkingArea.Width));
+            //}
+
         }
 
         private void LoadConfig()
