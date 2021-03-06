@@ -219,7 +219,7 @@ namespace Apps
             if (IsBackButton)
             {
                 ToolTip BackButtonToolTip = new ToolTip();
-                BackButtonToolTip.SetToolTip(ButtonText, "Click to go back.");
+                BackButtonToolTip.SetToolTip(ButtonText, "Click to go back. [Control + Click to go all the way back.]");
             }
 
             AppsConfig = myConfig;

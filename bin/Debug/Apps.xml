@@ -1,25 +1,5 @@
 <xml version="1.0" encoding="utf-8">
   <APPS>
-    <APP id="b6b72197-6000-4530-95ed-090df70e34b1" appname="Directory Opus" filename="D:\Apps\DirectoryOpus\dopus.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\DirectoryOpus" />
-    <APP id="127475d9-1bfc-481d-bb20-f4a78609ff81" appname="paint.net" filename="D:\Apps\paint.net\PaintDotNet.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\paint.net" />
-    <APP id="413a7c05-e566-4e27-a035-d6dc31f05758" appname="Splashtop Business" filename="C:\Program Files (x86)\Splashtop\Splashtop Remote\Client for STB\clientoobe.exe" fileiconpath="C:\Program Files (x86)\Splashtop\Splashtop Remote\Client for STB\clientoobe.exe" fileargs="" fileworkingfolder="C:\Program Files (x86)\Splashtop\Splashtop Remote\Client for STB" />
-    <APP id="90ffc781-8f05-4d0a-950b-d7a8fbb02585" appname="Spotify" filename="C:\Users\ronhi\AppData\Roaming\Spotify\Spotify.exe" fileiconpath="C:\Users\ronhi\AppData\Roaming\Spotify\Spotify.exe" fileargs="" fileworkingfolder="C:\Users\ronhi\AppData\Roaming\Spotify" />
-    <APP id="3ae56d03-b826-493c-b014-bf17020e5c0b" appname="MyHarmony" filename="C:\Users\ronhi\AppData\Roaming\Microsoft\Installer\{2AD8F8A1-ECE5-4890-BCC2-B4396370A0D4}\_9B59EA1E602DE62B516AE9.exe" fileiconpath="C:\Users\ronhi\AppData\Roaming\Microsoft\Installer\{2AD8F8A1-ECE5-4890-BCC2-B4396370A0D4}\_9B59EA1E602DE62B516AE9.exe" fileargs="" fileworkingfolder="D:\Apps\Harmony\" />
-    <APP id="e8857138-b207-41f9-813e-04e5ae510c2d" appname="Sonos" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="C:\WINDOWS\Installer\{6FB7DAEC-5DAD-491E-9951-4684423F291C}\Sonos.exe_89463FCDFA9043C3B73EE6707A590460.exe" fileargs="" fileworkingfolder="D:\Apps\Sonos\" />
-    <APP id="62e1efaf-6b7c-44e3-8741-09c9e22ef93d" appname="VMware Workstation Pro" filename="D:\Apps\VMWarePro\vmware.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\VMWarePro\" />
-    <APP id="42838cb3-c528-40f1-9bef-2383f58876f6" appname="GitHub Desktop" filename="C:\Users\ronhi\AppData\Local\GitHubDesktop\GitHubDesktop.exe" fileiconpath="C:\Users\ronhi\AppData\Local\GitHubDesktop\GitHubDesktop.exe" fileargs="" fileworkingfolder="C:\Users\ronhi\AppData\Local\GitHubDesktop\app-2.6.3" />
-    <APP id="0f85b0ea-01c8-4b36-b043-1448e6fa8d1a" appname="Visual Studio 2019" filename="D:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" fileiconpath="" fileargs="" fileworkingfolder="d:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\" />
-    <APP id="0893acdf-c6ad-47fd-8b7c-5bc450ca9626" appname="Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\Microsoft VS Code" />
-    <APP id="7f422ce9-3f50-4fae-ace3-9f81f0a4e546" appname="Sublime Text 3" filename="D:\Apps\Sublime Text 3\sublime_text.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\Sublime Text 3" />
-    <APP id="e56f89a5-7c2a-498a-ba07-baa03956aa05" appname="Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\Sublime Merge" />
-    <APP id="32fcc521-c875-4ff4-8dcb-65f62f3688d6" foldername="hardware">
-      <APP id="1e81dd8d-6d09-48dd-891f-719224490c78" appname="Samsung Magician" filename="D:\Apps\Samsung Magician\SamsungMagician.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\apps\Samsung Magician" />
-      <APP id="442b21c9-7d80-4dc4-ab01-950f43e4cc73" appname="Western Digital SSD Dashboard" filename="C:\Program Files (x86)\Western Digital\SSD Dashboard\WesternDigitalSSDDashboard.exe" fileiconpath="C:\Program Files (x86)\Western Digital\SSD Dashboard\WesternDigitalSSDDashboard.exe" fileargs="" fileworkingfolder="C:\Program Files (x86)\Western Digital\SSD Dashboard\" />
-      <APP id="5c500bb2-565b-4f24-94d9-faaedcd8bfbc" appname="Fnatic OP" filename="C:\Users\ronhi\AppData\Local\fnaticop\FnaticOP.exe" fileiconpath="C:\Users\ronhi\AppData\Local\fnaticop\FnaticOP.exe" fileargs="" fileworkingfolder="C:\Users\ronhi\AppData\Local\fnaticop\app-0.0.40" />
-      <APP id="b2c4d9bd-3f59-40c4-b92f-91f8dc68d453" appname="AURA" filename="D:\Apps\Aura\Aura.exe" fileiconpath="" fileargs="" fileworkingfolder="" />
-      <APP id="753ca096-15f8-4a82-93a7-f178afe278db" appname="LogiCapture" filename="C:\Program Files\Logitech\LogiCapture\bin\LogiCapture.exe" fileiconpath="" fileargs="" fileworkingfolder="" />
-      <APP id="0583240f-bf6a-403a-bf18-5360f91ade2a" appname="MyHarmony" filename="C:\Users\ronhi\AppData\Roaming\Microsoft\Installer\{2AD8F8A1-ECE5-4890-BCC2-B4396370A0D4}\_9B59EA1E602DE62B516AE9.exe" fileiconpath="C:\Users\ronhi\AppData\Roaming\Microsoft\Installer\{2AD8F8A1-ECE5-4890-BCC2-B4396370A0D4}\_9B59EA1E602DE62B516AE9.exe" fileargs="" fileworkingfolder="D:\Apps\Harmony\" />
-    </APP>
     <APP id="dd5da0a3-460c-4881-bc7b-397aa32d5980" foldername="games">
       <APP id="cf850765-237c-46a6-9691-75d35ecd2e0c" appname="Steam" filename="D:\Games\Steam\Steam.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Games\Steam" />
       <APP id="d498ccc7-79b9-48da-86c3-682bfec1d32c" appname="Epic" filename="D:\Games\Epic Game Launcher\Epic Games\Launcher\Engine\Binaries\Win64\EpicGamesLauncher.exe" fileiconpath="D:\Games\Epic Game Launcher\Epic Games\Launcher\Engine\Binaries\Win64\EpicGamesLauncher.exe" fileargs="" fileworkingfolder="" />
@@ -28,28 +8,23 @@
       <APP id="5e9e5bdf-6fe6-4aab-8bc7-124dfcae5381" appname="UPlay" filename="D:\Games\Ubisoft Game Launcher\Uplay.exe" fileiconpath="" fileargs="" />
       <APP id="8ccc104f-08bf-43b7-a4da-760252c4d40b" appname="Assassin's Creed Valhalla" filename="com.epicgames.launcher://apps/965ccf8b2eba4f9381ef43183c08e205?action=launch&amp;silent=true" fileiconpath="D:\Games\AssassinsCreedValhalla\ACValhalla.exe" fileargs="" fileworkingfolder="D:\Games\Epic Game Launcher\Epic Games" />
       <APP id="ccea92b5-94cc-4e8a-b82b-2a4029aa7234" appname="Battle.net" filename="D:\Games\Battle.net\Battle.net.exe" fileiconpath="" fileargs="" />
-      <APP id="9e1ce954-5c89-4357-bccf-08507b240ff4" appname="Batman: Arkham Knight" filename="D:\Games\BatmanArkhamKnight\Binaries\Win64\BatmanAK.exe" fileiconpath="" fileargs="" />
       <APP id="6a92ac0b-534a-4e17-8165-7d6f33fe3e5c" appname="Cities XXL" filename="steam://rungameid/313010" fileiconpath="D:\Games\Steam\steam\games\3b000d11e4867ac5c05c6a26fc17c9fce56ee0a9.ico" fileargs="" fileworkingfolder="" />
       <APP id="c6048b4f-eb43-4a78-b254-9c80b019b137" appname="The Long Dark" filename="D:\Games\TheLongDark\tld.exe" fileiconpath="" fileargs="" />
       <APP id="63d8e0a6-538e-4e13-ba64-eb472f34bca3" appname="The Medium" filename="D:\Games\TheMedium\Medium.exe" fileiconpath="" fileargs="" />
       <APP id="d2d95656-d37e-4af2-bd3b-13c62e9ec028" appname="RAGE2" filename="D:\Games\Rage2\RAGE2.exe" fileiconpath="" fileargs="" />
       <APP id="064681e0-c454-4e6c-8799-519df42839ac" appname="World War Z" filename="com.epicgames.launcher://apps/Wombat?action=launch&amp;silent=true" fileiconpath="D:\Games\WorldWarZ\en_us\client\bin\pc\wwzRetailEgs.exe" fileargs="" fileworkingfolder="D:\Games\Epic Game Launcher\Epic Games" />
     </APP>
-    <APP id="9e620737-7987-426a-bfde-e64faad2079c" foldername="tools">
-      <APP id="316925ec-8aa6-4451-88a8-ae5db77dc5ba" appname="Process Explorer" filename="D:\Tools\ProcessExplorer\procexp64.exe" fileiconpath="" fileargs="" fileworkingfolder="" />
-      <APP id="6521ee8e-4b41-4c27-b126-7adfcd6dbef0" appname="Greenfish Icon Editor Pro" filename="D:\Tools\Greenfish Icon Editor Pro 3.6\gfie64.exe" fileiconpath="" fileargs="" fileworkingfolder="" />
-      <APP id="37f4c5b6-2982-4195-aafa-cfe76a5693ef" appname="Macrium Reflect" filename="D:\Apps\Macrium Reflect\Reflect.exe" fileiconpath="C:\WINDOWS\Installer\{7F41F593-1C74-4F9D-9E0E-AD819B4A6222}\Reflect.ico" fileargs="" fileworkingfolder="D:\Apps\Macrium Reflect\" />
-      <APP id="c765d0e0-50ec-4ab5-ac45-ecd9c0a2fdc6" appname="NetLimiter 4 64 bit" filename="D:\Apps\NetLimiter 4\NLClientApp.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\APPS\NetLimiter 4\" />
-      <APP id="78d38de4-837a-4ee3-9db7-fbe108749f54" appname="WhatInStartup" filename="D:\Tools\WhatInStartup\WhatInStartup.exe" fileiconpath="" fileargs="" fileworkingfolder="" />
-      <APP id="28b2cec7-8b59-40b3-b301-d728787643b1" appname="WhoCrashed" filename="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileiconpath="D:\Tools\WhoCrashed\WhoCrashedEx.exe" fileargs="" fileworkingfolder="" />
-      <APP id="5ef8135b-9d72-47c6-b56e-d3366a1271ca" appname="WinDirStat" filename="D:\Tools\WinDirStat\windirstat.exe" fileiconpath="" fileargs="" fileworkingfolder="" />
-    </APP>
-    <APP id="f8e99e05-69ba-4ead-8ce2-b55dcf5d1b3c" foldername="coms">
-      <APP id="a26623d8-c0be-40c3-9a44-c70930e1c26a" appname="Outlook" filename="C:\Program Files (x86)\Microsoft Office\root\Office16\OUTLOOK.EXE" fileiconpath="C:\Program Files\Microsoft Office\Root\VFS\Windows\Installer\{90160000-000F-0000-1000-0000000FF1CE}\outicon.exe" fileargs="" fileworkingfolder="" />
-      <APP id="f9c3fb13-f20c-48af-8147-c2bb22255c08" appname="Microsoft Teams" filename="C:\Users\ronhi\AppData\Local\Microsoft\Teams\Update.exe" fileiconpath="C:\Users\ronhi\AppData\Local\Microsoft\Teams\current\Teams.exe" fileargs="--processStart &quot;Teams.exe&quot;" fileworkingfolder="C:\Users\ronhi\AppData\Local\Microsoft\Teams" />
-      <APP id="3f360dec-bd0a-41a6-866b-98d056aa94eb" appname="Slack" filename="C:\Users\ronhi\AppData\Local\slack\slack.exe" fileiconpath="C:\Users\ronhi\AppData\Local\slack\slack.exe" fileargs="" fileworkingfolder="C:\Users\ronhi\AppData\Local\slack\app-4.13.0" />
-      <APP id="f4b631c0-82a2-4e02-8843-34a0c0fff353" appname="Skype" filename="C:\Program Files (x86)\Microsoft\Skype for Desktop\Skype.exe" fileiconpath="" fileargs="" fileworkingfolder="C:\Program Files (x86)\Microsoft\Skype for Desktop" />
-    </APP>
+    <APP id="b6b72197-6000-4530-95ed-090df70e34b1" appname="Directory Opus" filename="D:\Apps\DirectoryOpus\dopus.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\DirectoryOpus" />
+    <APP id="127475d9-1bfc-481d-bb20-f4a78609ff81" appname="paint.net" filename="D:\Apps\paint.net\PaintDotNet.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\paint.net" />
+    <APP id="413a7c05-e566-4e27-a035-d6dc31f05758" appname="Splashtop Business" filename="C:\Program Files (x86)\Splashtop\Splashtop Remote\Client for STB\clientoobe.exe" fileiconpath="C:\Program Files (x86)\Splashtop\Splashtop Remote\Client for STB\clientoobe.exe" fileargs="" fileworkingfolder="C:\Program Files (x86)\Splashtop\Splashtop Remote\Client for STB" />
+    <APP id="90ffc781-8f05-4d0a-950b-d7a8fbb02585" appname="Spotify" filename="C:\Users\ronhi\AppData\Roaming\Spotify\Spotify.exe" fileiconpath="C:\Users\ronhi\AppData\Roaming\Spotify\Spotify.exe" fileargs="" fileworkingfolder="C:\Users\ronhi\AppData\Roaming\Spotify" />
+    <APP id="e8857138-b207-41f9-813e-04e5ae510c2d" appname="Sonos" filename="D:\Apps\Sonos\Sonos.exe" fileiconpath="C:\WINDOWS\Installer\{6FB7DAEC-5DAD-491E-9951-4684423F291C}\Sonos.exe_89463FCDFA9043C3B73EE6707A590460.exe" fileargs="" fileworkingfolder="D:\Apps\Sonos\" />
+    <APP id="62e1efaf-6b7c-44e3-8741-09c9e22ef93d" appname="VMware Workstation Pro" filename="D:\Apps\VMWarePro\vmware.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\VMWarePro\" />
+    <APP id="42838cb3-c528-40f1-9bef-2383f58876f6" appname="GitHub Desktop" filename="C:\Users\ronhi\AppData\Local\GitHubDesktop\GitHubDesktop.exe" fileiconpath="C:\Users\ronhi\AppData\Local\GitHubDesktop\GitHubDesktop.exe" fileargs="" fileworkingfolder="C:\Users\ronhi\AppData\Local\GitHubDesktop\app-2.6.3" />
+    <APP id="0f85b0ea-01c8-4b36-b043-1448e6fa8d1a" appname="Visual Studio 2019" filename="D:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" fileiconpath="" fileargs="" fileworkingfolder="d:\Apps\Microsoft Visual Studio\2019\Community\Common7\IDE\" />
+    <APP id="0893acdf-c6ad-47fd-8b7c-5bc450ca9626" appname="Visual Studio Code" filename="D:\Apps\Microsoft VS Code\Code.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\Microsoft VS Code" />
+    <APP id="7f422ce9-3f50-4fae-ace3-9f81f0a4e546" appname="Sublime Text 3" filename="D:\Apps\Sublime Text 3\sublime_text.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\Sublime Text 3" />
+    <APP id="e56f89a5-7c2a-498a-ba07-baa03956aa05" appname="Sublime Merge" filename="D:\Apps\Sublime Merge\sublime_merge.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\Sublime Merge" />
   </APPS>
   <APP id="c46695a3-91ff-4b84-9528-5e3398eab33f" appname="Directory Opus" filename="D:\Apps\DirectoryOpus\dopus.exe" fileiconpath="" fileargs="" fileworkingfolder="D:\Apps\DirectoryOpus" />
 </xml>

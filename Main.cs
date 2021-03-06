@@ -53,6 +53,9 @@ namespace Apps
         private string ICON_UNPINNED = "\uE1F7";
         private string ICON_MAINMENU = "\uE0C2";
         private string ICON_MAINMENU_W7 = "\u268A";
+        private string ICON_BACK = "\uE197"; //"\uE08E";
+        private string ICON_BACK_W7 = "\u25C1";
+
 
         #region Todo
         // seperators
@@ -270,7 +273,7 @@ namespace Apps
                 MenuMainButton.Click += MainButton_Click;
                 MenuMainButton.Padding = new Padding(0,0,0,0);
                 MenuMainButton.Margin = new Padding(0,0,0,0);
-
+               
                 BackButton = new AppButton(Config, ButtonType.Back)
                 {
                     Width = 25,
@@ -279,11 +282,12 @@ namespace Apps
                     Visible = false
                 };
                 BackButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                BackButton.AppName = "\u25C1";
+                BackButton.AppName = (Funcs.IsWindows7() ? ICON_BACK_W7 : ICON_BACK);
                 BackButton.Click += BackButton_Click;
                 BackButton.Padding = new Padding(0, 0, 0, 0);
                 BackButton.Margin = new Padding(0, 0, 0, 0);
                 pTop.Controls.SetChildIndex(BackButton, 0);
+
 
                 SubfolderName = new Label();
                 SubfolderName.AutoSize = false;

@@ -366,7 +366,7 @@ namespace Apps.Controls
 
         public void GoBack()
         {
-            if ((CurrentParentNode.ParentNode != null) && (CurrentParentNode.ParentNode.Attributes["id"] != null))
+            if ((CurrentParentNode.ParentNode != null) && (CurrentParentNode.ParentNode.Attributes["id"] != null) && !ModifierKeys.HasFlag(Keys.Control))
                 LoadFolder(CurrentParentNode.ParentNode.Attributes["id"].Value);
             else
                 LoadItems();
