@@ -10,10 +10,10 @@ namespace Apps
             f.ShowAsDialog(Caption, MessageText);
         }
 
-        public static System.Windows.Forms.DialogResult ConfirmDialog(Config myConfig, string Caption, string MessageText)
+        public static System.Windows.Forms.DialogResult ConfirmDialog(Config myConfig, ConfirmButtons Buttons, string Caption, string MessageText)
         {
             Confirm f = new Confirm(myConfig);
-            return f.ShowAsDialog(Caption, MessageText);
+            return f.ShowAsDialog(Buttons, Caption, MessageText);
         }
     }
 }

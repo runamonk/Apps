@@ -10,6 +10,12 @@ using System.Windows.Forms;
 
 namespace Apps.Forms
 {
+    public enum ConfirmButtons
+    {
+        OKCancel,
+        YesNo
+    }
+
     public partial class Confirm : Form
     {
         private const int CP_NOCLOSE_BUTTON = 0x200;
@@ -27,12 +33,27 @@ namespace Apps.Forms
             InitializeComponent();
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
-            ButtonOK.BackColor = BackColor;
-            ButtonCancel.BackColor = BackColor;
+            ButtonOne.BackColor = BackColor;
+            ButtonTwo.BackColor = BackColor;
         }
 
-        public DialogResult ShowAsDialog(string Caption, string Message)
+        public DialogResult ShowAsDialog(ConfirmButtons Buttons, string Caption, string Message)
         {
+            if (Buttons == ConfirmButtons.OKCancel)
+            {
+                ButtonOne.Text = "OK";
+                ButtonTwo.Text = "Cancel";
+                ButtonOne.DialogResult = DialogResult.OK;
+                ButtonTwo.DialogResult = DialogResult.Cancel;
+            }
+            else
+            if (Buttons == ConfirmButtons.YesNo)
+            {
+                ButtonOne.Text = "Yes";
+                ButtonTwo.Text = "No";
+                ButtonOne.DialogResult = DialogResult.Yes;
+                ButtonTwo.DialogResult = DialogResult.No;
+            }
             Text = Caption;
             ConfirmText.Text = Message;
             return ShowDialog();
@@ -41,10 +62,10 @@ namespace Apps.Forms
         private void Confirm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                ButtonOK.PerformClick();
+                ButtonOne.PerformClick();
             else
             if (e.KeyCode == Keys.Escape)
-                ButtonCancel.PerformClick();
+                ButtonTwo.PerformClick();
         }
     }
 }

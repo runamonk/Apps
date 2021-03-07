@@ -132,7 +132,7 @@ namespace Apps.Forms
 
                 if ((EditWorkingFolder.Text != "") && (!Directory.Exists(EditWorkingFolder.Text)))
                 {
-                    e.Cancel = (Misc.ConfirmDialog(AppsConfig, "Are you sure?", "Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.OK);
+                    e.Cancel = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.YesNo, "Are you sure?", "Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.OK);
                 }
   
                 if (ErrorStr != "")

@@ -249,13 +249,6 @@ namespace Apps
                 
                 this.Top = (this.Top - ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
             }
-
-            //Width
-            //if ((p.X + form.Size.Width) > Screen.PrimaryScreen.WorkingArea.Width)
-            //{
-            //    p.X = (p.X - ((p.X + form.Size.Width) - Screen.PrimaryScreen.WorkingArea.Width));
-            //}
-
         }
 
         private void LoadConfig()

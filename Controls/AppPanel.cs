@@ -111,6 +111,20 @@ namespace Apps.Controls
             Node.Attributes.Append(XmlAtt);
         }
 
+        private void AddChildren(XmlNode Nodes)
+        {
+            foreach (XmlNode xn in Nodes)
+            {
+                if (xn.Attributes["folderlinkname"] != null)
+                    AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
+                else
+                if (xn.Attributes["foldername"] != null)
+                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
+                else
+                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
+            }
+        }
+
         private void AddFiles(string[] Files, int AddAtIndex)
         {
             SuspendLayout();
@@ -143,24 +157,21 @@ namespace Apps.Controls
             b.AutoSize = false;
             b.AppName = FolderName;
             XmlNode node = GetNode(b.AppId);
-            XmlNode nodeSib = null;
-            nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+
             if (node == null)
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+                XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
                 AddAttrib(node, "id", b.AppId);
                 AddAttrib(node, "foldername", FolderName);
-
                 XmlNode ParentNode = (CurrentParentNode != null ? CurrentParentNode : AppsNode);
                 if (nodeSib == null)
                     ParentNode.AppendChild(node);
                 else
                     ParentNode.InsertAfter(node, nodeSib);
-
                 SaveXML();
             }
-
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
             OnAppAdded?.Invoke();
             ResumeLayout();
         }
@@ -176,12 +187,10 @@ namespace Apps.Controls
             b.AutoSize = false;
             
             XmlNode node = GetNode(b.AppId);
-            XmlNode nodeSib = null;
-            nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
                        
             if (node == null)
             {
+                XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
                 if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(fileName))
                 {
                     AppName = Path.GetFileNameWithoutExtension(fileName);
@@ -211,6 +220,7 @@ namespace Apps.Controls
             if (b.FileIconImage == null)
                 b.WatchForIconUpdate = true;
 
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
             OnAppAdded?.Invoke();
             ResumeLayout();
         }
@@ -275,7 +285,7 @@ namespace Apps.Controls
                 if (ToAppButton.IsFolderButton)
                 {
                     Confirm c = new Confirm(AppsConfig);
-                    DialogResult r = c.ShowAsDialog("Move", "Click ok to move into folder or click cancel to move after folder.");
+                    DialogResult r = c.ShowAsDialog(ConfirmButtons.YesNo, "Move " + b.AppName + "?", "Move into folder " + ToAppButton.AppName + "?");
                     if (r == DialogResult.OK)
                     {
                         MoveButtonInto(b, ToAppButton);
@@ -350,20 +360,6 @@ namespace Apps.Controls
             return node.NextSibling;
         }
 
-        private void AddFromNodes(XmlNode Nodes)
-        {
-            foreach (XmlNode xn in Nodes)
-            {
-                if (xn.Attributes["folderlinkname"] != null)
-                    AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
-                else
-                if (xn.Attributes["foldername"] != null)
-                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
-                else
-                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
-            }
-        }
-
         public void GoBack()
         {
             if ((CurrentParentNode.ParentNode != null) && (CurrentParentNode.ParentNode.Attributes["id"] != null) && !ModifierKeys.HasFlag(Keys.Control))
@@ -377,10 +373,8 @@ namespace Apps.Controls
             SuspendLayout();
             InLoad = true;            
             Controls.Clear();
-
             CurrentParentNode = GetNode(AppId);
-            AddFromNodes(CurrentParentNode);
-
+            AddChildren(CurrentParentNode);
             InLoad = false;
             OnAppsLoaded?.Invoke();
             ResumeLayout();
@@ -406,7 +400,7 @@ namespace Apps.Controls
             }
 
             AppsNode = AppsXml.SelectSingleNode("//APPS");
-            AddFromNodes(AppsNode);
+            AddChildren(AppsNode);
 
             InLoad = false;
             OnAppsLoaded?.Invoke();
@@ -498,7 +492,7 @@ namespace Apps.Controls
             if (b.IsFolderLinkButton)
                 s = "folder link?";
 
-            CanDelete = (Misc.ConfirmDialog(AppsConfig, "Delete " + b.AppName + "?", "Delete " + s) == DialogResult.OK);
+            CanDelete = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.OKCancel, "Delete " + b.AppName + "?", "Delete " + s) == DialogResult.OK);
 
             if (CanDelete)
             {

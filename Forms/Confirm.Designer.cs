@@ -30,8 +30,8 @@ namespace Apps.Forms
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.ButtonCancel = new System.Windows.Forms.Button();
-            this.ButtonOK = new System.Windows.Forms.Button();
+            this.ButtonTwo = new System.Windows.Forms.Button();
+            this.ButtonOne = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ConfirmText = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
@@ -40,35 +40,35 @@ namespace Apps.Forms
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.ButtonCancel);
-            this.panel2.Controls.Add(this.ButtonOK);
+            this.panel2.Controls.Add(this.ButtonTwo);
+            this.panel2.Controls.Add(this.ButtonOne);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 37);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(409, 43);
             this.panel2.TabIndex = 1;
             // 
-            // ButtonCancel
+            // ButtonTwo
             // 
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonCancel.Location = new System.Drawing.Point(207, 9);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 5;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.ButtonTwo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonTwo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonTwo.Location = new System.Drawing.Point(207, 9);
+            this.ButtonTwo.Name = "ButtonTwo";
+            this.ButtonTwo.Size = new System.Drawing.Size(75, 23);
+            this.ButtonTwo.TabIndex = 5;
+            this.ButtonTwo.Text = "Cancel";
+            this.ButtonTwo.UseVisualStyleBackColor = true;
             // 
-            // ButtonOK
+            // ButtonOne
             // 
-            this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonOK.Location = new System.Drawing.Point(126, 9);
-            this.ButtonOK.Name = "ButtonOK";
-            this.ButtonOK.Size = new System.Drawing.Size(75, 23);
-            this.ButtonOK.TabIndex = 4;
-            this.ButtonOK.Text = "OK";
-            this.ButtonOK.UseVisualStyleBackColor = true;
+            this.ButtonOne.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ButtonOne.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonOne.Location = new System.Drawing.Point(126, 9);
+            this.ButtonOne.Name = "ButtonOne";
+            this.ButtonOne.Size = new System.Drawing.Size(75, 23);
+            this.ButtonOne.TabIndex = 4;
+            this.ButtonOne.Text = "OK";
+            this.ButtonOne.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -118,8 +118,8 @@ namespace Apps.Forms
 
         #endregion
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button ButtonCancel;
-        private System.Windows.Forms.Button ButtonOK;
+        private System.Windows.Forms.Button ButtonTwo;
+        private System.Windows.Forms.Button ButtonOne;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label ConfirmText;
     }
