@@ -273,6 +273,8 @@ namespace Apps.Controls
         private void Clear()
         {
             while (Controls.Count > 0) Controls[0].Dispose();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void ConfigChanged(object sender, EventArgs e)
@@ -410,7 +412,6 @@ namespace Apps.Controls
 
             InLoad = false;
             OnAppsLoaded?.Invoke();
-            GC.Collect();
             ResumeLayout();
         }
 
