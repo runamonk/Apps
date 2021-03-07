@@ -270,6 +270,11 @@ namespace Apps.Controls
             }
         }
 
+        private void Clear()
+        {
+            while (Controls.Count > 0) Controls[0].Dispose();
+        }
+
         private void ConfigChanged(object sender, EventArgs e)
         {
             SetColors();
@@ -372,20 +377,21 @@ namespace Apps.Controls
         {
             SuspendLayout();
             InLoad = true;            
-            Controls.Clear();
+            Clear();
             CurrentParentNode = GetNode(AppId);
             AddChildren(CurrentParentNode);
             InLoad = false;
             OnAppsLoaded?.Invoke();
+            GC.Collect();
             ResumeLayout();
         }
 
         public void LoadItems()
         {
             SuspendLayout();
-            Controls.Clear();
-            CurrentParentNode = null;
             InLoad = true;
+            CurrentParentNode = null;
+            Clear();
 
             if (!File.Exists(AppsXmlFilePath))
             {
@@ -404,6 +410,7 @@ namespace Apps.Controls
 
             InLoad = false;
             OnAppsLoaded?.Invoke();
+            GC.Collect();
             ResumeLayout();
         }
 
