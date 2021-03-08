@@ -272,9 +272,10 @@ namespace Apps.Controls
 
         private void Clear()
         {
-            while (Controls.Count > 0) Controls[0].Dispose();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+            Controls.Clear();
+            //while (Controls.Count > 0) Controls[0].Dispose();
+            //
+            //GC.WaitForPendingFinalizers();
         }
 
         private void ConfigChanged(object sender, EventArgs e)
@@ -384,7 +385,7 @@ namespace Apps.Controls
             AddChildren(CurrentParentNode);
             InLoad = false;
             OnAppsLoaded?.Invoke();
-            GC.Collect();
+            
             ResumeLayout();
         }
 
@@ -434,7 +435,7 @@ namespace Apps.Controls
                 }
             }
 
-            GC.Collect();
+            
             InMenu = false;
         }
 
@@ -457,7 +458,7 @@ namespace Apps.Controls
                 }
             }
 
-            GC.Collect();
+            
             InMenu = false;
         }
 
@@ -480,7 +481,7 @@ namespace Apps.Controls
                 }
             }
 
-            GC.Collect();
+            
             InMenu = false;
         }
 
@@ -508,7 +509,7 @@ namespace Apps.Controls
                 parentNode.RemoveChild(node);
                 Controls.Remove(b);
                 SaveXML();
-                GC.Collect();
+                
                 OnAppDeleted?.Invoke();
             }
             InMenu = false;
@@ -581,7 +582,7 @@ namespace Apps.Controls
                 }
             }
 
-            GC.Collect();
+            
             ResumeLayout();
             InMenu = false;
         }
@@ -595,7 +596,7 @@ namespace Apps.Controls
             pn.AppendChild(xn);
             Controls.Remove(b);
             SaveXML();
-            GC.Collect();
+            
             ResumeLayout();
         }
 
@@ -647,7 +648,7 @@ namespace Apps.Controls
             }
 
             SaveXML();
-            GC.Collect();
+            
             OnAppAdded?.Invoke();
             ResumeLayout();
         }
@@ -659,7 +660,7 @@ namespace Apps.Controls
             ParentNode.AppendChild(GetNode(FromButton.AppId));
             Controls.Remove(FromButton);
             SaveXML();
-            GC.Collect();
+            
             OnAppDeleted?.Invoke();
             ResumeLayout();
         }
