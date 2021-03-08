@@ -326,6 +326,8 @@ namespace Apps
                     try
                     {
                         ProcessStartInfo procStartInfo = new ProcessStartInfo(FileName, FileArgs);
+                        if (string.IsNullOrEmpty(FileWorkingFolder))
+                            FileWorkingFolder = Path.GetDirectoryName(FileName);
                         procStartInfo.WorkingDirectory = FileWorkingFolder;
                         Process.Start(procStartInfo);
                     }
