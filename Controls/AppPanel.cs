@@ -272,10 +272,8 @@ namespace Apps.Controls
 
         private void Clear()
         {
+            while (Controls.Count > 0) Controls[0].Dispose();
             Controls.Clear();
-            //while (Controls.Count > 0) Controls[0].Dispose();
-            //
-            //GC.WaitForPendingFinalizers();
         }
 
         private void ConfigChanged(object sender, EventArgs e)
