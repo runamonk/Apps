@@ -84,11 +84,9 @@ namespace Apps
 
         private void AppsLoaded()
         {
-            SuspendLayout();
             SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
             AutoSizeForm(true);            
-            ResumeLayout();
         }
 
         private void Main_Deactivate(object sender, EventArgs e)

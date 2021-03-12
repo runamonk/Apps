@@ -273,7 +273,6 @@ namespace Apps.Controls
         private void Clear()
         {
             while (Controls.Count > 0) Controls[0].Dispose();
-            Controls.Clear();
         }
 
         private void ConfigChanged(object sender, EventArgs e)
@@ -382,8 +381,7 @@ namespace Apps.Controls
             CurrentParentNode = GetNode(AppId);
             AddChildren(CurrentParentNode);
             InLoad = false;
-            OnAppsLoaded?.Invoke();
-            
+            OnAppsLoaded?.Invoke();            
             ResumeLayout();
         }
 
