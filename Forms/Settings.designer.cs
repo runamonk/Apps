@@ -77,6 +77,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.DarkTheme = new System.Windows.Forms.RadioButton();
             this.LightTheme = new System.Windows.Forms.RadioButton();
+            this.ChkOpenRootFolder = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.GroupOptions.SuspendLayout();
             this.GroupHotkey.SuspendLayout();
@@ -250,29 +251,31 @@
             this.panel1.Location = new System.Drawing.Point(5, 5);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(418, 87);
+            this.panel1.Size = new System.Drawing.Size(418, 104);
             this.panel1.TabIndex = 6;
             // 
             // GroupOptions
             // 
+            this.GroupOptions.Controls.Add(this.ChkOpenRootFolder);
             this.GroupOptions.Controls.Add(this.ChkParseShortcuts);
             this.GroupOptions.Controls.Add(this.AutoSizeHeight);
             this.GroupOptions.Controls.Add(this.OpenAtMouse);
             this.GroupOptions.Controls.Add(this.Startup);
             this.GroupOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupOptions.Location = new System.Drawing.Point(287, 0);
+            this.GroupOptions.Location = new System.Drawing.Point(249, 0);
             this.GroupOptions.Margin = new System.Windows.Forms.Padding(0);
             this.GroupOptions.Name = "GroupOptions";
-            this.GroupOptions.Size = new System.Drawing.Size(131, 87);
+            this.GroupOptions.Size = new System.Drawing.Size(169, 104);
             this.GroupOptions.TabIndex = 12;
             this.GroupOptions.TabStop = false;
+            this.GroupOptions.Text = "Misc";
             // 
             // panel3
             // 
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(282, 0);
+            this.panel3.Location = new System.Drawing.Point(244, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(5, 87);
+            this.panel3.Size = new System.Drawing.Size(5, 104);
             this.panel3.TabIndex = 11;
             // 
             // GroupHotkey
@@ -288,7 +291,7 @@
             this.GroupHotkey.Dock = System.Windows.Forms.DockStyle.Left;
             this.GroupHotkey.Location = new System.Drawing.Point(0, 0);
             this.GroupHotkey.Name = "GroupHotkey";
-            this.GroupHotkey.Size = new System.Drawing.Size(282, 87);
+            this.GroupHotkey.Size = new System.Drawing.Size(244, 104);
             this.GroupHotkey.TabIndex = 6;
             this.GroupHotkey.TabStop = false;
             this.GroupHotkey.Text = "Popup Hotkey";
@@ -309,7 +312,7 @@
             // 
             this.Windows.AutoSize = true;
             this.Windows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Windows.Location = new System.Drawing.Point(209, 45);
+            this.Windows.Location = new System.Drawing.Point(125, 65);
             this.Windows.Name = "Windows";
             this.Windows.Size = new System.Drawing.Size(67, 17);
             this.Windows.TabIndex = 4;
@@ -318,7 +321,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(7, 45);
+            this.label2.Location = new System.Drawing.Point(7, 46);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
@@ -330,10 +333,10 @@
             // 
             this.Shift.AutoSize = true;
             this.Shift.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Shift.Location = new System.Drawing.Point(162, 45);
+            this.Shift.Location = new System.Drawing.Point(125, 45);
             this.Shift.Name = "Shift";
             this.Shift.Size = new System.Drawing.Size(44, 17);
-            this.Shift.TabIndex = 3;
+            this.Shift.TabIndex = 2;
             this.Shift.Text = "Shift";
             this.Shift.UseVisualStyleBackColor = true;
             // 
@@ -341,10 +344,10 @@
             // 
             this.Alt.AutoSize = true;
             this.Alt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Alt.Location = new System.Drawing.Point(123, 45);
+            this.Alt.Location = new System.Drawing.Point(63, 65);
             this.Alt.Name = "Alt";
             this.Alt.Size = new System.Drawing.Size(35, 17);
-            this.Alt.TabIndex = 2;
+            this.Alt.TabIndex = 3;
             this.Alt.Text = "Alt";
             this.Alt.UseVisualStyleBackColor = true;
             // 
@@ -374,7 +377,7 @@
             this.PanelBottom.Controls.Add(this.Cancel);
             this.PanelBottom.Controls.Add(this.OK);
             this.PanelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.PanelBottom.Location = new System.Drawing.Point(5, 312);
+            this.PanelBottom.Location = new System.Drawing.Point(5, 314);
             this.PanelBottom.Name = "PanelBottom";
             this.PanelBottom.Size = new System.Drawing.Size(418, 38);
             this.PanelBottom.TabIndex = 8;
@@ -406,9 +409,9 @@
             this.GroupTheme.Controls.Add(this.panel4);
             this.GroupTheme.Controls.Add(this.panel5);
             this.GroupTheme.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GroupTheme.Location = new System.Drawing.Point(5, 92);
+            this.GroupTheme.Location = new System.Drawing.Point(5, 109);
             this.GroupTheme.Name = "GroupTheme";
-            this.GroupTheme.Size = new System.Drawing.Size(418, 220);
+            this.GroupTheme.Size = new System.Drawing.Size(418, 205);
             this.GroupTheme.TabIndex = 9;
             this.GroupTheme.TabStop = false;
             this.GroupTheme.Text = "Colors";
@@ -421,7 +424,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 49);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(412, 168);
+            this.panel4.Size = new System.Drawing.Size(412, 153);
             this.panel4.TabIndex = 1;
             // 
             // GroupMenu
@@ -439,7 +442,7 @@
             this.GroupMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupMenu.Location = new System.Drawing.Point(209, 0);
             this.GroupMenu.Name = "GroupMenu";
-            this.GroupMenu.Size = new System.Drawing.Size(203, 168);
+            this.GroupMenu.Size = new System.Drawing.Size(203, 153);
             this.GroupMenu.TabIndex = 24;
             this.GroupMenu.TabStop = false;
             this.GroupMenu.Text = "Menu";
@@ -499,7 +502,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(203, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(6, 168);
+            this.panel2.Size = new System.Drawing.Size(6, 153);
             this.panel2.TabIndex = 23;
             // 
             // GroupApps
@@ -515,7 +518,7 @@
             this.GroupApps.Dock = System.Windows.Forms.DockStyle.Left;
             this.GroupApps.Location = new System.Drawing.Point(0, 0);
             this.GroupApps.Name = "GroupApps";
-            this.GroupApps.Size = new System.Drawing.Size(203, 168);
+            this.GroupApps.Size = new System.Drawing.Size(203, 153);
             this.GroupApps.TabIndex = 0;
             this.GroupApps.TabStop = false;
             this.GroupApps.Text = "Apps";
@@ -604,11 +607,23 @@
             this.LightTheme.UseVisualStyleBackColor = true;
             this.LightTheme.Click += new System.EventHandler(this.LightTheme_Click);
             // 
+            // ChkOpenRootFolder
+            // 
+            this.ChkOpenRootFolder.AutoSize = true;
+            this.ChkOpenRootFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChkOpenRootFolder.Location = new System.Drawing.Point(6, 82);
+            this.ChkOpenRootFolder.Name = "ChkOpenRootFolder";
+            this.ChkOpenRootFolder.Size = new System.Drawing.Size(99, 17);
+            this.ChkOpenRootFolder.TabIndex = 4;
+            this.ChkOpenRootFolder.Text = "Open root folder";
+            this.toolTip1.SetToolTip(this.ChkOpenRootFolder, "Check to automatically open at the root folder.");
+            this.ChkOpenRootFolder.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 355);
+            this.ClientSize = new System.Drawing.Size(428, 357);
             this.Controls.Add(this.GroupTheme);
             this.Controls.Add(this.PanelBottom);
             this.Controls.Add(this.panel1);
@@ -691,5 +706,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.RadioButton DarkTheme;
         private System.Windows.Forms.RadioButton LightTheme;
+        public System.Windows.Forms.CheckBox ChkOpenRootFolder;
     }
 }

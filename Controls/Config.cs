@@ -41,11 +41,33 @@ namespace Apps
 
                     int m = _Config.PopupHotkeyModifier;
                     Alt.Checked = (m == 1 || m == 3 || m == 5 || m == 9);
+                    Alt.BackColor = _Config.AppsBackColor;
+                    Alt.ForeColor = _Config.AppsFontColor;
                     Control.Checked = (m == 2 || m == 3 || m == 6 || m == 10);
+                    Control.BackColor = _Config.AppsBackColor;
+                    Control.ForeColor = _Config.AppsFontColor;
                     Shift.Checked = (m == 4 || m == 5 || m == 6 || m == 12);
+                    Shift.BackColor = _Config.AppsBackColor;
+                    Shift.ForeColor = _Config.AppsFontColor;
                     Windows.Checked = (m == 8 || m == 9 || m == 10 || m == 12);
+                    Windows.BackColor = _Config.AppsBackColor;
+                    Windows.ForeColor = _Config.AppsFontColor;
                     Startup.Checked = _Config.StartWithWindows;
+                    Startup.BackColor = _Config.AppsBackColor;
+                    Startup.ForeColor = _Config.AppsFontColor;
+                    OpenAtMouse.Checked = _Config.OpenFormAtCursor;
+                    OpenAtMouse.BackColor = _Config.AppsBackColor;
+                    OpenAtMouse.ForeColor = _Config.AppsFontColor;
+                    ChkParseShortcuts.Checked = _Config.ParseShortcuts;
+                    ChkParseShortcuts.BackColor = _Config.AppsBackColor;
+                    ChkParseShortcuts.ForeColor = _Config.AppsFontColor;
+                    ChkOpenRootFolder.Checked = _Config.OpenAtRoot;
+                    ChkOpenRootFolder.BackColor = _Config.AppsBackColor;
+                    ChkOpenRootFolder.ForeColor = _Config.AppsFontColor;
                     AutoSizeHeight.Checked = _Config.AutoSizeHeight;
+                    AutoSizeHeight.BackColor = _Config.AppsBackColor;
+                    AutoSizeHeight.ForeColor = _Config.AppsFontColor;
+
                     AppBackColor.BackColor = _Config.AppsBackColor;
                     AppFontColor.BackColor = _Config.AppsFontColor;
                     AppHeaderColor.BackColor = _Config.AppsHeaderColor;
@@ -55,8 +77,6 @@ namespace Apps
                     MenuButtonColor.BackColor = _Config.MenuButtonColor;
                     MenuFontColor.BackColor = _Config.MenuFontColor;
                     MenuSelectedColor.BackColor = _Config.MenuSelectedColor;
-                    OpenAtMouse.Checked = _Config.OpenFormAtCursor;
-                    ChkParseShortcuts.Checked = _Config.ParseShortcuts;
 
                     BackColor = Config.AppsBackColor;
                     ForeColor = Config.AppsFontColor;
@@ -107,6 +127,7 @@ namespace Apps
                 _Config.PopupHotkeyModifier = i;
                 _Config.StartWithWindows = Startup.Checked;
                 _Config.ParseShortcuts = ChkParseShortcuts.Checked;
+                _Config.OpenAtRoot = ChkOpenRootFolder.Checked;
 
                 DialogResult = System.Windows.Forms.DialogResult.OK;
             }
@@ -398,6 +419,17 @@ namespace Apps
                 return bool.Parse(s);
             }
             set { SetKey("open_form_at_cursor", value.ToString()); }
+        }
+
+        public Boolean OpenAtRoot
+        {
+            get {
+                string s = FindKey("open_at_root");
+                if (s == "")
+                    s = SetKey("open_at_root", "false");
+                return bool.Parse(s);
+            }
+            set { SetKey("open_at_root", value.ToString()); }
         }
 
         public Boolean ParseShortcuts

@@ -371,6 +371,8 @@ namespace Apps
                 }
                 else
                 {
+                    if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
+                        Apps.LoadItems();
                     AutoSizeForm(true);
                     if (Config.OpenFormAtCursor)
                         Funcs.MoveFormToCursor(this, false);
