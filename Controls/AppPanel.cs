@@ -172,8 +172,8 @@ namespace Apps.Controls
                 SaveXML();
             }
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-            OnAppAdded?.Invoke();
             ResumeLayout();
+            OnAppAdded?.Invoke();
         }
 
         public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, string fileWorkingFolder, int AddAtIndex)
@@ -221,8 +221,8 @@ namespace Apps.Controls
                 b.WatchForIconUpdate = true;
 
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-            OnAppAdded?.Invoke();
             ResumeLayout();
+            OnAppAdded?.Invoke();
         }
 
         public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath ,int AddAtIndex)
@@ -255,9 +255,8 @@ namespace Apps.Controls
 
                 SaveXML();
             }
-
-            OnAppAdded?.Invoke();
             ResumeLayout();
+            OnAppAdded?.Invoke();
         }
 
         private void ButtonClicked(AppButton App)
@@ -291,7 +290,7 @@ namespace Apps.Controls
                 {
                     Confirm c = new Confirm(AppsConfig);
                     DialogResult r = c.ShowAsDialog(ConfirmButtons.YesNo, "Move " + b.AppName + "?", "Move into folder " + ToAppButton.AppName + "?");
-                    if (r == DialogResult.OK)
+                    if (r == DialogResult.Yes)
                     {
                         MoveButtonInto(b, ToAppButton);
                     }
@@ -408,8 +407,8 @@ namespace Apps.Controls
             AddChildren(AppsNode);
 
             InLoad = false;
-            OnAppsLoaded?.Invoke();
             ResumeLayout();
+            OnAppsLoaded?.Invoke();
         }
 
         private void MenuAddApp_Click(object sender, EventArgs e)
@@ -656,9 +655,8 @@ namespace Apps.Controls
             ParentNode.AppendChild(GetNode(FromButton.AppId));
             Controls.Remove(FromButton);
             SaveXML();
-            
-            OnAppDeleted?.Invoke();
             ResumeLayout();
+            OnAppDeleted?.Invoke();            
         }
 
         private void OnDragOver(object sender, DragEventArgs e)

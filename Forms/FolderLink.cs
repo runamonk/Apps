@@ -87,7 +87,7 @@ namespace Apps.Forms
 
                     if ((FolderPath != "") && (!Directory.Exists(FolderPath)))
                     {
-                        e.Cancel = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.YesNo, "Are you sure?", "Folder: " + FolderPath + " cannot be found.") != DialogResult.OK);
+                        e.Cancel = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.YesNo, "Are you sure?", "Folder: " + FolderPath + " cannot be found.") != DialogResult.Yes);
                     }
 
                     if (ErrorStr != "")
