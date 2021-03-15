@@ -375,14 +375,14 @@ namespace Apps.Controls
 
         private void LoadFolder(string AppId)
         {
+            InLoad = true;
             SuspendLayout();
-            InLoad = true;            
             Clear();
             CurrentParentNode = GetNode(AppId);
             AddChildren(CurrentParentNode);
+            ResumeLayout();
             InLoad = false;
             OnAppsLoaded?.Invoke();            
-            ResumeLayout();
         }
 
         public void LoadItems()

@@ -367,6 +367,8 @@ namespace Apps
                 if (Opacity > 0)
                 {
                     Opacity = 0;
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
                 }
                 else
                 {
