@@ -321,7 +321,6 @@ namespace Apps
                 notifyApps.ContextMenuStrip = MenuMain;
 
                 Apps = new AppPanel(Config);
-                Apps.AutoScroll = true;
                 Apps.OnAppClicked += new AppPanel.AppClickedHandler(AppClicked);
                 Apps.OnAppAdded += new AppPanel.AppAddedHandler(AppAdded);
                 Apps.OnAppDeleted += new AppPanel.AppDeletedHandler(AppDeleted);

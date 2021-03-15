@@ -52,6 +52,8 @@ namespace Apps.Controls
         {
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
+            AutoScroll = false;
+
             MenuRC = new AppMenu(myConfig);
             MenuRC.ShowCheckMargin = false;
             MenuRC.ShowImageMargin = false;
@@ -289,7 +291,7 @@ namespace Apps.Controls
                 if (ToAppButton.IsFolderButton)
                 {
                     Confirm c = new Confirm(AppsConfig);
-                    DialogResult r = c.ShowAsDialog(ConfirmButtons.YesNo, "Move " + b.AppName + "?", "Move into folder " + ToAppButton.AppName + "?");
+                    DialogResult r = c.ShowAsDialog(ConfirmButtons.YesNo, "Move " + ToAppButton.AppName + " into folder " + ToAppButton.AppName + "?", "Move " + b.AppName + "?");
                     if (r == DialogResult.Yes)
                     {
                         MoveButtonInto(b, ToAppButton);
@@ -496,7 +498,7 @@ namespace Apps.Controls
             if (b.IsFolderLinkButton)
                 s = "folder link?";
 
-            CanDelete = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.OKCancel, "Delete " + b.AppName + "?", "Delete " + s) == DialogResult.OK);
+            CanDelete = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.OKCancel, "Delete " + s, "Delete " + b.AppName + "?") == DialogResult.OK);
 
             if (CanDelete)
             {
