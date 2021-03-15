@@ -366,13 +366,15 @@ namespace Apps
                 if (Opacity > 0)
                 {
                     Opacity = 0;
+                    
+                    if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
+                        Apps.LoadItems();
+
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                 }
                 else
                 {
-                    if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
-                        Apps.LoadItems();
                     AutoSizeForm(true);
                     if (Config.OpenFormAtCursor)
                         Funcs.MoveFormToCursor(this, false);
