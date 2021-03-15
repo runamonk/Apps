@@ -44,6 +44,7 @@
             this.AppSelectedColor = new System.Windows.Forms.Panel();
             this.AppBackColor = new System.Windows.Forms.Panel();
             this.AppFontColor = new System.Windows.Forms.Panel();
+            this.ChkOpenRootFolder = new System.Windows.Forms.CheckBox();
             this.dlgColor = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.GroupOptions = new System.Windows.Forms.GroupBox();
@@ -77,7 +78,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.DarkTheme = new System.Windows.Forms.RadioButton();
             this.LightTheme = new System.Windows.Forms.RadioButton();
-            this.ChkOpenRootFolder = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.GroupOptions.SuspendLayout();
             this.GroupHotkey.SuspendLayout();
@@ -237,6 +237,18 @@
             this.AppFontColor.TabIndex = 1;
             this.toolTip1.SetToolTip(this.AppFontColor, "Click to set color.");
             this.AppFontColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
+            // 
+            // ChkOpenRootFolder
+            // 
+            this.ChkOpenRootFolder.AutoSize = true;
+            this.ChkOpenRootFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChkOpenRootFolder.Location = new System.Drawing.Point(6, 82);
+            this.ChkOpenRootFolder.Name = "ChkOpenRootFolder";
+            this.ChkOpenRootFolder.Size = new System.Drawing.Size(145, 17);
+            this.ChkOpenRootFolder.TabIndex = 4;
+            this.ChkOpenRootFolder.Text = "Always open to root folder";
+            this.toolTip1.SetToolTip(this.ChkOpenRootFolder, "Check to always open at the root folder.");
+            this.ChkOpenRootFolder.UseVisualStyleBackColor = true;
             // 
             // dlgColor
             // 
@@ -606,18 +618,6 @@
             this.LightTheme.Text = "Light";
             this.LightTheme.UseVisualStyleBackColor = true;
             this.LightTheme.Click += new System.EventHandler(this.LightTheme_Click);
-            // 
-            // ChkOpenRootFolder
-            // 
-            this.ChkOpenRootFolder.AutoSize = true;
-            this.ChkOpenRootFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkOpenRootFolder.Location = new System.Drawing.Point(6, 82);
-            this.ChkOpenRootFolder.Name = "ChkOpenRootFolder";
-            this.ChkOpenRootFolder.Size = new System.Drawing.Size(99, 17);
-            this.ChkOpenRootFolder.TabIndex = 4;
-            this.ChkOpenRootFolder.Text = "Open root folder";
-            this.toolTip1.SetToolTip(this.ChkOpenRootFolder, "Check to automatically open at the root folder.");
-            this.ChkOpenRootFolder.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
