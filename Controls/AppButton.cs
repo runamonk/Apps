@@ -15,7 +15,8 @@ namespace Apps
         Pin,
         Folder,
         FolderLink,
-        Back
+        Back,
+        Seperator
     }
 
     public partial class AppButton : Panel
