@@ -393,19 +393,23 @@ namespace Apps.Controls
             CurrentParentNode = null;
             Clear();
 
-            if (!File.Exists(AppsXmlFilePath))
+            if (AppsNode == null)
             {
-                AppsXml = new XmlDocument();
-                AppsXml.LoadXml(New_AppsXml_file);
-                SaveXML();
-            }
-            else
-            {
-                AppsXml = new XmlDocument();
-                AppsXml.Load(AppsXmlFilePath);
+                if (!File.Exists(AppsXmlFilePath))
+                {
+                    AppsXml = new XmlDocument();
+                    AppsXml.LoadXml(New_AppsXml_file);
+                    SaveXML();
+                }
+                else
+                {
+                    AppsXml = new XmlDocument();
+                    AppsXml.Load(AppsXmlFilePath);
+                }
+
+                AppsNode = AppsXml.SelectSingleNode("//APPS");
             }
 
-            AppsNode = AppsXml.SelectSingleNode("//APPS");
             AddChildren(AppsNode);
 
             InLoad = false;
