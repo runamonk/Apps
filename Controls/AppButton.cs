@@ -271,7 +271,8 @@ namespace Apps
         {
             if (IsHeaderButton())
             {
-                BorderColor = AppsConfig.MenuBorderColor;
+                //BorderColor = AppsConfig.MenuBorderColor;
+                BorderColor = AppsConfig.MenuButtonColor;
                 ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
                 ButtonText.ForeColor = AppsConfig.MenuFontColor;
                 ButtonText.BackColor = AppsConfig.MenuButtonColor;
