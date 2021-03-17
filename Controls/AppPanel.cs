@@ -149,7 +149,6 @@ namespace Apps.Controls
 
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
         {
-            SuspendLayout();
             AppButton b = AddAppButton(ButtonType.Folder);
             if (string.IsNullOrEmpty(AppId))
                 b.AppId = Guid.NewGuid().ToString();
@@ -174,13 +173,11 @@ namespace Apps.Controls
                 SaveXML();
             }
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-            ResumeLayout();
             OnAppAdded?.Invoke();
         }
 
         public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, string fileWorkingFolder, int AddAtIndex)
         {
-            SuspendLayout();
             AppButton b = AddAppButton(ButtonType.App);
             if (string.IsNullOrEmpty(AppId))
                 b.AppId = Guid.NewGuid().ToString();
@@ -223,7 +220,6 @@ namespace Apps.Controls
                 b.WatchForIconUpdate = true;
 
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-            ResumeLayout();
             OnAppAdded?.Invoke();
         }
 
