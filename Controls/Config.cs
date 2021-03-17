@@ -478,10 +478,9 @@ namespace Apps
         {
             get {
                 RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
-                string subKey = (string)key.GetValue(Application.ProductName, "");
-                key.Close();
-
-                if (subKey != "")
+                var k = key.GetValue(Funcs.GetFileName());
+                               
+                if (k != null)
                 {
                     return true;
                 }
@@ -492,16 +491,21 @@ namespace Apps
                 if (value == false)
                 {
                     RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
-                    if (key != null)
-                    {
-                        key.DeleteValue(Application.ProductName, false);
-                        key.Close();
-                    }
+                    var k = key.GetValue(Funcs.GetFileName());
+                    if ((k != null) && (!k.ToString().Contains(Funcs.GetFilePathAndName())))
+                        return;
+
+                    key.DeleteValue(Funcs.GetFileName(), false);
+                    key.Close();
                 }
                 else
                 {
                     RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
-                    key.SetValue(Application.ProductName, '"' + Application.ExecutablePath.ToString() + '"');
+                    var k = key.GetValue(Funcs.GetFileName());
+                    if ((k != null) && (!k.ToString().Contains(Funcs.GetFilePathAndName())))
+                        return;
+
+                    key.SetValue(Funcs.GetFileName(), '"' + Funcs.GetFilePathAndName() + '"');
                     key.Close();
                 }
             }
