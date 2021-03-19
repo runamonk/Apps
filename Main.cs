@@ -102,7 +102,7 @@ namespace Apps
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            if ((e.KeyCode == Keys.Escape) && (Opacity > 0))
                 ToggleShow(true);
             else
             if (e.KeyCode == Keys.P)
