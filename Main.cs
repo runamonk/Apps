@@ -32,7 +32,7 @@ namespace Apps
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-
+                
         private AppButton MenuMainButton { get; set; }
         private AppButton BackButton { get; set; }
         private Label SubfolderName { get; set; }
@@ -86,7 +86,7 @@ namespace Apps
         {
             SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
-            AutoSizeForm(true);
+            AutoSizeForm(true);            
         }
 
         private void Main_Deactivate(object sender, EventArgs e)
@@ -115,11 +115,6 @@ namespace Apps
         private void Main_Load(object sender, EventArgs e)
         {
             LoadConfig();
-        }
-
-        private void Main_Resize(object sender, EventArgs e)
-        {
-            Funcs.SetTitleTextCentered(this);
         }
 
         private void Main_ResizeEnd(object sender, EventArgs e)
@@ -202,7 +197,7 @@ namespace Apps
 
         protected override void OnLoad(EventArgs e)
         {
-
+            
             if (RunningInstance() != null)
             {
                 MessageBox.Show("There is already a version of Apps running.");
@@ -223,7 +218,7 @@ namespace Apps
         #endregion
 
         #region Methods
-
+        
         private void AutoSizeForm(bool ScrollToTop)
         {
             if (Apps.InLoad) return;
@@ -244,11 +239,12 @@ namespace Apps
             }
             // select the first control.
             if (Apps.Controls.Count > 0)
-                Apps.Controls[Apps.Controls.Count - 1].Select();
+                Apps.Controls[Apps.Controls.Count-1].Select();
 
             //Height
             if ((this.Top + this.Size.Height) > Screen.PrimaryScreen.WorkingArea.Height)
             {
+                
                 this.Top = (this.Top - ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
             }
         }
@@ -334,7 +330,6 @@ namespace Apps
                 SetFormPos();
             }
             Text = Funcs.GetName() + " v" + Funcs.GetVersion();
-            Funcs.SetTitleTextCentered(this);
             pTop.BackColor = Config.AppsHeaderColor;
             BackColor = Config.AppsBackColor;
             SubfolderName.ForeColor = Config.MenuFontColor;
