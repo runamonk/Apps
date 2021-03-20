@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Apps.Controls;
 using Apps.Forms;
+using System.IO;
 
 namespace Apps
 {
@@ -329,7 +330,8 @@ namespace Apps
                 Apps.Dock = DockStyle.Fill;
                 SetFormPos();
             }
-            Text = Funcs.GetName() + " v" + Funcs.GetVersion();
+            Text = Funcs.GetNameAndVersion();
+
             pTop.BackColor = Config.AppsHeaderColor;
             BackColor = Config.AppsBackColor;
             SubfolderName.ForeColor = Config.MenuFontColor;
