@@ -173,7 +173,8 @@ namespace Apps.Controls
                 SaveXML();
             }
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-            OnAppAdded?.Invoke();
+            if (!InLoad)
+                OnAppAdded?.Invoke();
         }
 
         public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, string fileWorkingFolder, int AddAtIndex)
@@ -220,12 +221,12 @@ namespace Apps.Controls
                 b.WatchForIconUpdate = true;
 
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
-            OnAppAdded?.Invoke();
+            if (!InLoad)
+                OnAppAdded?.Invoke();
         }
 
         public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath ,int AddAtIndex)
         {
-            SuspendLayout();
             AppButton b = AddAppButton(ButtonType.FolderLink);
             if (string.IsNullOrEmpty(AppId))
                 b.AppId = Guid.NewGuid().ToString();
@@ -253,8 +254,8 @@ namespace Apps.Controls
 
                 SaveXML();
             }
-            ResumeLayout();
-            OnAppAdded?.Invoke();
+            if (!InLoad)
+                OnAppAdded?.Invoke();
         }
 
         private void ButtonClicked(AppButton App)
@@ -378,6 +379,7 @@ namespace Apps.Controls
             CurrentParentNode = GetNode(AppId);
             AddChildren(CurrentParentNode);
             ResumeLayout();
+            Application.DoEvents();
             InLoad = false;
             OnAppsLoaded?.Invoke();            
         }
