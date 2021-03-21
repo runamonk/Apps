@@ -379,7 +379,6 @@ namespace Apps.Controls
             CurrentParentNode = GetNode(AppId);
             AddItems(CurrentParentNode);
             ResumeLayout();
-            Application.DoEvents();
             InLoad = false;
             OnAppsLoaded?.Invoke();            
         }
