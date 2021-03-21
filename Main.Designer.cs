@@ -38,7 +38,7 @@
             // notifyApps
             // 
             this.notifyApps.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyApps.Icon")));
-            this.notifyApps.Text = "Apps";
+            this.notifyApps.Text = "zuul Apps";
             this.notifyApps.Visible = true;
             this.notifyApps.DoubleClick += new System.EventHandler(this.NotifyApps_DoubleClick);
             // 
