@@ -113,20 +113,6 @@ namespace Apps.Controls
             Node.Attributes.Append(XmlAtt);
         }
 
-        private void AddChildren(XmlNode Nodes)
-        {
-            foreach (XmlNode xn in Nodes)
-            {
-                if (xn.Attributes["folderlinkname"] != null)
-                    AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
-                else
-                if (xn.Attributes["foldername"] != null)
-                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
-                else
-                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
-            }
-        }
-
         private void AddFiles(string[] Files, int AddAtIndex)
         {
             SuspendLayout();
@@ -223,6 +209,20 @@ namespace Apps.Controls
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
+        }
+
+        private void AddItems(XmlNode Nodes)
+        {
+            foreach (XmlNode xn in Nodes)
+            {
+                if (xn.Attributes["folderlinkname"] != null)
+                    AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
+                else
+                if (xn.Attributes["foldername"] != null)
+                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
+                else
+                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
+            }
         }
 
         public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath ,int AddAtIndex)
@@ -377,7 +377,7 @@ namespace Apps.Controls
             SuspendLayout();
             Clear();
             CurrentParentNode = GetNode(AppId);
-            AddChildren(CurrentParentNode);
+            AddItems(CurrentParentNode);
             ResumeLayout();
             Application.DoEvents();
             InLoad = false;
@@ -408,7 +408,7 @@ namespace Apps.Controls
                 AppsNode = AppsXml.SelectSingleNode("//APPS");
             }
 
-            AddChildren(AppsNode);
+            AddItems(AppsNode);
 
             InLoad = false;
             ResumeLayout();
