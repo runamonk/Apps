@@ -33,6 +33,8 @@ namespace Apps.Controls
         }
 
         private AppMenu MenuRC;
+        private ControlCollection Folders;
+
         private ToolStripMenuItem DeleteMenuItem;
         private ToolStripMenuItem EditMenuItem;
         private ToolStripMenuItem UpMenuItem;
@@ -53,7 +55,7 @@ namespace Apps.Controls
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             AutoScroll = false;
-
+           
             MenuRC = new AppMenu(myConfig);
             MenuRC.ShowCheckMargin = false;
             MenuRC.ShowImageMargin = false;
@@ -237,12 +239,11 @@ namespace Apps.Controls
             b.AppName = FolderLinkName;
             b.FileName = FolderPath;
             XmlNode node = GetNode(b.AppId);
-            XmlNode nodeSib = null;
-            nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            
             if (node == null)
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+                XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
                 AddAttrib(node, "id", b.AppId);
                 AddAttrib(node, "folderlinkname", FolderLinkName);
                 AddAttrib(node, "folderlinkpath", FolderPath);
@@ -254,6 +255,7 @@ namespace Apps.Controls
 
                 SaveXML();
             }
+            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
@@ -406,7 +408,10 @@ namespace Apps.Controls
 
                 AppsNode = AppsXml.SelectSingleNode("//APPS");
             }
-
+            // for some reason after a random amount of time it would takes ages to load  a node and it's children
+            // just got lucky and guess it was because of GC cleanup having happened and maybe it unloaded AppsNode from active 
+            // memory. This appears to have resolved that issue.
+            GC.KeepAlive(AppsNode); 
             AddItems(AppsNode);
 
             InLoad = false;
