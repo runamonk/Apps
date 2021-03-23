@@ -407,11 +407,13 @@ namespace Apps.Controls
                 }
 
                 AppsNode = AppsXml.SelectSingleNode("//APPS");
+                // for some reason after a random amount of time it would takes ages to load  a node and it's children
+                // just got lucky and guess it was because of GC cleanup having happened and maybe it unloaded AppsNode from active 
+                // memory. This appears to have resolved that issue.
+                GC.KeepAlive(AppsNode);
+                GC.KeepAlive(AppsXml);
             }
-            // for some reason after a random amount of time it would takes ages to load  a node and it's children
-            // just got lucky and guess it was because of GC cleanup having happened and maybe it unloaded AppsNode from active 
-            // memory. This appears to have resolved that issue.
-            GC.KeepAlive(AppsNode); 
+ 
             AddItems(AppsNode);
 
             InLoad = false;
