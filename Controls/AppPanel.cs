@@ -43,8 +43,8 @@ namespace Apps.Controls
  
         //private ToolStripMenuItem AddSepMenuItem;
 
-        XmlDocument AppsXml;
-        XmlNode AppsNode;
+        private XmlDocument AppsXml;
+        private XmlNode AppsNode;
         private XmlNode CurrentParentNode = null;
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
@@ -55,7 +55,8 @@ namespace Apps.Controls
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             AutoScroll = false;
-           
+
+            Folders = new ControlCollection(this);
             MenuRC = new AppMenu(myConfig);
             MenuRC.ShowCheckMargin = false;
             MenuRC.ShowImageMargin = false;
@@ -214,7 +215,7 @@ namespace Apps.Controls
         }
 
         private void AddItems(XmlNode Nodes)
-        {
+        {            
             foreach (XmlNode xn in Nodes)
             {
                 if (xn.Attributes["folderlinkname"] != null)
@@ -407,14 +408,14 @@ namespace Apps.Controls
                 }
 
                 AppsNode = AppsXml.SelectSingleNode("//APPS");
-                // for some reason after a random amount of time it would takes ages to load  a node and it's children
-                // just got lucky and guess it was because of GC cleanup having happened and maybe it unloaded AppsNode from active 
-                // memory. This appears to have resolved that issue.
-                GC.KeepAlive(AppsNode);
-                GC.KeepAlive(AppsXml);
             }
  
             AddItems(AppsNode);
+            // for some reason after a random amount of time it would takes ages to load  a node and it's children
+            // just got lucky and guess it was because of GC cleanup having happened and maybe it unloaded AppsNode from active 
+            // memory. This appears to have resolved that issue.
+            GC.KeepAlive(AppsNode);
+            GC.KeepAlive(AppsXml);
 
             InLoad = false;
             ResumeLayout();
