@@ -370,6 +370,8 @@ namespace Apps
                     
                     if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
                         Apps.LoadItems();
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
                 }
                 else
                 {

@@ -24,6 +24,8 @@ namespace Apps.Controls
     public partial class AppPanel : Panel
     {
         private Config AppsConfig { get; set; }
+
+
         public bool InMenu { get; set; }
         public bool InLoad { get; set; }
         public bool InAFolder
@@ -38,7 +40,7 @@ namespace Apps.Controls
                 if (CurrentParentNode != null)
                     return CurrentParentNode.Attributes["id"].Value;
                 else
-                    return "~~ZUULROOTAPPID~~";
+                    return GetRootId;
             }
         }
         public string CurrentFolderName
@@ -50,6 +52,15 @@ namespace Apps.Controls
                     return "";
             }
         }
+
+        private string FRootId = Guid.NewGuid().ToString();
+
+        public string GetRootId { 
+            get 
+                { 
+                    return FRootId; 
+                } 
+            }
 
         private AppMenu MenuRC;
         private ToolStripMenuItem DeleteMenuItem;
@@ -233,6 +244,9 @@ namespace Apps.Controls
         private void AddItems(XmlNode Nodes)
         {
             string id = GetAttrib(Nodes, "id");
+            if (id == "")
+                id = GetRootId;
+
             bool doLoad = false;
 
             if (id != "")
