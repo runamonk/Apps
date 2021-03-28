@@ -564,8 +564,8 @@ namespace Apps.Controls
                 XmlNode parentNode = node.ParentNode;
                 parentNode.RemoveChild(node);
                 Controls.Remove(b);
+                // Cleanup cache?
                 SaveXML();
-
                 OnAppDeleted?.Invoke();
             }
             InMenu = false;
@@ -650,10 +650,10 @@ namespace Apps.Controls
             XmlNode xn = GetNode(b.AppId);
             XmlNode pn = xn.ParentNode.ParentNode;
             pn.AppendChild(xn);
-            Controls.Remove(b);
+            MoveToCache(b, GetAttrib(pn, "id"));
             SaveXML();
-
             ResumeLayout();
+            OnAppDeleted?.Invoke();
         }
 
         private void Menu_Opening(object sender, CancelEventArgs e)
@@ -714,7 +714,7 @@ namespace Apps.Controls
             SuspendLayout();
             XmlNode ParentNode = GetNode(ToButton.AppId);
             ParentNode.AppendChild(GetNode(FromButton.AppId));
-            Controls.Remove(FromButton);
+            MoveToCache(FromButton, GetAttrib(ParentNode, "id"));
             SaveXML();
             ResumeLayout();
             OnAppDeleted?.Invoke();
@@ -739,6 +739,19 @@ namespace Apps.Controls
                 bc.Add(c);               
             }
             Controls.Clear();
+        }
+
+        private void MoveToCache(AppButton appButton, String toId)
+        {
+            if (toId == "")
+                toId = GetRootId;
+
+            AppCache ac = FolderCache.Find(x => x.FolderId == toId);
+            if (ac != null)
+            {
+                ac.Add(appButton);
+            }
+            Controls.Remove(appButton);
         }
 
         private void OnDragOver(object sender, DragEventArgs e)
