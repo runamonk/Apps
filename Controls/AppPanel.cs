@@ -146,6 +146,7 @@ namespace Apps.Controls
         private void AddFiles(string[] Files, int AddAtIndex)
         {
             SuspendLayout();
+            InLoad = true;
             foreach (string filePath in Files)
             {
                 if (!File.Exists(filePath) && Directory.Exists(filePath))
@@ -160,7 +161,9 @@ namespace Apps.Controls
                     AddItem(null, AppName, filePath, null, null, null, AddAtIndex);
                 }
             }
+            InLoad = false;
             ResumeLayout();
+            OnAppAdded?.Invoke();
         }
 
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
