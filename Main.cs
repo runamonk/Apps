@@ -244,8 +244,7 @@ namespace Apps
 
             //Height
             if ((this.Top + this.Size.Height) > Screen.PrimaryScreen.WorkingArea.Height)
-            {
-                
+            {              
                 this.Top = (this.Top - ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
             }
         }
@@ -371,9 +370,6 @@ namespace Apps
                     
                     if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
                         Apps.LoadItems();
-
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
                 }
                 else
                 {

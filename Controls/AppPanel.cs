@@ -8,9 +8,19 @@ using System.Windows.Forms;
 using System.Xml;
 using Utility;
 using Apps.Forms;
+using System.Collections.Generic;
 
 namespace Apps.Controls
 {
+    partial class AppCache : List<Control>
+    {
+        public string FolderId { get; set; }
+        public AppCache(string id)
+        {
+            FolderId = id;
+        }
+    }
+
     public partial class AppPanel : Panel
     {
         private Config AppsConfig { get; set; }
@@ -20,6 +30,15 @@ namespace Apps.Controls
         {
             get {
                 return (CurrentParentNode != null);
+            }
+        }
+        public string CurrentAppId
+        {
+            get {
+                if (CurrentParentNode != null)
+                    return CurrentParentNode.Attributes["id"].Value;
+                else
+                    return "~~ZUULROOTAPPID~~";
             }
         }
         public string CurrentFolderName
@@ -33,35 +52,33 @@ namespace Apps.Controls
         }
 
         private AppMenu MenuRC;
-        private ControlCollection Folders;
-
         private ToolStripMenuItem DeleteMenuItem;
         private ToolStripMenuItem EditMenuItem;
         private ToolStripMenuItem UpMenuItem;
         private ToolStripMenuItem DownMenuItem;
         private ToolStripMenuItem MoveToParentItem;
- 
+
         //private ToolStripMenuItem AddSepMenuItem;
 
+        private List<AppCache> FolderCache;
         private XmlDocument AppsXml;
         private XmlNode AppsNode;
         private XmlNode CurrentParentNode = null;
+
         private string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
         private string New_AppsXml_file = "<XML VERSION=\"1.0\" ENCODING=\"utf-8\">\r\n<APPS>\r\n</APPS>\r\n</XML>";
         private string AppIdLookup = "//APPS//APP[@id='{0}']";
 
-        public AppPanel(Config myConfig)    
+        public AppPanel(Config myConfig)
         {
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             AutoScroll = false;
-
-            Folders = new ControlCollection(this);
+            FolderCache = new List<AppCache>();
             MenuRC = new AppMenu(myConfig);
             MenuRC.ShowCheckMargin = false;
             MenuRC.ShowImageMargin = false;
             MenuRC.Opening += new CancelEventHandler(Menu_Opening);
-
             Funcs.AddMenuItem(MenuRC, "Add Application", MenuAddApp_Click);
             Funcs.AddMenuItem(MenuRC, "Add Folder Link", MenuAddFolderLink_Click);
             Funcs.AddMenuItem(MenuRC, "Add Folder", MenuAddFolder_Click);
@@ -71,7 +88,6 @@ namespace Apps.Controls
             MoveToParentItem = Funcs.AddMenuItem(MenuRC, "Move To Parent", MenuMoveToParent_Click);
             UpMenuItem = Funcs.AddMenuItem(MenuRC, "Move Up", MenuUp_Click);
             DownMenuItem = Funcs.AddMenuItem(MenuRC, "Move Down", MenuDown_Click);
-
             this.ContextMenuStrip = MenuRC;
             this.AllowDrop = true;
             this.DragOver += new DragEventHandler(OnDragOver);
@@ -93,7 +109,7 @@ namespace Apps.Controls
         public delegate void AppsLoadedHandler();
         public event AppsLoadedHandler OnAppsLoaded;
         #endregion
-        
+
         private AppButton AddAppButton(ButtonType buttonType)
         {
             AppButton b = new AppButton(AppsConfig, buttonType);
@@ -143,7 +159,7 @@ namespace Apps.Controls
                 b.AppId = Guid.NewGuid().ToString();
             else
                 b.AppId = AppId;
-            
+
             b.AutoSize = false;
             b.AppName = FolderName;
             XmlNode node = GetNode(b.AppId);
@@ -174,9 +190,9 @@ namespace Apps.Controls
             else
                 b.AppId = AppId;
             b.AutoSize = false;
-            
+
             XmlNode node = GetNode(b.AppId);
-                       
+
             if (node == null)
             {
                 XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
@@ -215,20 +231,43 @@ namespace Apps.Controls
         }
 
         private void AddItems(XmlNode Nodes)
-        {            
-            foreach (XmlNode xn in Nodes)
+        {
+            string id = GetAttrib(Nodes, "id");
+            bool doLoad = false;
+
+            if (id != "")
             {
-                if (xn.Attributes["folderlinkname"] != null)
-                    AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
+                AppCache ac = FolderCache.Find(x => x.FolderId == id);
+                if (ac == null)
+                    doLoad = true;
                 else
-                if (xn.Attributes["foldername"] != null)
-                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
-                else
-                    AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
+                {
+                    foreach (Control c in ac)
+                    {
+                        Controls.Add(c);
+                    }
+                    ac.Clear();
+                }
+            }
+            else
+                doLoad = true;
+   
+            if (doLoad)
+            {
+                foreach (XmlNode xn in Nodes)
+                {
+                    if (xn.Attributes["folderlinkname"] != null)
+                        AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
+                    else
+                    if (xn.Attributes["foldername"] != null)
+                        AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
+                    else
+                        AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
+                }
             }
         }
 
-        public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath ,int AddAtIndex)
+        public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath, int AddAtIndex)
         {
             AppButton b = AddAppButton(ButtonType.FolderLink);
             if (string.IsNullOrEmpty(AppId))
@@ -240,7 +279,7 @@ namespace Apps.Controls
             b.AppName = FolderLinkName;
             b.FileName = FolderPath;
             XmlNode node = GetNode(b.AppId);
-            
+
             if (node == null)
             {
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
@@ -269,11 +308,6 @@ namespace Apps.Controls
             {
                 LoadFolder(App.AppId);
             }
-        }
-
-        private void Clear()
-        {
-            while (Controls.Count > 0) Controls[0].Dispose();
         }
 
         private void ConfigChanged(object sender, EventArgs e)
@@ -320,7 +354,7 @@ namespace Apps.Controls
             else
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop),0);
+                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop), 0);
             }
         }
 
@@ -378,23 +412,29 @@ namespace Apps.Controls
         {
             InLoad = true;
             SuspendLayout();
-            Clear();
+            MoveToCache();
             CurrentParentNode = GetNode(AppId);
             AddItems(CurrentParentNode);
             ResumeLayout();
             InLoad = false;
-            OnAppsLoaded?.Invoke();            
+            OnAppsLoaded?.Invoke();
         }
 
         public void LoadItems()
         {
             SuspendLayout();
             InLoad = true;
-            CurrentParentNode = null;
-            Clear();
+            bool doLoad = false;
+
+            if (CurrentParentNode != null)
+            {
+                doLoad = true;
+                MoveToCache();
+            }
 
             if (AppsNode == null)
             {
+                doLoad = true;
                 if (!File.Exists(AppsXmlFilePath))
                 {
                     AppsXml = new XmlDocument();
@@ -409,13 +449,9 @@ namespace Apps.Controls
 
                 AppsNode = AppsXml.SelectSingleNode("//APPS");
             }
- 
-            AddItems(AppsNode);
-            // for some reason after a random amount of time it would takes ages to load  a node and it's children
-            // just got lucky and guess it was because of GC cleanup having happened and maybe it unloaded AppsNode from active 
-            // memory. This appears to have resolved that issue.
-            GC.KeepAlive(AppsNode);
-            GC.KeepAlive(AppsXml);
+
+            if (doLoad)
+                AddItems(AppsNode);
 
             InLoad = false;
             ResumeLayout();
@@ -441,7 +477,7 @@ namespace Apps.Controls
                 }
             }
 
-            
+
             InMenu = false;
         }
 
@@ -464,7 +500,7 @@ namespace Apps.Controls
                 }
             }
 
-            
+
             InMenu = false;
         }
 
@@ -487,7 +523,7 @@ namespace Apps.Controls
                 }
             }
 
-            
+
             InMenu = false;
         }
 
@@ -515,7 +551,7 @@ namespace Apps.Controls
                 parentNode.RemoveChild(node);
                 Controls.Remove(b);
                 SaveXML();
-                
+
                 OnAppDeleted?.Invoke();
             }
             InMenu = false;
@@ -588,7 +624,7 @@ namespace Apps.Controls
                 }
             }
 
-            
+
             ResumeLayout();
             InMenu = false;
         }
@@ -598,11 +634,11 @@ namespace Apps.Controls
             SuspendLayout();
             AppButton b = GetAppButton(sender);
             XmlNode xn = GetNode(b.AppId);
-            XmlNode pn = xn.ParentNode.ParentNode;                                                                                                     
+            XmlNode pn = xn.ParentNode.ParentNode;
             pn.AppendChild(xn);
             Controls.Remove(b);
             SaveXML();
-            
+
             ResumeLayout();
         }
 
@@ -649,12 +685,12 @@ namespace Apps.Controls
                     ParentNode.InsertAfter(GetNode(FromButton.AppId), GetNode(ToButton.AppId));
                 else
                     ParentNode.InsertBefore(GetNode(FromButton.AppId), GetNode(ToButton.AppId));
-                
+
                 Controls.SetChildIndex(FromButton, t);
             }
 
             SaveXML();
-            
+
             OnAppAdded?.Invoke();
             ResumeLayout();
         }
@@ -667,7 +703,28 @@ namespace Apps.Controls
             Controls.Remove(FromButton);
             SaveXML();
             ResumeLayout();
-            OnAppDeleted?.Invoke();            
+            OnAppDeleted?.Invoke();
+        }
+
+        private void MoveToCache()
+        {
+            string id = CurrentAppId;
+            CurrentParentNode = null;
+
+            var bc = FolderCache.Find(x => x.FolderId == id);
+            
+            if (bc == null)
+            {
+                AppCache ac = new AppCache(id);
+                FolderCache.Add(ac);
+                bc = FolderCache.Find(x => x.FolderId == ac.FolderId);
+            }
+            
+            foreach (Control c in Controls)
+            {
+                bc.Add(c);               
+            }
+            Controls.Clear();
         }
 
         private void OnDragOver(object sender, DragEventArgs e)
