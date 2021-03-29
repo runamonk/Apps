@@ -24,6 +24,7 @@ namespace Apps
         private Config AppsConfig { get; set; }
         private ButtonType FButtonType;
 
+        public ButtonType ButtonType { get { return FButtonType; } }
         public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
         public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
         public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
