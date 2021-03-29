@@ -15,7 +15,7 @@ namespace Apps.Forms
         {
             get {
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
                 return myCp;
             }
         }
@@ -39,7 +39,7 @@ namespace Apps.Forms
             toolTip.SetToolTip(ButtonParseShortcut, "Click to replace file properties from the shortcut.");
         }
 
-        private Config AppsConfig;
+        private readonly Config AppsConfig;
 
         public string AppFileName
         {

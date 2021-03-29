@@ -109,10 +109,10 @@ namespace Apps
                    Shift = 4,
                    WinKey = 8*/
                 int i = 0;
-                if (Alt.Checked) i = (i + 1);
-                if (Control.Checked) i = (i + 2);
-                if (Shift.Checked) i = (i + 4);
-                if (Windows.Checked) i = (i + 8);
+                if (Alt.Checked) i++;
+                if (Control.Checked) i += 2;
+                if (Shift.Checked) i += 4;
+                if (Windows.Checked) i += 8;
                 _Config.AutoSizeHeight = AutoSizeHeight.Checked;
                 _Config.AppsBackColor = AppBackColor.BackColor;
                 _Config.AppsFontColor = AppFontColor.BackColor;

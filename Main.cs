@@ -48,15 +48,14 @@ namespace Apps
         private bool inSettings = false;
         private bool pinned = false;
 
-        private string ICON_PINNED_W7 = "\u25FC";
-        private string ICON_UNPINNED_W7 = "\u25FB";
-        private string ICON_PINNED = "\uE1F6";
-        private string ICON_UNPINNED = "\uE1F7";
-        private string ICON_MAINMENU = "\uE0C2";
-        private string ICON_MAINMENU_W7 = "\u268A";
-        private string ICON_BACK = "\uE197"; //"\uE08E";
-        private string ICON_BACK_W7 = "\u25C1";
-
+        private const string ICON_PINNED_W7 = "\u25FC";
+        private const string ICON_UNPINNED_W7 = "\u25FB";
+        private const string ICON_PINNED = "\uE1F6";
+        private const string ICON_UNPINNED = "\uE1F7";
+        private const string ICON_MAINMENU = "\uE0C2";
+        private const string ICON_MAINMENU_W7 = "\u268A";
+        private const string ICON_BACK = "\uE197"; //"\uE08E";
+        private const string ICON_BACK_W7 = "\u25C1";
 
         #region Todo
         // seperators
@@ -230,7 +229,7 @@ namespace Apps
                 for (int i = 0; i <= Apps.Controls.Count - 1; i++)
                 {
                     if (Apps.Controls[i].Visible)
-                        c = c + Apps.Controls[i].Height;
+                        c += Apps.Controls[i].Height;
                 }
 
                 if (c < MaximumSize.Height)
@@ -239,13 +238,13 @@ namespace Apps
                     Height = MaximumSize.Height;
             }
             // select the first control.
-            if (Apps.Controls.Count > 0)
+            if ((ScrollToTop) && (Apps.Controls.Count > 0))
                 Apps.Controls[Apps.Controls.Count-1].Select();
 
             //Height
             if ((this.Top + this.Size.Height) > Screen.PrimaryScreen.WorkingArea.Height)
             {              
-                this.Top = (this.Top - ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height));
+                this.Top -= ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height);
             }
         }
 
@@ -294,16 +293,18 @@ namespace Apps
                 pTop.Controls.SetChildIndex(BackButton, 0);
 
 
-                SubfolderName = new Label();
-                SubfolderName.AutoSize = false;
-                SubfolderName.UseMnemonic = false;
-                SubfolderName.AutoEllipsis = true;
-                SubfolderName.UseCompatibleTextRendering = true;
-                SubfolderName.BorderStyle = BorderStyle.None;
-                SubfolderName.TextAlign = ContentAlignment.MiddleCenter;
-                SubfolderName.Parent = pTop;
-                SubfolderName.Padding = new Padding(0, 3, 0, 3);
-                SubfolderName.Margin = new Padding(0, 0, 0, 0);
+                SubfolderName = new Label
+                {
+                    AutoSize = false,
+                    UseMnemonic = false,
+                    AutoEllipsis = true,
+                    UseCompatibleTextRendering = true,
+                    BorderStyle = BorderStyle.None,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Parent = pTop,
+                    Padding = new Padding(0, 3, 0, 3),
+                    Margin = new Padding(0, 0, 0, 0)
+                };
                 pTop.Controls.SetChildIndex(SubfolderName, 0);
                 SubfolderName.Dock = DockStyle.Fill;
 

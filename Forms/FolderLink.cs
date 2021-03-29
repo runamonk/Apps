@@ -18,7 +18,7 @@ namespace Apps.Forms
         {
             get {
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
                 return myCp;
             }
         }
@@ -36,7 +36,8 @@ namespace Apps.Forms
             ButtonOK.BackColor = BackColor;
             ButtonCancel.BackColor = BackColor;
         }
-        Config AppsConfig;
+
+        readonly Config AppsConfig;
         bool IsCancelled = false;
 
         public string FolderName

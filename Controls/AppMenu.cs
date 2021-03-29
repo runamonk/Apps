@@ -40,7 +40,7 @@ namespace Apps.Controls
 
     public class CustomColors : ProfessionalColorTable
     {
-        Config config;
+        readonly Config config;
         public CustomColors(Config MyConfig)
         {
             config = MyConfig;

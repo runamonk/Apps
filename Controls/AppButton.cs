@@ -22,7 +22,7 @@ namespace Apps
     public partial class AppButton : Panel
     {
         private Config AppsConfig { get; set; }
-        private ButtonType FButtonType;
+        private readonly ButtonType FButtonType;
 
         public ButtonType ButtonType { get { return FButtonType; } }
         public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
@@ -32,16 +32,16 @@ namespace Apps
         public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
         public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
 
-        private PictureBox PBox = new PictureBox();
-        private Panel BorderPanel = new Panel();
-        private Panel ButtonPanel = new Panel();
-        private Label ButtonText = new Label();
-        private Label FolderArrow = new Label();
-        private Timer MissingIconTimer = new Timer();
+        private readonly PictureBox PBox = new PictureBox();
+        private readonly Panel BorderPanel = new Panel();
+        private readonly Panel ButtonPanel = new Panel();
+        private readonly Label ButtonText = new Label();
+        private readonly Label FolderArrow = new Label();
+        private readonly Timer MissingIconTimer = new Timer();
 
-        private string ICON_FOLDER = "\uE188";
-        private string ICON_FOLDER_W7 = "\u25B7";
-        private string ICON_FOLDER_LINK = "\u25CF";
+        private const string ICON_FOLDER = "\uE188";
+        private const string ICON_FOLDER_W7 = "\u25B7";
+        private const string ICON_FOLDER_LINK = "\u25CF";
 
         public new ContextMenuStrip ContextMenuStrip
         {
