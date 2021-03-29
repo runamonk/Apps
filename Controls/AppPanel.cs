@@ -333,7 +333,7 @@ namespace Apps.Controls
                 if (ToAppButton.IsFolderButton)
                 {
                     Confirm c = new Confirm(AppsConfig);
-                    DialogResult r = c.ShowAsDialog(ConfirmButtons.YesNo, "Move " + ToAppButton.AppName + " into folder " + ToAppButton.AppName + "?", "Move " + b.AppName + "?");
+                    DialogResult r = c.ShowAsDialog(ConfirmButtons.YesNo, "Move " + b.AppName + " into folder " + ToAppButton.AppName + "?", "Move " + b.AppName + "?");
                     if (r == DialogResult.Yes)
                     {
                         MoveButtonInto(b, ToAppButton);
