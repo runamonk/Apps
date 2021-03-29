@@ -173,6 +173,18 @@ namespace Apps.Controls
             OnAppAdded?.Invoke();
         }
 
+        private AppCache AddToFolderCache(string id)
+        {
+            var f = FolderCache.Find(x => x.FolderId == id);
+            if (f == null)
+            {
+                FolderCache.Add(new AppCache(id));
+                return FolderCache[FolderCache.Count - 1];
+            }
+            else
+                return f;
+        }
+
         public void AddItem(string AppId, string FolderName, int AddAtIndex)
         {
             AppButton b = AddAppButton(ButtonType.Folder, Controls);
@@ -196,6 +208,7 @@ namespace Apps.Controls
             }
 
             SetButtonDetails(b, node);
+            AddToFolderCache(AppId);
 
             Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
             if (!InLoad)
@@ -246,38 +259,46 @@ namespace Apps.Controls
             if (id == "")
                 id = GetRootId;
 
-            bool doLoad = false;
+            AppCache ac = FolderCache.Find(x => x.FolderId == id);
+            foreach (Control c in ac)
+            {
+                Controls.Add(c);
+            }
+            ac.Clear();
 
-            if (id != "")
-            {
-                AppCache ac = FolderCache.Find(x => x.FolderId == id);
-                if (ac == null)
-                    doLoad = true;
-                else
-                {
-                    foreach (Control c in ac)
-                    {
-                        Controls.Add(c);
-                    }
-                    ac.Clear();
-                }
-            }
-            else
-                doLoad = true;
-   
-            if (doLoad)
-            {
-                foreach (XmlNode xn in Nodes)
-                {
-                    if (xn.Attributes["folderlinkname"] != null)
-                        AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
-                    else
-                    if (xn.Attributes["foldername"] != null)
-                        AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
-                    else
-                        AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
-                }
-            }
+
+            //bool doLoad = false;
+
+            //if (id != "")
+            //{
+            //    AppCache ac = FolderCache.Find(x => x.FolderId == id);
+            //    if (ac == null)
+            //        doLoad = true;
+            //    else
+            //    {
+            //        foreach (Control c in ac)
+            //        {
+            //            Controls.Add(c);
+            //        }
+            //        ac.Clear();
+            //    }
+            //}
+            //else
+            //    doLoad = true;
+
+            //if (doLoad)
+            //{
+            //    foreach (XmlNode xn in Nodes)
+            //    {
+            //        if (xn.Attributes["folderlinkname"] != null)
+            //            AddFolderLink(GetAttrib(xn, "id"), GetAttrib(xn, "folderlinkname"), GetAttrib(xn, "folderlinkpath"), 0);
+            //        else
+            //        if (xn.Attributes["foldername"] != null)
+            //            AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "foldername"), 0);
+            //        else
+            //            AddItem(GetAttrib(xn, "id"), GetAttrib(xn, "appname"), GetAttrib(xn, "filename"), GetAttrib(xn, "fileiconpath"), GetAttrib(xn, "fileargs"), GetAttrib(xn, "fileworkingfolder"), 0);
+            //    }
+            //}
         }
 
         public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath, int AddAtIndex)
@@ -424,8 +445,7 @@ namespace Apps.Controls
                 if (id == "")
                     id = GetRootId;
 
-                AppCache ac = new AppCache(id);
-                FolderCache.Add(ac);
+                AppCache ac = AddToFolderCache(id);
 
                 foreach (XmlNode xn in nodes)
                 {
@@ -760,19 +780,11 @@ namespace Apps.Controls
         {
             string id = CurrentAppId;
             CurrentParentNode = null;
-
-            var bc = FolderCache.Find(x => x.FolderId == id);
-           
-            if (bc == null)
-            {
-                AppCache ac = new AppCache(id);
-                FolderCache.Add(ac);
-                bc = FolderCache.Find(x => x.FolderId == ac.FolderId);
-            }
+            AppCache f = AddToFolderCache(id);
             
             foreach (Control c in Controls)
             {
-                bc.Add(c);               
+                f.Add(c);               
             }
             Controls.Clear();
         }
