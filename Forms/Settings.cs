@@ -41,13 +41,15 @@ namespace Apps
         private void LightTheme_Click(object sender, EventArgs e)
         {
             DarkTheme.Checked = false;
-            AppHeaderColor.BackColor = Color.White;
             AppBackColor.BackColor = Color.White;
             AppFontColor.BackColor = Color.Black;
             AppSelectedColor.BackColor = Color.Gray;
+            HeaderBackColor.BackColor = Color.White;
+            HeaderButtonColor.BackColor = Color.White;
+            HeaderFontColor.BackColor = Color.Black;
+            HeaderButtonSelectedColor.BackColor = Color.Gray;
             MenuBackColor.BackColor = Color.White;
             MenuBorderColor.BackColor = Color.White;
-            MenuButtonColor.BackColor = Color.White;
             MenuFontColor.BackColor = Color.Black;
             MenuSelectedColor.BackColor = Color.Gray;
         }
@@ -55,13 +57,15 @@ namespace Apps
         private void DarkTheme_Click(object sender, EventArgs e)
         {
             LightTheme.Checked = false;
-            AppHeaderColor.BackColor = Color.FromArgb(56, 56, 56);
             AppBackColor.BackColor = Color.FromArgb(56, 56, 56);
             AppFontColor.BackColor = Color.White;
             AppSelectedColor.BackColor = Color.DarkGray;
+            HeaderBackColor.BackColor = Color.FromArgb(56, 56, 56);
+            HeaderButtonColor.BackColor = Color.FromArgb(56, 56, 56);
+            HeaderFontColor.BackColor = Color.White;
+            HeaderButtonSelectedColor.BackColor = Color.DarkGray;
             MenuBackColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuBorderColor.BackColor = Color.FromArgb(56, 56, 56);
-            MenuButtonColor.BackColor = Color.FromArgb(56, 56, 56);
             MenuSelectedColor.BackColor = Color.DarkGray;
             MenuFontColor.BackColor = Color.White;
             MenuSelectedColor.BackColor = Color.DarkGray;

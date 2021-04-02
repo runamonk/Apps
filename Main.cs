@@ -332,7 +332,7 @@ namespace Apps
             }
             Text = Funcs.GetNameAndVersion();
 
-            pTop.BackColor = Config.AppsHeaderColor;
+            pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
             SubfolderName.ForeColor = Config.MenuFontColor;
             RegisterHotKey(this.Handle, 1, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());

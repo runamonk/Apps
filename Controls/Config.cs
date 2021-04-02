@@ -14,14 +14,14 @@ namespace Apps
     {
         public const string CONFIG_FILENAME = "Apps.cfg";
 
-        private partial class _Settings : Settings
+        private partial class Settings : Apps.Settings
         {
-            public _Settings()
+            public Settings()
             {
 
             }
 
-            public _Settings(Config Config)
+            public Settings(Config Config)
             {
                 if (Config == null)
                     throw new Exception("Config cannot be null.");
@@ -67,14 +67,16 @@ namespace Apps
                     AutoSizeHeight.Checked = _Config.AutoSizeHeight;
                     AutoSizeHeight.BackColor = _Config.AppsBackColor;
                     AutoSizeHeight.ForeColor = _Config.AppsFontColor;
-
                     AppBackColor.BackColor = _Config.AppsBackColor;
                     AppFontColor.BackColor = _Config.AppsFontColor;
-                    AppHeaderColor.BackColor = _Config.AppsHeaderColor;
                     AppSelectedColor.BackColor = _Config.AppsSelectedBackColor;
+                    GroupColorHeader.ForeColor = _Config.AppsFontColor;
+                    HeaderBackColor.BackColor = _Config.HeaderBackColor;
+                    HeaderButtonColor.BackColor = _Config.HeaderButtonColor;
+                    HeaderButtonSelectedColor.BackColor = _Config.HeaderButtonSelectedColor;
+                    HeaderFontColor.BackColor = _Config.HeaderFontColor;
                     MenuBackColor.BackColor = _Config.MenuBackColor;
                     MenuBorderColor.BackColor = _Config.MenuBorderColor;
-                    MenuButtonColor.BackColor = _Config.MenuButtonColor;
                     MenuFontColor.BackColor = _Config.MenuFontColor;
                     MenuSelectedColor.BackColor = _Config.MenuSelectedColor;
 
@@ -116,11 +118,13 @@ namespace Apps
                 _Config.AutoSizeHeight = AutoSizeHeight.Checked;
                 _Config.AppsBackColor = AppBackColor.BackColor;
                 _Config.AppsFontColor = AppFontColor.BackColor;
-                _Config.AppsHeaderColor = AppHeaderColor.BackColor;
                 _Config.AppsSelectedBackColor = AppSelectedColor.BackColor;
+                _Config.HeaderBackColor = HeaderBackColor.BackColor;
+                _Config.HeaderButtonColor = HeaderButtonColor.BackColor;
+                _Config.HeaderButtonSelectedColor = HeaderButtonSelectedColor.BackColor;
+                _Config.HeaderFontColor = HeaderFontColor.BackColor;
                 _Config.MenuBackColor = MenuBackColor.BackColor;
                 _Config.MenuBorderColor = MenuBorderColor.BackColor;
-                _Config.MenuButtonColor = MenuButtonColor.BackColor;
                 _Config.MenuFontColor = MenuFontColor.BackColor;
                 _Config.MenuSelectedColor = MenuSelectedColor.BackColor;
                 _Config.OpenFormAtCursor = OpenAtMouse.Checked;
@@ -212,7 +216,7 @@ namespace Apps
 
         public void ShowConfigForm(bool ParentIsVisible)
         {
-            _Settings f = new _Settings(this);
+            Settings f = new Settings(this);
             if (!ParentIsVisible)
             {
                 f.StartPosition = FormStartPosition.Manual;
@@ -335,8 +339,8 @@ namespace Apps
         {
             get {
                 string s = FindKey("form_size");
-                Size sz = new Size(400, 300);
-                SizeConverter sc = new SizeConverter();
+                Size sz;
+                SizeConverter sc;
 
                 if (s == "")
                 {
@@ -352,6 +356,50 @@ namespace Apps
                 SizeConverter sc = new SizeConverter();
                 SetKey("form_size", sc.ConvertToString(value), true);
             }
+        }
+
+        public Color HeaderBackColor
+        {
+            get {
+                string s = FindKey("header_back_color");
+                if (s == "")
+                    s = SetKey("header_back_color", Color.White.ToArgb().ToString());
+                return Color.FromArgb(Convert.ToInt32(s));
+            }
+            set { SetKey("header_back_color", value.ToArgb().ToString()); }
+        }
+
+        public Color HeaderButtonColor
+        {
+            get {
+                string s = FindKey("header_button_color");
+                if (s == "")
+                    s = SetKey("header_button_color", Color.White.ToArgb().ToString());
+                return Color.FromArgb(Convert.ToInt32(s));
+            }
+            set { SetKey("header_button_color", value.ToArgb().ToString()); }
+        }
+
+        public Color HeaderFontColor
+        {
+            get {
+                string s = FindKey("header_font_color");
+                if (s == "")
+                    s = SetKey("header_font_color", Color.Black.ToArgb().ToString());
+                return Color.FromArgb(Convert.ToInt32(s));
+            }
+            set { SetKey("header_font_color", value.ToArgb().ToString()); }
+        }
+
+        public Color HeaderButtonSelectedColor
+        {
+            get {
+                string s = FindKey("header_button_selected_color");
+                if (s == "")
+                    s = SetKey("header_button_selected_color", Color.Gray.ToArgb().ToString());
+                return Color.FromArgb(Convert.ToInt32(s));
+            }
+            set { SetKey("header_button_selected_color", value.ToArgb().ToString()); }
         }
 
         public Color MenuBackColor

@@ -272,12 +272,11 @@ namespace Apps
         private void SetColors()
         {
             if (IsHeaderButton())
-            {
-                //BorderColor = AppsConfig.MenuBorderColor;
-                BorderColor = AppsConfig.MenuButtonColor;
-                ButtonPanel.BackColor = AppsConfig.MenuButtonColor;
-                ButtonText.ForeColor = AppsConfig.MenuFontColor;
-                ButtonText.BackColor = AppsConfig.MenuButtonColor;
+            {              
+                BorderColor = AppsConfig.HeaderBackColor;
+                ButtonPanel.BackColor = AppsConfig.HeaderButtonColor;
+                ButtonText.ForeColor = AppsConfig.HeaderFontColor;
+                ButtonText.BackColor = AppsConfig.HeaderButtonColor;
             }
             else
             {
@@ -302,7 +301,7 @@ namespace Apps
         {
             if (IsHeaderButton())
             {
-                ButtonText.BackColor = AppsConfig.MenuSelectedColor;
+                ButtonText.BackColor = AppsConfig.HeaderButtonSelectedColor;
             }
             else
             {
@@ -313,7 +312,7 @@ namespace Apps
         {
             if (IsHeaderButton())
             {
-                ButtonText.BackColor = AppsConfig.MenuButtonColor;
+                ButtonText.BackColor = AppsConfig.HeaderButtonColor;
             }
             else
             {

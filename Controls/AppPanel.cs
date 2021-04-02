@@ -26,7 +26,7 @@ namespace Apps.Controls
     public partial class AppPanel : Panel
     {
         private Config AppsConfig { get; set; }
-        
+
         public bool InMenu { get; set; }
         public bool InLoad { get; set; }
         public bool InAFolder
