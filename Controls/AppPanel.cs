@@ -9,6 +9,8 @@ using System.Xml;
 using Utility;
 using Apps.Forms;
 using System.Collections.Generic;
+using System.Windows;
+
 
 namespace Apps.Controls
 {
@@ -24,8 +26,7 @@ namespace Apps.Controls
     public partial class AppPanel : Panel
     {
         private Config AppsConfig { get; set; }
-
-
+        
         public bool InMenu { get; set; }
         public bool InLoad { get; set; }
         public bool InAFolder
@@ -334,7 +335,21 @@ namespace Apps.Controls
             else
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                AddFiles((string[])e.Data.GetData(DataFormats.FileDrop), Controls.GetChildIndex(ToAppButton));
+                string[] fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
+               
+                if ((fileNames != null) && (fileNames.Count() > 0))
+                    AddFiles(fileNames, Controls.GetChildIndex(ToAppButton));
+                else
+                {
+                    //IEnumerable<string> s = Funcs.GetPathsFromShellIDListArray(e.Data);
+                    //MemoryStream ms;
+                    //FileStream file;
+                    //ms = ((MemoryStream)e.Data.GetData("Shell IDList Array"));
+                    //file = new FileStream("c:\\file.bin", FileMode.Create, FileAccess.Write);
+                    //ms.WriteTo(file);
+                    //file.Close();
+                    //ms.Close();
+                }
             }
             InMenu = false;
         }

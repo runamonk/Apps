@@ -215,7 +215,7 @@ namespace Apps
             if (IsPinButton)
             {
                 ToolTip PinButtonToolTip = new ToolTip();
-                PinButtonToolTip.SetToolTip(ButtonText, "Click to pin/unpin form (overrides autohide).");
+                PinButtonToolTip.SetToolTip(ButtonText, "Click to pin/unpin form (overrides autohide). [Press P to enable/disable]");
             }
             else
             if (IsBackButton)

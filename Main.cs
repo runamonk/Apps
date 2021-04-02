@@ -340,15 +340,16 @@ namespace Apps
 
         private Process RunningInstance()
         {
-#if !DEBUG
-            Process current = Process.GetCurrentProcess();
-            Process[] processes = Process.GetProcessesByName(current.ProcessName);
+            if (!Debugger.IsAttached)
+            {
+                Process current = Process.GetCurrentProcess();
+                Process[] processes = Process.GetProcessesByName(current.ProcessName);
 
-            foreach (Process process in processes)
-                if (process.Id != current.Id)
-                    if (Assembly.GetExecutingAssembly().Location.Replace("/", "\\") == current.MainModule.FileName)
-                        return process;
-#endif
+                foreach (Process process in processes)
+                    if (process.Id != current.Id)
+                        if (Assembly.GetExecutingAssembly().Location.Replace("/", "\\") == current.MainModule.FileName)
+                            return process;
+            }
             return null;
         }
 
