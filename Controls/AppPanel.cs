@@ -14,15 +14,6 @@ using System.Windows;
 
 namespace Apps.Controls
 {
-    partial class AppCache : List<Control>
-    {
-        public string FolderId { get; set; }
-        public AppCache(string id)
-        {
-            FolderId = id;
-        }
-    }
-
     public partial class AppPanel : Panel
     {
         private Config AppsConfig { get; set; }

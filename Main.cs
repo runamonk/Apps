@@ -337,7 +337,7 @@ namespace Apps
             SubfolderName.ForeColor = Config.MenuFontColor;
             RegisterHotKey(this.Handle, 1, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
         }
-
+        
         private Process RunningInstance()
         {
             if (!Debugger.IsAttached)

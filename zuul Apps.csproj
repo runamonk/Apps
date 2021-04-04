@@ -84,6 +84,7 @@
     <Compile Include="Controls\AppButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\AppCache.cs" />
     <Compile Include="Controls\AppMenu.cs">
       <SubType>Component</SubType>
     </Compile>
