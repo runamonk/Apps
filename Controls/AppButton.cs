@@ -21,103 +21,6 @@ namespace Apps
 
     public partial class AppButton : Panel
     {
-        private Config AppsConfig { get; set; }
-        private readonly ButtonType FButtonType;
-
-        public ButtonType ButtonType { get { return FButtonType; } }
-        public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
-        public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
-        public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
-        public bool IsBackButton { get { return (FButtonType == ButtonType.Back); } }
-        public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
-        public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
-
-        private readonly PictureBox PBox = new PictureBox();
-        private readonly Panel BorderPanel = new Panel();
-        private readonly Panel ButtonPanel = new Panel();
-        private readonly Label ButtonText = new Label();
-        private readonly Label FolderArrow = new Label();
-        private readonly Timer MissingIconTimer = new Timer();
-
-        private const string ICON_FOLDER = "\uE188";
-        private const string ICON_FOLDER_W7 = "\u25B7";
-        private const string ICON_FOLDER_LINK = "\u25CF";
-
-        public new ContextMenuStrip ContextMenuStrip
-        {
-            get 
-            {
-                return ButtonText.ContextMenuStrip;
-            }
-            set 
-            {
-                ButtonText.ContextMenuStrip = value;
-            }
-        }
-
-        public Color BorderColor
-        {
-            get { return BorderPanel.BackColor; }
-            set { BorderPanel.BackColor = value;  }
-        }      
-        public string AppId { get; set; }
-        public string AppName
-        {
-            get { return ButtonText.Text; }
-            set { ButtonText.Text = value; }
-        }
-        private string FFileName;
-        public string FileName
-        {
-            get { return FFileName; }
-            set 
-            {
-                FFileName = value;
-                FileIconImage = Funcs.GetIcon(FFileName);
-                FFileIconPath = "";
-            }
-        }
-        private string FFileIconPath;
-        public string FileIconPath
-        {
-            get
-            { return FFileIconPath; }
-            set 
-            {
-                FFileIconPath = value;
-                if (!string.IsNullOrEmpty(FFileIconPath))
-                    FileIconImage = Funcs.GetIcon(FileIconPath); 
-            }
-        }
-        public string FileArgs { get; set; }
-        public string FileWorkingFolder { get; set; }
-        public Image FileIconImage
-        {
-            set 
-            {
-                PBox.Image = value;
-            }
-            get 
-            {
-                return PBox.Image; 
-            }
-        }
-        public bool WatchForIconUpdate
-        {
-            get 
-            {
-                return MissingIconTimer.Enabled;
-            }
-            set 
-            {
-                MissingIconTimer.Enabled = value;
-            }
-        }
-
-        public delegate void AppButtonClickedHandler(AppButton Button);
-        public event AppButtonClickedHandler OnAppButtonClicked;
-        public delegate void AppButtonDropEventhandler(AppButton DropToButton, DragEventArgs e);
-        public event AppButtonDropEventhandler OnAppButtonDropped;
 
         public AppButton(Config myConfig, ButtonType buttonType)
         {
@@ -129,7 +32,7 @@ namespace Apps
             ButtonPanel.Dock = DockStyle.Fill;
             ButtonPanel.Margin = new Padding(0, 0, 0, 0);
             ButtonPanel.BorderStyle = BorderStyle.None;
-            
+
             PBox.Visible = false;
             FolderArrow.Visible = false;
 
@@ -175,12 +78,12 @@ namespace Apps
                 FolderArrow.BorderStyle = BorderStyle.None;
                 FolderArrow.Padding = new Padding(0, 0, 0, 0);
                 FolderArrow.Margin = new Padding(0, 0, 0, 0);
-                FolderArrow.Text = ICON_FOLDER_LINK; 
+                FolderArrow.Text = ICON_FOLDER_LINK;
                 FolderArrow.Visible = true;
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
             }
-            
+
             ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
             ButtonText.Dock = DockStyle.Fill;
@@ -188,8 +91,8 @@ namespace Apps
             ButtonText.UseMnemonic = true;
             ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
             ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
-            
-                        
+
+
             if (IsHeaderButton())
             {
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
@@ -228,6 +131,99 @@ namespace Apps
             AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
             SetColors();
         }
+
+        #region Properties
+        public ButtonType ButtonType { get { return FButtonType; } }
+        public string AppId { get; set; }
+        public string AppName
+        {
+            get { return ButtonText.Text; }
+            set { ButtonText.Text = value; }
+        }
+        public Color BorderColor
+        {
+            get { return BorderPanel.BackColor; }
+            set { BorderPanel.BackColor = value; }
+        }
+        public new ContextMenuStrip ContextMenuStrip
+        {
+            get {
+                return ButtonText.ContextMenuStrip;
+            }
+            set {
+                ButtonText.ContextMenuStrip = value;
+            }
+        }
+        public string FileName
+        {
+            get { return FFileName; }
+            set {
+                FFileName = value;
+                FileIconImage = Funcs.GetIcon(FFileName);
+                FFileIconPath = "";
+            }
+        }
+        public string FileIconPath
+        {
+            get { return FFileIconPath; }
+            set {
+                FFileIconPath = value;
+                if (!string.IsNullOrEmpty(FFileIconPath))
+                    FileIconImage = Funcs.GetIcon(FileIconPath);
+            }
+        }
+        public string FileArgs { get; set; }
+        public string FileWorkingFolder { get; set; }
+        public Image FileIconImage
+        {
+            set {
+                PBox.Image = value;
+            }
+            get {
+                return PBox.Image;
+            }
+        }
+        public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
+        public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
+        public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
+        public bool IsBackButton { get { return (FButtonType == ButtonType.Back); } }
+        public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
+        public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
+        public bool WatchForIconUpdate
+        {
+            get {
+                return MissingIconTimer.Enabled;
+            }
+            set {
+                MissingIconTimer.Enabled = value;
+            }
+        }
+        #endregion
+
+        #region Privates
+        private Config AppsConfig { get; set; }
+        private readonly ButtonType FButtonType;
+        private string FFileName;
+        private string FFileIconPath;
+        private readonly PictureBox PBox = new PictureBox();
+        private readonly Panel BorderPanel = new Panel();
+        private readonly Panel ButtonPanel = new Panel();
+        private readonly Label ButtonText = new Label();
+        private readonly Label FolderArrow = new Label();
+        private const string ICON_FOLDER = "\uE188";
+        private const string ICON_FOLDER_W7 = "\u25B7";
+        private const string ICON_FOLDER_LINK = "\u25CF";
+        private readonly Timer MissingIconTimer = new Timer();
+        #endregion
+
+        #region Events
+        public delegate void AppButtonClickedHandler(AppButton Button);
+        public event AppButtonClickedHandler OnAppButtonClicked;
+        public delegate void AppButtonDropEventhandler(AppButton DropToButton, DragEventArgs e);
+        public event AppButtonDropEventhandler OnAppButtonDropped;
+        #endregion
+
+        #region Methods
         private void CheckForMissingIcon(object sender, EventArgs e)
         {
             if (FileIconImage == null)
@@ -341,6 +337,9 @@ namespace Apps
                 OnClick(e);
             }               
         }
+        #endregion
+
+        #region Overrides
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
@@ -353,5 +352,6 @@ namespace Apps
                 return false;
             }
         }
-    } 
+        #endregion
+    }
 }

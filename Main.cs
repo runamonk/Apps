@@ -11,6 +11,10 @@ using Apps.Controls;
 using Apps.Forms;
 using System.IO;
 
+#region Todo
+// seperators
+#endregion
+
 namespace Apps
 {
     public partial class Main : Form
@@ -20,20 +24,21 @@ namespace Apps
             InitializeComponent();
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-
+        #region Hotkey
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        #endregion
 
-        // allow form to be dragged.
+        #region Allow form to be dragged. 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
-                
+        #endregion
+
+        #region Properties
         private AppButton MenuMainButton { get; set; }
         private AppButton BackButton { get; set; }
         private Label SubfolderName { get; set; }
@@ -41,6 +46,11 @@ namespace Apps
         private AppMenu MenuMain { get; set; }
         private Config Config { get; set; }
         private AppPanel Apps { get; set; }
+        #endregion
+
+        #region Privates
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
 
         private bool inAbout = false;
         private bool inClose = false;
@@ -56,9 +66,6 @@ namespace Apps
         private const string ICON_MAINMENU_W7 = "\u268A";
         private const string ICON_BACK = "\uE197"; //"\uE08E";
         private const string ICON_BACK_W7 = "\u25C1";
-
-        #region Todo
-        // seperators
         #endregion
 
         #region Events
@@ -217,8 +224,7 @@ namespace Apps
         }
         #endregion
 
-        #region Methods
-        
+        #region Methods     
         private void AutoSizeForm(bool ScrollToTop)
         {
             if (Apps.InLoad) return;
@@ -268,10 +274,10 @@ namespace Apps
 
                 MenuMainButton = new AppButton(Config, ButtonType.Menu)
                 {
-                    Width = 25,
                     Parent = pTop,
                     Dock = DockStyle.Left
                 };
+                MenuMainButton.Width = MenuMainButton.Height;
                 MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);             
                 MenuMainButton.AppName = (Funcs.IsWindows7() ? ICON_MAINMENU_W7 : ICON_MAINMENU);
                 MenuMainButton.Click += MainButton_Click;
@@ -279,12 +285,12 @@ namespace Apps
                 MenuMainButton.Margin = new Padding(0,0,0,0);
                
                 BackButton = new AppButton(Config, ButtonType.Back)
-                {
-                    Width = 25,
+                {                   
                     Parent = pTop,
                     Dock = DockStyle.Left,
                     Visible = false
                 };
+                BackButton.Width = BackButton.Height;
                 BackButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
                 BackButton.AppName = (Funcs.IsWindows7() ? ICON_BACK_W7 : ICON_BACK);
                 BackButton.Click += BackButton_Click;
@@ -310,10 +316,10 @@ namespace Apps
 
                 PinButton = new AppButton(Config, ButtonType.Pin)
                 {
-                    Width = 25,
                     Parent = pTop,
                     Dock = DockStyle.Right
                 };
+                PinButton.Width = PinButton.Height;
                 PinButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
                 PinButton.AppName = (Funcs.IsWindows7() ? ICON_UNPINNED_W7 : ICON_UNPINNED);
                 PinButton.Click += PinButton_Click;
@@ -387,5 +393,5 @@ namespace Apps
         }
 
         #endregion
-    } // Main
+    } 
 }
