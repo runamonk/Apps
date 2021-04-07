@@ -31,9 +31,9 @@ namespace Apps.Forms
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.ButtonOK = new System.Windows.Forms.Button();
             this.ButtonCancel = new System.Windows.Forms.Button();
+            this.ButtonOK = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.Icons = new System.Windows.Forms.ListView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
@@ -50,14 +50,15 @@ namespace Apps.Forms
             this.panel1.Size = new System.Drawing.Size(370, 35);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
+            // ButtonCancel
             // 
-            this.panel2.Controls.Add(this.Icons);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(370, 249);
-            this.panel2.TabIndex = 1;
+            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonCancel.Location = new System.Drawing.Point(87, 6);
+            this.ButtonCancel.Name = "ButtonCancel";
+            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
+            this.ButtonCancel.TabIndex = 1;
+            this.ButtonCancel.Text = "Cancel";
+            this.ButtonCancel.UseVisualStyleBackColor = true;
             // 
             // ButtonOK
             // 
@@ -69,15 +70,14 @@ namespace Apps.Forms
             this.ButtonOK.Text = "OK";
             this.ButtonOK.UseVisualStyleBackColor = true;
             // 
-            // ButtonCancel
+            // panel2
             // 
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Location = new System.Drawing.Point(87, 6);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
-            this.ButtonCancel.TabIndex = 1;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            this.panel2.Controls.Add(this.Icons);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(370, 249);
+            this.panel2.TabIndex = 1;
             // 
             // Icons
             // 
@@ -111,6 +111,7 @@ namespace Apps.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IconPicker";
             this.TopMost = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IconPicker_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
