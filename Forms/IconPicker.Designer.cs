@@ -106,6 +106,7 @@ namespace Apps.Forms
             this.ClientSize = new System.Drawing.Size(370, 284);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Name = "IconPicker";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
