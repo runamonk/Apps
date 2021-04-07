@@ -56,6 +56,11 @@ namespace Apps.Forms
         #endregion
 
         #region Events
+        private void Icons_DoubleClick(object sender, EventArgs e)
+        {
+            if (Icons.SelectedItems.Count > 0)
+                ButtonOK.PerformClick();
+        }
         private void IconPicker_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -69,5 +74,6 @@ namespace Apps.Forms
             Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
         }
         #endregion
+
     }
 }

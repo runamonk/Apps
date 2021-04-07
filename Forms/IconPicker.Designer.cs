@@ -91,6 +91,7 @@ namespace Apps.Forms
             this.Icons.TabIndex = 0;
             this.Icons.UseCompatibleStateImageBehavior = false;
             this.Icons.SelectedIndexChanged += new System.EventHandler(this.Icons_SelectedIndexChanged);
+            this.Icons.DoubleClick += new System.EventHandler(this.Icons_DoubleClick);
             // 
             // imageList
             // 
