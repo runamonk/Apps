@@ -159,7 +159,7 @@ namespace Apps
             get { return FFileName; }
             set {
                 FFileName = value;
-                FileIconImage = Funcs.GetIcon(FFileName);
+                FileIconImage = Funcs.GetIcon(FFileName,null);
                 FFileIconPath = "";
             }
         }
@@ -169,7 +169,13 @@ namespace Apps
             set {
                 FFileIconPath = value;
                 if (!string.IsNullOrEmpty(FFileIconPath))
-                    FileIconImage = Funcs.GetIcon(FileIconPath);
+                    FileIconImage = Funcs.GetIcon(FFileIconPath, FFileIconIndex);
+            }
+        }
+        public string FileIconIndex
+        {
+            get { return FFileIconIndex; }
+            set { FFileIconIndex = value;
             }
         }
         public string FileArgs { get; set; }
@@ -205,6 +211,7 @@ namespace Apps
         private readonly ButtonType FButtonType;
         private string FFileName;
         private string FFileIconPath;
+        private string FFileIconIndex;
         private readonly PictureBox PBox = new PictureBox();
         private readonly Panel BorderPanel = new Panel();
         private readonly Panel ButtonPanel = new Panel();
@@ -233,9 +240,9 @@ namespace Apps
                     if (File.Exists(FileIconPath) || File.Exists(FileName))
                     {
                         if (File.Exists(FileIconPath))
-                            FileIconImage = Funcs.GetIcon(FileIconPath);
+                            FileIconImage = Funcs.GetIcon(FileIconPath, FileIconIndex);
                         else
-                            FileIconImage = Funcs.GetIcon(FileName);
+                            FileIconImage = Funcs.GetIcon(FileName, FileIconIndex);
                         WatchForIconUpdate = false;
                     }                      
                 }

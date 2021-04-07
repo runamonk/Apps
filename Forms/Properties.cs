@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Utility;
@@ -52,6 +54,7 @@ namespace Apps.Forms
         }
 
         private string FAppIconPath;
+        private string FAppIconIndex;
         private bool IsCancelled = false;
 
         public string AppFileArgs
@@ -64,12 +67,17 @@ namespace Apps.Forms
             get { return this.EditWorkingFolder.Text.Trim(); }
         }
 
+        public string AppIconIndex
+        {
+            get { return FAppIconIndex; }
+        }
+
         public string AppIconPath
         {
             get { return FAppIconPath; }
         }
 
-        public void SetFileProperties(string appName, string filePath, string fileIcon, string fileArgs, string fileWorkingFolder)
+        public void SetFileProperties(string appName, string filePath, string fileIcon, string fileIconIndex, string fileArgs, string fileWorkingFolder)
         {
             EditAppName.Text = appName;
             EditAppFilePath.Text = filePath;
@@ -82,7 +90,8 @@ namespace Apps.Forms
                 s = filePath;
 
             FAppIconPath = s;
-            EditAppIcon.Image = Funcs.GetIcon(s);
+            FAppIconIndex = fileIconIndex;
+            EditAppIcon.Image = Funcs.GetIcon(s, fileIconIndex);
         }
 
         private void Browse_Click(object sender, EventArgs e)
@@ -98,7 +107,7 @@ namespace Apps.Forms
                 else
                 {
                     FileVersionInfo f = Funcs.GetFileInfo(fileName);
-                    SetFileProperties(f.ProductName, fileName, null, null, null);
+                    SetFileProperties(f.ProductName, fileName, null, null, null, null);
                 }
             }
         }
@@ -108,8 +117,22 @@ namespace Apps.Forms
             string fileName = Funcs.BrowseForFile();
             if (fileName != "")
             {
-                FAppIconPath = fileName;
-                EditAppIcon.Image = Funcs.GetIcon(fileName);
+                if ((Path.GetExtension(fileName) == ".dll") || (Path.GetExtension(fileName) == ".exe"))
+                {
+                    List<Icon> l = Funcs.GetIcons(fileName);
+                    IconPicker frm = new IconPicker(l);
+                    if (frm.ShowDialog(this) == DialogResult.OK)
+                    {
+                        FAppIconIndex = frm.SelectedIconIndex.ToString();
+                        FAppIconPath = fileName;
+                        EditAppIcon.Image = Funcs.GetIcon(fileName, FAppIconIndex);
+                    }
+                }
+                else
+                {
+                    FAppIconPath = fileName;
+                    EditAppIcon.Image = Funcs.GetIcon(fileName, null);
+                }
             }
         }
 
@@ -152,10 +175,12 @@ namespace Apps.Forms
         {
             string FileName = "";
             string FileIcon = "";
+            string FileIconIndex = "";
             string FileArgs = "";
             string FileWF = "";
-            Funcs.ParseShortcut(EditAppFilePath.Text, ref FileName, ref FileIcon, ref FileArgs, ref FileWF);
-            SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileArgs, FileWF);
+            
+            Funcs.ParseShortcut(EditAppFilePath.Text, ref FileName, ref FileIcon, ref FileIconIndex, ref FileArgs, ref FileWF);
+            SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileIconIndex, FileArgs, FileWF);
         }
 
         private void BrowseWF_Click(object sender, EventArgs e)

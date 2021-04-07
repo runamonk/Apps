@@ -104,6 +104,12 @@
     <Compile Include="Forms\Folder.Designer.cs">
       <DependentUpon>Folder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\IconPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\IconPicker.Designer.cs">
+      <DependentUpon>IconPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Properties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Folder.resx">
       <DependentUpon>Folder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\IconPicker.resx">
+      <DependentUpon>IconPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Properties.resx">
       <DependentUpon>Properties.cs</DependentUpon>

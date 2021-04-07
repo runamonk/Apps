@@ -193,13 +193,13 @@ namespace Apps.Controls
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, f.AppFileWorkingFolder, 0);
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, 0);
                 }
                 else
                 {
                     AppButton b = GetAppButton(sender);
                     int i = Controls.GetChildIndex(b);
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, f.AppFileWorkingFolder, i);
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, i);
                 }
             }
 
@@ -341,7 +341,7 @@ namespace Apps.Controls
             else
             {
                 Forms.Properties f = new Forms.Properties(AppsConfig);
-                f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileArgs, b.FileWorkingFolder);
+                f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileIconIndex, b.FileArgs, b.FileWorkingFolder);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
                     XmlNode node = GetNode(b.AppId);
@@ -349,7 +349,7 @@ namespace Apps.Controls
                     XmlNode ParentNode = CurrentParentNode ?? AppsNode;
                     ParentNode.RemoveChild(node);
                     Controls.Remove(b);
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppFileArgs, f.AppFileWorkingFolder, i);
+                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, i);
                     SaveXML();
                 }
             }
@@ -448,7 +448,7 @@ namespace Apps.Controls
                 if (File.Exists(filePath))
                 {
                     string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
-                    AddItem(null, AppName, filePath, null, null, null, AddAtIndex);
+                    AddItem(null, AppName, filePath, null, null, null, null, AddAtIndex);
                 }
             }
             InLoad = false;
@@ -498,7 +498,7 @@ namespace Apps.Controls
                 OnAppAdded?.Invoke();
         }
 
-        public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileArgs, string fileWorkingFolder, int AddAtIndex)
+        public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileIconIndex, string fileArgs, string fileWorkingFolder, int AddAtIndex)
         {
             AppButton b = AddAppButton(ButtonType.App, Controls);
             if (string.IsNullOrEmpty(AppId))
@@ -512,7 +512,7 @@ namespace Apps.Controls
                 if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(fileName))
                 {
                     AppName = Path.GetFileNameWithoutExtension(fileName);
-                    Funcs.ParseShortcut(fileName, ref fileName, ref fileIconPath, ref fileArgs, ref fileWorkingFolder);
+                    Funcs.ParseShortcut(fileName, ref fileName, ref fileIconPath, ref fileIconIndex, ref fileArgs, ref fileWorkingFolder);
                 }
 
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
@@ -520,6 +520,7 @@ namespace Apps.Controls
                 AddAttrib(node, "appname", AppName);
                 AddAttrib(node, "filename", fileName);
                 AddAttrib(node, "fileiconpath", fileIconPath);
+                AddAttrib(node, "fileiconindex", fileIconIndex);
                 AddAttrib(node, "fileargs", fileArgs);
                 AddAttrib(node, "fileworkingfolder", fileWorkingFolder);
                 XmlNode ParentNode = CurrentParentNode ?? AppsNode;
@@ -803,6 +804,7 @@ namespace Apps.Controls
                 appButton.AppName = GetAttrib(xn, "appname");
                 appButton.FileName = GetAttrib(xn, "filename");
                 appButton.FileArgs = GetAttrib(xn, "fileargs");
+                appButton.FileIconIndex = GetAttrib(xn, "fileiconindex");
                 appButton.FileIconPath = GetAttrib(xn, "fileiconpath");
                 appButton.FileWorkingFolder = GetAttrib(xn, "fileworkingfolder");
                 if (appButton.FileIconImage == null)
