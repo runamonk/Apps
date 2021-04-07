@@ -38,7 +38,7 @@ namespace Apps.Forms
             ButtonParseShortcut.ForeColor = myConfig.AppsFontColor;
             EditWorkingFolder.BackColor = myConfig.AppsBackColor;
             EditWorkingFolder.ForeColor = myConfig.AppsFontColor;
-
+            toolTip.SetToolTip(EditAppIcon, "Click to override default icon.");
             toolTip.SetToolTip(Browse, "Click to browse for file(s).");
             toolTip.SetToolTip(ButtonParseShortcut, "Click to replace file properties from the shortcut.");
         }
