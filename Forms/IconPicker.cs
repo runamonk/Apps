@@ -18,34 +18,9 @@ namespace Apps.Forms
         {
             InitializeComponent();
             AppsConfig = myConfig;
-            BackColor = myConfig.AppsBackColor;
-            ForeColor = myConfig.AppsFontColor;
-            Icons.BackColor = myConfig.AppsBackColor;
-            Icons.ForeColor = myConfig.AppsFontColor;
-            ButtonOK.BackColor = myConfig.AppsBackColor;
-            ButtonOK.ForeColor = myConfig.AppsFontColor;
-            ButtonCancel.BackColor = myConfig.AppsBackColor;
-            ButtonCancel.ForeColor = myConfig.AppsFontColor;
-            
-            int idx = 0;
 
-            while (true)
-            {
-                Icon f = Funcs.GetIconEx(fileName, idx);
-                if (f != null)
-                {
-                    imageList.Images.Add(f);
-                    ListViewItem item = new ListViewItem(idx.ToString(), idx);
-                    Icons.Items.Add(item);
-                }
-                else
-                    break;
-
-                idx++;
-            }
-            
-            Icons.Items[0].Selected = true;
-            Icons.Select();
+            LoadIcons(fileName);
+            SetColors();
         }
 
         #region Properties
@@ -63,6 +38,41 @@ namespace Apps.Forms
 
         #region Privates
         private readonly Config AppsConfig;
+        #endregion
+
+        #region Methods
+        private void LoadIcons(string fileName)
+        {
+            int idx = 0;
+            while (true)
+            {
+                Icon f = Funcs.GetIconEx(fileName, idx);
+                if (f != null)
+                {
+                    imageList.Images.Add(f);
+                    ListViewItem item = new ListViewItem(idx.ToString(), idx);
+                    Icons.Items.Add(item);
+                }
+                else
+                    break;
+                idx++;
+            }
+
+            Icons.Items[0].Selected = true;
+            Icons.Select();
+        }
+
+        private void SetColors()
+        {
+            BackColor = AppsConfig.AppsBackColor;
+            ForeColor = AppsConfig.AppsFontColor;
+            Icons.BackColor = AppsConfig.AppsBackColor;
+            Icons.ForeColor = AppsConfig.AppsFontColor;
+            ButtonOK.BackColor = AppsConfig.AppsBackColor;
+            ButtonOK.ForeColor = AppsConfig.AppsFontColor;
+            ButtonCancel.BackColor = AppsConfig.AppsBackColor;
+            ButtonCancel.ForeColor = AppsConfig.AppsFontColor;
+        }
         #endregion
 
         #region Events

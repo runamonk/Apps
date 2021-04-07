@@ -26,21 +26,11 @@ namespace Apps.Forms
             Funcs.AddMenuItem(MenuRC, "Reset", MenuReset_Click);
             EditAppIcon.ContextMenuStrip = MenuRC;
 
-            BackColor = myConfig.AppsBackColor;
-            ForeColor = myConfig.AppsFontColor;
-            EditAppFilePath.BackColor = myConfig.AppsBackColor;
-            EditAppFilePath.ForeColor = myConfig.AppsFontColor;
-            EditAppName.BackColor = myConfig.AppsBackColor;
-            EditAppName.ForeColor = myConfig.AppsFontColor;
-            EditFileArgs.BackColor = myConfig.AppsBackColor;
-            EditFileArgs.ForeColor = myConfig.AppsFontColor;
-            ButtonParseShortcut.BackColor = myConfig.AppsBackColor;
-            ButtonParseShortcut.ForeColor = myConfig.AppsFontColor;
-            EditWorkingFolder.BackColor = myConfig.AppsBackColor;
-            EditWorkingFolder.ForeColor = myConfig.AppsFontColor;
             toolTip.SetToolTip(EditAppIcon, "Click to override default icon.");
             toolTip.SetToolTip(Browse, "Click to browse for file(s).");
             toolTip.SetToolTip(ButtonParseShortcut, "Click to replace file properties from the shortcut.");
+
+            SetColors();
         }
 
         #region Properties
@@ -198,6 +188,21 @@ namespace Apps.Forms
         #endregion
 
         #region Methods
+        private void SetColors()
+        {
+            BackColor = AppsConfig.AppsBackColor;
+            ForeColor = AppsConfig.AppsFontColor;
+            EditAppFilePath.BackColor = AppsConfig.AppsBackColor;
+            EditAppFilePath.ForeColor = AppsConfig.AppsFontColor;
+            EditAppName.BackColor = AppsConfig.AppsBackColor;
+            EditAppName.ForeColor = AppsConfig.AppsFontColor;
+            EditFileArgs.BackColor = AppsConfig.AppsBackColor;
+            EditFileArgs.ForeColor = AppsConfig.AppsFontColor;
+            ButtonParseShortcut.BackColor = AppsConfig.AppsBackColor;
+            ButtonParseShortcut.ForeColor = AppsConfig.AppsFontColor;
+            EditWorkingFolder.BackColor = AppsConfig.AppsBackColor;
+            EditWorkingFolder.ForeColor = AppsConfig.AppsFontColor;
+        }
         public void SetFileProperties(string appName, string filePath, string fileIcon, string fileIconIndex, string fileArgs, string fileWorkingFolder)
         {
             EditAppName.Text = appName;
