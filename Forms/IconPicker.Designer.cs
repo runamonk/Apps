@@ -53,6 +53,7 @@ namespace Apps.Forms
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonCancel.Location = new System.Drawing.Point(87, 6);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
@@ -63,6 +64,7 @@ namespace Apps.Forms
             // ButtonOK
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ButtonOK.Location = new System.Drawing.Point(6, 6);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
@@ -81,6 +83,7 @@ namespace Apps.Forms
             // 
             // Icons
             // 
+            this.Icons.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Icons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Icons.HideSelection = false;
             this.Icons.LargeImageList = this.imageList;

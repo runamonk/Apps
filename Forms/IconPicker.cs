@@ -26,7 +26,7 @@ namespace Apps.Forms
             ButtonOK.ForeColor = myConfig.AppsFontColor;
             ButtonCancel.BackColor = myConfig.AppsBackColor;
             ButtonCancel.ForeColor = myConfig.AppsFontColor;
-
+            
             int idx = 0;
 
             while (true)
