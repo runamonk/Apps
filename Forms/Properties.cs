@@ -84,14 +84,14 @@ namespace Apps.Forms
         {
             void ShowIconPicker(string fileName)
             {
-                List<Icon> l = Funcs.GetIcons(fileName);
-                IconPicker frm = new IconPicker(AppsConfig, l);
+                IconPicker frm = new IconPicker(AppsConfig, fileName);
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     FAppIconIndex = frm.SelectedIconIndex.ToString();
                     FAppIconPath = fileName;
                     EditAppIcon.Image = Funcs.GetIcon(fileName, FAppIconIndex);
                 }
+                frm.Dispose();
             }
 
             if ((FAppIconPath != "") && ((Path.GetExtension(FAppIconPath) == ".dll") || (Path.GetExtension(FAppIconPath) == ".exe")))

@@ -8,12 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Utility;
 
 namespace Apps.Forms
 {
     public partial class IconPicker : Form
     {
-        public IconPicker(Config myConfig, List<Icon> IconList)
+        public IconPicker(Config myConfig, string fileName)
         {
             InitializeComponent();
             AppsConfig = myConfig;
@@ -26,14 +27,23 @@ namespace Apps.Forms
             ButtonCancel.BackColor = myConfig.AppsBackColor;
             ButtonCancel.ForeColor = myConfig.AppsFontColor;
 
-            int i = 0;
-            while (i < IconList.Count)
+            int idx = 0;
+
+            while (true)
             {
-                imageList.Images.Add((Icon)IconList[i]);
-                ListViewItem item = new ListViewItem(i.ToString(), i);
-                Icons.Items.Add(item);
-                i++;
+                Icon f = Funcs.GetIconEx(fileName, idx);
+                if (f != null)
+                {
+                    imageList.Images.Add(f);
+                    ListViewItem item = new ListViewItem(idx.ToString(), idx);
+                    Icons.Items.Add(item);
+                }
+                else
+                    break;
+
+                idx++;
             }
+            
             Icons.Items[0].Selected = true;
             Icons.Select();
         }

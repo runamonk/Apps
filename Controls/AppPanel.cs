@@ -321,6 +321,7 @@ namespace Apps.Controls
                     ((AppButton)Controls[i]).FileName = f.FolderPath;
                     SaveXML();
                 }
+                f.Dispose();
             }
             else
             if (b.IsFolderButton)
@@ -337,6 +338,7 @@ namespace Apps.Controls
                     ((AppButton)Controls[i]).AppName = f.FolderName;
                     SaveXML();
                 }
+                f.Dispose();
             }
             else
             {
@@ -352,9 +354,11 @@ namespace Apps.Controls
                     AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, i);
                     SaveXML();
                 }
+                f.Dispose();
             }
 
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
             ResumeLayout();
             InMenu = false;
         }
