@@ -184,80 +184,93 @@ namespace Apps.Controls
         private void MenuAddApp_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            Forms.Properties f = new Forms.Properties(AppsConfig);
+            AppButton b = AddAppButton(ButtonType.App, Controls);
+            Forms.Properties f = new Forms.Properties(AppsConfig, b);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, 0);
+                    AddApp(b, 0);
                 }
                 else
                 {
-                    AppButton b = GetAppButton(sender);
-                    int i = Controls.GetChildIndex(b);
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, i);
+                    AddApp(b, Controls.GetChildIndex(GetAppButton(sender)));
                 }
             }
-
+            else
+            {
+                Controls.Remove(b);
+                b.Dispose();
+            }
 
             InMenu = false;
         }
         private void MenuAddFolder_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            Folder f = new Folder(AppsConfig);
+            SuspendLayout();
+            AppButton appButton = AddAppButton(ButtonType.Folder, Controls);
+            Folder f = new Folder(AppsConfig, appButton);
+ 
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddItem(null, f.FolderName, 0);
+                    AddFolder(appButton, 0);
                 }
                 else
                 {
-                    AppButton b = GetAppButton(sender);
-                    int i = Controls.GetChildIndex(b);
-                    AddItem(null, f.FolderName, i);
+                    AddFolder(appButton, Controls.GetChildIndex(GetAppButton(sender)));
                 }
             }
-
-
+            else
+            {
+                Controls.Remove(appButton);
+                appButton.Dispose();
+            }
+            ResumeLayout();
             InMenu = false;
         }
         private void MenuAddFolderLink_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            FolderLink f = new FolderLink(AppsConfig);
+            SuspendLayout();
+            AppButton appButton = AddAppButton(ButtonType.FolderLink, Controls);
+            FolderLink f = new FolderLink(AppsConfig, appButton);
             if (f.ShowDialog(this) == DialogResult.OK)
             {
                 var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
                 if (c is AppPanel)
                 {
-                    AddFolderLink(null, f.FolderName, f.FolderPath, 0);
+                    AddFolderLink(appButton, 0);
                 }
                 else
                 {
-                    AppButton b = GetAppButton(sender);
-                    int i = Controls.GetChildIndex(b);
-                    AddFolderLink(null, f.FolderName, f.FolderPath, i);
+                    AddFolderLink(appButton, Controls.GetChildIndex(GetAppButton(sender)));
                 }
             }
+            else
+            {
+                Controls.Remove(appButton);
+                appButton.Dispose();
+            }
+
+            ResumeLayout();
             InMenu = false;
         }
         private void MenuAddSeparator_Click(object sender, EventArgs e)
         {
-            InMenu = true;
+            InMenu = true;          
             var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
             if (c is AppPanel)
             {
-                AddSeparator(null, 0);
+                AddSeparator(0);
             }
             else
             {
-                AppButton b = GetAppButton(sender);
-                int i = Controls.GetChildIndex(b);
-                AddSeparator(null, i);
+                AddSeparator(Controls.GetChildIndex(GetAppButton(sender)));
             }
             InMenu = false;
         }
@@ -313,20 +326,11 @@ namespace Apps.Controls
 
             if (b.IsFolderLinkButton)
             {
-                FolderLink f = new FolderLink(AppsConfig)
-                {
-                    FolderName = b.AppName,
-                    FolderPath = b.FileName
-                };
-
+                FolderLink f = new FolderLink(AppsConfig, b);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
-                    XmlNode node = GetNode(b.AppId);
-                    int i = Controls.GetChildIndex(b);
-                    node.Attributes["folderlinkname"].Value = f.FolderName;
-                    node.Attributes["folderlinkpath"].Value = f.FolderPath;
-                    ((AppButton)Controls[i]).AppName = f.FolderName;
-                    ((AppButton)Controls[i]).FileName = f.FolderPath;
+                    b.Node.Attributes["folderlinkname"].Value = b.AppName;
+                    b.Node.Attributes["folderlinkpath"].Value = b.FileName;
                     SaveXML();
                 }
                 f.Dispose();
@@ -334,32 +338,28 @@ namespace Apps.Controls
             else
             if (b.IsFolderButton)
             {
-                Folder f = new Folder(AppsConfig)
-                {
-                    FolderName = b.AppName
-                };
+                Folder f = new Folder(AppsConfig, b);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
                     XmlNode node = GetNode(b.AppId);
                     int i = Controls.GetChildIndex(b);
-                    node.Attributes["foldername"].Value = f.FolderName;
-                    ((AppButton)Controls[i]).AppName = f.FolderName;
+                    node.Attributes["foldername"].Value = b.AppName;
+                    ((AppButton)Controls[i]).AppName = b.AppName;
                     SaveXML();
                 }
                 f.Dispose();
             }
             else
             {
-                Forms.Properties f = new Forms.Properties(AppsConfig);
-                f.SetFileProperties(b.AppName, b.FileName, b.FileIconPath, b.FileIconIndex, b.FileArgs, b.FileWorkingFolder);
+                Forms.Properties f = new Forms.Properties(AppsConfig, b);
                 if (f.ShowDialog(this) == DialogResult.OK)
-                {
-                    XmlNode node = GetNode(b.AppId);
-                    int i = Controls.GetChildIndex(b);
-                    XmlNode ParentNode = CurrentParentNode ?? AppsNode;
-                    ParentNode.RemoveChild(node);
-                    Controls.Remove(b);
-                    AddItem(null, f.AppName, f.AppFileName, f.AppIconPath, f.AppIconIndex, f.AppFileArgs, f.AppFileWorkingFolder, i);
+                {                    
+                    b.Node.Attributes["appname"].Value = b.AppName;
+                    b.Node.Attributes["filename"].Value = b.FileName;
+                    b.Node.Attributes["fileiconpath"].Value = b.FileIconPath;
+                    b.Node.Attributes["fileiconindex"].Value = b.FileIconIndex;
+                    b.Node.Attributes["fileargs"].Value = b.FileArgs;
+                    b.Node.Attributes["fileworkingfolder"].Value = b.FileWorkingFolder;
                     SaveXML();
                 }
                 f.Dispose();
@@ -444,13 +444,19 @@ namespace Apps.Controls
                 if (!File.Exists(filePath) && Directory.Exists(filePath))
                 {
                     string AppName = Path.GetFileName(filePath);
-                    AddFolderLink(null, AppName, filePath, AddAtIndex);
+                    AppButton b = AddAppButton(ButtonType.FolderLink, Controls);
+                    b.AppName = AppName;
+                    b.FileName = filePath;
+                    AddFolderLink(b, AddAtIndex);
                 }
                 else
                 if (File.Exists(filePath))
                 {
                     string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
-                    AddItem(null, AppName, filePath, null, null, null, null, AddAtIndex);
+                    AppButton b = AddAppButton(ButtonType.App, Controls);
+                    b.AppName = AppName;
+                    b.FileName = filePath;
+                    AddApp(b, AddAtIndex);
                 }
             }
             InLoad = false;
@@ -468,70 +474,59 @@ namespace Apps.Controls
             else
                 return f;
         }
-        public void AddItem(string AppId, string FolderName, int AddAtIndex)
+        public void AddFolder(AppButton appButton, int AddAtIndex)
         {
-            AppButton b = AddAppButton(ButtonType.Folder, Controls);
+            appButton.AppId = Guid.NewGuid().ToString();
+            appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            AddAttrib(appButton.Node, "id", appButton.AppId);
+            AddAttrib(appButton.Node, "foldername", appButton.AppName);
+            XmlNode ParentNode = CurrentParentNode ?? AppsNode;
+            if (nodeSib == null)
+                ParentNode.AppendChild(appButton.Node);
+            else
+                ParentNode.InsertAfter(appButton.Node, nodeSib);
+            SaveXML();
 
-            if (string.IsNullOrEmpty(AppId))
-                AppId = Guid.NewGuid().ToString();
-
-            XmlNode node = GetNode(b.AppId);
-            if (node == null)
-            {
-                node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
-                XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-                AddAttrib(node, "id", AppId);
-                AddAttrib(node, "foldername", FolderName);
-                XmlNode ParentNode = CurrentParentNode ?? AppsNode;
-                if (nodeSib == null)
-                    ParentNode.AppendChild(node);
-                else
-                    ParentNode.InsertAfter(node, nodeSib);
-                SaveXML();
-            }
-
-            SetButtonDetails(b, node);
-            AddToFolderCache(AppId);
-
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            SetButtonDetails(appButton);
+            AddToFolderCache(appButton.AppId);
+            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
-        public void AddItem(string AppId, string AppName, string fileName, string fileIconPath, string fileIconIndex, string fileArgs, string fileWorkingFolder, int AddAtIndex)
+        public void AddApp(AppButton appButton, int AddAtIndex)
         {
-            AppButton b = AddAppButton(ButtonType.App, Controls);
-            if (string.IsNullOrEmpty(AppId))
-                AppId = Guid.NewGuid().ToString();
+            if (string.IsNullOrEmpty(appButton.AppId))
+                appButton.AppId = Guid.NewGuid().ToString();
 
-            XmlNode node = GetNode(b.AppId);
-
-            if (node == null)
+            if (appButton.Node == null)
             {
                 XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-                if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(fileName))
+
+                if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(appButton.FileName))
                 {
-                    AppName = Path.GetFileNameWithoutExtension(fileName);
-                    Funcs.ParseShortcut(fileName, ref fileName, ref fileIconPath, ref fileIconIndex, ref fileArgs, ref fileWorkingFolder);
+                    appButton.AppName = Path.GetFileNameWithoutExtension(appButton.FileName);
+                    Funcs.ParseShortcut(appButton.FileName, appButton.FileName, appButton.FileIconPath, appButton.FileIconIndex, appButton.FileArgs, appButton.FileWorkingFolder);
                 }
 
-                node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
-                AddAttrib(node, "id", AppId);
-                AddAttrib(node, "appname", AppName);
-                AddAttrib(node, "filename", fileName);
-                AddAttrib(node, "fileiconpath", fileIconPath);
-                AddAttrib(node, "fileiconindex", fileIconIndex);
-                AddAttrib(node, "fileargs", fileArgs);
-                AddAttrib(node, "fileworkingfolder", fileWorkingFolder);
+                appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+                AddAttrib(appButton.Node, "id", appButton.AppId);
+                AddAttrib(appButton.Node, "appname", appButton.AppName);
+                AddAttrib(appButton.Node, "filename", appButton.FileName);
+                AddAttrib(appButton.Node, "fileiconpath", appButton.FileIconPath);
+                AddAttrib(appButton.Node, "fileiconindex", appButton.FileIconIndex);
+                AddAttrib(appButton.Node, "fileargs", appButton.FileArgs);
+                AddAttrib(appButton.Node, "fileworkingfolder", appButton.FileWorkingFolder);
                 XmlNode ParentNode = CurrentParentNode ?? AppsNode;
                 if (nodeSib == null)
-                    ParentNode.AppendChild(node);
+                    ParentNode.AppendChild(appButton.Node);
                 else
-                    ParentNode.InsertAfter(node, nodeSib);
+                    ParentNode.InsertAfter(appButton.Node, nodeSib);
                 SaveXML();
             }
 
-            SetButtonDetails(b, node);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            SetButtonDetails(appButton);
+            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
@@ -548,59 +543,44 @@ namespace Apps.Controls
             }
             ac.Clear();
         }
-        public void AddFolderLink(string AppId, string FolderLinkName, string FolderPath, int AddAtIndex)
+        public void AddFolderLink(AppButton appButton, int AddAtIndex)
         {
-            AppButton b = AddAppButton(ButtonType.FolderLink, Controls);
-            if (string.IsNullOrEmpty(AppId))
-                AppId = Guid.NewGuid().ToString();
+            appButton.AppId = Guid.NewGuid().ToString();
+            appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
 
-            XmlNode node = GetNode(b.AppId);
+            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            AddAttrib(appButton.Node, "id", appButton.AppId);
+            AddAttrib(appButton.Node, "folderlinkname", appButton.AppName);
+            AddAttrib(appButton.Node, "folderlinkpath", appButton.FileName);
+            XmlNode ParentNode = CurrentParentNode ?? AppsNode;
+            if (nodeSib == null)
+                ParentNode.AppendChild(appButton.Node);
+            else
+                ParentNode.InsertAfter(appButton.Node, nodeSib);
 
-            if (node == null)
-            {
-                node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
-                XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-                AddAttrib(node, "id", AppId);
-                AddAttrib(node, "folderlinkname", FolderLinkName);
-                AddAttrib(node, "folderlinkpath", FolderPath);
-                XmlNode ParentNode = CurrentParentNode ?? AppsNode;
-                if (nodeSib == null)
-                    ParentNode.AppendChild(node);
-                else
-                    ParentNode.InsertAfter(node, nodeSib);
-
-                SaveXML();
-            }
-            SetButtonDetails(b, node);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            SaveXML();
+            SetButtonDetails(appButton);
+            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
-        public void AddSeparator(string AppId, int AddAtIndex)
+        public void AddSeparator(int AddAtIndex)
         {
-            AppButton b = AddAppButton(ButtonType.Separator, Controls);
-            if (string.IsNullOrEmpty(AppId))
-                AppId = Guid.NewGuid().ToString();
-
-            XmlNode node = GetNode(b.AppId);
-
-            if (node == null)
-            {
-                node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
-                XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
-                AddAttrib(node, "id", AppId);
-                AddAttrib(node, "separator", "Y");
+            AppButton appButton = AddAppButton(ButtonType.Separator, Controls);
+            appButton.AppId = Guid.NewGuid().ToString();
+            appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
+            XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
+            AddAttrib(appButton.Node, "id", appButton.AppId);
+            AddAttrib(appButton.Node, "separator", "Y");
                 
-                XmlNode ParentNode = CurrentParentNode ?? AppsNode;
-                if (nodeSib == null)
-                    ParentNode.AppendChild(node);
-                else
-                    ParentNode.InsertAfter(node, nodeSib);
-
-                SaveXML();
-            }
-            SetButtonDetails(b, node);
-            Controls.SetChildIndex(b, AddAtIndex); // move button where we want it.
+            XmlNode ParentNode = CurrentParentNode ?? AppsNode;
+            if (nodeSib == null)
+                ParentNode.AppendChild(appButton.Node);
+            else
+                ParentNode.InsertAfter(appButton.Node, nodeSib);
+            SaveXML();
+            SetButtonDetails(appButton);
+            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
@@ -662,26 +642,30 @@ namespace Apps.Controls
                     if (GetAttrib(xn, "folderlinkname") != "")
                     {
                         AppButton b = AddAppButton(ButtonType.FolderLink, ac);
-                        SetButtonDetails(b, xn);
+                        b.Node = xn;
+                        SetButtonDetails(b);
                     }
                     else
                     if (GetAttrib(xn, "foldername") != "")
                     {
                         AppButton b = AddAppButton(ButtonType.Folder, ac);
-                        SetButtonDetails(b, xn);
+                        b.Node = xn;
+                        SetButtonDetails(b);
                         AddToCache(xn); // Recsurvise add contents of folder
                     }
                     else
                     if (GetAttrib(xn, "separator") != "")
                     {
                         AppButton b = AddAppButton(ButtonType.Separator, ac);
-                        SetButtonDetails(b, xn);
+                        b.Node = xn;
+                        SetButtonDetails(b);
                     }
                     else
                     if (GetAttrib(xn, "appname") != "") 
                     {
                         AppButton b = AddAppButton(ButtonType.App, ac);
-                        SetButtonDetails(b, xn);
+                        b.Node = xn;
+                        SetButtonDetails(b);
                     }
                 }
             }
@@ -800,37 +784,37 @@ namespace Apps.Controls
         {
             AppsXml.Save(AppsXmlFilePath);
         }
-        private void SetButtonDetails(AppButton appButton, XmlNode xn)
+        private void SetButtonDetails(AppButton appButton)
         {
             if (appButton.ButtonType == ButtonType.FolderLink)
             {
-                appButton.AppId = GetAttrib(xn, "id");
-                appButton.AppName = GetAttrib(xn, "folderlinkname");
-                appButton.FileName = GetAttrib(xn, "folderlinkpath");
+                appButton.AppId = GetAttrib(appButton.Node, "id");
+                appButton.AppName = GetAttrib(appButton.Node, "folderlinkname");
+                appButton.FileName = GetAttrib(appButton.Node, "folderlinkpath");
             }
             else
             if (appButton.ButtonType == ButtonType.Folder)
             {
-                appButton.AppId = GetAttrib(xn, "id");
-                appButton.AppName = GetAttrib(xn, "foldername");
+                appButton.AppId = GetAttrib(appButton.Node, "id");
+                appButton.AppName = GetAttrib(appButton.Node, "foldername");
             }
             else
             if (appButton.ButtonType == ButtonType.App)
             {
-                appButton.AppId = GetAttrib(xn, "id");
-                appButton.AppName = GetAttrib(xn, "appname");
-                appButton.FileName = GetAttrib(xn, "filename");
-                appButton.FileArgs = GetAttrib(xn, "fileargs");
-                appButton.FileIconIndex = GetAttrib(xn, "fileiconindex");
-                appButton.FileIconPath = GetAttrib(xn, "fileiconpath");
-                appButton.FileWorkingFolder = GetAttrib(xn, "fileworkingfolder");
+                appButton.AppId = GetAttrib(appButton.Node, "id");
+                appButton.AppName = GetAttrib(appButton.Node, "appname");
+                appButton.FileName = GetAttrib(appButton.Node, "filename");
+                appButton.FileArgs = GetAttrib(appButton.Node, "fileargs");
+                appButton.FileIconIndex = GetAttrib(appButton.Node, "fileiconindex");
+                appButton.FileIconPath = GetAttrib(appButton.Node, "fileiconpath");
+                appButton.FileWorkingFolder = GetAttrib(appButton.Node, "fileworkingfolder");
                 if (appButton.FileIconImage == null)
                     appButton.WatchForIconUpdate = true;
             }
             else
             if (appButton.ButtonType == ButtonType.Separator)
             {
-                appButton.AppId = GetAttrib(xn, "id");
+                appButton.AppId = GetAttrib(appButton.Node, "id");
             }
         }
         private void SetColors()

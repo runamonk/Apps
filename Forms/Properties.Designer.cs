@@ -251,6 +251,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Properties";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AppProperties_FormClosing);
+            this.Load += new System.EventHandler(this.Properties_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AppProperties_KeyDown);
             this.PanelBack.ResumeLayout(false);
             this.PanelRight.ResumeLayout(false);

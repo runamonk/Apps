@@ -12,20 +12,12 @@ namespace Apps.Forms
 {
     public partial class Folder : Form
     {
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
-
-        public Folder(Config myConfig)
+        public Folder(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
             AppsConfig = myConfig;
+            FAppButton = appButton;
+
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
             FolderNameEdit.BackColor = BackColor;
@@ -34,23 +26,43 @@ namespace Apps.Forms
             ButtonCancel.BackColor = BackColor;
         }
 
-        private bool IsCancelled = false;
-        private readonly Config AppsConfig;
-
-        public string FolderName
+        #region Properties
+        private string FolderName
         {
             get { return FolderNameEdit.Text.Trim(); }
             set {
                 FolderNameEdit.Text = value;
             }
         }
+        #endregion
 
+        #region Private
+        private bool IsCancelled = false;
+        private readonly Config AppsConfig;
+        private AppButton FAppButton;
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        #endregion
+
+        #region Overrides
+        protected override CreateParams CreateParams
+        {
+            get {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
+                return myCp;
+            }
+        }
+        #endregion
+
+        #region Events
         private void AddFolder_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(FolderNameEdit.Text))
                 Text = "Add Folder";
             else
                 Text = "Edit Folder";
+
+            FolderName = FAppButton.AppName;
         }
 
         private void AddFolder_FormClosing(object sender, FormClosingEventArgs e)
@@ -67,6 +79,10 @@ namespace Apps.Forms
                         Message f = new Message(AppsConfig);
                         f.ShowAsDialog("Error", ErrorStr);
                         e.Cancel = true;
+                    }
+                    else
+                    {
+                        FAppButton.AppName = FolderName;
                     }
                 }
             }
@@ -90,5 +106,6 @@ namespace Apps.Forms
         {
             IsCancelled = false;
         }
+        #endregion
     }
 }

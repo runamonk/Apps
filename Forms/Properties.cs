@@ -13,11 +13,11 @@ namespace Apps.Forms
 {
     public partial class Properties : Form
     {
-        public Properties(Config myConfig)
+        public Properties(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
             AppsConfig = myConfig;
-
+            FAppButton = appButton;
             MenuRC = new AppMenu(myConfig)
             {
                 ShowCheckMargin = false,
@@ -67,6 +67,7 @@ namespace Apps.Forms
         private readonly AppMenu MenuRC; 
         private string FAppIconIndex;
         private string FAppIconPath;
+        private AppButton FAppButton;
         #endregion
 
         #region Events
@@ -127,6 +128,15 @@ namespace Apps.Forms
                     Misc.ShowMessage(AppsConfig, "Error", ErrorStr);
                     e.Cancel = true;
                 }
+                else
+                {
+                    FAppButton.AppName = EditAppName.Text;
+                    FAppButton.FileName = EditAppFilePath.Text;
+                    FAppButton.FileIconPath = FAppIconPath;
+                    FAppButton.FileIconIndex = FAppIconIndex;
+                    FAppButton.FileIconImage = EditAppIcon.Image;
+                    FAppButton.FileArgs = EditFileArgs.Text;
+                }
             }
         }
         private void AppProperties_KeyDown(object sender, KeyEventArgs e)
@@ -150,7 +160,8 @@ namespace Apps.Forms
                 else
                 {
                     FileVersionInfo f = Funcs.GetFileInfo(fileName);
-                    SetFileProperties(f.ProductName, fileName, null, null, null, null);
+                    FAppButton.AppName = f.ProductName;
+                    FAppButton.FileName = fileName;
                 }
             }
         }
@@ -166,14 +177,7 @@ namespace Apps.Forms
         }
         private void ButtonParseShortcut_Click(object sender, EventArgs e)
         {
-            string FileName = "";
-            string FileIcon = "";
-            string FileIconIndex = "";
-            string FileArgs = "";
-            string FileWF = "";
-
-            Funcs.ParseShortcut(EditAppFilePath.Text, ref FileName, ref FileIcon, ref FileIconIndex, ref FileArgs, ref FileWF);
-            SetFileProperties(Path.GetFileNameWithoutExtension(EditAppFilePath.Text), FileName, FileIcon, FileIconIndex, FileArgs, FileWF);
+            Funcs.ParseShortcut(EditAppFilePath.Text, FAppButton.FileName, FAppButton.FileIconPath, FAppButton.FileIconIndex, FAppButton.FileArgs, FAppButton.FileWorkingFolder);
         }
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
@@ -184,6 +188,16 @@ namespace Apps.Forms
             FAppIconPath = "";
             FAppIconIndex = "0";
             EditAppIcon.Image = Funcs.GetIcon(AppFileName, null);
+        }
+        private void Properties_Load(object sender, EventArgs e)
+        {
+            EditAppName.Text = FAppButton.AppName;
+            EditAppFilePath.Text = FAppButton.FileName;
+            EditFileArgs.Text = FAppButton.FileArgs;
+            EditWorkingFolder.Text = FAppButton.FileWorkingFolder;
+            FAppIconPath = FAppButton.FileIconPath;
+            FAppIconIndex = FAppButton.FileIconIndex;
+            EditAppIcon.Image = Funcs.GetIcon(FAppButton.FileIconPath, FAppButton.FileIconIndex);
         }
         #endregion
 
@@ -202,22 +216,6 @@ namespace Apps.Forms
             ButtonParseShortcut.ForeColor = AppsConfig.AppsFontColor;
             EditWorkingFolder.BackColor = AppsConfig.AppsBackColor;
             EditWorkingFolder.ForeColor = AppsConfig.AppsFontColor;
-        }
-        public void SetFileProperties(string appName, string filePath, string fileIcon, string fileIconIndex, string fileArgs, string fileWorkingFolder)
-        {
-            EditAppName.Text = appName;
-            EditAppFilePath.Text = filePath;
-            EditFileArgs.Text = fileArgs;
-            EditWorkingFolder.Text = fileWorkingFolder;
-
-            string s = fileIcon;
-
-            if (string.IsNullOrEmpty(s))
-                s = filePath;
-
-            FAppIconPath = s;
-            FAppIconIndex = fileIconIndex;
-            EditAppIcon.Image = Funcs.GetIcon(s, fileIconIndex);
         }
         #endregion
 

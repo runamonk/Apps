@@ -18,7 +18,8 @@ namespace Apps.Forms
         {
             InitializeComponent();
             AppsConfig = myConfig;
-
+            Icons.OwnerDraw = true;
+            Icons.DrawItem += Icons_DrawItem;
             LoadIcons(fileName);
             SetColors();
         }
@@ -86,6 +87,31 @@ namespace Apps.Forms
             if (Icons.SelectedItems.Count > 0)
                 ButtonOK.PerformClick();
         }
+
+        private void Icons_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            if (e.Item.Selected)
+            {
+                if (Icons.Focused)
+                {
+                    e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
+                }
+                else if (!Icons.HideSelection)
+                {
+                    e.Graphics.FillRectangle(SystemBrushes.Control, e.Bounds);
+                }
+            }
+            else
+            {
+                using (SolidBrush br = new SolidBrush(Icons.BackColor))
+                {
+                    e.Graphics.FillRectangle(br, e.Bounds);
+                }
+            }
+            Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsFontColor, 50));
+            e.Graphics.DrawRectangle(pen, e.Bounds);
+            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageIndex], e.Bounds.X+5, e.Bounds.Y+5, e.Bounds.Width-10, e.Bounds.Height-10); // x y w h
+        }
         private void IconPicker_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -94,22 +120,18 @@ namespace Apps.Forms
             if (e.KeyCode == Keys.Escape)
                 ButtonCancel.PerformClick();
         }
-        private void Icons_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
-        }
-
-        #endregion
-
-
-        private void IconPicker_Resize(object sender, EventArgs e)
-        {
-            MoveButtons();
-        }
-
         private void IconPicker_Load(object sender, EventArgs e)
         {
             MoveButtons();
         }
+        private void IconPicker_Resize(object sender, EventArgs e)
+        {
+            MoveButtons();
+        }
+        private void Icons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
+        }
+        #endregion
     }
 }
