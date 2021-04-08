@@ -94,11 +94,17 @@ namespace Apps.Forms
             {
                 if (Icons.Focused)
                 {
-                    e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
+                    using (SolidBrush br = new SolidBrush(ControlPaint.Dark(AppsConfig.AppsFontColor, 50)))
+                    {
+                        e.Graphics.FillRectangle(br, e.Bounds);
+                    }
                 }
                 else if (!Icons.HideSelection)
                 {
-                    e.Graphics.FillRectangle(SystemBrushes.Control, e.Bounds);
+                     using (SolidBrush br = new SolidBrush(Icons.BackColor))
+                    {
+                        e.Graphics.FillRectangle(br, e.Bounds);
+                    } 
                 }
             }
             else
