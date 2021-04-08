@@ -12,7 +12,7 @@ using Apps.Forms;
 using System.IO;
 
 #region Todo
-// seperators
+// Separators
 #endregion
 
 namespace Apps

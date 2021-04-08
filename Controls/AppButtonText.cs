@@ -17,7 +17,7 @@ namespace Apps.Controls
         }
 
         #region Properties       
-        public bool IsSeperator { get; set; }
+        public bool IsSeparator { get; set; }
         #endregion
 
         #region Privates
@@ -34,13 +34,14 @@ namespace Apps.Controls
         #region Overrides
         protected override void OnPaint(PaintEventArgs e)
         {            
-            if (!IsSeperator)
+            if (!IsSeparator)
                 base.OnPaint(e);
             else
             {
-                Pen pen = new Pen(AppsConfig.AppsFontColor);
-                PointF pt1 = new PointF(3, Height / 2);
-                PointF pt2 = new PointF(Width-3, Height / 2);                
+                //Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsFontColor, 50)); 
+                Pen pen = new Pen(AppsConfig.AppsFontColor); 
+                PointF pt1 = new PointF(0, Height / 2);
+                PointF pt2 = new PointF(Width, Height / 2);                
                 e.Graphics.DrawLine(pen, pt1, pt2);
             }
         }

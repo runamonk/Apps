@@ -31,7 +31,7 @@ namespace Apps.Controls
             Funcs.AddMenuItem(MenuRC, "Add Application", MenuAddApp_Click);
             Funcs.AddMenuItem(MenuRC, "Add Folder", MenuAddFolder_Click);
             Funcs.AddMenuItem(MenuRC, "Add Folder Link", MenuAddFolderLink_Click);            
-            Funcs.AddMenuItem(MenuRC, "Add Seperator", MenuAddSeperator_Click);
+            Funcs.AddMenuItem(MenuRC, "Add Separator", MenuAddSeparator_Click);
             EditMenuItem = Funcs.AddMenuItem(MenuRC, "Edit", MenuEdit_Click);
             DeleteMenuItem = Funcs.AddMenuItem(MenuRC, "Delete", MenuDelete_Click);
             MenuRC.Items.Add(new ToolStripSeparator());
@@ -245,19 +245,19 @@ namespace Apps.Controls
             }
             InMenu = false;
         }
-        private void MenuAddSeperator_Click(object sender, EventArgs e)
+        private void MenuAddSeparator_Click(object sender, EventArgs e)
         {
             InMenu = true;
             var c = ((ContextMenuStrip)((ToolStripMenuItem)sender).Owner).SourceControl;
             if (c is AppPanel)
             {
-                AddSeperator(null, 0);
+                AddSeparator(null, 0);
             }
             else
             {
                 AppButton b = GetAppButton(sender);
                 int i = Controls.GetChildIndex(b);
-                AddSeperator(null, i);
+                AddSeparator(null, i);
             }
             InMenu = false;
         }
@@ -277,8 +277,8 @@ namespace Apps.Controls
             if (b.IsFolderLinkButton)
                 s = "folder link?";
             else
-            if (b.IsSeperatorButton)
-                s = "seperator?";
+            if (b.IsSeparatorButton)
+                s = "Separator?";
 
             bool CanDelete = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.OKCancel, "Delete " + s, "Delete " + b.AppName + "?") == DialogResult.OK);
 
@@ -397,7 +397,7 @@ namespace Apps.Controls
             if (c is AppButtonText)
             {
                 DeleteMenuItem.Enabled = true;
-                EditMenuItem.Enabled = (GetAppButton(sender).IsSeperatorButton != true);                  
+                EditMenuItem.Enabled = (GetAppButton(sender).IsSeparatorButton != true);                  
                 MoveToParentItem.Enabled = (GetNode(GetAppButton(sender).AppId).ParentNode.ParentNode.Name.ToLower() != "xml");
                 UpMenuItem.Enabled = (GetPrevNode(GetNode(GetAppButton(sender).AppId)) != null);
                 DownMenuItem.Enabled = (GetNextNode(GetNode(GetAppButton(sender).AppId)) != null);
@@ -577,9 +577,9 @@ namespace Apps.Controls
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
-        public void AddSeperator(string AppId, int AddAtIndex)
+        public void AddSeparator(string AppId, int AddAtIndex)
         {
-            AppButton b = AddAppButton(ButtonType.Seperator, Controls);
+            AppButton b = AddAppButton(ButtonType.Separator, Controls);
             if (string.IsNullOrEmpty(AppId))
                 AppId = Guid.NewGuid().ToString();
 
@@ -590,7 +590,7 @@ namespace Apps.Controls
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
                 XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
                 AddAttrib(node, "id", AppId);
-                AddAttrib(node, "seperator", "Y");
+                AddAttrib(node, "Separator", "Y");
                 
                 XmlNode ParentNode = CurrentParentNode ?? AppsNode;
                 if (nodeSib == null)
@@ -673,9 +673,9 @@ namespace Apps.Controls
                         AddToCache(xn); // Recsurvise add contents of folder
                     }
                     else
-                    if (GetAttrib(xn, "seperator") != "")
+                    if (GetAttrib(xn, "Separator") != "")
                     {
-                        AppButton b = AddAppButton(ButtonType.Seperator, ac);
+                        AppButton b = AddAppButton(ButtonType.Separator, ac);
                         SetButtonDetails(b, xn);
                     }
                     else
@@ -829,7 +829,7 @@ namespace Apps.Controls
                     appButton.WatchForIconUpdate = true;
             }
             else
-            if (appButton.ButtonType == ButtonType.Seperator)
+            if (appButton.ButtonType == ButtonType.Separator)
             {
                 appButton.AppId = GetAttrib(xn, "id");
             }

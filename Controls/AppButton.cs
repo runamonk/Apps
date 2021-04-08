@@ -16,7 +16,7 @@ namespace Apps
         Folder,
         FolderLink,
         Back,
-        Seperator
+        Separator
     }
 
     public partial class AppButton : Panel
@@ -84,9 +84,9 @@ namespace Apps
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
             }
             else
-            if (IsSeperatorButton)
+            if (IsSeparatorButton)
             {
-                ButtonText.IsSeperator = true;
+                ButtonText.IsSeparator = true;
             }
 
             ButtonText.AutoSize = false;
@@ -200,7 +200,7 @@ namespace Apps
         public bool IsHeaderButton { get { return (IsMenuButton || IsPinButton || IsBackButton); } }
         public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
         public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
-        public bool IsSeperatorButton { get { return (FButtonType == ButtonType.Seperator); } }
+        public bool IsSeparatorButton { get { return (FButtonType == ButtonType.Separator); } }
         public bool WatchForIconUpdate
         {
             get {
@@ -296,7 +296,7 @@ namespace Apps
         {
             if ((e == null) || (e.Button == MouseButtons.Left))
             {
-                if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeperatorButton  && (ModifierKeys == Keys.Control))
+                if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeparatorButton  && (ModifierKeys == Keys.Control))
                 {
                     DoDragDrop(this, DragDropEffects.Move);
                 }
@@ -304,7 +304,7 @@ namespace Apps
         }
         private void TextMouseEnter(object sender, EventArgs e)
         {
-            if (IsSeperatorButton)
+            if (IsSeparatorButton)
                 return;
 
             if (IsHeaderButton)
@@ -318,7 +318,7 @@ namespace Apps
         }
         private void TextMouseLeave(object sender, EventArgs e)
         {
-            if (IsSeperatorButton)
+            if (IsSeparatorButton)
                 return;
 
             if (IsHeaderButton)
