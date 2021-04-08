@@ -45,16 +45,16 @@ namespace Apps.Forms
             this.panel1.Controls.Add(this.ButtonCancel);
             this.panel1.Controls.Add(this.ButtonOK);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 249);
+            this.panel1.Location = new System.Drawing.Point(0, 326);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(370, 35);
+            this.panel1.Size = new System.Drawing.Size(384, 35);
             this.panel1.TabIndex = 0;
             // 
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonCancel.Location = new System.Drawing.Point(87, 6);
+            this.ButtonCancel.Location = new System.Drawing.Point(195, 6);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 1;
@@ -65,7 +65,7 @@ namespace Apps.Forms
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonOK.Location = new System.Drawing.Point(6, 6);
+            this.ButtonOK.Location = new System.Drawing.Point(114, 6);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 0;
@@ -78,27 +78,32 @@ namespace Apps.Forms
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(370, 249);
+            this.panel2.Size = new System.Drawing.Size(384, 326);
             this.panel2.TabIndex = 1;
             // 
             // Icons
             // 
+            this.Icons.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
             this.Icons.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Icons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Icons.HideSelection = false;
+            this.Icons.LabelWrap = false;
             this.Icons.LargeImageList = this.imageList;
             this.Icons.Location = new System.Drawing.Point(0, 0);
             this.Icons.MultiSelect = false;
             this.Icons.Name = "Icons";
-            this.Icons.Size = new System.Drawing.Size(370, 249);
+            this.Icons.ShowGroups = false;
+            this.Icons.Size = new System.Drawing.Size(384, 326);
             this.Icons.TabIndex = 0;
+            this.Icons.TileSize = new System.Drawing.Size(40, 40);
             this.Icons.UseCompatibleStateImageBehavior = false;
+            this.Icons.View = System.Windows.Forms.View.Tile;
             this.Icons.SelectedIndexChanged += new System.EventHandler(this.Icons_SelectedIndexChanged);
             this.Icons.DoubleClick += new System.EventHandler(this.Icons_DoubleClick);
             // 
             // imageList
             // 
-            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.imageList.ImageSize = new System.Drawing.Size(32, 32);
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
@@ -106,17 +111,20 @@ namespace Apps.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 284);
+            this.ClientSize = new System.Drawing.Size(384, 361);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
+            this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "IconPicker";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "IconPicker";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.IconPicker_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IconPicker_KeyDown);
+            this.Resize += new System.EventHandler(this.IconPicker_Resize);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
