@@ -47,10 +47,11 @@ namespace Apps.Forms
             while (true)
             {
                 Icon f = Funcs.GetIconEx(fileName, idx);
+                
                 if (f != null)
                 {
                     imageList.Images.Add(f);
-                    ListViewItem item = new ListViewItem(idx.ToString(), idx);
+                    ListViewItem item = new ListViewItem("", idx);
                     Icons.Items.Add(item);
                 }
                 else
@@ -61,7 +62,11 @@ namespace Apps.Forms
             Icons.Items[0].Selected = true;
             Icons.Select();
         }
-
+        private void MoveButtons()
+        {
+            ButtonOK.Left = (Width / 2 - ButtonOK.Width - 6);
+            ButtonCancel.Left = (ButtonOK.Left + ButtonOK.Width) + 6;
+        }
         private void SetColors()
         {
             BackColor = AppsConfig.AppsBackColor;
@@ -93,7 +98,18 @@ namespace Apps.Forms
         {
             Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
         }
+
         #endregion
 
+
+        private void IconPicker_Resize(object sender, EventArgs e)
+        {
+            MoveButtons();
+        }
+
+        private void IconPicker_Load(object sender, EventArgs e)
+        {
+            MoveButtons();
+        }
     }
 }
