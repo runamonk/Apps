@@ -590,7 +590,7 @@ namespace Apps.Controls
                 node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
                 XmlNode nodeSib = GetNode(((AppButton)Controls[AddAtIndex]).AppId);
                 AddAttrib(node, "id", AppId);
-                AddAttrib(node, "Separator", "Y");
+                AddAttrib(node, "separator", "Y");
                 
                 XmlNode ParentNode = CurrentParentNode ?? AppsNode;
                 if (nodeSib == null)
@@ -673,7 +673,7 @@ namespace Apps.Controls
                         AddToCache(xn); // Recsurvise add contents of folder
                     }
                     else
-                    if (GetAttrib(xn, "Separator") != "")
+                    if (GetAttrib(xn, "separator") != "")
                     {
                         AppButton b = AddAppButton(ButtonType.Separator, ac);
                         SetButtonDetails(b, xn);
