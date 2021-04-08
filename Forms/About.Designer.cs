@@ -90,7 +90,7 @@
             this.linkEmail.Size = new System.Drawing.Size(275, 30);
             this.linkEmail.TabIndex = 7;
             this.linkEmail.TabStop = true;
-            this.linkEmail.Text = "runamonk@onlyzuul.org";
+            this.linkEmail.Text = "info@onlyzuul.org";
             this.linkEmail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblVersion
