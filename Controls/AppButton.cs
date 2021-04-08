@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Utility;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 
 namespace Apps
 {
@@ -204,6 +205,7 @@ namespace Apps
         public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
         public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
         public bool IsSeparatorButton { get { return (FButtonType == ButtonType.Separator); } }
+        public XmlNode Node { get; set; }
         public bool WatchForIconUpdate
         {
             get {
