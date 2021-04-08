@@ -21,10 +21,11 @@ namespace Apps
 
     public partial class AppButton : Panel
     {
-
         public AppButton(Config myConfig, ButtonType buttonType)
         {
             FButtonType = buttonType;
+            ButtonText = new AppButtonText(myConfig);
+            FolderArrow = new AppButtonText(myConfig);
             BorderPanel.Parent = this;
             BorderPanel.Dock = DockStyle.Fill;
             BorderPanel.Margin = new Padding(0, 0, 0, 0);
@@ -32,7 +33,6 @@ namespace Apps
             ButtonPanel.Dock = DockStyle.Fill;
             ButtonPanel.Margin = new Padding(0, 0, 0, 0);
             ButtonPanel.BorderStyle = BorderStyle.None;
-
             PBox.Visible = false;
             FolderArrow.Visible = false;
 
@@ -83,6 +83,11 @@ namespace Apps
                 FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
                 FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
             }
+            else
+            if (IsSeperatorButton)
+            {
+                ButtonText.IsSeperator = true;
+            }
 
             ButtonText.AutoSize = false;
             ButtonText.Parent = ButtonPanel;
@@ -92,8 +97,7 @@ namespace Apps
             ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
             ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
 
-
-            if (IsHeaderButton())
+            if (IsHeaderButton)
             {
                 ButtonText.Padding = new Padding(0, 0, 0, 0);
                 ButtonText.TextAlign = ContentAlignment.MiddleCenter;
@@ -189,12 +193,14 @@ namespace Apps
                 return PBox.Image;
             }
         }
+        public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
+        public bool IsBackButton { get { return (FButtonType == ButtonType.Back); } }
+        public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
+        public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
+        public bool IsHeaderButton { get { return (IsMenuButton || IsPinButton || IsBackButton); } }
         public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
         public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
-        public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
-        public bool IsBackButton { get { return (FButtonType == ButtonType.Back); } }
-        public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
-        public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
+        public bool IsSeperatorButton { get { return (FButtonType == ButtonType.Seperator); } }
         public bool WatchForIconUpdate
         {
             get {
@@ -215,8 +221,8 @@ namespace Apps
         private readonly PictureBox PBox = new PictureBox();
         private readonly Panel BorderPanel = new Panel();
         private readonly Panel ButtonPanel = new Panel();
-        private readonly Label ButtonText = new Label();
-        private readonly Label FolderArrow = new Label();
+        private readonly AppButtonText ButtonText;
+        private readonly AppButtonText FolderArrow;
         private const string ICON_FOLDER = "\uE188";
         private const string ICON_FOLDER_W7 = "\u25B7";
         private const string ICON_FOLDER_LINK = "\u25CF";
@@ -256,10 +262,6 @@ namespace Apps
         {
             SetColors();
         }
-        private bool IsHeaderButton()
-        {
-            return (IsMenuButton || IsPinButton || IsBackButton);
-        }
         private void OnDragOver(object sender, DragEventArgs e)
         {
             e.Effect = (DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move);
@@ -274,7 +276,7 @@ namespace Apps
         }
         private void SetColors()
         {
-            if (IsHeaderButton())
+            if (IsHeaderButton)
             {              
                 BorderColor = AppsConfig.HeaderBackColor;
                 ButtonPanel.BackColor = AppsConfig.HeaderButtonColor;
@@ -294,7 +296,7 @@ namespace Apps
         {
             if ((e == null) || (e.Button == MouseButtons.Left))
             {
-                if (IsAppButton | IsFolderButton | IsFolderLinkButton && (ModifierKeys == Keys.Control))
+                if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeperatorButton  && (ModifierKeys == Keys.Control))
                 {
                     DoDragDrop(this, DragDropEffects.Move);
                 }
@@ -302,7 +304,10 @@ namespace Apps
         }
         private void TextMouseEnter(object sender, EventArgs e)
         {
-            if (IsHeaderButton())
+            if (IsSeperatorButton)
+                return;
+
+            if (IsHeaderButton)
             {
                 ButtonText.BackColor = AppsConfig.HeaderButtonSelectedColor;
             }
@@ -313,7 +318,10 @@ namespace Apps
         }
         private void TextMouseLeave(object sender, EventArgs e)
         {
-            if (IsHeaderButton())
+            if (IsSeperatorButton)
+                return;
+
+            if (IsHeaderButton)
             {
                 ButtonText.BackColor = AppsConfig.HeaderButtonColor;
             }

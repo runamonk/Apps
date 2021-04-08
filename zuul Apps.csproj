@@ -91,6 +91,9 @@
     <Compile Include="Controls\AppPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\AppButtonText.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\Config.cs" />
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
