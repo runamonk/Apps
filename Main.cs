@@ -57,6 +57,7 @@ namespace Apps
         private bool inMenu = false;
         private bool inSettings = false;
         private bool pinned = false;
+        private int HotkeyId = Funcs.RandomNumber();
 
         private const string ICON_PINNED_W7 = "\u25FC";
         private const string ICON_UNPINNED_W7 = "\u25FB";
@@ -234,12 +235,11 @@ namespace Apps
                 int c = 66;
                 for (int i = 0; i <= Apps.Controls.Count - 1; i++)
                 {
-                    if (Apps.Controls[i].Visible)
-                        c += Apps.Controls[i].Height;
+                    c += Apps.Controls[i].Height;
                 }
 
                 if (c < MaximumSize.Height)
-                    Height = c; //+ pMain.Padding.All;
+                    Height = c; 
                 else
                     Height = MaximumSize.Height;
             }
@@ -341,7 +341,7 @@ namespace Apps
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
             SubfolderName.ForeColor = Config.MenuFontColor;
-            RegisterHotKey(this.Handle, 1, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
+            RegisterHotKey(this.Handle, HotkeyId, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
         }
         
         private Process RunningInstance()
@@ -375,9 +375,10 @@ namespace Apps
                 if (Opacity > 0)
                 {
                     Opacity = 0;
-                    
+                                        
                     if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
                         Apps.LoadItems();
+
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
                 }
@@ -387,11 +388,20 @@ namespace Apps
                     if (Config.OpenFormAtCursor)
                         Funcs.MoveFormToCursor(this, false);
                     Opacity = 100;
+
                     Activate();
                 }
             }
         }
 
         #endregion
-    } 
+
+        #region Overrides
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            UnregisterHotKey(this.Handle, HotkeyId);
+            base.OnHandleDestroyed(e);
+        }
+        #endregion
+    }
 }

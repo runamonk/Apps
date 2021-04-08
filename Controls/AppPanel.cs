@@ -605,7 +605,6 @@ namespace Apps.Controls
             if (!InLoad)
                 OnAppAdded?.Invoke();
         }
-
         private AppButton GetAppButton(object sender)
         {
             if (sender is AppMenu menu)
