@@ -197,7 +197,7 @@ namespace Apps.Forms
             EditWorkingFolder.Text = FAppButton.FileWorkingFolder;
             FAppIconPath = FAppButton.FileIconPath;
             FAppIconIndex = FAppButton.FileIconIndex;
-            EditAppIcon.Image = Funcs.GetIcon(FAppButton.FileIconPath, FAppButton.FileIconIndex);
+            EditAppIcon.Image = Funcs.GetIcon(FAppButton.FileIconPath == "" ? FAppButton.FileName : FAppButton.FileIconPath, FAppButton.FileIconIndex);
         }
         #endregion
 
