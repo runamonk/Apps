@@ -416,7 +416,6 @@ namespace Apps.Controls
             b.OnAppButtonClicked += new AppButton.AppButtonClickedHandler(ButtonClicked);
             b.OnAppButtonDropped += new AppButton.AppButtonDropEventhandler(DropToButton);
             b.ContextMenuStrip = MenuRC;
-            b.Height = 22;
             b.Padding = new Padding(0, 0, 0, 0);
             b.Margin = new Padding(0, 0, 0, 0);
             b.TabStop = false;

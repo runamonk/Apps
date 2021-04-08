@@ -35,6 +35,7 @@ namespace Apps
             ButtonPanel.BorderStyle = BorderStyle.None;
             PBox.Visible = false;
             FolderArrow.Visible = false;
+            Height = 22;
 
             if (IsAppButton)
             {
@@ -87,6 +88,7 @@ namespace Apps
             if (IsSeparatorButton)
             {
                 ButtonText.IsSeparator = true;
+                Height = 11;
             }
 
             ButtonText.AutoSize = false;
@@ -105,7 +107,8 @@ namespace Apps
             }
             else
             {
-                ButtonText.Padding = new Padding(25, 0, 0, 0);
+                if (!IsSeparatorButton)
+                    ButtonText.Padding = new Padding(25, 0, 0, 0);
                 ButtonText.TextAlign = ContentAlignment.MiddleLeft;
                 BorderPanel.Padding = new Padding(0, 0, 0, 0);
                 ButtonText.AllowDrop = true;
