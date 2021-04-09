@@ -274,6 +274,20 @@ namespace Apps
         {       
             OnAppButtonDropped?.Invoke(this, e);
         }
+        public void ParseShortcut()
+        {
+            string fileName = "";
+            string fileIcon = "";
+            string fileArgs = "";
+            string fileWF = "";
+            string fileIconIdx = "";
+            Funcs.ParseShortcut(FileName, ref fileName, ref fileIcon, ref fileIconIdx, ref fileArgs, ref fileWF);
+            FFileName = fileName;
+            FileIconPath = fileIcon;
+            FileIconIndex = fileIconIdx;
+            FileWorkingFolder = fileWF;
+            FileArgs = fileArgs;
+        }
         public void PerformClick()
         {
             TextOnClick(this, null);

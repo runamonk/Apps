@@ -496,7 +496,7 @@ namespace Apps.Controls
                 if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(appButton.FileName))
                 {
                     appButton.AppName = Path.GetFileNameWithoutExtension(appButton.FileName);
-                    Funcs.ParseShortcut(appButton.FileName, appButton.FileName, appButton.FileIconPath, appButton.FileIconIndex, appButton.FileArgs, appButton.FileWorkingFolder);
+                    appButton.ParseShortcut();
                 }
 
                 appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
@@ -626,7 +626,7 @@ namespace Apps.Controls
             {
                 LoadFolder(LookupFolderButton(CurrentParentNode.ParentNode.Attributes["id"].Value));
             }
-               
+
             else
                 LoadItems();
         }
@@ -664,7 +664,7 @@ namespace Apps.Controls
                         SetButtonDetails(b);
                     }
                     else
-                    if (GetAttrib(xn, "appname") != "") 
+                    if (GetAttrib(xn, "appname") != "")
                     {
                         AppButton b = AddAppButton(ButtonType.App, ac);
                         b.Node = xn;
@@ -735,7 +735,7 @@ namespace Apps.Controls
                         return b;
                 }
             }
-            return  null;
+            return null;
         }
         private void MoveButton(AppButton FromButton, AppButton ToButton)
         {
