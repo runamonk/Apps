@@ -20,8 +20,6 @@ namespace Apps.Forms
         {
             InitializeComponent();
             AppsConfig = myConfig;
-            toolTip = new ToolTip();
-            toolTip.SetToolTip(Browse, "Click to browse for a new resource file (dll or exe).");
             Icons.OwnerDraw = true;
             Icons.DrawItem += Icons_DrawItem;
             SelectedFileName = fileName;
@@ -45,7 +43,6 @@ namespace Apps.Forms
 
         #region Privates
         private readonly Config AppsConfig;
-        private ToolTip toolTip;
         #endregion
 
         #region Methods

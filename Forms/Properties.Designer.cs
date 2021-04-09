@@ -132,6 +132,7 @@
             this.BrowseWF.Size = new System.Drawing.Size(24, 20);
             this.BrowseWF.TabIndex = 5;
             this.BrowseWF.Text = "...";
+            this.toolTip.SetToolTip(this.BrowseWF, "Click to browse for folder.");
             this.BrowseWF.UseCompatibleTextRendering = true;
             this.BrowseWF.UseVisualStyleBackColor = true;
             this.BrowseWF.Click += new System.EventHandler(this.BrowseWF_Click);
@@ -154,6 +155,7 @@
             this.ButtonParseShortcut.Size = new System.Drawing.Size(24, 20);
             this.ButtonParseShortcut.TabIndex = 3;
             this.ButtonParseShortcut.Text = "✔";
+            this.toolTip.SetToolTip(this.ButtonParseShortcut, "Click to parse shortcut (.url & .lnk).");
             this.ButtonParseShortcut.UseCompatibleTextRendering = true;
             this.ButtonParseShortcut.UseVisualStyleBackColor = true;
             this.ButtonParseShortcut.Click += new System.EventHandler(this.ButtonParseShortcut_Click);
@@ -175,6 +177,7 @@
             this.Browse.Size = new System.Drawing.Size(24, 20);
             this.Browse.TabIndex = 2;
             this.Browse.Text = "...";
+            this.toolTip.SetToolTip(this.Browse, "Click to browse for file.");
             this.Browse.UseCompatibleTextRendering = true;
             this.Browse.UseVisualStyleBackColor = true;
             this.Browse.Click += new System.EventHandler(this.Browse_Click);
@@ -201,7 +204,7 @@
             this.EditAppIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.EditAppIcon.TabIndex = 21;
             this.EditAppIcon.TabStop = false;
-            this.toolTip.SetToolTip(this.EditAppIcon, "Click to override the icon with an icon from another file.");
+            this.toolTip.SetToolTip(this.EditAppIcon, "Click to override default icon.");
             this.EditAppIcon.Click += new System.EventHandler(this.AppIcon_Click);
             // 
             // EditAppName

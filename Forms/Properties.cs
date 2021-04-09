@@ -26,10 +26,6 @@ namespace Apps.Forms
             Funcs.AddMenuItem(MenuRC, "Reset", MenuReset_Click);
             EditAppIcon.ContextMenuStrip = MenuRC;
 
-            toolTip.SetToolTip(EditAppIcon, "Click to override default icon.");
-            toolTip.SetToolTip(Browse, "Click to browse for file(s).");
-            toolTip.SetToolTip(ButtonParseShortcut, "Click to replace file properties from the shortcut.");
-
             SetColors();
         }
 
