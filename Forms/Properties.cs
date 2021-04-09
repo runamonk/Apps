@@ -154,12 +154,19 @@ namespace Apps.Forms
         }
         private void ButtonParseShortcut_Click(object sender, EventArgs e)
         {
-            FAppButton.ParseShortcut();
-            EditAppFilePath.Text = FAppButton.FileName;
-            FAppIconPath = FAppButton.FileIconPath;
-            FAppIconIndex = FAppButton.FileIconIndex;
-            EditFileArgs.Text = FAppButton.FileArgs;
-            EditWorkingFolder.Text = FAppButton.FileWorkingFolder;
+            string fileName = "";
+            string fileIcon = "";
+            string fileArgs = "";
+            string fileWF = "";
+            string fileIconIdx = "";
+            Funcs.ParseShortcut(EditAppFilePath.Text, ref fileName, ref fileIcon, ref fileIconIdx, ref fileArgs, ref fileWF);
+            EditAppName.Text = Path.GetFileName(fileName);
+            EditAppFilePath.Text = fileName;
+            FAppIconIndex = fileIconIdx;
+            FAppIconPath = (fileIcon != "" ? fileIcon : fileName);
+            EditAppIcon.Image = Funcs.GetIcon(FAppIconPath, FAppIconIndex);
+            EditFileArgs.Text =  fileArgs;
+            EditWorkingFolder.Text = fileWF;
         }
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
