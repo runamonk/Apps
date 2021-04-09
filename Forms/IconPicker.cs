@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,8 @@ namespace Apps.Forms
             AppsConfig = myConfig;
             toolTip = new ToolTip();
             toolTip.SetToolTip(Browse, "Click to browse for a new resource file (dll or exe).");
-            //Icons.OwnerDraw = true;
-            //Icons.DrawItem += Icons_DrawItem;
+            Icons.OwnerDraw = true;
+            Icons.DrawItem += Icons_DrawItem;
             SelectedFileName = fileName;
             LoadIcons();
             SetColors();
@@ -68,7 +69,7 @@ namespace Apps.Forms
                 }
                 else
                     break;
-
+                    
                 if (!(Path.GetExtension(SelectedFileName) == ".dll" || Path.GetExtension(SelectedFileName) == ".exe"))
                     break;
                     
@@ -87,6 +88,8 @@ namespace Apps.Forms
         {
             BackColor = AppsConfig.AppsBackColor;
             ForeColor = AppsConfig.AppsFontColor;
+            Browse.ForeColor = AppsConfig.AppsFontColor;
+            Browse.BackColor = AppsConfig.AppsBackColor;
             Icons.BackColor = AppsConfig.AppsBackColor;
             Icons.ForeColor = AppsConfig.AppsFontColor;
             ButtonOK.BackColor = AppsConfig.AppsBackColor;
@@ -97,41 +100,26 @@ namespace Apps.Forms
         #endregion
 
         #region Events
+        private void Browse_Click(object sender, EventArgs e)
+        {
+            string fileName = Funcs.BrowseForFile("resources|*.dll;*.exe;*.png;*.tif;*.jpg;*.gif;*.bmp;*.ico");
+            if (fileName != "")
+            {
+                SelectedFileName = fileName;
+                LoadIcons();
+            }
+        }
         private void Icons_DoubleClick(object sender, EventArgs e)
         {
             if (Icons.SelectedItems.Count > 0)
                 ButtonOK.PerformClick();
         }
-
         private void Icons_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
-            if (e.Item.Selected)
-            {
-                if (Icons.Focused)
-                {
-                    using (SolidBrush br = new SolidBrush(ControlPaint.Dark(AppsConfig.AppsFontColor, 50)))
-                    {
-                        e.Graphics.FillRectangle(br, e.Bounds);
-                    }
-                }
-                else if (!Icons.HideSelection)
-                {
-                     using (SolidBrush br = new SolidBrush(Icons.BackColor))
-                    {
-                        e.Graphics.FillRectangle(br, e.Bounds);
-                    } 
-                }
-            }
-            else
-            {
-                using (SolidBrush br = new SolidBrush(Icons.BackColor))
-                {
-                    e.Graphics.FillRectangle(br, e.Bounds);
-                }
-            }
-            Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsFontColor, 50));
-            e.Graphics.DrawRectangle(pen, e.Bounds);
-            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageIndex], e.Bounds.X+5, e.Bounds.Y+5, e.Bounds.Width-10, e.Bounds.Height-10); // x y w h
+            if ((e.State & ListViewItemStates.Selected) != 0)
+                e.DrawFocusRectangle();
+
+            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageIndex], e.Bounds.X + 5, e.Bounds.Y + 5, e.Bounds.Width - 10, e.Bounds.Height - 10); // x y w h#
         }
         private void IconPicker_KeyDown(object sender, KeyEventArgs e)
         {
@@ -153,16 +141,6 @@ namespace Apps.Forms
         {
             Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
         }
-        #endregion
-
-        private void BrowseWF_Click(object sender, EventArgs e)
-        {
-            string fileName = Funcs.BrowseForFile("resources|*.dll;*.exe;*.png;*.tif;*.jpg;*.gif;*.bmp;*.ico");
-            if (fileName != "")
-            {
-                SelectedFileName = fileName;
-                LoadIcons();
-            }
-        }
+#endregion
     }
 }

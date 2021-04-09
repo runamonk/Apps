@@ -709,7 +709,6 @@ namespace Apps.Controls
             ResumeLayout();
             OnAppsLoaded?.Invoke();
         }
-
         private AppButton LookupFolderButton(string id)
         {
             foreach (AppCache a in FolderCache)
@@ -722,7 +721,6 @@ namespace Apps.Controls
             }
             return  null;
         }
-
         private void MoveButton(AppButton FromButton, AppButton ToButton)
         {
             SuspendLayout();

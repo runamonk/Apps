@@ -35,17 +35,17 @@ namespace Apps.Forms
             this.ButtonOK = new System.Windows.Forms.Button();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.Icons = new System.Windows.Forms.ListView();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.Browse = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.labelFileName = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.Browse = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.Icons = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -96,6 +96,48 @@ namespace Apps.Forms
             this.panel3.Size = new System.Drawing.Size(384, 31);
             this.panel3.TabIndex = 2;
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.labelFileName);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(349, 31);
+            this.panel5.TabIndex = 1;
+            // 
+            // labelFileName
+            // 
+            this.labelFileName.AutoEllipsis = true;
+            this.labelFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelFileName.Location = new System.Drawing.Point(0, 0);
+            this.labelFileName.Name = "labelFileName";
+            this.labelFileName.Size = new System.Drawing.Size(349, 31);
+            this.labelFileName.TabIndex = 0;
+            this.labelFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.Browse);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(349, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(35, 31);
+            this.panel4.TabIndex = 0;
+            // 
+            // Browse
+            // 
+            this.Browse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Browse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Browse.Location = new System.Drawing.Point(5, 5);
+            this.Browse.Margin = new System.Windows.Forms.Padding(0);
+            this.Browse.Name = "Browse";
+            this.Browse.Size = new System.Drawing.Size(24, 20);
+            this.Browse.TabIndex = 23;
+            this.Browse.Text = "...";
+            this.Browse.UseCompatibleTextRendering = true;
+            this.Browse.UseVisualStyleBackColor = true;
+            this.Browse.Click += new System.EventHandler(this.Browse_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.Icons);
@@ -125,48 +167,6 @@ namespace Apps.Forms
             this.Icons.SelectedIndexChanged += new System.EventHandler(this.Icons_SelectedIndexChanged);
             this.Icons.DoubleClick += new System.EventHandler(this.Icons_DoubleClick);
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.Browse);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(349, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(35, 31);
-            this.panel4.TabIndex = 0;
-            // 
-            // Browse
-            // 
-            this.Browse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Browse.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Browse.Location = new System.Drawing.Point(5, 5);
-            this.Browse.Margin = new System.Windows.Forms.Padding(0);
-            this.Browse.Name = "Browse";
-            this.Browse.Size = new System.Drawing.Size(24, 20);
-            this.Browse.TabIndex = 23;
-            this.Browse.Text = "...";
-            this.Browse.UseCompatibleTextRendering = true;
-            this.Browse.UseVisualStyleBackColor = true;
-            this.Browse.Click += new System.EventHandler(this.BrowseWF_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.labelFileName);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(349, 31);
-            this.panel5.TabIndex = 1;
-            // 
-            // labelFileName
-            // 
-            this.labelFileName.AutoEllipsis = true;
-            this.labelFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelFileName.Location = new System.Drawing.Point(0, 0);
-            this.labelFileName.Name = "labelFileName";
-            this.labelFileName.Size = new System.Drawing.Size(349, 31);
-            this.labelFileName.TabIndex = 0;
-            this.labelFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // IconPicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,9 +188,9 @@ namespace Apps.Forms
             this.Resize += new System.EventHandler(this.IconPicker_Resize);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
