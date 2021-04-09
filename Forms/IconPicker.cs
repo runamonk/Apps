@@ -18,8 +18,8 @@ namespace Apps.Forms
         {
             InitializeComponent();
             AppsConfig = myConfig;
-            Icons.OwnerDraw = true;
-            Icons.DrawItem += Icons_DrawItem;
+            //Icons.OwnerDraw = true;
+            //Icons.DrawItem += Icons_DrawItem;
             LoadIcons(fileName);
             SetColors();
         }

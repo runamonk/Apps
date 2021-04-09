@@ -329,8 +329,8 @@ namespace Apps.Controls
                 FolderLink f = new FolderLink(AppsConfig, b);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
-                    b.Node.Attributes["folderlinkname"].Value = b.AppName;
-                    b.Node.Attributes["folderlinkpath"].Value = b.FileName;
+                    AddAttrib(b.Node, "folderlinkname", b.AppName);
+                    AddAttrib(b.Node, "folderlinkpath", b.FileName);
                     SaveXML();
                 }
                 f.Dispose();
@@ -341,10 +341,7 @@ namespace Apps.Controls
                 Folder f = new Folder(AppsConfig, b);
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
-                    XmlNode node = GetNode(b.AppId);
-                    int i = Controls.GetChildIndex(b);
-                    node.Attributes["foldername"].Value = b.AppName;
-                    ((AppButton)Controls[i]).AppName = b.AppName;
+                    AddAttrib(b.Node, "foldername", b.AppName);
                     SaveXML();
                 }
                 f.Dispose();
@@ -353,13 +350,13 @@ namespace Apps.Controls
             {
                 Forms.Properties f = new Forms.Properties(AppsConfig, b);
                 if (f.ShowDialog(this) == DialogResult.OK)
-                {                    
-                    b.Node.Attributes["appname"].Value = b.AppName;
-                    b.Node.Attributes["filename"].Value = b.FileName;
-                    b.Node.Attributes["fileiconpath"].Value = b.FileIconPath;
-                    b.Node.Attributes["fileiconindex"].Value = b.FileIconIndex;
-                    b.Node.Attributes["fileargs"].Value = b.FileArgs;
-                    b.Node.Attributes["fileworkingfolder"].Value = b.FileWorkingFolder;
+                {
+                    AddAttrib(b.Node, "appname", b.AppName);
+                    AddAttrib(b.Node, "filename", b.FileName);
+                    AddAttrib(b.Node, "fileiconpath", b.FileIconPath);
+                    AddAttrib(b.Node, "fileiconindex", b.FileIconIndex);
+                    AddAttrib(b.Node, "fileargs", b.FileArgs);
+                    AddAttrib(b.Node, "fileworkingfolder", b.FileWorkingFolder);
                     SaveXML();
                 }
                 f.Dispose();
@@ -431,7 +428,13 @@ namespace Apps.Controls
         private void AddAttrib(XmlNode Node, string AttribName, string Value)
         {
             XmlAttribute XmlAtt;
-            XmlAtt = AppsXml.CreateAttribute(AttribName);
+            if (Node.Attributes[AttribName] == null)
+            {
+                XmlAtt = AppsXml.CreateAttribute(AttribName);
+            }
+            else
+                XmlAtt = Node.Attributes[AttribName];
+
             XmlAtt.Value = Value;
             Node.Attributes.Append(XmlAtt);
         }

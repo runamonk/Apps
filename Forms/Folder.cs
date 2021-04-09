@@ -64,7 +64,6 @@ namespace Apps.Forms
 
             FolderName = FAppButton.AppName;
         }
-
         private void AddFolder_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!IsCancelled)
@@ -87,12 +86,10 @@ namespace Apps.Forms
                 }
             }
         }
-
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             IsCancelled = true;
         }
-
         private void AddFolder_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -101,7 +98,6 @@ namespace Apps.Forms
             if (e.KeyCode == Keys.Escape)
                 ButtonCancel.PerformClick();
         }
-
         private void ButtonOK_Click(object sender, EventArgs e)
         {
             IsCancelled = false;
