@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,13 +19,17 @@ namespace Apps.Forms
         {
             InitializeComponent();
             AppsConfig = myConfig;
+            toolTip = new ToolTip();
+            toolTip.SetToolTip(Browse, "Click to browse for a new resource file (dll or exe).");
             //Icons.OwnerDraw = true;
             //Icons.DrawItem += Icons_DrawItem;
-            LoadIcons(fileName);
+            SelectedFileName = fileName;
+            LoadIcons();
             SetColors();
         }
 
         #region Properties
+        public string SelectedFileName { get; set; }
         public int SelectedIconIndex
         {
             get 
@@ -39,16 +44,22 @@ namespace Apps.Forms
 
         #region Privates
         private readonly Config AppsConfig;
+        private ToolTip toolTip;
         #endregion
 
         #region Methods
-        private void LoadIcons(string fileName)
+        private void LoadIcons()
         {
+            labelFileName.Text = SelectedFileName;
+            Icons.SuspendLayout();
+            
+            Icons.Items.Clear();
+            imageList.Images.Clear();
+
             int idx = 0;
             while (true)
             {
-                Icon f = Funcs.GetIconEx(fileName, idx);
-                
+                Image f = Funcs.GetIcon(SelectedFileName, idx.ToString());
                 if (f != null)
                 {
                     imageList.Images.Add(f);
@@ -57,11 +68,15 @@ namespace Apps.Forms
                 }
                 else
                     break;
+
+                if (!(Path.GetExtension(SelectedFileName) == ".dll" || Path.GetExtension(SelectedFileName) == ".exe"))
+                    break;
+                    
                 idx++;
             }
-
+            Icons.ResumeLayout();
             Icons.Items[0].Selected = true;
-            Icons.Select();
+            Icons.Select();           
         }
         private void MoveButtons()
         {
@@ -139,5 +154,15 @@ namespace Apps.Forms
             Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
         }
         #endregion
+
+        private void BrowseWF_Click(object sender, EventArgs e)
+        {
+            string fileName = Funcs.BrowseForFile("resources|*.dll;*.exe;*.png;*.tif;*.jpg;*.gif;*.bmp;*.ico");
+            if (fileName != "")
+            {
+                SelectedFileName = fileName;
+                LoadIcons();
+            }
+        }
     }
 }

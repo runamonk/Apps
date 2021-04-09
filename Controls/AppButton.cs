@@ -167,10 +167,9 @@ namespace Apps
             get { return FFileName; }
             set {
                 FFileName = value;
-                FileIconImage = Funcs.GetIcon(FFileName,null);
-                FFileIconPath = "";
+                FileIconPath = FFileName;
             }
-        }
+        }   
         public string FileIconPath
         {
             get { return FFileIconPath; }

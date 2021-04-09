@@ -79,32 +79,12 @@ namespace Apps.Forms
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     FAppIconIndex = frm.SelectedIconIndex.ToString();
-                    FAppIconPath = fileName;
-                    EditAppIcon.Image = Funcs.GetIcon(fileName, FAppIconIndex);
+                    FAppIconPath = frm.SelectedFileName;
+                    EditAppIcon.Image = Funcs.GetIcon(frm.SelectedFileName, FAppIconIndex);
                 }
                 frm.Dispose();
             }
-
-            if ((FAppIconPath != "") && ((Path.GetExtension(FAppIconPath) == ".dll") || (Path.GetExtension(FAppIconPath) == ".exe")))
-            {
-                ShowIconPicker(FAppIconPath);
-            }
-            else
-            {
-                string fileName = Funcs.BrowseForFile();
-                if (fileName != "")
-                {
-                    if ((Path.GetExtension(fileName) == ".dll") || (Path.GetExtension(fileName) == ".exe"))
-                    {
-                        ShowIconPicker(fileName);
-                    }
-                    else
-                    {
-                        FAppIconPath = fileName;
-                        EditAppIcon.Image = Funcs.GetIcon(fileName, null);
-                    }
-                }
-            }
+            ShowIconPicker(FAppIconPath);
         }
         private void AppProperties_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -186,7 +166,7 @@ namespace Apps.Forms
         }
         private void MenuReset_Click(object sender, EventArgs e)
         {
-            FAppIconPath = "";
+            FAppIconPath = AppFileName;
             FAppIconIndex = "0";
             EditAppIcon.Image = Funcs.GetIcon(AppFileName, null);
         }
