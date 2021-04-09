@@ -87,6 +87,7 @@ namespace Apps.Controls
         private XmlNode AppsNode;
         private XmlDocument AppsXml;
         private readonly string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
+        private int BeginUpdateCounter = 0;
         private XmlNode CurrentParentNode = null;
         private readonly ToolStripMenuItem DeleteMenuItem;
         private readonly ToolStripMenuItem DownMenuItem;
@@ -575,12 +576,17 @@ namespace Apps.Controls
         }
         public void BeginUpdate()
         {
+            BeginUpdateCounter++;
             Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
         }
         public void EndUpdate()
         {
-            Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
-            this.Refresh();
+            BeginUpdateCounter--;
+            if (BeginUpdateCounter == 0)
+            {
+                Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
+                this.Refresh();
+            }
         }
         private AppButton GetAppButton(object sender)
         {
