@@ -49,7 +49,7 @@ namespace Apps.Forms
         private void LoadIcons()
         {
             labelFileName.Text = SelectedFileName;
-            Icons.SuspendLayout();
+            Icons.BeginUpdate();
             
             Icons.Items.Clear();
             imageList.Images.Clear();
@@ -72,7 +72,7 @@ namespace Apps.Forms
                     
                 idx++;
             }
-            Icons.ResumeLayout();
+            Icons.EndUpdate();
             Icons.Items[0].Selected = true;
             Icons.Select();           
         }
