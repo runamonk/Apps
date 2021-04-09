@@ -132,6 +132,7 @@ namespace Apps.Forms
                 {
                     FAppButton.AppName = EditAppName.Text;
                     FAppButton.FileName = EditAppFilePath.Text;
+                    FAppButton.FileWorkingFolder = EditWorkingFolder.Text;
                     FAppButton.FileIconPath = FAppIconPath;
                     FAppButton.FileIconIndex = FAppIconIndex;
                     FAppButton.FileIconImage = EditAppIcon.Image;
