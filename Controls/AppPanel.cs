@@ -625,7 +625,6 @@ namespace Apps.Controls
             {
                 LoadFolder(LookupFolderButton(CurrentParentNode.ParentNode.Attributes["id"].Value));
             }
-
             else
                 LoadItems();
         }

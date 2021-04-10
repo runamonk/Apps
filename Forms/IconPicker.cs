@@ -72,14 +72,15 @@ namespace Apps.Forms
                     
                 idx++;
             }
+
             Icons.EndUpdate();
             Icons.Items[0].Selected = true;
             Icons.Select();           
         }
         private void MoveButtons()
         {
-            ButtonOK.Left = (Width / 2 - ButtonOK.Width - 6);
-            ButtonCancel.Left = (ButtonOK.Left + ButtonOK.Width) + 6;
+            ButtonOK.Left = (Width / 2 - (ButtonOK.Width + 10));
+            ButtonCancel.Left = (ButtonOK.Left + 6 + ButtonOK.Width);
         }
         private void SetColors()
         {

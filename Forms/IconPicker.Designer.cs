@@ -40,9 +40,9 @@ namespace Apps.Forms
             this.panel4 = new System.Windows.Forms.Panel();
             this.Browse = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.panel6 = new System.Windows.Forms.Panel();
             this.Icons = new System.Windows.Forms.ListView();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -55,16 +55,16 @@ namespace Apps.Forms
             this.panel1.Controls.Add(this.ButtonCancel);
             this.panel1.Controls.Add(this.ButtonOK);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 324);
+            this.panel1.Location = new System.Drawing.Point(0, 224);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(384, 37);
+            this.panel1.Size = new System.Drawing.Size(284, 37);
             this.panel1.TabIndex = 0;
             // 
             // ButtonCancel
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonCancel.Location = new System.Drawing.Point(195, 7);
+            this.ButtonCancel.Location = new System.Drawing.Point(89, 6);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 1;
@@ -75,7 +75,7 @@ namespace Apps.Forms
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonOK.Location = new System.Drawing.Point(114, 7);
+            this.ButtonOK.Location = new System.Drawing.Point(8, 6);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 0;
@@ -95,7 +95,7 @@ namespace Apps.Forms
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(384, 31);
+            this.panel3.Size = new System.Drawing.Size(284, 31);
             this.panel3.TabIndex = 2;
             // 
             // panel5
@@ -104,7 +104,7 @@ namespace Apps.Forms
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(349, 31);
+            this.panel5.Size = new System.Drawing.Size(249, 31);
             this.panel5.TabIndex = 1;
             // 
             // labelFileName
@@ -113,7 +113,7 @@ namespace Apps.Forms
             this.labelFileName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelFileName.Location = new System.Drawing.Point(0, 0);
             this.labelFileName.Name = "labelFileName";
-            this.labelFileName.Size = new System.Drawing.Size(349, 31);
+            this.labelFileName.Size = new System.Drawing.Size(249, 31);
             this.labelFileName.TabIndex = 0;
             this.labelFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -121,7 +121,7 @@ namespace Apps.Forms
             // 
             this.panel4.Controls.Add(this.Browse);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(349, 0);
+            this.panel4.Location = new System.Drawing.Point(249, 0);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(35, 31);
             this.panel4.TabIndex = 0;
@@ -148,17 +148,8 @@ namespace Apps.Forms
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(384, 293);
+            this.panel2.Size = new System.Drawing.Size(284, 193);
             this.panel2.TabIndex = 3;
-            // 
-            // panel6
-            // 
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel6.Location = new System.Drawing.Point(0, 0);
-            this.panel6.Margin = new System.Windows.Forms.Padding(0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(3, 293);
-            this.panel6.TabIndex = 0;
             // 
             // Icons
             // 
@@ -172,7 +163,7 @@ namespace Apps.Forms
             this.Icons.MultiSelect = false;
             this.Icons.Name = "Icons";
             this.Icons.ShowGroups = false;
-            this.Icons.Size = new System.Drawing.Size(381, 293);
+            this.Icons.Size = new System.Drawing.Size(281, 193);
             this.Icons.TabIndex = 1;
             this.Icons.TileSize = new System.Drawing.Size(40, 40);
             this.Icons.UseCompatibleStateImageBehavior = false;
@@ -180,16 +171,25 @@ namespace Apps.Forms
             this.Icons.SelectedIndexChanged += new System.EventHandler(this.Icons_SelectedIndexChanged);
             this.Icons.DoubleClick += new System.EventHandler(this.Icons_DoubleClick);
             // 
+            // panel6
+            // 
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel6.Location = new System.Drawing.Point(0, 0);
+            this.panel6.Margin = new System.Windows.Forms.Padding(0);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(3, 193);
+            this.panel6.TabIndex = 0;
+            // 
             // IconPicker
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 361);
+            this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.MinimumSize = new System.Drawing.Size(188, 150);
             this.Name = "IconPicker";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
