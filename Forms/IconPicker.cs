@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,8 +21,11 @@ namespace Apps.Forms
         {
             InitializeComponent();
             AppsConfig = myConfig;
+            
+
             Icons.OwnerDraw = true;
             Icons.DrawItem += Icons_DrawItem;
+            
             SelectedFileName = fileName;
             LoadIcons();
             SetColors();
@@ -95,6 +99,10 @@ namespace Apps.Forms
             ButtonCancel.BackColor = AppsConfig.AppsBackColor;
             ButtonCancel.ForeColor = AppsConfig.AppsFontColor;
         }
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
         #endregion
 
         #region Events
@@ -139,6 +147,13 @@ namespace Apps.Forms
         {
             Text = string.Format("Icon {0} of " + imageList.Images.Count.ToString(), (SelectedIconIndex + 1));
         }
-#endregion
+        #endregion
+
+        protected override void WndProc(ref System.Windows.Forms.Message m)
+        {
+            //  Hide horizontal  scrollbar.
+            ShowScrollBar(Icons.Handle, 0, false);
+            base.WndProc(ref m);
+        }
     }
 }
