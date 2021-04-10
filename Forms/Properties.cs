@@ -160,7 +160,8 @@ namespace Apps.Forms
             string fileWF = "";
             string fileIconIdx = "";
             Funcs.ParseShortcut(EditAppFilePath.Text, ref fileName, ref fileIcon, ref fileIconIdx, ref fileArgs, ref fileWF);
-            EditAppName.Text = Path.GetFileName(fileName);
+            if (EditAppName.Text == "")
+                EditAppName.Text = Path.GetFileName(fileName);
             EditAppFilePath.Text = fileName;
             FAppIconIndex = fileIconIdx;
             FAppIconPath = (fileIcon != "" ? fileIcon : fileName);
@@ -174,9 +175,12 @@ namespace Apps.Forms
         }
         private void MenuReset_Click(object sender, EventArgs e)
         {
-            FAppIconPath = AppFileName;
-            FAppIconIndex = "0";
-            EditAppIcon.Image = Funcs.GetIcon(AppFileName, null);
+            if (File.Exists(AppFileName))
+            {
+                FAppIconPath = AppFileName;
+                FAppIconIndex = "0";
+                EditAppIcon.Image = Funcs.GetIcon(AppFileName, null);
+            }
         }
         private void Properties_Load(object sender, EventArgs e)
         {
