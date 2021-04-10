@@ -63,7 +63,7 @@ namespace Apps.Forms
         private readonly AppMenu MenuRC; 
         private string FAppIconIndex;
         private string FAppIconPath;
-        private AppButton FAppButton;
+        private readonly AppButton FAppButton;
         #endregion
 
         #region Events
@@ -154,12 +154,7 @@ namespace Apps.Forms
         }
         private void ButtonParseShortcut_Click(object sender, EventArgs e)
         {
-            string fileName = "";
-            string fileIcon = "";
-            string fileArgs = "";
-            string fileWF = "";
-            string fileIconIdx = "";
-            Funcs.ParseShortcut(EditAppFilePath.Text, ref fileName, ref fileIcon, ref fileIconIdx, ref fileArgs, ref fileWF);
+            Funcs.ParseShortcut(EditAppFilePath.Text, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWF);
             if (EditAppName.Text == "")
                 EditAppName.Text = Path.GetFileName(fileName);
             EditAppFilePath.Text = fileName;

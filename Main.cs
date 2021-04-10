@@ -57,7 +57,7 @@ namespace Apps
         private bool inMenu = false;
         private bool inSettings = false;
         private bool pinned = false;
-        private int HotkeyId = Funcs.RandomNumber();
+        private readonly int HotkeyId = Funcs.RandomNumber();
 
         private const string ICON_PINNED_W7 = "\u25FC";
         private const string ICON_UNPINNED_W7 = "\u25FB";

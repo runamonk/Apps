@@ -49,7 +49,7 @@ namespace Apps.Forms
         #region Private
         readonly Config AppsConfig;
         bool IsCancelled = false;
-        private AppButton FAppButton;
+        private readonly AppButton FAppButton;
         private const int CP_NOCLOSE_BUTTON = 0x200;
         #endregion
 

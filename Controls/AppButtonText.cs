@@ -21,7 +21,7 @@ namespace Apps.Controls
         #endregion
 
         #region Privates
-        Config AppsConfig;
+        readonly Config AppsConfig;
         #endregion
 
         #region Methods

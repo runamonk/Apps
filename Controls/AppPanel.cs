@@ -83,7 +83,6 @@ namespace Apps.Controls
         #endregion
 
         #region Privates
-        private const string AppIdLookup = "//APPS//APP[@id='{0}']";
         private XmlNode AppsNode;
         private XmlDocument AppsXml;
         private readonly string AppsXmlFilePath = Funcs.AppPath() + "\\Apps.xml";
