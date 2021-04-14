@@ -138,7 +138,7 @@ namespace Apps.Forms
                 {
                     FileVersionInfo f = Funcs.GetFileInfo(fileName);
                     FAppButton.AppName = f.ProductName;
-                    FAppButton.FileName = fileName;
+                    EditAppFilePath.Text = fileName;
                 }
             }
         }
