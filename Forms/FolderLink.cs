@@ -30,14 +30,14 @@ namespace Apps.Forms
         }
 
         #region  Properties
-        private string FolderName
+        public string FolderName
         {
             get { return EditFolderName.Text.Trim(); }
             set {
                 EditFolderName.Text = value;
             }
         }
-        private string FolderPath
+        public string FolderPath
         {
             get { return EditFolderPath.Text.Trim(); }
             set {

@@ -6,18 +6,20 @@ using Utility;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using System.Net;
 
 namespace Apps
 {
     public enum ButtonType
     {
         App,
-        Menu,
-        Pin,
+        Back,
         Folder,
         FolderLink,
-        Back,
-        Separator
+        Menu,
+        Pin,        
+        Separator,
+        Url
     }
 
     public partial class AppButton : Panel
@@ -38,7 +40,7 @@ namespace Apps
             FolderArrow.Visible = false;
             Height = 22;
 
-            if (IsAppButton)
+            if ((IsAppButton) || (IsUrlButton))
             {
                 PBox.Parent = ButtonPanel;
                 PBox.Dock = DockStyle.Left;
@@ -47,9 +49,18 @@ namespace Apps
                 PBox.Padding = new Padding(0, 0, 0, 0);
                 PBox.Margin = new Padding(0, 0, 0, 0);
                 PBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                MissingIconTimer.Enabled = false;
-                MissingIconTimer.Interval = 10000;
-                MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
+                if (IsAppButton)
+                {
+                    MissingIconTimer.Enabled = false;
+                    MissingIconTimer.Interval = 10000;
+                    MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
+                }
+                else
+                if (IsUrlButton)
+                { 
+                    FavIconImage = GetFavIconImage();
+                }
+
                 PBox.Visible = true;
                 PBox.MouseClick += new MouseEventHandler(TextOnClick);
             }
@@ -162,6 +173,22 @@ namespace Apps
                 ButtonText.ContextMenuStrip = value;
             }
         }
+        public string FavIcon { 
+            get { return FFavIcon; }
+            set { 
+                    FFavIcon = value; 
+                    FavIconImage = GetFavIconImage();
+                }
+        }
+        public Image FavIconImage 
+        { 
+            set {
+                PBox.Image = value;
+            }
+            get {
+                return PBox.Image;
+            }
+        }
         public string FileName
         {
             get { return FFileName; }
@@ -204,6 +231,15 @@ namespace Apps
         public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
         public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
         public bool IsSeparatorButton { get { return (FButtonType == ButtonType.Separator); } }
+        public bool IsUrlButton { get { return (FButtonType == ButtonType.Url); } }
+        public string Url { 
+            get { return FUrl; } 
+            set { 
+                    FUrl = value;
+                    FavIcon = Funcs.GetWebsiteFavIcon(value);
+                }
+        }
+
         public XmlNode Node { get; set; }
         public bool WatchForIconUpdate
         {
@@ -222,6 +258,9 @@ namespace Apps
         private string FFileName;
         private string FFileIconPath;
         private string FFileIconIndex;
+        private string FFavIcon;
+        private string FUrl;
+        
         private readonly PictureBox PBox = new PictureBox();
         private readonly Panel BorderPanel = new Panel();
         private readonly Panel ButtonPanel = new Panel();
@@ -266,6 +305,18 @@ namespace Apps
         {
             SetColors();
         }
+
+        private Image GetFavIconImage()
+        {
+            if (!string.IsNullOrEmpty(FavIcon))
+            {
+                MemoryStream s = new MemoryStream(Convert.FromBase64String(FavIcon));
+                return  new Bitmap(s);
+            }
+            else
+                return null;
+        }
+
         private void OnDragOver(object sender, DragEventArgs e)
         {
             e.Effect = (DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move);

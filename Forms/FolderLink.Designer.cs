@@ -147,6 +147,7 @@ namespace Apps.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(378, 111);
             this.Controls.Add(this.PanelMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -170,11 +171,11 @@ namespace Apps.Forms
         private System.Windows.Forms.Panel PanelMain;
         private System.Windows.Forms.Panel PanelRight;
         private System.Windows.Forms.Button BrowseWF;
-        public System.Windows.Forms.TextBox EditFolderPath;
         private System.Windows.Forms.TextBox EditFolderName;
         private System.Windows.Forms.Button ButtonCancel;
         private System.Windows.Forms.Button ButtonOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label NameLabel;
+        private System.Windows.Forms.TextBox EditFolderPath;
     }
 }

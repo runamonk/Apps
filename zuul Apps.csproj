@@ -143,6 +143,12 @@
     <Compile Include="Forms\Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\WebLink.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WebLink.Designer.cs">
+      <DependentUpon>WebLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WebLink.resx">
+      <DependentUpon>WebLink.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
