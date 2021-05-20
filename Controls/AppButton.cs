@@ -399,11 +399,15 @@ namespace Apps
         {
             if ((e == null) || (e.Button == MouseButtons.Left))
             {
-                if (IsAppButton || IsFolderLinkButton)
+                if (IsAppButton || IsFolderLinkButton || IsUrlButton)
                 {
                     try
                     {
-                        ProcessStartInfo procStartInfo = new ProcessStartInfo(FileName, FileArgs);
+                        ProcessStartInfo procStartInfo;
+                        if (IsUrlButton)
+                            procStartInfo = new ProcessStartInfo(Url, FileArgs); // Let user specify a specific app to pass urls too?
+                        else
+                            procStartInfo = new ProcessStartInfo(FileName, FileArgs);
                         if (string.IsNullOrEmpty(FileWorkingFolder))
                             FileWorkingFolder = Path.GetDirectoryName(FileName);
                         procStartInfo.WorkingDirectory = FileWorkingFolder;

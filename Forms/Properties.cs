@@ -186,6 +186,11 @@ namespace Apps.Forms
             FAppIconPath = (FAppButton.FileIconPath == "" ? FAppButton.FileName : FAppButton.FileIconPath);
             FAppIconIndex = FAppButton.FileIconIndex;
             EditAppIcon.Image = Funcs.GetIcon(FAppIconPath, FAppIconIndex);
+
+            if (string.IsNullOrEmpty(EditAppName.Text))
+                Text = "Add Application";
+            else
+                Text = "Edit Application Properties";
         }
         #endregion
 

@@ -64,12 +64,12 @@ namespace Apps.Forms
         }
         private void Form_Load(object sender, EventArgs e)
         {
+            FolderName = FAppButton.AppName;
+            FolderPath = FAppButton.FileName;
             if (string.IsNullOrEmpty(EditFolderName.Text))
                 Text = "Add Folder Link";
             else
                 Text = "Edit Folder Link";
-            FolderName = FAppButton.AppName;
-            FolderPath = FAppButton.FileName;
         }
         private void FolderLink_FormClosing(object sender, FormClosingEventArgs e)
         {

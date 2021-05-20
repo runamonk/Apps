@@ -57,12 +57,11 @@ namespace Apps.Forms
         #region Events
         private void AddFolder_Load(object sender, EventArgs e)
         {
+            FolderName = FAppButton.AppName;
             if (string.IsNullOrEmpty(FolderNameEdit.Text))
                 Text = "Add Folder";
             else
                 Text = "Edit Folder";
-
-            FolderName = FAppButton.AppName;
         }
         private void AddFolder_FormClosing(object sender, FormClosingEventArgs e)
         {

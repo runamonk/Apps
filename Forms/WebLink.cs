@@ -64,12 +64,13 @@ namespace Apps.Forms
         }
         private void Form_Load(object sender, EventArgs e)
         {
+            UrlName = FAppButton.AppName;
+            UrlPath = FAppButton.Url;
+
             if (string.IsNullOrEmpty(EditUrlName.Text))
                 Text = "Add URL";
             else
                 Text = "Edit URL";
-            UrlName = FAppButton.AppName;
-            UrlPath = FAppButton.Url;
         }
         private void WebLink_FormClosing(object sender, FormClosingEventArgs e)
         {
