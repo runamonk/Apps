@@ -1,5 +1,4 @@
-/*
-!/Controls*
-!/Forms*
-!/Properties*
-!.gitignore
+/.vs
+/bin
+/obj
+
