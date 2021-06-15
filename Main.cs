@@ -94,7 +94,7 @@ namespace Apps
         {
             SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
-            AutoSizeForm(true);            
+            AutoSizeForm(true, true);            
         }
 
         private void Main_Deactivate(object sender, EventArgs e)
@@ -226,7 +226,7 @@ namespace Apps
         #endregion
 
         #region Methods     
-        private void AutoSizeForm(bool ScrollToTop)
+        private void AutoSizeForm(bool ScrollToTop, bool MoveTopToCursor = false)
         {
             if (Apps.InLoad) return;
 
@@ -243,6 +243,13 @@ namespace Apps
                 else
                     Height = MaximumSize.Height;
             }
+
+            if (MoveTopToCursor)
+            {
+                Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+                this.Top = p.Y-66;
+            }
+
             // select the first control.
             if ((ScrollToTop) && (Apps.Controls.Count > 0))
                 Apps.Controls[Apps.Controls.Count-1].Select();
@@ -384,7 +391,7 @@ namespace Apps
                 }
                 else
                 {
-                    AutoSizeForm(true);
+                    AutoSizeForm(true, false);
                     if (Config.OpenFormAtCursor)
                         Funcs.MoveFormToCursor(this, false);
                     Opacity = 100;
