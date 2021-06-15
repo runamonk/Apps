@@ -77,7 +77,7 @@ namespace Apps
 
         private void AppAdded()
         {
-            AutoSizeForm(true);
+            AutoSizeForm(true, true);
         }
 
         private void AppClicked()
@@ -87,7 +87,7 @@ namespace Apps
 
         private void AppDeleted()
         {
-            AutoSizeForm(false);
+            AutoSizeForm(false, true);
         }
 
         private void AppsLoaded()
