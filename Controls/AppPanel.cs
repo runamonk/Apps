@@ -633,18 +633,16 @@ namespace Apps.Controls
                     AddFiles(fileNames, (ToAppButton==null ? 0 : Controls.GetChildIndex(ToAppButton)));
                 else
                 {
-                    var ShellObj = ShellObjectCollection.FromDataObject((System.Runtime.InteropServices.ComTypes.IDataObject)e.Data);
-                    foreach (ShellObject itm in ShellObj)
-                    {                  
-                        string s = itm.ParsingName; // Actual app file.
-                       
-                        //itm.Name;                              
-                        //itm.Properties.GetProperty("System.AppUserModel.PackageInstallPath").ValueAsObject.ToString();
-
-                        Process p = new Process();
-                        p.StartInfo.FileName = "shell:AppsFolder\\" + s;
-                        p.Start();
-
+                    if (e.Data is System.Runtime.InteropServices.ComTypes.IDataObject)
+                    {
+                        var ShellObj = ShellObjectCollection.FromDataObject((System.Runtime.InteropServices.ComTypes.IDataObject)e.Data);
+                        foreach (ShellObject shellFile in ShellObj)
+                        {                                          
+                            AppButton b = AddAppButton(ButtonType.App, Controls);
+                            b.AppName = shellFile.Name;
+                            b.FileName = "shell:AppsFolder\\" + shellFile.ParsingName;
+                            AddApp(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                        }
                     }
                 }
             }
