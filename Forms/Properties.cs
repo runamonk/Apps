@@ -167,10 +167,16 @@ namespace Apps.Forms
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
             ButtonParseShortcut.Enabled = Funcs.IsShortcut(EditAppFilePath.Text);
+            bool IsShellApp = EditAppFilePath.Text.StartsWith(Funcs.SHELL_APP_PREFIX);
+            EditWorkingFolder.Enabled = !IsShellApp;
+            EditAppFilePath.Enabled = !IsShellApp;
+            Browse.Enabled = !IsShellApp;
+            BrowseWF.Enabled = !IsShellApp;
+            EditFileArgs.Enabled = !IsShellApp;
         }
         private void MenuReset_Click(object sender, EventArgs e)
         {
-            if (File.Exists(AppFileName))
+            if (File.Exists(AppFileName) || AppFileName.StartsWith(Funcs.SHELL_APP_PREFIX))
             {
                 FAppIconPath = AppFileName;
                 FAppIconIndex = "0";
