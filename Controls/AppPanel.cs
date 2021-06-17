@@ -10,7 +10,8 @@ using Utility;
 using Apps.Forms;
 using System.Collections.Generic;
 using System.Windows;
-
+using Microsoft.WindowsAPICodePack.Shell;
+using System.Diagnostics;
 
 namespace Apps.Controls
 {
@@ -632,14 +633,19 @@ namespace Apps.Controls
                     AddFiles(fileNames, (ToAppButton==null ? 0 : Controls.GetChildIndex(ToAppButton)));
                 else
                 {
-                    //IEnumerable<string> s = Funcs.GetPathsFromShellIDListArray(e.Data);
-                    //MemoryStream ms;
-                    //FileStream file;
-                    //ms = ((MemoryStream)e.Data.GetData("Shell IDList Array"));
-                    //file = new FileStream("c:\\file.bin", FileMode.Create, FileAccess.Write);
-                    //ms.WriteTo(file);
-                    //file.Close();
-                    //ms.Close();
+                    var ShellObj = ShellObjectCollection.FromDataObject((System.Runtime.InteropServices.ComTypes.IDataObject)e.Data);
+                    foreach (ShellObject itm in ShellObj)
+                    {                  
+                        string s = itm.ParsingName; // Actual app file.
+                       
+                        //itm.Name;                              
+                        //itm.Properties.GetProperty("System.AppUserModel.PackageInstallPath").ValueAsObject.ToString();
+
+                        Process p = new Process();
+                        p.StartInfo.FileName = "shell:AppsFolder\\" + s;
+                        p.Start();
+
+                    }
                 }
             }
             else
