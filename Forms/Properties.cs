@@ -71,6 +71,8 @@ namespace Apps.Forms
         {
             void ShowIconPicker(string fileName)
             {
+                if (string.IsNullOrEmpty(fileName)) return;
+
                 IconPicker frm = new IconPicker(AppsConfig, fileName);
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
@@ -80,7 +82,8 @@ namespace Apps.Forms
                 }
                 frm.Dispose();
             }
-            ShowIconPicker(FAppIconPath);
+            
+            ShowIconPicker(FAppIconPath != "" ? FAppIconPath : AppFileName);
         }
         private void AppProperties_FormClosing(object sender, FormClosingEventArgs e)
         {
