@@ -243,12 +243,13 @@ namespace Apps
                 else
                     Height = MaximumSize.Height;
             }
+            // This is way too klunky and ends up shifting up and down all over the place.
 
-            if (MoveTopToCursor)
-            {
-                Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
-                this.Top = p.Y-66;
-            }
+            //if (MoveTopToCursor)
+            //{
+            //    Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
+            //    this.Top = p.Y-66;
+            //}
 
             // select the first control.
             if ((ScrollToTop) && (Apps.Controls.Count > 0))
