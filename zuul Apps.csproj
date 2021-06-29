@@ -91,6 +91,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared\Icons.cs">
+      <Link>Icons.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\Utility.cs">
       <Link>Utility.cs</Link>
     </Compile>

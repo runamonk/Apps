@@ -6,7 +6,7 @@ using Utility;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using System.Net;
+using Icons;
 
 namespace Apps
 {
@@ -203,7 +203,7 @@ namespace Apps
             set {
                 FFileIconPath = value;
                 if (!string.IsNullOrEmpty(FFileIconPath))
-                    FileIconImage = Funcs.GetIcon(FFileIconPath, FFileIconIndex);
+                    FileIconImage = IconFuncs.GetIcon(FFileIconPath, FFileIconIndex);
             }
         }
         public string FileIconIndex
@@ -289,9 +289,9 @@ namespace Apps
                     if (File.Exists(FileIconPath) || File.Exists(FileName))
                     {
                         if (File.Exists(FileIconPath))
-                            FileIconImage = Funcs.GetIcon(FileIconPath, FileIconIndex);
+                            FileIconImage = IconFuncs.GetIcon(FileIconPath, FileIconIndex);
                         else
-                            FileIconImage = Funcs.GetIcon(FileName, FileIconIndex);
+                            FileIconImage = IconFuncs.GetIcon(FileName, FileIconIndex);
                         WatchForIconUpdate = false;
                     }                      
                 }

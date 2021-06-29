@@ -7,7 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Utility;
-
+using Icons;
 
 namespace Apps.Forms
 {
@@ -78,7 +78,7 @@ namespace Apps.Forms
                 {
                     FAppIconIndex = frm.SelectedIconIndex.ToString();
                     FAppIconPath = frm.SelectedFileName;
-                    EditAppIcon.Image = Funcs.GetIcon(frm.SelectedFileName, FAppIconIndex);
+                    EditAppIcon.Image = IconFuncs.GetIcon(frm.SelectedFileName, FAppIconIndex);
                 }
                 frm.Dispose();
             }
@@ -163,14 +163,14 @@ namespace Apps.Forms
             EditAppFilePath.Text = fileName;
             FAppIconIndex = fileIconIdx;
             FAppIconPath = (fileIcon != "" ? fileIcon : fileName);
-            EditAppIcon.Image = Funcs.GetIcon(FAppIconPath, FAppIconIndex);
+            EditAppIcon.Image = IconFuncs.GetIcon(FAppIconPath, FAppIconIndex);
             EditFileArgs.Text =  fileArgs;
             EditWorkingFolder.Text = fileWF;
         }
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
             ButtonParseShortcut.Enabled = Funcs.IsShortcut(EditAppFilePath.Text);
-            bool IsShellApp = EditAppFilePath.Text.StartsWith(Funcs.SHELL_APP_PREFIX);
+            bool IsShellApp = EditAppFilePath.Text.StartsWith(IconFuncs.SHELL_APP_PREFIX);
             EditWorkingFolder.Enabled = !IsShellApp;
             EditAppFilePath.Enabled = !IsShellApp;
             Browse.Enabled = !IsShellApp;
@@ -179,11 +179,11 @@ namespace Apps.Forms
         }
         private void MenuReset_Click(object sender, EventArgs e)
         {
-            if (File.Exists(AppFileName) || AppFileName.StartsWith(Funcs.SHELL_APP_PREFIX))
+            if (File.Exists(AppFileName) || AppFileName.StartsWith(IconFuncs.SHELL_APP_PREFIX))
             {
                 FAppIconPath = AppFileName;
                 FAppIconIndex = "0";
-                EditAppIcon.Image = Funcs.GetIcon(AppFileName, null);
+                EditAppIcon.Image = IconFuncs.GetIcon(AppFileName, null);
             }
         }
         private void Properties_Load(object sender, EventArgs e)
@@ -194,7 +194,7 @@ namespace Apps.Forms
             EditWorkingFolder.Text = FAppButton.FileWorkingFolder;
             FAppIconPath = (FAppButton.FileIconPath == "" ? FAppButton.FileName : FAppButton.FileIconPath);
             FAppIconIndex = FAppButton.FileIconIndex;
-            EditAppIcon.Image = Funcs.GetIcon(FAppIconPath, FAppIconIndex);
+            EditAppIcon.Image = IconFuncs.GetIcon(FAppIconPath, FAppIconIndex);
 
             if (string.IsNullOrEmpty(EditAppName.Text))
                 Text = "Add Application";

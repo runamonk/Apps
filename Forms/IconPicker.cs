@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utility;
+using Icons;
 
 namespace Apps.Forms
 {
@@ -61,7 +62,7 @@ namespace Apps.Forms
             int idx = 0;
             while (true)
             {
-                Image f = Funcs.GetIcon(SelectedFileName, idx.ToString());
+                Image f = IconFuncs.GetIcon(SelectedFileName, idx.ToString());
                 if (f != null)
                 {
                     imageList.Images.Add(f);
