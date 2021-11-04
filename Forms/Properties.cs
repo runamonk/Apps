@@ -116,6 +116,10 @@ namespace Apps.Forms
                     FAppButton.FileIconIndex = FAppIconIndex;
                     FAppButton.FileIconImage = EditAppIcon.Image;
                     FAppButton.FileArgs = EditFileArgs.Text;
+                    if (chkAsAdmin.Checked)
+                        FAppButton.AsAdmin = "Y";
+                    else
+                        FAppButton.AsAdmin = "N";
                 }
             }
         }
@@ -195,6 +199,7 @@ namespace Apps.Forms
             FAppIconPath = (FAppButton.FileIconPath == "" ? FAppButton.FileName : FAppButton.FileIconPath);
             FAppIconIndex = FAppButton.FileIconIndex;
             EditAppIcon.Image = IconFuncs.GetIcon(FAppIconPath, FAppIconIndex);
+            chkAsAdmin.Checked = (FAppButton.AsAdmin == "Y");
 
             if (string.IsNullOrEmpty(EditAppName.Text))
                 Text = "Add Application";

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.PanelBack = new System.Windows.Forms.Panel();
             this.PanelRight = new System.Windows.Forms.Panel();
+            this.chkAsAdmin = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ArgsLabel = new System.Windows.Forms.Label();
             this.PathLabel = new System.Windows.Forms.Label();
@@ -57,11 +58,12 @@
             this.PanelBack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelBack.Location = new System.Drawing.Point(0, 0);
             this.PanelBack.Name = "PanelBack";
-            this.PanelBack.Size = new System.Drawing.Size(419, 175);
+            this.PanelBack.Size = new System.Drawing.Size(419, 192);
             this.PanelBack.TabIndex = 0;
             // 
             // PanelRight
             // 
+            this.PanelRight.Controls.Add(this.chkAsAdmin);
             this.PanelRight.Controls.Add(this.label1);
             this.PanelRight.Controls.Add(this.ArgsLabel);
             this.PanelRight.Controls.Add(this.PathLabel);
@@ -79,8 +81,19 @@
             this.PanelRight.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PanelRight.Location = new System.Drawing.Point(0, 0);
             this.PanelRight.Name = "PanelRight";
-            this.PanelRight.Size = new System.Drawing.Size(419, 175);
+            this.PanelRight.Size = new System.Drawing.Size(419, 192);
             this.PanelRight.TabIndex = 13;
+            // 
+            // chkAsAdmin
+            // 
+            this.chkAsAdmin.AutoSize = true;
+            this.chkAsAdmin.Location = new System.Drawing.Point(87, 136);
+            this.chkAsAdmin.Name = "chkAsAdmin";
+            this.chkAsAdmin.Size = new System.Drawing.Size(122, 17);
+            this.chkAsAdmin.TabIndex = 7;
+            this.chkAsAdmin.Text = "Run as administrator";
+            this.toolTip.SetToolTip(this.chkAsAdmin, "Check to always run as administrator.");
+            this.chkAsAdmin.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -219,7 +232,7 @@
             // 
             this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.ButtonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonCancel.Location = new System.Drawing.Point(212, 144);
+            this.ButtonCancel.Location = new System.Drawing.Point(212, 160);
             this.ButtonCancel.Name = "ButtonCancel";
             this.ButtonCancel.Size = new System.Drawing.Size(75, 23);
             this.ButtonCancel.TabIndex = 8;
@@ -231,7 +244,7 @@
             // 
             this.ButtonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ButtonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ButtonOK.Location = new System.Drawing.Point(131, 144);
+            this.ButtonOK.Location = new System.Drawing.Point(131, 160);
             this.ButtonOK.Name = "ButtonOK";
             this.ButtonOK.Size = new System.Drawing.Size(75, 23);
             this.ButtonOK.TabIndex = 7;
@@ -242,7 +255,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 175);
+            this.ClientSize = new System.Drawing.Size(419, 192);
             this.Controls.Add(this.PanelBack);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
@@ -283,5 +296,6 @@
         private System.Windows.Forms.Label ArgsLabel;
         private System.Windows.Forms.Label PathLabel;
         private System.Windows.Forms.Label NameLabel;
+        private System.Windows.Forms.CheckBox chkAsAdmin;
     }
 }

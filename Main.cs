@@ -208,7 +208,7 @@ namespace Apps
             
             if (RunningInstance() != null)
             {
-                MessageBox.Show("There is already a version of Apps running.");
+                MessageBox.Show("There is already a version of zuulApps running.");
                 Application.Exit();
             }
             else

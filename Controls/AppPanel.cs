@@ -375,6 +375,7 @@ namespace Apps.Controls
                 if (f.ShowDialog(this) == DialogResult.OK)
                 {
                     SetAttrib(b.Node, "appname", b.AppName);
+                    SetAttrib(b.Node, "asadmin", b.AsAdmin);
                     SetAttrib(b.Node, "filename", b.FileName);
                     SetAttrib(b.Node, "fileiconpath", b.FileIconPath);
                     SetAttrib(b.Node, "fileiconindex", b.FileIconIndex);
@@ -482,34 +483,6 @@ namespace Apps.Controls
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
                 OnAppAdded?.Invoke();
-        }
-        private void AddFiles(string[] Files, int AddAtIndex)
-        {
-            BeginUpdate();
-            InLoad = true;
-            foreach (string filePath in Files)
-            {
-                if (!File.Exists(filePath) && Directory.Exists(filePath))
-                {
-                    string AppName = Path.GetFileName(filePath);
-                    AppButton b = AddAppButton(ButtonType.FolderLink, Controls);
-                    b.AppName = AppName;
-                    b.FileName = filePath;
-                    AddFolderLink(b, AddAtIndex);
-                }
-                else
-                if (File.Exists(filePath))
-                {
-                    string AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(filePath).ProductName) ? Path.GetFileNameWithoutExtension(filePath) : Funcs.GetFileInfo(filePath).ProductName);
-                    AppButton b = AddAppButton(ButtonType.App, Controls);
-                    b.AppName = AppName;
-                    b.FileName = filePath;
-                    AddApp(b, AddAtIndex);
-                }
-            }
-            InLoad = false;
-            EndUpdate();
-            OnAppAdded?.Invoke();
         }
         public void AddFolder(AppButton appButton, int AddAtIndex)
         {
@@ -624,26 +597,71 @@ namespace Apps.Controls
             Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
         }
         private void DoExternalDropTo(AppButton ToAppButton, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                if ((fileNames != null) && (fileNames.Count() > 0))
-                    AddFiles(fileNames, (ToAppButton==null ? 0 : Controls.GetChildIndex(ToAppButton)));
-                else
+        {           
+            string getAppFileName(string filename)
+            {  
+                string s = filename;
+                // some apps are tacking on the shell:{} guid information when it's not needed. So check to see if it's just the filename, if not parse it out.
+                if (s.IndexOf("\\") > -1)
                 {
-                    if (e.Data is System.Runtime.InteropServices.ComTypes.IDataObject)
+                    int ilen = filename.Length - 1;
+                    for (int i = ilen; i > 0; i--)
                     {
-                        var ShellObj = ShellObjectCollection.FromDataObject((System.Runtime.InteropServices.ComTypes.IDataObject)e.Data);
-                        foreach (ShellObject shellFile in ShellObj)
-                        {                                          
-                            AppButton b = AddAppButton(ButtonType.App, Controls);
-                            b.AppName = shellFile.Name;
-                            b.FileName = "shell:AppsFolder\\" + shellFile.ParsingName;
-                            AddApp(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                        if (filename[i] == '\\')
+                        {
+                            s = filename.Substring((i + 1), (filename.Length - i - 1));
+                            break;
                         }
                     }
+                }
+                return s;
+            }
+            // shell object?
+            if (e.Data is System.Runtime.InteropServices.ComTypes.IDataObject)
+            {
+                var ShellObj = ShellObjectCollection.FromDataObject((System.Runtime.InteropServices.ComTypes.IDataObject)e.Data);
+                if (ShellObj.Count > 0)
+                {
+                    foreach (ShellObject shellFile in ShellObj)
+                    {
+                        // File or Folder?
+                        if ((File.Exists(shellFile.ParsingName)) || (!File.Exists(shellFile.ParsingName) && Directory.Exists(shellFile.ParsingName)))
+                        {
+                            if (File.Exists(shellFile.ParsingName))
+                            {
+                                AppButton b = AddAppButton(ButtonType.App, Controls);
+                                b.AppName = (string.IsNullOrEmpty(Funcs.GetFileInfo(shellFile.ParsingName).ProductName) ? Path.GetFileNameWithoutExtension(shellFile.ParsingName) : Funcs.GetFileInfo(shellFile.ParsingName).ProductName);
+                                b.FileName = shellFile.ParsingName;
+                                AddApp(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                            }                               
+                            else
+                            {
+                                AppButton b = AddAppButton(ButtonType.FolderLink, Controls);
+                                b.AppName = Path.GetFileName(shellFile.ParsingName);
+                                b.FileName = shellFile.ParsingName;
+                                AddFolderLink(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                            }
+                        }
+                        else
+                        {
+                            AppButton b = AddAppButton(ButtonType.App, Controls);
+                            b.AppName = shellFile.Name;
+                            b.FileName = "shell:AppsFolder\\" + getAppFileName(shellFile.ParsingName);
+                            AddApp(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                        }
+                    } 
+                }
+                else
+                {
+                    // Right now windows 11 start menu actually passes no data. what a pos.
+
+                    //if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                    //{
+                    //    string[] fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                    //    if ((fileNames != null) && (fileNames.Count() > 0))
+                    //        AddFiles(fileNames, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                    //}
                 }
             }
             else
@@ -897,6 +915,7 @@ namespace Apps.Controls
             {
                 appButton.AppId = GetAttrib(appButton.Node, "id");
                 appButton.AppName = GetAttrib(appButton.Node, "appname");
+                appButton.AsAdmin = GetAttrib(appButton.Node, "asadmin");
                 appButton.FileName = GetAttrib(appButton.Node, "filename");
                 appButton.FileArgs = GetAttrib(appButton.Node, "fileargs");
                 appButton.FileIconIndex = GetAttrib(appButton.Node, "fileiconindex");

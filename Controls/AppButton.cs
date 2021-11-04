@@ -159,6 +159,14 @@ namespace Apps
             get { return ButtonText.Text; }
             set { ButtonText.Text = value; }
         }
+        public string AsAdmin
+        {
+            get { return FAsAdmin; }
+            set
+            {
+                FAsAdmin = value;
+            }
+        }
         public Color BorderColor
         {
             get { return BorderPanel.BackColor; }
@@ -260,6 +268,7 @@ namespace Apps
         private string FFileIconIndex;
         private string FFavIcon;
         private string FUrl;
+        private string FAsAdmin;
         
         private readonly PictureBox PBox = new PictureBox();
         private readonly Panel BorderPanel = new Panel();
@@ -411,6 +420,10 @@ namespace Apps
                         if (string.IsNullOrEmpty(FileWorkingFolder))
                             FileWorkingFolder = Path.GetDirectoryName(FileName);
                         procStartInfo.WorkingDirectory = FileWorkingFolder;
+
+                        // run as administrator
+                        if ((Control.ModifierKeys == Keys.Shift) || (AsAdmin == "Y"))
+                            procStartInfo.Verb = "runas";
                         Process.Start(procStartInfo);
                     }
                     catch (Exception error)
