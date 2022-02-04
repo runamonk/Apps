@@ -440,7 +440,6 @@ namespace Apps
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
-
             OnAppButtonClicked?.Invoke(this);
         }
         protected override bool ShowFocusCues
