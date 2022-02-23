@@ -345,6 +345,8 @@ namespace Apps
                 SetFormPos();
             }
             Text = Funcs.GetNameAndVersion();
+            if ((Config.AutoSizeHeight) && Visible)
+                AutoSizeForm(false, false);
 
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
