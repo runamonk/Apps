@@ -384,13 +384,9 @@ namespace Apps
             {
                 if (Opacity > 0)
                 {
-                    Opacity = 0;
-                                        
+                    Opacity = 0;                                       
                     if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
                         Apps.LoadItems();
-
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
                 }
                 else
                 {
@@ -398,7 +394,6 @@ namespace Apps
                     if (Config.OpenFormAtCursor)
                         Funcs.MoveFormToCursor(this, false);
                     Opacity = 100;
-
                     Activate();
                 }
             }

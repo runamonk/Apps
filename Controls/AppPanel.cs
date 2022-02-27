@@ -393,9 +393,6 @@ namespace Apps.Controls
                 }
                 f.Dispose();
             }
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
             EndUpdate();
             InMenu = false;
         }
