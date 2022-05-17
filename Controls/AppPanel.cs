@@ -111,7 +111,7 @@ namespace Apps.Controls
         #endregion
 
         #region EventHandlers
-        public delegate void AppAddedHandler();
+        public delegate void AppAddedHandler(AppButton App);
         public event AppAddedHandler OnAppAdded;
 
         public delegate void AppClickedHandler();
@@ -444,6 +444,13 @@ namespace Apps.Controls
             b.Padding = new Padding(0, 0, 0, 0);
             b.Margin = new Padding(0, 0, 0, 0);
             b.TabStop = false;
+            // hide the button when it's added intitially, this way the hidden scrollbars don't flash visible/invisible.
+            // button is set back to visible in the AppAdded event in the main form. It's done this way because the form
+            // is automatically resized based on the number of buttons.
+            // Also we don't want to see a newly created (blank) button popup in the AppPanel.
+            if (!InLoad)
+                b.Visible = false;
+
             if (AddTo is AppCache cache)
                 cache.Insert(0, b);
             else
@@ -487,7 +494,7 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
-                OnAppAdded?.Invoke();
+                OnAppAdded?.Invoke(appButton);
         }
         public void AddFolder(AppButton appButton, int AddAtIndex)
         {
@@ -507,7 +514,7 @@ namespace Apps.Controls
             AddToFolderCache(appButton.AppId);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
-                OnAppAdded?.Invoke();
+                OnAppAdded?.Invoke(appButton);
         }
         private void AddItems(XmlNode Nodes)
         {
@@ -541,7 +548,7 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
-                OnAppAdded?.Invoke();
+                OnAppAdded?.Invoke(appButton);
         }
         public void AddSeparator(int AddAtIndex)
         {
@@ -561,7 +568,7 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
-                OnAppAdded?.Invoke();
+                OnAppAdded?.Invoke(appButton);
         }
         private AppCache AddToFolderCache(string id)
         {
@@ -594,7 +601,7 @@ namespace Apps.Controls
             AddToFolderCache(appButton.AppId);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             if (!InLoad)
-                OnAppAdded?.Invoke();
+                OnAppAdded?.Invoke(appButton);
         }
         public void BeginUpdate()
         {
@@ -863,7 +870,7 @@ namespace Apps.Controls
 
             SaveXML();
 
-            OnAppAdded?.Invoke();
+            OnAppAdded?.Invoke(null);
             EndUpdate();
         }
         private void MoveButtonInto(AppButton FromButton, AppButton ToButton)

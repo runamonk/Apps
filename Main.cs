@@ -75,9 +75,11 @@ namespace Apps
             LoadConfig();
         }
 
-        private void AppAdded()
+        private void AppAdded(AppButton App)
         {
             AutoSizeForm(true, true);
+            if (App != null)
+                App.Visible = true;
         }
 
         private void AppClicked()
@@ -255,10 +257,13 @@ namespace Apps
             if ((ScrollToTop) && (Apps.Controls.Count > 0))
                 Apps.Controls[Apps.Controls.Count-1].Select();
 
+            Point p = new Point(Cursor.Position.X, Cursor.Position.Y);         
+            Rectangle workingArea = Screen.GetWorkingArea(p);
+
             //Height
-            if ((this.Top + this.Size.Height) > Screen.PrimaryScreen.WorkingArea.Height)
+            if ((this.Top + this.Size.Height) > workingArea.Bottom)
             {              
-                this.Top -= ((this.Top + this.Size.Height) - Screen.PrimaryScreen.WorkingArea.Height);
+                this.Top -= ((this.Top + this.Size.Height) - workingArea.Bottom);
             }
         }
 
