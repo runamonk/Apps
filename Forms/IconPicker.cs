@@ -77,10 +77,12 @@ namespace Apps.Forms
                     
                 idx++;
             }
-
-            Icons.EndUpdate();
-            Icons.Items[0].Selected = true;
-            Icons.Select();           
+            if (Icons.Items.Count > 0)
+            {
+                Icons.EndUpdate();
+                Icons.Items[0].Selected = true;
+                Icons.Select();
+            }
         }
         private void MoveButtons()
         {
