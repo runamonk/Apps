@@ -1,17 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using Utility;
 using Apps.Forms;
 using System.Collections.Generic;
-using System.Windows;
 using Microsoft.WindowsAPICodePack.Shell;
-using System.Diagnostics;
 
 namespace Apps.Controls
 {
@@ -122,6 +117,10 @@ namespace Apps.Controls
 
         public delegate void AppsLoadedHandler();
         public event AppsLoadedHandler OnAppsLoaded;
+        
+        public delegate void AppsLoadingHandler();
+        public event AppsLoadingHandler OnAppsLoading;
+        
         #endregion
 
         #region Events
@@ -787,6 +786,7 @@ namespace Apps.Controls
         private void LoadFolder(AppButton appButton)
         {
             InLoad = true;
+            OnAppsLoading?.Invoke();
             BeginUpdate();
             MoveToCache();
             CurrentParentNode = appButton.Node;
@@ -799,6 +799,7 @@ namespace Apps.Controls
         {
             BeginUpdate();
             InLoad = true;
+            OnAppsLoading?.Invoke();
             bool doLoad = false;
 
             if (CurrentParentNode != null)

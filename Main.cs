@@ -98,7 +98,12 @@ namespace Apps
             BackButton.Visible = (Apps.InAFolder);
             AutoSizeForm(true, true);            
         }
-
+        
+        private void AppsLoading()
+        {
+            Apps.AutoScroll = false;
+        }
+        
         private void Main_Deactivate(object sender, EventArgs e)
         {
             if (Opacity > 0)
@@ -245,13 +250,6 @@ namespace Apps
                 else
                     Height = MaximumSize.Height;
             }
-            // This is way too klunky and ends up shifting up and down all over the place.
-
-            //if (MoveTopToCursor)
-            //{
-            //    Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
-            //    this.Top = p.Y-66;
-            //}
 
             // select the first control.
             if ((ScrollToTop) && (Apps.Controls.Count > 0))
@@ -265,6 +263,8 @@ namespace Apps
             {              
                 this.Top -= ((this.Top + this.Size.Height) - workingArea.Bottom);
             }
+
+            Apps.AutoScroll = true;
         }
 
         private void LoadConfig()
@@ -341,10 +341,11 @@ namespace Apps
                 notifyApps.ContextMenuStrip = MenuMain;
 
                 Apps = new AppPanel(Config);
-                Apps.OnAppClicked += new AppPanel.AppClickedHandler(AppClicked);
-                Apps.OnAppAdded += new AppPanel.AppAddedHandler(AppAdded);
-                Apps.OnAppDeleted += new AppPanel.AppDeletedHandler(AppDeleted);
-                Apps.OnAppsLoaded += new AppPanel.AppsLoadedHandler(AppsLoaded);
+                Apps.OnAppClicked += AppClicked;
+                Apps.OnAppAdded += AppAdded;
+                Apps.OnAppDeleted += AppDeleted;
+                Apps.OnAppsLoading += AppsLoading;
+                Apps.OnAppsLoaded += AppsLoaded;
                 Apps.Parent = pMain;
                 Apps.Dock = DockStyle.Fill;
                 SetFormPos();
