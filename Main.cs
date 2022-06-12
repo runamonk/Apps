@@ -75,35 +75,18 @@ namespace Apps
             LoadConfig();
         }
 
-        private void AppAdded(AppButton App)
-        {
-            AutoSizeForm(true, true);
-            if (App != null)
-                App.Visible = true;
-        }
-
         private void AppClicked()
         {
             ToggleShow(true);
         }
 
-        private void AppDeleted()
-        {
-            AutoSizeForm(false, true);
-        }
-
-        private void AppsLoaded()
+        private void AppsChanged()
         {
             SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
-            AutoSizeForm(true, true);            
+            AutoSizeForm(false, true);
         }
-        
-        private void AppsLoading()
-        {
-            Apps.AutoScroll = false;
-        }
-        
+       
         private void Main_Deactivate(object sender, EventArgs e)
         {
             if (Opacity > 0)
@@ -235,8 +218,6 @@ namespace Apps
         #region Methods     
         private void AutoSizeForm(bool ScrollToTop, bool MoveTopToCursor = false)
         {
-            if (Apps.InLoad) return;
-
             if (Config.AutoSizeHeight)
             {
                 int c = 66;
@@ -260,11 +241,9 @@ namespace Apps
 
             //Height
             if ((this.Top + this.Size.Height) > workingArea.Bottom)
-            {              
+            {
                 this.Top -= ((this.Top + this.Size.Height) - workingArea.Bottom);
             }
-
-            Apps.AutoScroll = true;
         }
 
         private void LoadConfig()
@@ -342,10 +321,7 @@ namespace Apps
 
                 Apps = new AppPanel(Config);
                 Apps.OnAppClicked += AppClicked;
-                Apps.OnAppAdded += AppAdded;
-                Apps.OnAppDeleted += AppDeleted;
-                Apps.OnAppsLoading += AppsLoading;
-                Apps.OnAppsLoaded += AppsLoaded;
+                Apps.OnAppsChanged += AppsChanged;
                 Apps.Parent = pMain;
                 Apps.Dock = DockStyle.Fill;
                 SetFormPos();
