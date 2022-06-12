@@ -599,7 +599,8 @@ namespace Apps.Controls
         public void BeginUpdate()
         {
             BeginUpdateCounter++;
-            Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
+            SuspendLayout();
+            //Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
             AutoScroll = false;
         }
         private void DoExternalDropTo(AppButton ToAppButton, DragEventArgs e)
@@ -688,10 +689,11 @@ namespace Apps.Controls
             BeginUpdateCounter--;
             if (BeginUpdateCounter == 0)
             {
-                Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
+                ResumeLayout();
+                //Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
                 if (!InLoad)
                     OnAppsChanged?.Invoke();
-                this.Refresh();
+                //this.Refresh();
                 AutoScroll = true;
             }
         }
