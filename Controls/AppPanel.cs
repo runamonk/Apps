@@ -688,11 +688,11 @@ namespace Apps.Controls
             BeginUpdateCounter--;
             if (BeginUpdateCounter == 0)
             {
+                Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
                 if (!InLoad)
                     OnAppsChanged?.Invoke();
-                Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
-                AutoScroll = true;
                 this.Refresh();
+                AutoScroll = true;
             }
         }
         private AppButton GetAppButton(object sender)
