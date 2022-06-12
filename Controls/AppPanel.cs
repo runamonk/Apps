@@ -60,7 +60,7 @@ namespace Apps.Controls
             }
         }
         public bool InMenu { get; set; }
-        public bool InLoad { get; set; }
+        private bool InLoad { get; set; }
         public bool InAFolder
         {
             get {
@@ -106,21 +106,10 @@ namespace Apps.Controls
         #endregion
 
         #region EventHandlers
-        public delegate void AppAddedHandler(AppButton App);
-        public event AppAddedHandler OnAppAdded;
-
         public delegate void AppClickedHandler();
         public event AppClickedHandler OnAppClicked;
-
-        public delegate void AppDeletedHandler();
-        public event AppDeletedHandler OnAppDeleted;
-
-        public delegate void AppsLoadedHandler();
-        public event AppsLoadedHandler OnAppsLoaded;
-        
-        public delegate void AppsLoadingHandler();
-        public event AppsLoadingHandler OnAppsLoading;
-        
+        public delegate void AppsChangedHandler();
+        public event AppsChangedHandler OnAppsChanged;
         #endregion
 
         #region Events
@@ -194,7 +183,7 @@ namespace Apps.Controls
                 Controls.Remove(b);
                 b.Dispose();
             }
-
+            b.Visible = true;
             InMenu = false;
         }
         private void MenuAddFolder_Click(object sender, EventArgs e)
@@ -222,6 +211,7 @@ namespace Apps.Controls
                 appButton.Dispose();
             }
             EndUpdate();
+            appButton.Visible = true;
             InMenu = false;
         }
         private void MenuAddFolderLink_Click(object sender, EventArgs e)
@@ -249,6 +239,7 @@ namespace Apps.Controls
             }
 
             EndUpdate();
+            appButton.Visible = true;
             InMenu = false;
         }
         private void MenuAddSeparator_Click(object sender, EventArgs e)
@@ -319,7 +310,7 @@ namespace Apps.Controls
                 Controls.Remove(b);
                 // Cleanup cache?
                 SaveXML();
-                OnAppDeleted?.Invoke();
+                OnAppsChanged?.Invoke();
             }
             InMenu = false;
         }
@@ -404,7 +395,6 @@ namespace Apps.Controls
             MoveToCache(b, GetAttrib(pn, "id"));
             SaveXML();
             EndUpdate();
-            OnAppDeleted?.Invoke();
         }
         private void Menu_Opening(object sender, CancelEventArgs e)
         {
@@ -461,6 +451,7 @@ namespace Apps.Controls
         }
         public void AddApp(AppButton appButton, int AddAtIndex)
         {
+            BeginUpdate();
             if (string.IsNullOrEmpty(appButton.AppId))
                 appButton.AppId = Guid.NewGuid().ToString();
 
@@ -492,11 +483,12 @@ namespace Apps.Controls
 
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
-            if (!InLoad)
-                OnAppAdded?.Invoke(appButton);
+            appButton.Visible = true;
+            EndUpdate();
         }
         public void AddFolder(AppButton appButton, int AddAtIndex)
         {
+            BeginUpdate();
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
             XmlNode nodeSib = ((AppButton)Controls[AddAtIndex]).Node;
@@ -511,9 +503,8 @@ namespace Apps.Controls
 
             SetButtonDetails(appButton);
             AddToFolderCache(appButton.AppId);
-            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
-            if (!InLoad)
-                OnAppAdded?.Invoke(appButton);
+            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.#
+            EndUpdate();
         }
         private void AddItems(XmlNode Nodes)
         {
@@ -530,6 +521,7 @@ namespace Apps.Controls
         }
         public void AddFolderLink(AppButton appButton, int AddAtIndex)
         {
+            BeginUpdate();
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
 
@@ -546,11 +538,12 @@ namespace Apps.Controls
             SaveXML();
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
-            if (!InLoad)
-                OnAppAdded?.Invoke(appButton);
+            appButton.Visible = true;
+            EndUpdate();
         }
         public void AddSeparator(int AddAtIndex)
         {
+            BeginUpdate();
             AppButton appButton = AddAppButton(ButtonType.Separator, Controls);
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
@@ -566,8 +559,8 @@ namespace Apps.Controls
             SaveXML();
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
-            if (!InLoad)
-                OnAppAdded?.Invoke(appButton);
+            appButton.Visible = true;
+            EndUpdate();
         }
         private AppCache AddToFolderCache(string id)
         {
@@ -582,6 +575,7 @@ namespace Apps.Controls
         }
         private void AddUrl(AppButton appButton, int AddAtIndex)
         {            
+            BeginUpdate();
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
             XmlNode nodeSib = ((AppButton)Controls[AddAtIndex]).Node;
@@ -599,13 +593,14 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             AddToFolderCache(appButton.AppId);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
-            if (!InLoad)
-                OnAppAdded?.Invoke(appButton);
+            appButton.Visible = true;
+            EndUpdate();
         }
         public void BeginUpdate()
         {
             BeginUpdateCounter++;
             Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
+            AutoScroll = false;
         }
         private void DoExternalDropTo(AppButton ToAppButton, DragEventArgs e)
         {           
@@ -693,7 +688,10 @@ namespace Apps.Controls
             BeginUpdateCounter--;
             if (BeginUpdateCounter == 0)
             {
+                if (!InLoad)
+                    OnAppsChanged?.Invoke();
                 Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
+                AutoScroll = true;
                 this.Refresh();
             }
         }
@@ -785,21 +783,16 @@ namespace Apps.Controls
         }
         private void LoadFolder(AppButton appButton)
         {
-            InLoad = true;
-            OnAppsLoading?.Invoke();
             BeginUpdate();
             MoveToCache();
             CurrentParentNode = appButton.Node;
             AddItems(CurrentParentNode);
             EndUpdate();
-            InLoad = false;
-            OnAppsLoaded?.Invoke();
         }
         public void LoadItems()
         {
             BeginUpdate();
             InLoad = true;
-            OnAppsLoading?.Invoke();
             bool doLoad = false;
 
             if (CurrentParentNode != null)
@@ -833,7 +826,6 @@ namespace Apps.Controls
 
             InLoad = false;
             EndUpdate();
-            OnAppsLoaded?.Invoke();
         }
         private AppButton LookupFolderButton(string id)
         {
@@ -870,8 +862,6 @@ namespace Apps.Controls
             }
 
             SaveXML();
-
-            OnAppAdded?.Invoke(null);
             EndUpdate();
         }
         private void MoveButtonInto(AppButton FromButton, AppButton ToButton)
@@ -882,7 +872,6 @@ namespace Apps.Controls
             MoveToCache(FromButton, GetAttrib(ParentNode, "id"));
             SaveXML();
             EndUpdate();
-            OnAppDeleted?.Invoke();
         }
         private void MoveToCache()
         {
