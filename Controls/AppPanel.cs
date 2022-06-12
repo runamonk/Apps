@@ -511,12 +511,8 @@ namespace Apps.Controls
             string id = GetAttrib(Nodes, "id");
             if (id == "")
                 id = GetRootId;
-
             AppCache ac = FolderCache.Find(x => x.FolderId == id);
-            foreach (Control c in ac)
-            {
-                Controls.Add(c);
-            }
+            Controls.AddRange(ac.ToArray());
             ac.Clear();
         }
         public void AddFolderLink(AppButton appButton, int AddAtIndex)
@@ -629,6 +625,7 @@ namespace Apps.Controls
                 var ShellObj = ShellObjectCollection.FromDataObject((System.Runtime.InteropServices.ComTypes.IDataObject)e.Data);
                 if (ShellObj.Count > 0)
                 {
+                    BeginUpdate();
                     foreach (ShellObject shellFile in ShellObj)
                     {
                         // File or Folder?
@@ -656,7 +653,8 @@ namespace Apps.Controls
                             b.FileName = "shell:AppsFolder\\" + getAppFileName(shellFile.ParsingName);
                             AddApp(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
                         }
-                    } 
+                    }
+                    EndUpdate();
                 }
                 else
                 {
