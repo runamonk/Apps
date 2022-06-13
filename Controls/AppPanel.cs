@@ -287,7 +287,7 @@ namespace Apps.Controls
         {
             InMenu = true;
             AppButton b = GetAppButton(sender);
-
+            
             string s = "";
             if (b.IsAppButton)
                 s = "application?";
@@ -305,12 +305,13 @@ namespace Apps.Controls
 
             if (CanDelete)
             {
+                BeginUpdate();
                 XmlNode parentNode = b.Node.ParentNode;
                 parentNode.RemoveChild(b.Node);
                 Controls.Remove(b);
                 // Cleanup cache?
                 SaveXML();
-                OnAppsChanged?.Invoke();
+                EndUpdate();
             }
             InMenu = false;
         }
@@ -660,13 +661,13 @@ namespace Apps.Controls
                 {
                     // Right now windows 11 start menu actually passes no data. what a pos.
 
-                    //if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                    //{
-                    //    string[] fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                    //    if ((fileNames != null) && (fileNames.Count() > 0))
-                    //        AddFiles(fileNames, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
-                    //}
+                    // if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                    // {
+                    //     string[] fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    //
+                    //     if ((fileNames != null) && (fileNames.Count() > 0))
+                    //         AddFiles(fileNames, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                    // }
                 }
             }
             else
