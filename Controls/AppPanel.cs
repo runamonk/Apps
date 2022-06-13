@@ -452,7 +452,6 @@ namespace Apps.Controls
         }
         public void AddApp(AppButton appButton, int AddAtIndex)
         {
-            BeginUpdate();
             if (string.IsNullOrEmpty(appButton.AppId))
                 appButton.AppId = Guid.NewGuid().ToString();
 
@@ -485,11 +484,9 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             appButton.Visible = true;
-            EndUpdate();
         }
         public void AddFolder(AppButton appButton, int AddAtIndex)
         {
-            BeginUpdate();
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
             XmlNode nodeSib = ((AppButton)Controls[AddAtIndex]).Node;
@@ -504,8 +501,7 @@ namespace Apps.Controls
 
             SetButtonDetails(appButton);
             AddToFolderCache(appButton.AppId);
-            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.#
-            EndUpdate();
+            Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
         }
         private void AddItems(XmlNode Nodes)
         {
@@ -518,7 +514,6 @@ namespace Apps.Controls
         }
         public void AddFolderLink(AppButton appButton, int AddAtIndex)
         {
-            BeginUpdate();
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
 
@@ -536,7 +531,6 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             appButton.Visible = true;
-            EndUpdate();
         }
         public void AddSeparator(int AddAtIndex)
         {
@@ -571,8 +565,7 @@ namespace Apps.Controls
                 return f;
         }
         private void AddUrl(AppButton appButton, int AddAtIndex)
-        {            
-            BeginUpdate();
+        {
             appButton.AppId = Guid.NewGuid().ToString();
             appButton.Node = AppsXml.CreateNode(XmlNodeType.Element, "APP", null);
             XmlNode nodeSib = ((AppButton)Controls[AddAtIndex]).Node;
@@ -591,13 +584,11 @@ namespace Apps.Controls
             AddToFolderCache(appButton.AppId);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             appButton.Visible = true;
-            EndUpdate();
         }
         public void BeginUpdate()
         {
             BeginUpdateCounter++;
-            SuspendLayout();
-            //Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
+            Funcs.SendMessage(this.Handle, WM_SETREDRAW, false, 0);
             AutoScroll = false;
         }
         private void DoExternalDropTo(AppButton ToAppButton, DragEventArgs e)
@@ -689,10 +680,10 @@ namespace Apps.Controls
             if (BeginUpdateCounter == 0)
             {
                 ResumeLayout();
-                //Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
+                Funcs.SendMessage(this.Handle, WM_SETREDRAW, true, 0);
                 if (!InLoad)
                     OnAppsChanged?.Invoke();
-                //this.Refresh();
+                this.Refresh();
                 AutoScroll = true;
             }
         }
