@@ -484,6 +484,7 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             appButton.Visible = true;
+            OnAppsChanged?.Invoke();
         }
         public void AddFolder(AppButton appButton, int AddAtIndex)
         {
@@ -650,15 +651,7 @@ namespace Apps.Controls
                 }
                 else
                 {
-                    // Right now windows 11 start menu actually passes no data. what a pos.
 
-                    // if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                    // {
-                    //     string[] fileNames = (string[])e.Data.GetData(DataFormats.FileDrop);
-                    //
-                    //     if ((fileNames != null) && (fileNames.Count() > 0))
-                    //         AddFiles(fileNames, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
-                    // }
                 }
             }
             else
