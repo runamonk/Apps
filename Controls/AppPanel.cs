@@ -484,7 +484,8 @@ namespace Apps.Controls
             SetButtonDetails(appButton);
             Controls.SetChildIndex(appButton, AddAtIndex); // move button where we want it.
             appButton.Visible = true;
-            OnAppsChanged?.Invoke();
+            if (!InLoad)
+                OnAppsChanged?.Invoke();
         }
         public void AddFolder(AppButton appButton, int AddAtIndex)
         {
@@ -651,7 +652,8 @@ namespace Apps.Controls
                 }
                 else
                 {
-
+                    // some apps from the new windows 11 start menu come through blank.
+                    
                 }
             }
             else
