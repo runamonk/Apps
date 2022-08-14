@@ -137,7 +137,7 @@ namespace Apps.Forms
             string fileName = Funcs.BrowseForFile();
             if (fileName != "")
             {
-                if (AppsConfig.ParseShortcuts && Funcs.IsShortcut(fileName))
+                if (AppsConfig.ParseShortcuts && Misc.IsShortcut(fileName))
                 {
                     EditAppFilePath.Text = fileName;
                     ButtonParseShortcut.PerformClick();
@@ -162,7 +162,7 @@ namespace Apps.Forms
         }
         private void ButtonParseShortcut_Click(object sender, EventArgs e)
         {
-            Funcs.ParseShortcut(EditAppFilePath.Text, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWF);
+            Misc.ParseShortcut(EditAppFilePath.Text, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWF);
             if (EditAppName.Text == "")
                 EditAppName.Text = Path.GetFileName(fileName);
             EditAppFilePath.Text = fileName;
@@ -174,7 +174,7 @@ namespace Apps.Forms
         }
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
-            ButtonParseShortcut.Enabled = Funcs.IsShortcut(EditAppFilePath.Text);
+            ButtonParseShortcut.Enabled = Misc.IsShortcut(EditAppFilePath.Text);
             bool IsShellApp = EditAppFilePath.Text.StartsWith(IconFuncs.SHELL_APP_PREFIX);
             EditWorkingFolder.Enabled = !IsShellApp;
             EditAppFilePath.Enabled = !IsShellApp;

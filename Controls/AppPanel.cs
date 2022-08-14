@@ -459,7 +459,7 @@ namespace Apps.Controls
             {
                 XmlNode nodeSib = ((AppButton)Controls[AddAtIndex]).Node;
 
-                if ((AppsConfig.ParseShortcuts) && Funcs.IsShortcut(appButton.FileName))
+                if ((AppsConfig.ParseShortcuts) && Misc.IsShortcut(appButton.FileName))
                 {
                     appButton.AppName = Path.GetFileNameWithoutExtension(appButton.FileName);
                     appButton.ParseShortcut();

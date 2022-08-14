@@ -337,7 +337,7 @@ namespace Apps
         public void ParseShortcut()
         {
 
-            Funcs.ParseShortcut(FileName, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWF);
+            Misc.ParseShortcut(FileName, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWF);
             FFileName = fileName;
             FileIconPath = fileIcon;
             FileIconIndex = fileIconIdx;
