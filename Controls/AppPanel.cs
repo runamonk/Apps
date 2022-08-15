@@ -613,6 +613,19 @@ namespace Apps.Controls
                 }
                 return s;
             }
+
+            if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                string s = e.Data.GetData(DataFormats.Text).ToString();
+                if (Funcs.IsUrl(s))
+                {
+                    AppButton b = AddAppButton(ButtonType.Url, Controls);
+                    b.AppName = s;
+                    b.Url = s;
+                    AddUrl(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
+                }
+            }
+            else
             // shell object?
             if (e.Data is System.Runtime.InteropServices.ComTypes.IDataObject)
             {
@@ -654,18 +667,6 @@ namespace Apps.Controls
                 {
                     // some apps from the new windows 11 start menu come through blank.
                     
-                }
-            }
-            else
-            if (e.Data.GetDataPresent(DataFormats.Text))
-            {
-                string s = e.Data.GetData(DataFormats.Text).ToString();
-                if (Funcs.IsUrl(s))
-                {
-                    AppButton b = AddAppButton(ButtonType.Url, Controls);
-                    b.AppName = s;
-                    b.Url = s;
-                    AddUrl(b, (ToAppButton == null ? 0 : Controls.GetChildIndex(ToAppButton)));
                 }
             }
         }
