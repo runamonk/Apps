@@ -360,7 +360,7 @@ namespace Apps
 
         private void ToggleShow(bool Override = false)
         {
-            if ((pinned) || (!Override) && (inClose || inAbout || Apps.InMenu || inMenu || inSettings))
+            if ((pinned || Apps.InLoad) || (!Override) && (inClose || inAbout || Apps.InMenu || inMenu || inSettings))
                 return;
             else
             {

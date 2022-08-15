@@ -60,7 +60,7 @@ namespace Apps.Controls
             }
         }
         public bool InMenu { get; set; }
-        private bool InLoad { get; set; }
+        public bool InLoad { get; set; }
         public bool InAFolder
         {
             get {
