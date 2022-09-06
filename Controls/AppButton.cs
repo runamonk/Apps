@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using Icons;
+using System.Threading;
 
 namespace Apps
 {
@@ -278,7 +279,7 @@ namespace Apps
         private const string ICON_FOLDER = "\uE188";
         private const string ICON_FOLDER_W7 = "\u25B7";
         private const string ICON_FOLDER_LINK = "\u25CF";
-        private readonly Timer MissingIconTimer = new Timer();
+        private readonly System.Windows.Forms.Timer MissingIconTimer = new System.Windows.Forms.Timer();
         #endregion
 
         #region Events
@@ -424,7 +425,12 @@ namespace Apps
                         // run as administrator
                         if ((Control.ModifierKeys == Keys.Shift) || (AsAdmin == "Y"))
                             procStartInfo.Verb = "runas";
-                        Process.Start(procStartInfo);
+                        
+                        // start process in it's own background thread.
+                        ThreadPool.QueueUserWorkItem(delegate {
+                            Process process = Process.Start(procStartInfo);
+                        });
+
                     }
                     catch (Exception error)
                     {                      
