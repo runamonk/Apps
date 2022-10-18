@@ -40,7 +40,7 @@
             this.notifyApps.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyApps.Icon")));
             this.notifyApps.Text = "zuul Apps";
             this.notifyApps.Visible = true;
-            this.notifyApps.DoubleClick += new System.EventHandler(this.NotifyApps_DoubleClick);
+            this.notifyApps.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyApps_MouseDoubleClick);
             // 
             // pTop
             // 

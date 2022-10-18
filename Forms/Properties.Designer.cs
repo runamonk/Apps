@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.PanelBack = new System.Windows.Forms.Panel();
             this.PanelRight = new System.Windows.Forms.Panel();
-            this.btnTest = new System.Windows.Forms.Button();
             this.chkAsAdmin = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ArgsLabel = new System.Windows.Forms.Label();
@@ -64,7 +63,6 @@
             // 
             // PanelRight
             // 
-            this.PanelRight.Controls.Add(this.btnTest);
             this.PanelRight.Controls.Add(this.chkAsAdmin);
             this.PanelRight.Controls.Add(this.label1);
             this.PanelRight.Controls.Add(this.ArgsLabel);
@@ -85,17 +83,6 @@
             this.PanelRight.Name = "PanelRight";
             this.PanelRight.Size = new System.Drawing.Size(419, 192);
             this.PanelRight.TabIndex = 13;
-            // 
-            // btnTest
-            // 
-            this.btnTest.Location = new System.Drawing.Point(315, 159);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(54, 23);
-            this.btnTest.TabIndex = 27;
-            this.btnTest.Text = "Test";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Visible = false;
-            this.btnTest.Click += new System.EventHandler(this.button1_Click);
             // 
             // chkAsAdmin
             // 
@@ -310,6 +297,5 @@
         private System.Windows.Forms.Label PathLabel;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.CheckBox chkAsAdmin;
-        private System.Windows.Forms.Button btnTest;
     }
 }

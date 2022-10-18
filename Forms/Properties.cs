@@ -1,14 +1,11 @@
 ﻿using Apps.Controls;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Utility;
 using Icons;
-using Microsoft.WindowsAPICodePack.Shell;
+
 
 namespace Apps.Forms
 {
@@ -238,20 +235,5 @@ namespace Apps.Forms
         }
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // GUID taken from https://docs.microsoft.com/en-us/windows/win32/shell/knownfolderid
-            var FODLERID_AppsFolder = new Guid("{1e87508d-89c2-42f0-8a7e-645a0f50ca58}");
-            ShellObject appsFolder = (ShellObject)KnownFolderHelper.FromKnownFolderId(FODLERID_AppsFolder);
-
-            foreach (var app in (IKnownFolder)appsFolder)
-            {
-                string name = app.Name;
-                // The ParsingName property is the AppUserModelID
-                string appUserModelID = app.ParsingName; // or app.Properties.System.AppUserModel.ID
-                Console.WriteLine(appUserModelID);
-                //ImageSource icon = app.Thumbnail.MediumBitmapSource;
-            }
-        }
     }
 }

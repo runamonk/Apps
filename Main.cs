@@ -178,11 +178,6 @@ namespace Apps
             }
         }
 
-        private void NotifyApps_DoubleClick(object sender, EventArgs e)
-        {
-            ToggleShow(false);
-        }
-
         private void PTop_MouseDown(object sender, MouseEventArgs e)
         {
             // drag form.
@@ -204,6 +199,12 @@ namespace Apps
             else
                 base.OnLoad(e);
         }
+
+        private void notifyApps_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ToggleShow(false);
+        }
+
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
