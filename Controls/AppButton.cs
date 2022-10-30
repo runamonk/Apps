@@ -418,6 +418,7 @@ namespace Apps
                             procStartInfo = new ProcessStartInfo(Url, FileArgs); // Let user specify a specific app to pass urls too?
                         else
                             procStartInfo = new ProcessStartInfo(FileName, FileArgs);
+
                         if (string.IsNullOrEmpty(FileWorkingFolder))
                             FileWorkingFolder = Path.GetDirectoryName(FileName);
                         procStartInfo.WorkingDirectory = FileWorkingFolder;
@@ -427,9 +428,16 @@ namespace Apps
                             procStartInfo.Verb = "runas";
                         
                         // start process in it's own background thread.
-                        ThreadPool.QueueUserWorkItem(delegate {
-                            Process process = Process.Start(procStartInfo);
-                        });
+                        //ThreadPool.QueueUserWorkItem(delegate {
+                        //    try
+                        //    {
+                                Process process = Process.Start(procStartInfo);
+                        //    }
+                        //    catch (Exception error)
+                        //    {
+
+                        //    }
+                        //});
 
                     }
                     catch (Exception error)
