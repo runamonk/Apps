@@ -91,12 +91,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Shared\Icons.cs">
-      <Link>Icons.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\Utility.cs">
-      <Link>Utility.cs</Link>
-    </Compile>
     <Compile Include="Controls\AppButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,6 +159,7 @@
     <Compile Include="Forms\WebLink.Designer.cs">
       <DependentUpon>WebLink.cs</DependentUpon>
     </Compile>
+    <Compile Include="Icons.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +169,7 @@
     <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility.cs" />
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
