@@ -10,6 +10,10 @@ using System.Reflection;
 using Apps.Controls;
 using Apps.Forms;
 using System.IO;
+using System.Security.Cryptography;
+using System.Threading;
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices.ComTypes;
 
 #region Todo
 
@@ -24,11 +28,15 @@ namespace Apps
             InitializeComponent();
         }
 
-        #region Hotkey
+        #region Imports
         [DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        [DllImport("user32.dll")]
+        static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
         #endregion
 
         #region Allow form to be dragged. 
@@ -57,6 +65,9 @@ namespace Apps
         private bool inMenu = false;
         private bool inSettings = false;
         private bool pinned = false;
+        private bool monitorWindows = false;
+        private bool hotkeyEnabled = false;
+
         private readonly int HotkeyId = Funcs.RandomNumber();
 
         private const string ICON_PINNED_W7 = "\u25FC";
@@ -67,9 +78,13 @@ namespace Apps
         private const string ICON_MAINMENU_W7 = "\u268A";
         private const string ICON_BACK = "\uE197"; //"\uE08E";
         private const string ICON_BACK_W7 = "\u25C1";
+
+        private Thread monitorWindowThread;
+
         #endregion
 
         #region Events
+
         private void ConfigChanged(object sender, EventArgs e)
         {
             LoadConfig();
@@ -86,7 +101,7 @@ namespace Apps
             BackButton.Visible = (Apps.InAFolder);
             AutoSizeForm(false, true);
         }
-       
+
         private void Main_Deactivate(object sender, EventArgs e)
         {
             if (Opacity > 0)
@@ -190,7 +205,7 @@ namespace Apps
 
         protected override void OnLoad(EventArgs e)
         {
-            
+
             if (RunningInstance() != null)
             {
                 MessageBox.Show("There is already a version of zuulApps running.");
@@ -205,7 +220,6 @@ namespace Apps
             ToggleShow(false);
         }
 
-
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             if (m.Msg == 0x0312) //WM_HOTKEY
@@ -214,6 +228,7 @@ namespace Apps
             }
             base.WndProc(ref m);
         }
+
         #endregion
 
         #region Methods     
@@ -228,16 +243,16 @@ namespace Apps
                 }
 
                 if (c < MaximumSize.Height)
-                    Height = c; 
+                    Height = c;
                 else
                     Height = MaximumSize.Height;
             }
 
             // select the first control.
             if ((ScrollToTop) && (Apps.Controls.Count > 0))
-                Apps.Controls[Apps.Controls.Count-1].Select();
+                Apps.Controls[Apps.Controls.Count - 1].Select();
 
-            Point p = new Point(Cursor.Position.X, Cursor.Position.Y);         
+            Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
             Rectangle workingArea = Screen.GetWorkingArea(p);
 
             //Height
@@ -253,7 +268,7 @@ namespace Apps
             {
                 Config = new Config();
                 Config.ConfigChanged += new EventHandler(ConfigChanged);
-                MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width,Screen.PrimaryScreen.WorkingArea.Height);
+                MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
                 MenuMain = new AppMenu(Config);
                 MenuMain.Opening += new System.ComponentModel.CancelEventHandler(MenuApps_Opening);
                 MenuMain.Closed += new ToolStripDropDownClosedEventHandler(MenuApps_Closed);
@@ -271,14 +286,14 @@ namespace Apps
                     Dock = DockStyle.Left
                 };
                 MenuMainButton.Width = MenuMainButton.Height;
-                MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);             
+                MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
                 MenuMainButton.AppName = (Funcs.IsWindows7() ? ICON_MAINMENU_W7 : ICON_MAINMENU);
                 MenuMainButton.Click += MainButton_Click;
-                MenuMainButton.Padding = new Padding(0,0,0,0);
-                MenuMainButton.Margin = new Padding(0,0,0,0);
-               
+                MenuMainButton.Padding = new Padding(0, 0, 0, 0);
+                MenuMainButton.Margin = new Padding(0, 0, 0, 0);
+
                 BackButton = new AppButton(Config, ButtonType.Back)
-                {                   
+                {
                     Parent = pTop,
                     Dock = DockStyle.Left,
                     Visible = false
@@ -316,8 +331,8 @@ namespace Apps
                 PinButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
                 PinButton.AppName = (Funcs.IsWindows7() ? ICON_UNPINNED_W7 : ICON_UNPINNED);
                 PinButton.Click += PinButton_Click;
-                PinButton.Padding = new Padding(0,0,0,0);
-                PinButton.Margin = new Padding(0,0,0,0);
+                PinButton.Padding = new Padding(0, 0, 0, 0);
+                PinButton.Margin = new Padding(0, 0, 0, 0);
                 notifyApps.ContextMenuStrip = MenuMain;
 
                 Apps = new AppPanel(Config);
@@ -334,9 +349,65 @@ namespace Apps
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
             SubfolderName.ForeColor = Config.MenuFontColor;
-            RegisterHotKey(this.Handle, HotkeyId, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
+            EnableHotkey();
+            MonitorWindowChanges();
         }
-        
+
+        public void EnableHotkey()
+        {
+            if (Config.PopupHotkey == "")
+            {
+                hotkeyEnabled = false;
+            }
+            else
+            if (hotkeyEnabled == false)
+            {
+                hotkeyEnabled = true;
+                RegisterHotKey(this.Handle, HotkeyId, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
+            }            
+        }
+
+        public void DisableHotkey()
+        {
+            if (hotkeyEnabled)
+            {
+                hotkeyEnabled = false;
+                UnregisterHotKey(this.Handle, HotkeyId);
+            }
+        }
+
+        private void MonitorWindowChanges()
+        {
+            void CheckForegroundWindow()
+            {
+                void WindowChanged(IntPtr handle)
+                {
+                    uint pid;
+
+                    GetWindowThreadProcessId(handle, out pid);
+                    Process p = Process.GetProcessById((int)pid);
+
+                    if (p.MainWindowTitle.Contains("VMWare"))
+                    {
+                        DisableHotkey();
+                    }
+                    else
+                        EnableHotkey();
+                    p.Dispose();                    
+                }
+
+                while (monitorWindows)
+                {
+                    this.Invoke((MethodInvoker)delegate { WindowChanged(GetForegroundWindow()); });
+                    Thread.Sleep(100);
+                }
+            }
+
+            monitorWindows = true;
+            monitorWindowThread = new Thread(() => CheckForegroundWindow());
+            monitorWindowThread.Start();
+        }
+
         private Process RunningInstance()
         {
             if (!Debugger.IsAttached)
@@ -387,7 +458,8 @@ namespace Apps
         #region Overrides
         protected override void OnHandleDestroyed(EventArgs e)
         {
-            UnregisterHotKey(this.Handle, HotkeyId);
+            monitorWindows = false;
+            DisableHotkey();
             base.OnHandleDestroyed(e);
         }
         #endregion
