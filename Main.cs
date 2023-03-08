@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Utility;
 using System.Diagnostics;
 using System.Reflection;
 using Apps.Controls;
-using Apps.Forms;
-using System.IO;
-using System.Security.Cryptography;
 using System.Threading;
-using System.Diagnostics.Contracts;
-using System.Runtime.InteropServices.ComTypes;
+
 
 #region Todo
 
@@ -459,6 +453,10 @@ namespace Apps
         protected override void OnHandleDestroyed(EventArgs e)
         {
             monitorWindows = false;
+            
+            if (monitorWindowThread.ThreadState == System.Threading.ThreadState.Running)
+                monitorWindowThread.Abort();
+
             DisableHotkey();
             base.OnHandleDestroyed(e);
         }
