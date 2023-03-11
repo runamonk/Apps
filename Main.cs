@@ -377,17 +377,13 @@ namespace Apps
                 void WindowChanged(IntPtr handle)
                 {
                     uint pid;
-
                     GetWindowThreadProcessId(handle, out pid);
-                    Process p = Process.GetProcessById((int)pid);
-
-                    if (p.MainWindowTitle.Contains("VMWare"))
+                    if (Process.GetProcessById((int)pid).MainWindowTitle.Contains("VMWare"))
                     {
                         DisableHotkey();
                     }
                     else
                         EnableHotkey();
-                    p.Dispose();                    
                 }
 
                 while (monitorWindows)
