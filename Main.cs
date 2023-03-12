@@ -388,7 +388,13 @@ namespace Apps
 
                 while (monitorWindows)
                 {
-                    this.Invoke((MethodInvoker)delegate { WindowChanged(GetForegroundWindow()); });
+                    try
+                    {
+                        var h = GetForegroundWindow();
+                        if (h != null)
+                            this.Invoke((MethodInvoker)delegate { WindowChanged(h); });
+
+                    } catch { }
                     Thread.Sleep(100);
                 }
             }
