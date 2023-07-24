@@ -343,6 +343,7 @@ namespace Apps
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
             SubfolderName.ForeColor = Config.MenuFontColor;
+            DisableHotkey();
             EnableHotkey();
             MonitorWindowChanges();
         }
@@ -378,7 +379,9 @@ namespace Apps
                 {
                     uint pid;
                     GetWindowThreadProcessId(handle, out pid);
-                    if (Process.GetProcessById((int)pid).MainWindowTitle.Contains("VMWare"))
+                    string t = Process.GetProcessById((int)pid).MainWindowTitle;
+                    //Console.WriteLine(t);
+                    if (t.ToLower().Contains("vmware"))
                     {
                         DisableHotkey();
                     }
