@@ -380,8 +380,8 @@ namespace Apps
                     uint pid;
                     GetWindowThreadProcessId(handle, out pid);
                     string t = Process.GetProcessById((int)pid).MainWindowTitle;
-                    //Console.WriteLine(t);
-                    if (t.ToLower().Contains("vmware") || (t.ToLower().Contains(" remote desktop connection")))
+                    Console.WriteLine(t);
+                    if (t.ToLower().Contains("vmware") || t.ToLower().Contains(" remote desktop connection") || t.ToLower().Contains("dbkdvwsrhines"))
                     {
                         DisableHotkey();
                     }
