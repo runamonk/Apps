@@ -413,7 +413,7 @@ namespace Apps
                             this.Invoke((MethodInvoker)delegate { WindowChanged(h); });
 
                     } catch { }
-                    Thread.Sleep(100);
+                    Thread.Sleep(1000);
                 }
             }
 
