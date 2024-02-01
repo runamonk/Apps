@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Reflection;
 using Apps.Controls;
 using System.Threading;
+using System.Configuration;
+using System.Linq;
 
 
 #region Todo
@@ -74,6 +76,7 @@ namespace Apps
         private const string ICON_BACK_W7 = "\u25C1";
 
         private Thread monitorWindowThread;
+        private string[] ignoreWindowsList;
 
         #endregion
 
@@ -338,10 +341,10 @@ namespace Apps
             }
             Text = Funcs.GetNameAndVersion();
             if ((Config.AutoSizeHeight) && Visible)
-                AutoSizeForm(false, false);
-
+                AutoSizeForm(false, false);         
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
+            ignoreWindowsList = Config.IgnoreWindows.Split(',');
             SubfolderName.ForeColor = Config.MenuFontColor;
             DisableHotkey();
             EnableHotkey();
@@ -371,6 +374,18 @@ namespace Apps
             }
         }
 
+        private bool InWindowList(string title)
+        {
+            if (title != "")
+                foreach (string s in ignoreWindowsList)
+                {
+                    if ((s.Trim() != "") && (title.ToLower().Contains(s.ToLower())))
+                        return true;
+                }
+
+            return false;
+        }
+
         private void MonitorWindowChanges()
         {
             void CheckForegroundWindow()
@@ -380,8 +395,8 @@ namespace Apps
                     uint pid;
                     GetWindowThreadProcessId(handle, out pid);
                     string t = Process.GetProcessById((int)pid).MainWindowTitle;
-                    Console.WriteLine(t);
-                    if (t.ToLower().Contains("vmware") || t.ToLower().Contains(" remote desktop connection") || t.ToLower().Contains("dbkdvwsrhines"))
+
+                    if (InWindowList(t))
                     {
                         DisableHotkey();
                     }

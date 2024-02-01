@@ -79,7 +79,9 @@ namespace Apps
                     MenuBorderColor.BackColor = _Config.MenuBorderColor;
                     MenuFontColor.BackColor = _Config.MenuFontColor;
                     MenuSelectedColor.BackColor = _Config.MenuSelectedColor;
-
+                    IgnoreWindows.Text = _Config.IgnoreWindows;
+                    IgnoreWindows.BackColor = _Config.AppsBackColor;
+                    IgnoreWindows.ForeColor = _Config.AppsFontColor;
                     BackColor = Config.AppsBackColor;
                     ForeColor = Config.AppsFontColor;
                     OK.BackColor = BackColor;
@@ -123,6 +125,7 @@ namespace Apps
                 _Config.HeaderButtonColor = HeaderButtonColor.BackColor;
                 _Config.HeaderButtonSelectedColor = HeaderButtonSelectedColor.BackColor;
                 _Config.HeaderFontColor = HeaderFontColor.BackColor;
+                _Config.IgnoreWindows = IgnoreWindows.Text;
                 _Config.MenuBackColor = MenuBackColor.BackColor;
                 _Config.MenuBorderColor = MenuBorderColor.BackColor;
                 _Config.MenuFontColor = MenuFontColor.BackColor;
@@ -400,6 +403,18 @@ namespace Apps
                 return Color.FromArgb(Convert.ToInt32(s));
             }
             set { SetKey("header_button_selected_color", value.ToArgb().ToString()); }
+        }
+
+        public string IgnoreWindows
+        {
+            get
+            {
+                string s = FindKey("ignorewindows");
+                if (s == "")
+                    s = SetKey("ignorewindows", "");
+                return s;
+            }
+            set { SetKey("ignorewindows", value); }
         }
 
         public Color MenuBackColor
