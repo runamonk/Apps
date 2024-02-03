@@ -9,6 +9,7 @@ using Apps.Controls;
 using System.Threading;
 using System.Configuration;
 using System.Linq;
+using zuulWindowTracker;
 
 
 #region Todo
@@ -61,7 +62,6 @@ namespace Apps
         private bool inMenu = false;
         private bool inSettings = false;
         private bool pinned = false;
-        private bool monitorWindows = false;
         private bool hotkeyEnabled = false;
 
         private readonly int HotkeyId = Funcs.RandomNumber();
@@ -75,8 +75,8 @@ namespace Apps
         private const string ICON_BACK = "\uE197"; //"\uE08E";
         private const string ICON_BACK_W7 = "\u25C1";
 
-        private Thread monitorWindowThread;
         private string[] ignoreWindowsList;
+        private WindowTracker windowTracker;
 
         #endregion
 
@@ -97,6 +97,11 @@ namespace Apps
             SubfolderName.Text = Apps.CurrentFolderName;
             BackButton.Visible = (Apps.InAFolder);
             AutoSizeForm(false, true);
+        }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            Apps.GoBack();
         }
 
         private void Main_Deactivate(object sender, EventArgs e)
@@ -170,9 +175,18 @@ namespace Apps
             MenuMain.Show(b.Left + b.Width + Left, b.Top + b.Height + Top);
         }
 
-        private void BackButton_Click(object sender, EventArgs e)
+        private void OnWindowChanged(IntPtr handle)
         {
-            Apps.GoBack();
+            uint pid;
+            GetWindowThreadProcessId(handle, out pid);
+            string t = Process.GetProcessById((int)pid).MainWindowTitle;
+
+            if (InWindowList(t))
+            {
+                DisableHotkey();
+            }
+            else
+                EnableHotkey();
         }
 
         private void PinButton_Click(object sender, EventArgs e)
@@ -388,38 +402,11 @@ namespace Apps
 
         private void MonitorWindowChanges()
         {
-            void CheckForegroundWindow()
+            if (windowTracker == null) 
             {
-                void WindowChanged(IntPtr handle)
-                {
-                    uint pid;
-                    GetWindowThreadProcessId(handle, out pid);
-                    string t = Process.GetProcessById((int)pid).MainWindowTitle;
-
-                    if (InWindowList(t))
-                    {
-                        DisableHotkey();
-                    }
-                    else
-                        EnableHotkey();
-                }
-
-                while (monitorWindows)
-                {
-                    try
-                    {
-                        var h = GetForegroundWindow();
-                        if (h != null)
-                            this.Invoke((MethodInvoker)delegate { WindowChanged(h); });
-
-                    } catch { }
-                    Thread.Sleep(1000);
-                }
+                windowTracker = new WindowTracker();
+                windowTracker.WindowChanged += OnWindowChanged;
             }
-
-            monitorWindows = true;
-            monitorWindowThread = new Thread(() => CheckForegroundWindow());
-            monitorWindowThread.Start();
         }
 
         private Process RunningInstance()
@@ -472,11 +459,7 @@ namespace Apps
         #region Overrides
         protected override void OnHandleDestroyed(EventArgs e)
         {
-            monitorWindows = false;
-            
-            if (monitorWindowThread.ThreadState == System.Threading.ThreadState.Running)
-                monitorWindowThread.Abort();
-
+            windowTracker = null;
             DisableHotkey();
             base.OnHandleDestroyed(e);
         }
