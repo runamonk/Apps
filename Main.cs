@@ -64,7 +64,7 @@ namespace Apps
         private bool pinned = false;
         private bool hotkeyEnabled = false;
 
-        private readonly int HotkeyId = Funcs.RandomNumber();
+        private readonly int HotkeyId = 1;
 
         private const string ICON_PINNED_W7 = "\u25FC";
         private const string ICON_UNPINNED_W7 = "\u25FB";
@@ -177,16 +177,23 @@ namespace Apps
 
         private void OnWindowChanged(IntPtr handle)
         {
-            uint pid;
-            GetWindowThreadProcessId(handle, out pid);
-            string t = Process.GetProcessById((int)pid).MainWindowTitle;
-
-            if (InWindowList(t))
+            try
             {
-                DisableHotkey();
+                uint pid;
+                GetWindowThreadProcessId(handle, out pid);
+                string t = Process.GetProcessById((int)pid).MainWindowTitle;
+
+                if (InWindowList(t))
+                {
+                    DisableHotkey();
+                }
+                else
+                    EnableHotkey();
             }
-            else
+            catch
+            {
                 EnableHotkey();
+            }
         }
 
         private void PinButton_Click(object sender, EventArgs e)
