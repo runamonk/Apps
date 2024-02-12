@@ -52,7 +52,7 @@ namespace Apps
                     Windows.Checked = (m == 8 || m == 9 || m == 10 || m == 12);
                     Windows.BackColor = _Config.AppsBackColor;
                     Windows.ForeColor = _Config.AppsFontColor;
-                    Startup.Checked = _Config.StartWithWindows;
+                    Startup.Checked = Funcs.StartWithWindows;
                     Startup.BackColor = _Config.AppsBackColor;
                     Startup.ForeColor = _Config.AppsFontColor;
                     OpenAtMouse.Checked = _Config.OpenFormAtCursor;
@@ -132,7 +132,7 @@ namespace Apps
                 _Config.MenuSelectedColor = MenuSelectedColor.BackColor;
                 _Config.OpenFormAtCursor = OpenAtMouse.Checked;
                 _Config.PopupHotkeyModifier = i;
-                _Config.StartWithWindows = Startup.Checked;
+                Funcs.StartWithWindows = Startup.Checked;
                 _Config.ParseShortcuts = ChkParseShortcuts.Checked;
                 _Config.OpenAtRoot = ChkOpenRootFolder.Checked;
 
@@ -537,41 +537,5 @@ namespace Apps
             set { SetKey("popup_hotkey_modifier", value.ToString()); }        
         }
 
-        public Boolean StartWithWindows
-        {
-            get {
-                RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
-                var k = key.GetValue(Funcs.GetFileName());
-                               
-                if (k != null)
-                {
-                    return true;
-                }
-                else
-                    return false;
-            }
-            set {
-                if (value == false)
-                {
-                    RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
-                    var k = key.GetValue(Funcs.GetFileName());
-                    if ((k != null) && (!k.ToString().Contains(Funcs.GetFilePathAndName())))
-                        return;
-
-                    key.DeleteValue(Funcs.GetFileName(), false);
-                    key.Close();
-                }
-                else
-                {
-                    RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\", true);
-                    var k = key.GetValue(Funcs.GetFileName());
-                    if ((k != null) && (!k.ToString().Contains(Funcs.GetFilePathAndName())))
-                        return;
-
-                    key.SetValue(Funcs.GetFileName(), '"' + Funcs.GetFilePathAndName() + '"');
-                    key.Close();
-                }
-            }
-        }
     }
 }
