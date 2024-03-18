@@ -1,32 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Apps.Forms
 {
     public enum ConfirmButtons
     {
-        OKCancel,
+        OkCancel,
         YesNo
     }
 
     public partial class Confirm : Form
     {
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
+        private const int CpNocloseButton = 0x200;
 
         public Confirm(Config myConfig)
         {
@@ -37,25 +21,35 @@ namespace Apps.Forms
             ButtonTwo.BackColor = BackColor;
         }
 
-        public DialogResult ShowAsDialog(ConfirmButtons Buttons, string Caption, string Message)
+        protected override CreateParams CreateParams
         {
-            if (Buttons == ConfirmButtons.OKCancel)
+            get
+            {
+                var myCp = base.CreateParams;
+                myCp.ClassStyle |= CpNocloseButton;
+                return myCp;
+            }
+        }
+
+        public DialogResult ShowAsDialog(ConfirmButtons buttons, string caption, string message)
+        {
+            if (buttons == ConfirmButtons.OkCancel)
             {
                 ButtonOne.Text = "OK";
                 ButtonTwo.Text = "Cancel";
                 ButtonOne.DialogResult = DialogResult.OK;
                 ButtonTwo.DialogResult = DialogResult.Cancel;
             }
-            else
-            if (Buttons == ConfirmButtons.YesNo)
+            else if (buttons == ConfirmButtons.YesNo)
             {
                 ButtonOne.Text = "Yes";
                 ButtonTwo.Text = "No";
                 ButtonOne.DialogResult = DialogResult.Yes;
                 ButtonTwo.DialogResult = DialogResult.No;
             }
-            Text = Caption;
-            ConfirmText.Text = Message;
+
+            Text = caption;
+            ConfirmText.Text = message;
             return ShowDialog();
         }
 
@@ -63,8 +57,7 @@ namespace Apps.Forms
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOne.PerformClick();
-            else
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
                 ButtonTwo.PerformClick();
         }
     }

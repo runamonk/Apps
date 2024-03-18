@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Utility;
@@ -19,7 +20,7 @@ namespace Apps
         private void About_Load(object sender, EventArgs e)
         {
             lblName.Text = Funcs.GetName();
-            lblVersion.Text = "Version: " + Funcs.GetNameAndVersion(); 
+            lblVersion.Text = "Version: " + Funcs.GetNameAndVersion();
 
             // Center over parent since CenterParent only works if the form is shown as a dialog.
             if (Owner != null)
@@ -29,7 +30,7 @@ namespace Apps
 
         private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("mailto:" + linkEmail.Text);
+            Process.Start("mailto:" + linkEmail.Text);
         }
 
         private void About_Deactivate(object sender, EventArgs e)

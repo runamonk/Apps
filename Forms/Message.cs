@@ -1,26 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Apps.Forms
 {
     public partial class Message : Form
     {
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
+        private const int CpNocloseButton = 0x200;
+
         public Message(Config myConfig)
         {
             InitializeComponent();
@@ -29,19 +14,28 @@ namespace Apps.Forms
             ButtonOK.BackColor = BackColor;
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var myCp = base.CreateParams;
+                myCp.ClassStyle |= CpNocloseButton;
+                return myCp;
+            }
+        }
+
         private void Message_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOK.PerformClick();
-            else
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
                 ButtonOK.PerformClick();
         }
 
-        public DialogResult ShowAsDialog(string Caption, string Message)
+        public DialogResult ShowAsDialog(string caption, string message)
         {
-            Text = Caption;
-            MessageText.Text = Message;
+            Text = caption;
+            MessageText.Text = message;
             return ShowDialog();
         }
     }

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Utility;
 
@@ -16,8 +9,8 @@ namespace Apps.Forms
         public WebLink(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
-            AppsConfig = myConfig;
-            FAppButton = appButton;
+            _appsConfig = myConfig;
+            _fAppButton = appButton;
 
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
@@ -29,98 +22,106 @@ namespace Apps.Forms
             ButtonCancel.BackColor = BackColor;
         }
 
-        #region  Properties
+        #region Overrides
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var myCp = base.CreateParams;
+                myCp.ClassStyle |= CpNocloseButton;
+                return myCp;
+            }
+        }
+
+        #endregion
+
+        #region Properties
+
         public string UrlName
         {
-            get { return EditUrlName.Text.Trim(); }
-            set {
-                EditUrlName.Text = value;
-            }
+            get => EditUrlName.Text.Trim();
+            set => EditUrlName.Text = value;
         }
+
         public string UrlPath
         {
-            get { return EditUrlPath.Text.Trim(); }
-            set {
-                EditUrlPath.Text = value;
-            }
+            get => EditUrlPath.Text.Trim();
+            set => EditUrlPath.Text = value;
         }
+
         #endregion
 
         #region Private
-        readonly Config AppsConfig;
-        bool IsCancelled = false;
-        private readonly AppButton FAppButton;
-        private const int CP_NOCLOSE_BUTTON = 0x200;
+
+        private readonly Config _appsConfig;
+        private bool _isCancelled;
+        private readonly AppButton _fAppButton;
+        private const int CpNocloseButton = 0x200;
+
         #endregion
 
         #region Events
+
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOK.PerformClick();
-            else
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
                 ButtonCancel.PerformClick();
         }
+
         private void Form_Load(object sender, EventArgs e)
         {
-            UrlName = FAppButton.AppName;
-            UrlPath = FAppButton.Url;
+            UrlName = _fAppButton.AppName;
+            UrlPath = _fAppButton.Url;
 
             if (string.IsNullOrEmpty(EditUrlName.Text))
                 Text = "Add URL";
             else
                 Text = "Edit URL";
         }
+
         private void WebLink_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!IsCancelled)
+            if (!_isCancelled)
             {
+                var errorStr = "";
+
+                if (UrlName == "")
+                    errorStr = "Please enter a link name.";
+
+                if (UrlPath == "")
+                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") + "Please enter a url.";
+
+                if (!Funcs.IsUrl(UrlPath))
+                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") +
+                               "Please enter a properly formatted url. \r\n (https://www.website.com or ftp://ftp.website.com)";
+
+                if (errorStr != "")
                 {
-                    string ErrorStr = "";
-
-                    if (UrlName == "")
-                        ErrorStr = "Please enter a link name.";
-
-                    if (UrlPath == "")
-                        ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please enter a url.";
-
-                    if (!Funcs.IsUrl(UrlPath))
-                        ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please enter a properly formatted url. \r\n (https://www.website.com or ftp://ftp.website.com)";
-
-                    if (ErrorStr != "")
-                    {
-                        Message f = new Message(AppsConfig);
-                        f.ShowAsDialog("Error", ErrorStr);
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        FAppButton.AppName = UrlName;
-                        FAppButton.Url = UrlPath;
-                    }
+                    var f = new Message(_appsConfig);
+                    f.ShowAsDialog("Error", errorStr);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    _fAppButton.AppName = UrlName;
+                    _fAppButton.Url = UrlPath;
                 }
             }
         }
+
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            IsCancelled = true;
+            _isCancelled = true;
         }
+
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            IsCancelled = false;
+            _isCancelled = false;
         }
-        #endregion
 
-        #region Overrides
-        protected override CreateParams CreateParams
-        {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
         #endregion
     }
 }

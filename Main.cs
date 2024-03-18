@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using Utility;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
-using Apps.Controls;
-using System.Threading;
-using System.Configuration;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using Apps.Controls;
+using Utility;
 using zuulWindowTracker;
-
 
 #region Todo
 
@@ -25,25 +23,45 @@ namespace Apps
             InitializeComponent();
         }
 
-        #region Imports
-        [DllImport("user32.dll")]
-        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
-        [DllImport("user32.dll")]
-        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
-        [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-        [DllImport("user32.dll")]
-        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        #region Overrides
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            _windowTracker = null;
+            DisableHotkey();
+            base.OnHandleDestroyed(e);
+        }
+
         #endregion
 
-        #region Allow form to be dragged. 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        #region Imports
+
+        [DllImport("user32.dll")]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+
+        [DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        #endregion
+
+        #region Allow form to be dragged.
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+
+        [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+
         #endregion
 
         #region Properties
+
         private AppButton MenuMainButton { get; set; }
         private AppButton BackButton { get; set; }
         private Label SubfolderName { get; set; }
@@ -51,32 +69,34 @@ namespace Apps
         private AppMenu MenuMain { get; set; }
         private Config Config { get; set; }
         private AppPanel Apps { get; set; }
+
         #endregion
 
         #region Privates
-        private const int WM_NCLBUTTONDOWN = 0xA1;
-        private const int HT_CAPTION = 0x2;
 
-        private bool inAbout = false;
-        private bool inClose = false;
-        private bool inMenu = false;
-        private bool inSettings = false;
-        private bool pinned = false;
-        private bool hotkeyEnabled = false;
+        private const int WmNclbuttondown = 0xA1;
+        private const int HtCaption = 0x2;
 
-        private readonly int HotkeyId = 1;
+        private bool _inAbout;
+        private bool _inClose;
+        private bool _inMenu;
+        private bool _inSettings;
+        private bool _pinned;
+        private bool _hotkeyEnabled;
 
-        private const string ICON_PINNED_W7 = "\u25FC";
-        private const string ICON_UNPINNED_W7 = "\u25FB";
-        private const string ICON_PINNED = "\uE1F6";
-        private const string ICON_UNPINNED = "\uE1F7";
-        private const string ICON_MAINMENU = "\uE0C2";
-        private const string ICON_MAINMENU_W7 = "\u268A";
-        private const string ICON_BACK = "\uE197"; //"\uE08E";
-        private const string ICON_BACK_W7 = "\u25C1";
+        private readonly int _hotkeyId = 1;
 
-        private string[] ignoreWindowsList;
-        private WindowTracker windowTracker;
+        private const string IconPinnedW7 = "\u25FC";
+        private const string IconUnpinnedW7 = "\u25FB";
+        private const string IconPinned = "\uE1F6";
+        private const string IconUnpinned = "\uE1F7";
+        private const string IconMainmenu = "\uE0C2";
+        private const string IconMainmenuW7 = "\u268A";
+        private const string IconBack = "\uE197"; //"\uE08E";
+        private const string IconBackW7 = "\u25C1";
+
+        private string[] _ignoreWindowsList;
+        private WindowTracker _windowTracker;
 
         #endregion
 
@@ -95,7 +115,7 @@ namespace Apps
         private void AppsChanged()
         {
             SubfolderName.Text = Apps.CurrentFolderName;
-            BackButton.Visible = (Apps.InAFolder);
+            BackButton.Visible = Apps.InAFolder;
             AutoSizeForm(false, true);
         }
 
@@ -112,18 +132,17 @@ namespace Apps
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            inClose = true;
+            _inClose = true;
+            _windowTracker = null;
         }
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Escape) && (Opacity > 0))
+            if (e.KeyCode == Keys.Escape && Opacity > 0)
                 ToggleShow(true);
-            else
-            if (e.KeyCode == Keys.P)
+            else if (e.KeyCode == Keys.P)
                 PinButton.PerformClick();
-            else
-            if ((e.KeyCode == Keys.Back) && (BackButton.Visible))
+            else if (e.KeyCode == Keys.Back && BackButton.Visible)
                 Apps.GoBack();
         }
 
@@ -141,20 +160,20 @@ namespace Apps
 
         private void MenuAbout_Click(object sender, EventArgs e)
         {
-            inAbout = true;
-            About AboutForm = new About(Config);
-            AboutForm.Show(this);
-            inAbout = false;
+            _inAbout = true;
+            var aboutForm = new About(Config);
+            aboutForm.Show(this);
+            _inAbout = false;
         }
 
         private void MenuApps_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
-            inMenu = false;
+            _inMenu = false;
         }
 
-        private void MenuApps_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void MenuApps_Opening(object sender, CancelEventArgs e)
         {
-            inMenu = true;
+            _inMenu = true;
         }
 
         private void MenuClose_Click(object sender, EventArgs e)
@@ -164,31 +183,31 @@ namespace Apps
 
         private void MenuSettings_Click(object sender, EventArgs e)
         {
-            inSettings = true;
-            Config.ShowConfigForm((Opacity > 0));
-            inSettings = false;
+            _inSettings = true;
+            Config.ShowConfigForm(Opacity > 0);
+            _inSettings = false;
         }
 
         private void MainButton_Click(object sender, EventArgs e)
         {
-            AppButton b = ((AppButton)sender);
+            var b = (AppButton)sender;
             MenuMain.Show(b.Left + b.Width + Left, b.Top + b.Height + Top);
         }
 
         private void OnWindowChanged(IntPtr handle)
         {
+            if (_inClose) return;
             try
             {
-                uint pid;
-                GetWindowThreadProcessId(handle, out pid);
-                string t = Process.GetProcessById((int)pid).MainWindowTitle;
-
-                if (InWindowList(t))
+                GetWindowThreadProcessId(handle, out var pid);
                 {
-                    DisableHotkey();
+                    var t = Process.GetProcessById((int)pid).MainWindowTitle;
+
+                    if (InWindowList(t))
+                        DisableHotkey();
+                    else
+                        EnableHotkey();
                 }
-                else
-                    EnableHotkey();
             }
             catch
             {
@@ -198,16 +217,16 @@ namespace Apps
 
         private void PinButton_Click(object sender, EventArgs e)
         {
-            AppButton b = ((AppButton)sender);
-            if (!pinned)
+            var b = (AppButton)sender;
+            if (!_pinned)
             {
-                pinned = true;
-                b.AppName = (Funcs.IsWindows7() ? ICON_PINNED_W7 : ICON_PINNED);
+                _pinned = true;
+                b.AppName = Funcs.IsWindows7() ? IconPinnedW7 : IconPinned;
             }
             else
             {
-                pinned = false;
-                b.AppName = (Funcs.IsWindows7() ? ICON_UNPINNED_W7 : ICON_UNPINNED);
+                _pinned = false;
+                b.AppName = Funcs.IsWindows7() ? IconUnpinnedW7 : IconUnpinned;
             }
         }
 
@@ -217,48 +236,45 @@ namespace Apps
             if (e.Button == MouseButtons.Left)
             {
                 ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                SendMessage(Handle, WmNclbuttondown, HtCaption, 0);
             }
         }
 
         protected override void OnLoad(EventArgs e)
         {
-
             if (RunningInstance() != null)
             {
                 MessageBox.Show("There is already a version of zuulApps running.");
                 Application.Exit();
             }
             else
+            {
                 base.OnLoad(e);
+            }
         }
 
         private void notifyApps_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ToggleShow(false);
+            ToggleShow();
         }
 
-        protected override void WndProc(ref System.Windows.Forms.Message m)
+        protected override void WndProc(ref Message m)
         {
             if (m.Msg == 0x0312) //WM_HOTKEY
-            {
                 ToggleShow();
-            }
             base.WndProc(ref m);
         }
 
         #endregion
 
-        #region Methods     
-        private void AutoSizeForm(bool ScrollToTop, bool MoveTopToCursor = false)
+        #region Methods
+
+        private void AutoSizeForm(bool scrollToTop, bool moveTopToCursor = false)
         {
             if (Config.AutoSizeHeight)
             {
-                int c = 66;
-                for (int i = 0; i <= Apps.Controls.Count - 1; i++)
-                {
-                    c += Apps.Controls[i].Height;
-                }
+                var c = 66;
+                for (var i = 0; i <= Apps.Controls.Count - 1; i++) c += Apps.Controls[i].Height;
 
                 if (c < MaximumSize.Height)
                     Height = c;
@@ -267,17 +283,14 @@ namespace Apps
             }
 
             // select the first control.
-            if ((ScrollToTop) && (Apps.Controls.Count > 0))
+            if (scrollToTop && Apps.Controls.Count > 0)
                 Apps.Controls[Apps.Controls.Count - 1].Select();
 
-            Point p = new Point(Cursor.Position.X, Cursor.Position.Y);
-            Rectangle workingArea = Screen.GetWorkingArea(p);
+            var p = new Point(Cursor.Position.X, Cursor.Position.Y);
+            var workingArea = Screen.GetWorkingArea(p);
 
             //Height
-            if ((this.Top + this.Size.Height) > workingArea.Bottom)
-            {
-                this.Top -= ((this.Top + this.Size.Height) - workingArea.Bottom);
-            }
+            if (Top + Size.Height > workingArea.Bottom) Top -= Top + Size.Height - workingArea.Bottom;
         }
 
         private void LoadConfig()
@@ -285,11 +298,11 @@ namespace Apps
             if (Config == null)
             {
                 Config = new Config();
-                Config.ConfigChanged += new EventHandler(ConfigChanged);
+                Config.ConfigChanged += ConfigChanged;
                 MaximumSize = new Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Height);
                 MenuMain = new AppMenu(Config);
-                MenuMain.Opening += new System.ComponentModel.CancelEventHandler(MenuApps_Opening);
-                MenuMain.Closed += new ToolStripDropDownClosedEventHandler(MenuApps_Closed);
+                MenuMain.Opening += MenuApps_Opening;
+                MenuMain.Closed += MenuApps_Closed;
                 MenuMain.ShowCheckMargin = false;
                 MenuMain.ShowImageMargin = false;
 
@@ -305,7 +318,7 @@ namespace Apps
                 };
                 MenuMainButton.Width = MenuMainButton.Height;
                 MenuMainButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                MenuMainButton.AppName = (Funcs.IsWindows7() ? ICON_MAINMENU_W7 : ICON_MAINMENU);
+                MenuMainButton.AppName = Funcs.IsWindows7() ? IconMainmenuW7 : IconMainmenu;
                 MenuMainButton.Click += MainButton_Click;
                 MenuMainButton.Padding = new Padding(0, 0, 0, 0);
                 MenuMainButton.Margin = new Padding(0, 0, 0, 0);
@@ -318,7 +331,7 @@ namespace Apps
                 };
                 BackButton.Width = BackButton.Height;
                 BackButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                BackButton.AppName = (Funcs.IsWindows7() ? ICON_BACK_W7 : ICON_BACK);
+                BackButton.AppName = Funcs.IsWindows7() ? IconBackW7 : IconBack;
                 BackButton.Click += BackButton_Click;
                 BackButton.Padding = new Padding(0, 0, 0, 0);
                 BackButton.Margin = new Padding(0, 0, 0, 0);
@@ -347,7 +360,7 @@ namespace Apps
                 };
                 PinButton.Width = PinButton.Height;
                 PinButton.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                PinButton.AppName = (Funcs.IsWindows7() ? ICON_UNPINNED_W7 : ICON_UNPINNED);
+                PinButton.AppName = Funcs.IsWindows7() ? IconUnpinnedW7 : IconUnpinned;
                 PinButton.Click += PinButton_Click;
                 PinButton.Padding = new Padding(0, 0, 0, 0);
                 PinButton.Margin = new Padding(0, 0, 0, 0);
@@ -360,12 +373,13 @@ namespace Apps
                 Apps.Dock = DockStyle.Fill;
                 SetFormPos();
             }
+
             Text = Funcs.GetNameAndVersion();
-            if ((Config.AutoSizeHeight) && Visible)
-                AutoSizeForm(false, false);         
+            if (Config.AutoSizeHeight && Visible)
+                AutoSizeForm(false);
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
-            ignoreWindowsList = Config.IgnoreWindows.Split(',');
+            _ignoreWindowsList = Config.IgnoreWindows.Split(',');
             SubfolderName.ForeColor = Config.MenuFontColor;
             DisableHotkey();
             EnableHotkey();
@@ -376,59 +390,43 @@ namespace Apps
         {
             if (Config.PopupHotkey == "")
             {
-                hotkeyEnabled = false;
+                _hotkeyEnabled = false;
             }
-            else
-            if (hotkeyEnabled == false)
+            else if (_hotkeyEnabled == false)
             {
-                hotkeyEnabled = true;
-                RegisterHotKey(this.Handle, HotkeyId, Config.PopupHotkeyModifier, ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
-            }            
+                _hotkeyEnabled = true;
+                RegisterHotKey(Handle, _hotkeyId, Config.PopupHotkeyModifier,
+                    ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
+            }
         }
 
         public void DisableHotkey()
         {
-            if (hotkeyEnabled)
-            {
-                hotkeyEnabled = false;
-                UnregisterHotKey(this.Handle, HotkeyId);
-            }
+            if (!_hotkeyEnabled) return;
+            _hotkeyEnabled = false;
+            UnregisterHotKey(Handle, _hotkeyId);
         }
 
         private bool InWindowList(string title)
         {
-            if (title != "")
-                foreach (string s in ignoreWindowsList)
-                {
-                    if ((s.Trim() != "") && (title.ToLower().Contains(s.ToLower())))
-                        return true;
-                }
-
-            return false;
+            return title != "" && _ignoreWindowsList.Any(s => s.Trim() != "" && title.ToLower().Contains(s.ToLower()));
         }
 
         private void MonitorWindowChanges()
         {
-            if (windowTracker == null) 
-            {
-                windowTracker = new WindowTracker();
-                windowTracker.WindowChanged += OnWindowChanged;
-            }
+            if (_windowTracker != null) return;
+            _windowTracker = new WindowTracker();
+            _windowTracker.WindowChanged += OnWindowChanged;
         }
 
         private Process RunningInstance()
         {
-            if (!Debugger.IsAttached)
-            {
-                Process current = Process.GetCurrentProcess();
-                Process[] processes = Process.GetProcessesByName(current.ProcessName);
-
-                foreach (Process process in processes)
-                    if (process.Id != current.Id)
-                        if (Assembly.GetExecutingAssembly().Location.Replace("/", "\\") == current.MainModule.FileName)
-                            return process;
-            }
-            return null;
+            if (Debugger.IsAttached) return null;
+            var current = Process.GetCurrentProcess();
+            var processes = Process.GetProcessesByName(current.ProcessName);
+            return processes.Where(process => process.Id != current.Id).FirstOrDefault(process =>
+                current.MainModule != null && Assembly.GetExecutingAssembly().Location.Replace("/", "\\") ==
+                current.MainModule.FileName);
         }
 
         private void SetFormPos()
@@ -438,38 +436,27 @@ namespace Apps
             Size = Config.FormSize;
         }
 
-        private void ToggleShow(bool Override = false)
+        private void ToggleShow(bool @override = false)
         {
-            if ((pinned || Apps.InLoad) || (!Override) && (inClose || inAbout || Apps.InMenu || inMenu || inSettings))
-                return;
+            if (_pinned || Apps.InLoad ||
+                (!@override && (_inClose || _inAbout || Apps.InMenu || _inMenu || _inSettings))) return;
+
+            if (Opacity > 0)
+            {
+                Opacity = 0;
+                if (Config.OpenAtRoot && Apps.CurrentFolderName != "")
+                    Apps.LoadItems();
+            }
             else
             {
-                if (Opacity > 0)
-                {
-                    Opacity = 0;                                       
-                    if ((Config.OpenAtRoot) && (Apps.CurrentFolderName != ""))
-                        Apps.LoadItems();
-                }
-                else
-                {
-                    AutoSizeForm(true, false);
-                    if (Config.OpenFormAtCursor)
-                        Funcs.MoveFormToCursor(this, false);
-                    Opacity = 100;
-                    Activate();
-                }
+                AutoSizeForm(true);
+                if (Config.OpenFormAtCursor)
+                    Funcs.MoveFormToCursor(this);
+                Opacity = 100;
+                Activate();
             }
         }
 
-        #endregion
-
-        #region Overrides
-        protected override void OnHandleDestroyed(EventArgs e)
-        {
-            windowTracker = null;
-            DisableHotkey();
-            base.OnHandleDestroyed(e);
-        }
         #endregion
     }
 }

@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Apps.Forms
@@ -15,8 +8,8 @@ namespace Apps.Forms
         public Folder(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
-            AppsConfig = myConfig;
-            FAppButton = appButton;
+            _appsConfig = myConfig;
+            _fAppButton = appButton;
 
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
@@ -27,80 +20,88 @@ namespace Apps.Forms
         }
 
         #region Properties
+
         private string FolderName
         {
-            get { return FolderNameEdit.Text.Trim(); }
-            set {
-                FolderNameEdit.Text = value;
-            }
+            get => FolderNameEdit.Text.Trim();
+            set => FolderNameEdit.Text = value;
         }
-        #endregion
 
-        #region Private
-        private bool IsCancelled = false;
-        private readonly Config AppsConfig;
-        private readonly AppButton FAppButton;
-        private const int CP_NOCLOSE_BUTTON = 0x200;
         #endregion
 
         #region Overrides
+
         protected override CreateParams CreateParams
         {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
+            get
+            {
+                var myCp = base.CreateParams;
+                myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }
         }
+
+        #endregion
+
+        #region Private
+
+        private bool _isCancelled;
+        private readonly Config _appsConfig;
+        private readonly AppButton _fAppButton;
+        private const int CpNocloseButton = 0x200;
+
         #endregion
 
         #region Events
+
         private void AddFolder_Load(object sender, EventArgs e)
         {
-            FolderName = FAppButton.AppName;
+            FolderName = _fAppButton.AppName;
             if (string.IsNullOrEmpty(FolderNameEdit.Text))
                 Text = "Add Folder";
             else
                 Text = "Edit Folder";
         }
+
         private void AddFolder_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!IsCancelled)
+            if (!_isCancelled)
             {
-                {
-                    string ErrorStr = "";
-                    if (FolderName == "")
-                        ErrorStr = "Please enter a folder name.";
+                var errorStr = "";
+                if (FolderName == "")
+                    errorStr = "Please enter a folder name.";
 
-                    if (ErrorStr != "")
-                    {
-                        Message f = new Message(AppsConfig);
-                        f.ShowAsDialog("Error", ErrorStr);
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        FAppButton.AppName = FolderName;
-                    }
+                if (errorStr != "")
+                {
+                    var f = new Message(_appsConfig);
+                    f.ShowAsDialog("Error", errorStr);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    _fAppButton.AppName = FolderName;
                 }
             }
         }
+
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            IsCancelled = true;
+            _isCancelled = true;
         }
+
         private void AddFolder_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOK.PerformClick();
-            else
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
                 ButtonCancel.PerformClick();
         }
+
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            IsCancelled = false;
+            _isCancelled = false;
         }
+
         #endregion
     }
 }

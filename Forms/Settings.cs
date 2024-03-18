@@ -6,36 +6,34 @@ namespace Apps
 {
     public partial class Settings : Form
     {
-        private const int CP_NOCLOSE_BUTTON = 0x200;
-        protected override CreateParams CreateParams
-        {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
+        private const int CpNocloseButton = 0x200;
 
         public Settings()
         {
             InitializeComponent();
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var myCp = base.CreateParams;
+                myCp.ClassStyle |= CpNocloseButton;
+                return myCp;
+            }
+        }
+
         private void FormConfig_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 OK.PerformClick();
-            else
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
                 Cancel.PerformClick();
         }
 
         private void ColorControl_MouseClick(object sender, MouseEventArgs e)
         {
-            if (dlgColor.ShowDialog() == DialogResult.OK)
-            {
-                ((Panel)sender).BackColor = dlgColor.Color;
-            }
+            if (dlgColor.ShowDialog() == DialogResult.OK) ((Panel)sender).BackColor = dlgColor.Color;
         }
 
         private void LightTheme_Click(object sender, EventArgs e)
@@ -73,7 +71,7 @@ namespace Apps
 
         private void Key_KeyDown(object sender, KeyEventArgs e)
         {
-            Keys k = (Keys)e.KeyCode;
+            var k = e.KeyCode;
             Key.Text = k.ToString();
         }
 

@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Apps.Forms
@@ -16,8 +9,8 @@ namespace Apps.Forms
         public FolderLink(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
-            AppsConfig = myConfig;
-            FAppButton = appButton;
+            _appsConfig = myConfig;
+            _fAppButton = appButton;
 
             BackColor = myConfig.AppsBackColor;
             ForeColor = myConfig.AppsFontColor;
@@ -29,108 +22,115 @@ namespace Apps.Forms
             ButtonCancel.BackColor = BackColor;
         }
 
-        #region  Properties
+        #region Overrides
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var myCp = base.CreateParams;
+                myCp.ClassStyle |= CpNocloseButton;
+                return myCp;
+            }
+        }
+
+        #endregion
+
+        #region Properties
+
         public string FolderName
         {
-            get { return EditFolderName.Text.Trim(); }
-            set {
-                EditFolderName.Text = value;
-            }
+            get => EditFolderName.Text.Trim();
+            set => EditFolderName.Text = value;
         }
+
         public string FolderPath
         {
-            get { return EditFolderPath.Text.Trim(); }
-            set {
-                EditFolderPath.Text = value;
-            }
+            get => EditFolderPath.Text.Trim();
+            set => EditFolderPath.Text = value;
         }
+
         #endregion
 
         #region Private
-        readonly Config AppsConfig;
-        bool IsCancelled = false;
-        private readonly AppButton FAppButton;
-        private const int CP_NOCLOSE_BUTTON = 0x200;
+
+        private readonly Config _appsConfig;
+        private bool _isCancelled;
+        private readonly AppButton _fAppButton;
+        private const int CpNocloseButton = 0x200;
+
         #endregion
 
         #region Events
+
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 ButtonOK.PerformClick();
-            else
-            if (e.KeyCode == Keys.Escape)
+            else if (e.KeyCode == Keys.Escape)
                 ButtonCancel.PerformClick();
         }
+
         private void Form_Load(object sender, EventArgs e)
         {
-            FolderName = FAppButton.AppName;
-            FolderPath = FAppButton.FileName;
+            FolderName = _fAppButton.AppName;
+            FolderPath = _fAppButton.FileName;
             if (string.IsNullOrEmpty(EditFolderName.Text))
                 Text = "Add Folder Link";
             else
                 Text = "Edit Folder Link";
         }
+
         private void FolderLink_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!IsCancelled)
+            if (!_isCancelled)
             {
+                var errorStr = "";
+
+                if (FolderName == "")
+                    errorStr = "Please enter a folder name.";
+
+                if (FolderPath == "")
+                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") + "Please enter a folder path.";
+
+                if (FolderPath != "" && !Directory.Exists(FolderPath))
+                    e.Cancel = Misc.ConfirmDialog(_appsConfig, ConfirmButtons.YesNo, "Are you sure?",
+                        "Folder: " + FolderPath + " cannot be found.") != DialogResult.Yes;
+
+                if (errorStr != "")
                 {
-                    string ErrorStr = "";
-
-                    if (FolderName == "")
-                        ErrorStr = "Please enter a folder name.";
-
-                    if (FolderPath == "")
-                        ErrorStr = (ErrorStr != "" ? ErrorStr += "\r\n" : "") + "Please enter a folder path.";
-
-                    if ((FolderPath != "") && (!Directory.Exists(FolderPath)))
-                    {
-                        e.Cancel = (Misc.ConfirmDialog(AppsConfig, ConfirmButtons.YesNo, "Are you sure?", "Folder: " + FolderPath + " cannot be found.") != DialogResult.Yes);
-                    }
-
-                    if (ErrorStr != "")
-                    {
-                        Message f = new Message(AppsConfig);
-                        f.ShowAsDialog("Error", ErrorStr);
-                        e.Cancel = true;
-                    }
-                    else
-                    {
-                        FAppButton.AppName = FolderName;
-                        FAppButton.FileName = FolderPath;
-                    }
+                    var f = new Message(_appsConfig);
+                    f.ShowAsDialog("Error", errorStr);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    _fAppButton.AppName = FolderName;
+                    _fAppButton.FileName = FolderPath;
                 }
             }
         }
+
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
-            IsCancelled = true;
+            _isCancelled = true;
         }
+
         private void ButtonOK_Click(object sender, EventArgs e)
         {
-            IsCancelled = false;
+            _isCancelled = false;
         }
+
         private void BrowseWF_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog f = new FolderBrowserDialog();
-            if ((f.ShowDialog() == DialogResult.OK) && (Directory.Exists(f.SelectedPath)))
+            var f = new FolderBrowserDialog();
+            if (f.ShowDialog() == DialogResult.OK && Directory.Exists(f.SelectedPath))
             {
                 EditFolderName.Text = Path.GetFileName(f.SelectedPath);
                 EditFolderPath.Text = f.SelectedPath;
             }
         }
-        #endregion
 
-        #region Overrides
-        protected override CreateParams CreateParams
-        {
-            get {
-                CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle |= CP_NOCLOSE_BUTTON;
-                return myCp;
-            }
-        }
         #endregion
     }
 }

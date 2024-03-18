@@ -1,50 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Apps.Controls
 {
-    public partial class AppButtonText : Label
+    public class AppButtonText : Label
     {
-        public AppButtonText (Config myConfig)
-        {
-            AppsConfig = myConfig;
-            AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
-        }
+        #region Privates
 
-        #region Properties       
-        public bool IsSeparator { get; set; }
+        private readonly Config _appsConfig;
+
         #endregion
 
-        #region Privates
-        readonly Config AppsConfig;
+        public AppButtonText(Config myConfig)
+        {
+            _appsConfig = myConfig;
+            _appsConfig.ConfigChanged += ConfigChanged;
+        }
+
+        #region Properties
+
+        public bool IsSeparator { get; set; }
+
         #endregion
 
         #region Methods
+
         private void ConfigChanged(object sender, EventArgs e)
         {
             Invalidate(); // force a repaint.
         }
+
         #endregion
 
         #region Overrides
+
         protected override void OnPaint(PaintEventArgs e)
-        {            
+        {
             if (!IsSeparator)
+            {
                 base.OnPaint(e);
+            }
             else
             {
                 //Pen pen = new Pen(ControlPaint.Dark(AppsConfig.AppsFontColor, 50)); 
-                Pen pen = new Pen(AppsConfig.AppsFontColor); 
-                PointF pt1 = new PointF(0, Height / 2);
-                PointF pt2 = new PointF(Width, Height / 2);                
+                var pen = new Pen(_appsConfig.AppsFontColor);
+                var pt1 = new PointF(0, Height / 2);
+                var pt2 = new PointF(Width, Height / 2);
                 e.Graphics.DrawLine(pen, pt1, pt2);
             }
         }
+
         #endregion
     }
 }

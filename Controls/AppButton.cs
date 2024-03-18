@@ -1,13 +1,12 @@
-﻿using Apps.Controls;
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Utility;
+﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
+using Apps.Controls;
 using Icons;
-using System.Threading;
+using Utility;
 
 namespace Apps
 {
@@ -18,284 +17,281 @@ namespace Apps
         Folder,
         FolderLink,
         Menu,
-        Pin,        
+        Pin,
         Separator,
         Url
     }
 
-    public partial class AppButton : Panel
+    public class AppButton : Panel
     {
         public AppButton(Config myConfig, ButtonType buttonType)
         {
-            FButtonType = buttonType;
-            ButtonText = new AppButtonText(myConfig);
-            FolderArrow = new AppButtonText(myConfig);
-            BorderPanel.Parent = this;
-            BorderPanel.Dock = DockStyle.Fill;
-            BorderPanel.Margin = new Padding(0, 0, 0, 0);
-            ButtonPanel.Parent = BorderPanel;
-            ButtonPanel.Dock = DockStyle.Fill;
-            ButtonPanel.Margin = new Padding(0, 0, 0, 0);
-            ButtonPanel.BorderStyle = BorderStyle.None;
-            PBox.Visible = false;
-            FolderArrow.Visible = false;
+            ButtonType = buttonType;
+            _buttonText = new AppButtonText(myConfig);
+            _folderArrow = new AppButtonText(myConfig);
+            _borderPanel.Parent = this;
+            _borderPanel.Dock = DockStyle.Fill;
+            _borderPanel.Margin = new Padding(0, 0, 0, 0);
+            _buttonPanel.Parent = _borderPanel;
+            _buttonPanel.Dock = DockStyle.Fill;
+            _buttonPanel.Margin = new Padding(0, 0, 0, 0);
+            _buttonPanel.BorderStyle = BorderStyle.None;
+            _pBox.Visible = false;
+            _folderArrow.Visible = false;
             Height = 22;
 
-            if ((IsAppButton) || (IsUrlButton))
+            if (IsAppButton || IsUrlButton)
             {
-                PBox.Parent = ButtonPanel;
-                PBox.Dock = DockStyle.Left;
-                PBox.Width = 22;
-                PBox.BorderStyle = BorderStyle.None;
-                PBox.Padding = new Padding(0, 0, 0, 0);
-                PBox.Margin = new Padding(0, 0, 0, 0);
-                PBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                _pBox.Parent = _buttonPanel;
+                _pBox.Dock = DockStyle.Left;
+                _pBox.Width = 22;
+                _pBox.BorderStyle = BorderStyle.None;
+                _pBox.Padding = new Padding(0, 0, 0, 0);
+                _pBox.Margin = new Padding(0, 0, 0, 0);
+                _pBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 if (IsAppButton)
                 {
-                    MissingIconTimer.Enabled = false;
-                    MissingIconTimer.Interval = 10000;
-                    MissingIconTimer.Tick += new EventHandler(CheckForMissingIcon);
+                    _missingIconTimer.Enabled = false;
+                    _missingIconTimer.Interval = 10000;
+                    _missingIconTimer.Tick += CheckForMissingIcon;
                 }
-                else
-                if (IsUrlButton)
-                { 
+                else if (IsUrlButton)
+                {
                     FavIconImage = GetFavIconImage();
                 }
 
-                PBox.Visible = true;
-                PBox.MouseClick += new MouseEventHandler(TextOnClick);
+                _pBox.Visible = true;
+                _pBox.MouseClick += TextOnClick;
             }
-            else
-            if (IsFolderButton)
+            else if (IsFolderButton)
             {
-                FolderArrow.Parent = ButtonPanel;
-                FolderArrow.AutoSize = false;
-                FolderArrow.Dock = DockStyle.Left;
-                FolderArrow.Font = new Font("Segoe UI Symbol", 10, FontStyle.Regular);
-                FolderArrow.Width = 22;
-                FolderArrow.BorderStyle = BorderStyle.None;
-                FolderArrow.Padding = new Padding(0, 0, 0, 0);
-                FolderArrow.Margin = new Padding(0, 0, 0, 0);
-                FolderArrow.Text = (Funcs.IsWindows7() ? ICON_FOLDER_W7 : ICON_FOLDER);
-                FolderArrow.Visible = true;
-                FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
-                FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
+                _folderArrow.Parent = _buttonPanel;
+                _folderArrow.AutoSize = false;
+                _folderArrow.Dock = DockStyle.Left;
+                _folderArrow.Font = new Font("Segoe UI Symbol", 10, FontStyle.Regular);
+                _folderArrow.Width = 22;
+                _folderArrow.BorderStyle = BorderStyle.None;
+                _folderArrow.Padding = new Padding(0, 0, 0, 0);
+                _folderArrow.Margin = new Padding(0, 0, 0, 0);
+                _folderArrow.Text = Funcs.IsWindows7() ? IconFolderW7 : IconFolder;
+                _folderArrow.Visible = true;
+                _folderArrow.TextAlign = ContentAlignment.MiddleCenter;
+                _folderArrow.MouseClick += TextOnClick;
             }
-            else
-            if (IsFolderLinkButton)
+            else if (IsFolderLinkButton)
             {
-                FolderArrow.Parent = ButtonPanel;
-                FolderArrow.AutoSize = false;
-                FolderArrow.Dock = DockStyle.Left;
-                FolderArrow.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
-                FolderArrow.Width = 22;
-                FolderArrow.BorderStyle = BorderStyle.None;
-                FolderArrow.Padding = new Padding(0, 0, 0, 0);
-                FolderArrow.Margin = new Padding(0, 0, 0, 0);
-                FolderArrow.Text = ICON_FOLDER_LINK;
-                FolderArrow.Visible = true;
-                FolderArrow.TextAlign = ContentAlignment.MiddleCenter;
-                FolderArrow.MouseClick += new MouseEventHandler(TextOnClick);
+                _folderArrow.Parent = _buttonPanel;
+                _folderArrow.AutoSize = false;
+                _folderArrow.Dock = DockStyle.Left;
+                _folderArrow.Font = new Font("Segoe UI Symbol", 8, FontStyle.Regular);
+                _folderArrow.Width = 22;
+                _folderArrow.BorderStyle = BorderStyle.None;
+                _folderArrow.Padding = new Padding(0, 0, 0, 0);
+                _folderArrow.Margin = new Padding(0, 0, 0, 0);
+                _folderArrow.Text = IconFolderLink;
+                _folderArrow.Visible = true;
+                _folderArrow.TextAlign = ContentAlignment.MiddleCenter;
+                _folderArrow.MouseClick += TextOnClick;
             }
-            else
-            if (IsSeparatorButton)
+            else if (IsSeparatorButton)
             {
-                ButtonText.IsSeparator = true;
+                _buttonText.IsSeparator = true;
                 Height = 11;
             }
 
-            ButtonText.AutoSize = false;
-            ButtonText.Parent = ButtonPanel;
-            ButtonText.Dock = DockStyle.Fill;
-            ButtonText.UseCompatibleTextRendering = true;
-            ButtonText.UseMnemonic = true;
-            ButtonText.MouseEnter += new EventHandler(TextMouseEnter);
-            ButtonText.MouseLeave += new EventHandler(TextMouseLeave);
+            _buttonText.AutoSize = false;
+            _buttonText.Parent = _buttonPanel;
+            _buttonText.Dock = DockStyle.Fill;
+            _buttonText.UseCompatibleTextRendering = true;
+            _buttonText.UseMnemonic = true;
+            _buttonText.AutoEllipsis = true;
+            _buttonText.MouseEnter += TextMouseEnter;
+            _buttonText.MouseLeave += TextMouseLeave;
 
             if (IsHeaderButton)
             {
-                ButtonText.Padding = new Padding(0, 0, 0, 0);
-                ButtonText.TextAlign = ContentAlignment.MiddleCenter;
-                BorderPanel.Padding = new Padding(1, 1, 1, 1);
+                _buttonText.Padding = new Padding(0, 0, 0, 0);
+                _buttonText.TextAlign = ContentAlignment.MiddleCenter;
+                _borderPanel.Padding = new Padding(1, 1, 1, 1);
             }
             else
             {
                 if (!IsSeparatorButton)
-                    ButtonText.Padding = new Padding(25, 0, 0, 0);
-                ButtonText.TextAlign = ContentAlignment.MiddleLeft;
-                BorderPanel.Padding = new Padding(0, 0, 0, 0);
-                ButtonText.AllowDrop = true;
-                ButtonText.DragOver += new DragEventHandler(OnDragOver);
-                ButtonText.DragDrop += new DragEventHandler(OnDrop);
-                ButtonText.MouseDown += new MouseEventHandler(TextMouseDown);
+                    _buttonText.Padding = new Padding(25, 0, 0, 0);
+                _buttonText.TextAlign = ContentAlignment.MiddleLeft;
+                _borderPanel.Padding = new Padding(0, 0, 0, 0);
+                _buttonText.AllowDrop = true;
+                _buttonText.DragOver += OnDragOver;
+                _buttonText.DragDrop += OnDrop;
+                _buttonText.MouseDown += TextMouseDown;
             }
 
-            ButtonText.Margin = new Padding(0, 0, 0, 0);
-            ButtonText.MouseClick += new MouseEventHandler(TextOnClick);
+            _buttonText.Margin = new Padding(0, 0, 0, 0);
+            _buttonText.MouseClick += TextOnClick;
 
             AutoSize = false;
 
             if (IsPinButton)
             {
-                ToolTip PinButtonToolTip = new ToolTip();
-                PinButtonToolTip.SetToolTip(ButtonText, "Click to pin/unpin form (overrides autohide). [Press P to enable/disable]");
+                var pinButtonToolTip = new ToolTip();
+                pinButtonToolTip.SetToolTip(_buttonText,
+                    "Click to pin/unpin form (overrides autohide). [Press P to enable/disable]");
             }
-            else
-            if (IsBackButton)
+            else if (IsBackButton)
             {
-                ToolTip BackButtonToolTip = new ToolTip();
-                BackButtonToolTip.SetToolTip(ButtonText, "Click to go back. [Backspace to go to parent. Control+Backspace/Click to go to the root.]");
+                var backButtonToolTip = new ToolTip();
+                backButtonToolTip.SetToolTip(_buttonText,
+                    "Click to go back. [Backspace to go to parent. Control+Backspace/Click to go to the root.]");
             }
 
             AppsConfig = myConfig;
-            AppsConfig.ConfigChanged += new EventHandler(ConfigChanged);
+            AppsConfig.ConfigChanged += ConfigChanged;
             SetColors();
         }
 
         #region Properties
-        public ButtonType ButtonType { get { return FButtonType; } }
+
+        public ButtonType ButtonType { get; }
+
         public string AppId { get; set; }
+
         public string AppName
         {
-            get { return ButtonText.Text; }
-            set { ButtonText.Text = value; }
+            get => _buttonText.Text;
+            set => _buttonText.Text = value;
         }
-        public string AsAdmin
-        {
-            get { return FAsAdmin; }
-            set
-            {
-                FAsAdmin = value;
-            }
-        }
+
+        public string AsAdmin { get; set; }
+
         public Color BorderColor
         {
-            get { return BorderPanel.BackColor; }
-            set { BorderPanel.BackColor = value; }
+            get => _borderPanel.BackColor;
+            set => _borderPanel.BackColor = value;
         }
+
         public new ContextMenuStrip ContextMenuStrip
         {
-            get {
-                return ButtonText.ContextMenuStrip;
-            }
-            set {
-                ButtonText.ContextMenuStrip = value;
+            get => _buttonText.ContextMenuStrip;
+            set => _buttonText.ContextMenuStrip = value;
+        }
+
+        public string FavIcon
+        {
+            get => _fFavIcon;
+            set
+            {
+                _fFavIcon = value;
+                FavIconImage = GetFavIconImage();
             }
         }
-        public string FavIcon { 
-            get { return FFavIcon; }
-            set { 
-                    FFavIcon = value; 
-                    FavIconImage = GetFavIconImage();
-                }
+
+        public Image FavIconImage
+        {
+            set => _pBox.Image = value;
+            get => _pBox.Image;
         }
-        public Image FavIconImage 
-        { 
-            set {
-                PBox.Image = value;
-            }
-            get {
-                return PBox.Image;
-            }
-        }
+
         public string FileName
         {
-            get { return FFileName; }
-            set {
-                FFileName = value;
-                FileIconPath = FFileName;
+            get => _fFileName;
+            set
+            {
+                _fFileName = value;
+                FileIconPath = _fFileName;
             }
-        }   
+        }
+
         public string FileIconPath
         {
-            get { return FFileIconPath; }
-            set {
-                FFileIconPath = value;
-                if (!string.IsNullOrEmpty(FFileIconPath))
-                    FileIconImage = IconFuncs.GetIcon(FFileIconPath, FFileIconIndex);
+            get => _fFileIconPath;
+            set
+            {
+                _fFileIconPath = value;
+                if (!string.IsNullOrEmpty(_fFileIconPath))
+                    FileIconImage = IconFuncs.GetIcon(_fFileIconPath, FileIconIndex);
             }
         }
-        public string FileIconIndex
-        {
-            get { return FFileIconIndex; }
-            set { FFileIconIndex = value;
-            }
-        }
+
+        public string FileIconIndex { get; set; }
+
         public string FileArgs { get; set; }
         public string FileWorkingFolder { get; set; }
+
         public Image FileIconImage
         {
-            set {
-                PBox.Image = value;
-            }
-            get {
-                return PBox.Image;
-            }
+            set => _pBox.Image = value;
+            get => _pBox.Image;
         }
-        public bool IsAppButton { get { return (FButtonType == ButtonType.App); } }
-        public bool IsBackButton { get { return (FButtonType == ButtonType.Back); } }
-        public bool IsFolderButton { get { return (FButtonType == ButtonType.Folder); } }
-        public bool IsFolderLinkButton { get { return (FButtonType == ButtonType.FolderLink); } }
-        public bool IsHeaderButton { get { return (IsMenuButton || IsPinButton || IsBackButton); } }
-        public bool IsMenuButton { get { return (FButtonType == ButtonType.Menu); } }
-        public bool IsPinButton { get { return (FButtonType == ButtonType.Pin); } }
-        public bool IsSeparatorButton { get { return (FButtonType == ButtonType.Separator); } }
-        public bool IsUrlButton { get { return (FButtonType == ButtonType.Url); } }
-        public string Url { 
-            get { return FUrl; } 
-            set { 
-                    FUrl = value;
-                    FavIcon = Funcs.GetWebsiteFavIcon(value);
-                }
+
+        public bool IsAppButton => ButtonType == ButtonType.App;
+        public bool IsBackButton => ButtonType == ButtonType.Back;
+        public bool IsFolderButton => ButtonType == ButtonType.Folder;
+        public bool IsFolderLinkButton => ButtonType == ButtonType.FolderLink;
+        public bool IsHeaderButton => IsMenuButton || IsPinButton || IsBackButton;
+        public bool IsMenuButton => ButtonType == ButtonType.Menu;
+        public bool IsPinButton => ButtonType == ButtonType.Pin;
+        public bool IsSeparatorButton => ButtonType == ButtonType.Separator;
+        public bool IsUrlButton => ButtonType == ButtonType.Url;
+
+        public string Url
+        {
+            get => _fUrl;
+            set
+            {
+                _fUrl = value;
+                FavIcon = Funcs.GetWebsiteFavIcon(value);
+            }
         }
 
         public XmlNode Node { get; set; }
+
         public bool WatchForIconUpdate
         {
-            get {
-                return MissingIconTimer.Enabled;
-            }
-            set {
-                MissingIconTimer.Enabled = value;
-            }
+            get => _missingIconTimer.Enabled;
+            set => _missingIconTimer.Enabled = value;
         }
+
         #endregion
 
         #region Privates
-        private Config AppsConfig { get; set; }
-        private readonly ButtonType FButtonType;
-        private string FFileName;
-        private string FFileIconPath;
-        private string FFileIconIndex;
-        private string FFavIcon;
-        private string FUrl;
-        private string FAsAdmin;
-        
-        private readonly PictureBox PBox = new PictureBox();
-        private readonly Panel BorderPanel = new Panel();
-        private readonly Panel ButtonPanel = new Panel();
-        private readonly AppButtonText ButtonText;
-        private readonly AppButtonText FolderArrow;
-        private const string ICON_FOLDER = "\uE188";
-        private const string ICON_FOLDER_W7 = "\u25B7";
-        private const string ICON_FOLDER_LINK = "\u25CF";
-        private readonly System.Windows.Forms.Timer MissingIconTimer = new System.Windows.Forms.Timer();
+
+        private Config AppsConfig { get; }
+        private string _fFileName;
+        private string _fFileIconPath;
+        private string _fFavIcon;
+        private string _fUrl;
+
+        private readonly PictureBox _pBox = new PictureBox();
+        private readonly Panel _borderPanel = new Panel();
+        private readonly Panel _buttonPanel = new Panel();
+        private readonly AppButtonText _buttonText;
+        private readonly AppButtonText _folderArrow;
+        private const string IconFolder = "\uE188";
+        private const string IconFolderW7 = "\u25B7";
+        private const string IconFolderLink = "\u25CF";
+        private readonly Timer _missingIconTimer = new Timer();
+
         #endregion
 
         #region Events
-        public delegate void AppButtonClickedHandler(AppButton Button);
+
+        public delegate void AppButtonClickedHandler(AppButton button);
+
         public event AppButtonClickedHandler OnAppButtonClicked;
-        public delegate void AppButtonDropEventhandler(AppButton DropToButton, DragEventArgs e);
+
+        public delegate void AppButtonDropEventhandler(AppButton dropToButton, DragEventArgs e);
+
         public event AppButtonDropEventhandler OnAppButtonDropped;
+
         #endregion
 
         #region Methods
+
         private void CheckForMissingIcon(object sender, EventArgs e)
         {
             if (FileIconImage == null)
             {
-                if ((!string.IsNullOrEmpty(FileIconPath)) || (!string.IsNullOrEmpty(FileName)))
-                {
+                if (!string.IsNullOrEmpty(FileIconPath) || !string.IsNullOrEmpty(FileName))
                     if (File.Exists(FileIconPath) || File.Exists(FileName))
                     {
                         if (File.Exists(FileIconPath))
@@ -303,14 +299,14 @@ namespace Apps
                         else
                             FileIconImage = IconFuncs.GetIcon(FileName, FileIconIndex);
                         WatchForIconUpdate = false;
-                    }                      
-                }
+                    }
             }
             else
             {
-                MissingIconTimer.Enabled = false;
+                _missingIconTimer.Enabled = false;
             }
         }
+
         private void ConfigChanged(object sender, EventArgs e)
         {
             SetColors();
@@ -320,148 +316,136 @@ namespace Apps
         {
             if (!string.IsNullOrEmpty(FavIcon))
             {
-                MemoryStream s = new MemoryStream(Convert.FromBase64String(FavIcon));
-                return  new Bitmap(s);
+                var s = new MemoryStream(Convert.FromBase64String(FavIcon));
+                return new Bitmap(s);
             }
-            else
-                return null;
+
+            return null;
         }
 
         private void OnDragOver(object sender, DragEventArgs e)
         {
-            e.Effect = (DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move);
+            e.Effect = DragDropEffects.Copy | DragDropEffects.Link | DragDropEffects.Move;
         }
+
         private void OnDrop(object sender, DragEventArgs e)
-        {       
+        {
             OnAppButtonDropped?.Invoke(this, e);
         }
+
         public void ParseShortcut()
         {
-
-            Misc.ParseShortcut(FileName, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWF);
-            FFileName = fileName;
+            Misc.ParseShortcut(FileName, out var fileName, out var fileIcon, out var fileIconIdx, out var fileArgs,
+                out var fileWf);
+            _fFileName = fileName;
             FileIconPath = fileIcon;
             FileIconIndex = fileIconIdx;
-            FileWorkingFolder = fileWF;
+            FileWorkingFolder = fileWf;
             FileArgs = fileArgs;
         }
+
         public void PerformClick()
         {
             TextOnClick(this, null);
         }
+
         private void SetColors()
         {
             if (IsHeaderButton)
-            {              
+            {
                 BorderColor = AppsConfig.HeaderBackColor;
-                ButtonPanel.BackColor = AppsConfig.HeaderButtonColor;
-                ButtonText.ForeColor = AppsConfig.HeaderFontColor;
-                ButtonText.BackColor = AppsConfig.HeaderButtonColor;
+                _buttonPanel.BackColor = AppsConfig.HeaderButtonColor;
+                _buttonText.ForeColor = AppsConfig.HeaderFontColor;
+                _buttonText.BackColor = AppsConfig.HeaderButtonColor;
             }
             else
             {
-                FolderArrow.ForeColor = AppsConfig.AppsFontColor;
-                FolderArrow.BackColor = AppsConfig.AppsBackColor;
-                ButtonPanel.BackColor = AppsConfig.AppsBackColor;
-                ButtonText.ForeColor = AppsConfig.AppsFontColor;
-                ButtonText.BackColor = AppsConfig.AppsBackColor;
+                _folderArrow.ForeColor = AppsConfig.AppsFontColor;
+                _folderArrow.BackColor = AppsConfig.AppsBackColor;
+                _buttonPanel.BackColor = AppsConfig.AppsBackColor;
+                _buttonText.ForeColor = AppsConfig.AppsFontColor;
+                _buttonText.BackColor = AppsConfig.AppsBackColor;
             }
         }
+
         private void TextMouseDown(object sender, MouseEventArgs e)
         {
-            if ((e == null) || (e.Button == MouseButtons.Left))
-            {
-                if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeparatorButton  && (ModifierKeys == Keys.Control))
-                {
+            if (e == null || e.Button == MouseButtons.Left)
+                if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeparatorButton &&
+                    ModifierKeys == Keys.Control)
                     DoDragDrop(this, DragDropEffects.Move);
-                }
-            }
         }
+
         private void TextMouseEnter(object sender, EventArgs e)
         {
             if (IsSeparatorButton)
                 return;
 
             if (IsHeaderButton)
-            {
-                ButtonText.BackColor = AppsConfig.HeaderButtonSelectedColor;
-            }
+                _buttonText.BackColor = AppsConfig.HeaderButtonSelectedColor;
             else
-            {
-                ButtonText.BackColor = AppsConfig.AppsSelectedBackColor;
-            }
+                _buttonText.BackColor = AppsConfig.AppsSelectedBackColor;
         }
+
         private void TextMouseLeave(object sender, EventArgs e)
         {
             if (IsSeparatorButton)
                 return;
 
             if (IsHeaderButton)
-            {
-                ButtonText.BackColor = AppsConfig.HeaderButtonColor;
-            }
+                _buttonText.BackColor = AppsConfig.HeaderButtonColor;
             else
-            {
-                ButtonText.BackColor = AppsConfig.AppsBackColor;
-            }
+                _buttonText.BackColor = AppsConfig.AppsBackColor;
         }
+
         private void TextOnClick(object sender, MouseEventArgs e)
         {
-            if ((e == null) || (e.Button == MouseButtons.Left))
+            if (e == null || e.Button == MouseButtons.Left)
             {
                 if (IsAppButton || IsFolderLinkButton || IsUrlButton)
-                {
                     try
                     {
                         ProcessStartInfo procStartInfo;
                         if (IsUrlButton)
-                            procStartInfo = new ProcessStartInfo(Url, FileArgs); // Let user specify a specific app to pass urls too?
+                            procStartInfo =
+                                new ProcessStartInfo(Url,
+                                    FileArgs); // Let user specify a specific app to pass urls too?
                         else
                             procStartInfo = new ProcessStartInfo(FileName, FileArgs);
 
                         if (string.IsNullOrEmpty(FileWorkingFolder))
                             FileWorkingFolder = Path.GetDirectoryName(FileName);
+
                         procStartInfo.WorkingDirectory = FileWorkingFolder;
 
                         // run as administrator
-                        if ((Control.ModifierKeys == Keys.Shift) || (AsAdmin == "Y"))
+                        if (ModifierKeys == Keys.Shift || AsAdmin == "Y")
                             procStartInfo.Verb = "runas";
-                        
-                        // start process in it's own background thread.
-                        //ThreadPool.QueueUserWorkItem(delegate {
-                        //    try
-                        //    {
-                                Process process = Process.Start(procStartInfo);
-                        //    }
-                        //    catch (Exception error)
-                        //    {
 
-                        //    }
-                        //});
-
+                        var process = Process.Start(procStartInfo);
                     }
                     catch (Exception error)
-                    {                      
-                        Misc.ShowMessage(AppsConfig, "Error", "Error while launching " + AppName + "\n\r" + error.Message.ToString());
+                    {
+                        Misc.ShowMessage(AppsConfig, "Error",
+                            "Error while launching " + AppName + "\n\r" + error.Message);
                     }
-                }
+
                 OnClick(e);
-            }               
+            }
         }
+
         #endregion
 
         #region Overrides
+
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
             OnAppButtonClicked?.Invoke(this);
         }
-        protected override bool ShowFocusCues
-        {
-            get {
-                return false;
-            }
-        }
+
+        protected override bool ShowFocusCues => false;
+
         #endregion
     }
 }
