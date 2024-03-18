@@ -242,15 +242,8 @@ namespace Apps
 
         protected override void OnLoad(EventArgs e)
         {
-            if (RunningInstance() != null)
-            {
-                MessageBox.Show("There is already a version of zuulApps running.");
-                Application.Exit();
-            }
-            else
-            {
-                base.OnLoad(e);
-            }
+            if (Funcs.IsRunningDoShow()) Application.Exit();
+            base.OnLoad(e);
         }
 
         private void notifyApps_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -417,16 +410,6 @@ namespace Apps
             if (_windowTracker != null) return;
             _windowTracker = new WindowTracker();
             _windowTracker.WindowChanged += OnWindowChanged;
-        }
-
-        private Process RunningInstance()
-        {
-            if (Debugger.IsAttached) return null;
-            var current = Process.GetCurrentProcess();
-            var processes = Process.GetProcessesByName(current.ProcessName);
-            return processes.Where(process => process.Id != current.Id).FirstOrDefault(process =>
-                current.MainModule != null && Assembly.GetExecutingAssembly().Location.Replace("/", "\\") ==
-                current.MainModule.FileName);
         }
 
         private void SetFormPos()
