@@ -26,6 +26,7 @@ namespace Apps
     {
         public AppButton(Config myConfig, ButtonType buttonType)
         {
+            DoubleBuffered = true;
             ButtonType = buttonType;
             _buttonText = new AppButtonText(myConfig);
             _folderArrow = new AppButtonText(myConfig);

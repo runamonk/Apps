@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Utility;
+using Resolve.HotKeys;
 
 namespace Apps
 {
@@ -21,6 +22,18 @@ namespace Apps
         }
 
         // properties
+        public bool AutoHide
+        {
+            get
+            {
+                var s = FindKey("auto_hide");
+                if (s == "")
+                    s = SetKey("auto_hide", "false");
+                return bool.Parse(s);
+            }
+            set => SetKey("auto_hide", value.ToString());
+        }
+
         public bool AutoSizeHeight
         {
             get
@@ -311,19 +324,19 @@ namespace Apps
             set => SetKey("parse_shortcuts", value.ToString());
         }
 
-        public string PopupHotkey
+        public Keys PopupHotkey
         {
             get
             {
                 var s = FindKey("popup_hotkey");
                 if (s == "")
                     s = SetKey("popup_hotkey", "None");
-                return s;
+                return Funcs.StringToKey(s);
             }
-            set => SetKey("popup_hotkey", value);
+            set => SetKey("popup_hotkey", value.ToString());
         }
 
-        public int PopupHotkeyModifier
+        public Resolve.HotKeys.ModifierKey PopupHotkeyModifier
         {
             /* Modifier
                None = 0,
@@ -337,9 +350,9 @@ namespace Apps
                 var s = FindKey("popup_hotkey_modifier");
                 if (s == "")
                     s = SetKey("popup_hotkey_modifier", "0");
-                return Convert.ToInt32(s);
+                return (Resolve.HotKeys.ModifierKey)Int32.Parse(s);
             }
-            set => SetKey("popup_hotkey_modifier", value.ToString());
+            set => SetKey("popup_hotkey_modifier", ((int)value).ToString());
         }
 
         public event EventHandler ConfigChanged;
@@ -438,7 +451,7 @@ namespace Apps
 
                 Config = config;
                 OK.Click += ButtonClick;
-                Key.Text = Config.PopupHotkey;
+                Key.Text = Config.PopupHotkey.ToString();
 
                 // fill out the hotkey modifiers
                 /* Modifier
@@ -448,17 +461,19 @@ namespace Apps
                        Shift = 4,
                        WinKey = 8*/
 
-                var m = Config.PopupHotkeyModifier;
+                var m = (int)Config.PopupHotkeyModifier;
                 Alt.Checked = m == 1 || m == 3 || m == 5 || m == 9;
+                Control.Checked = m == 2 || m == 3 || m == 6 || m == 10;
+                Shift.Checked = m == 4 || m == 5 || m == 6 || m == 12;
+                Windows.Checked = m == 8 || m == 9 || m == 10 || m == 12;
+
+                AutoHide.Checked = Config.AutoHide;
                 Alt.BackColor = Config.AppsBackColor;
                 Alt.ForeColor = Config.AppsFontColor;
-                Control.Checked = m == 2 || m == 3 || m == 6 || m == 10;
                 Control.BackColor = Config.AppsBackColor;
                 Control.ForeColor = Config.AppsFontColor;
-                Shift.Checked = m == 4 || m == 5 || m == 6 || m == 12;
                 Shift.BackColor = Config.AppsBackColor;
                 Shift.ForeColor = Config.AppsFontColor;
-                Windows.Checked = m == 8 || m == 9 || m == 10 || m == 12;
                 Windows.BackColor = Config.AppsBackColor;
                 Windows.ForeColor = Config.AppsFontColor;
                 Startup.Checked = Funcs.StartWithWindows;
@@ -508,7 +523,7 @@ namespace Apps
 
             private void ButtonClick(object sender, EventArgs e)
             {
-                Config.PopupHotkey = Key.Text;
+                Config.PopupHotkey = Funcs.StringToKey(Key.Text);
                 /* Modifier
                    None = 0,
                    Alt = 1,
@@ -520,6 +535,9 @@ namespace Apps
                 if (Control.Checked) i += 2;
                 if (Shift.Checked) i += 4;
                 if (Windows.Checked) i += 8;
+
+                Config.AutoHide = AutoHide.Checked;
+
                 Config.AutoSizeHeight = AutoSizeHeight.Checked;
                 Config.AppsBackColor = AppBackColor.BackColor;
                 Config.AppsFontColor = AppFontColor.BackColor;
@@ -534,7 +552,7 @@ namespace Apps
                 Config.MenuFontColor = MenuFontColor.BackColor;
                 Config.MenuSelectedColor = MenuSelectedColor.BackColor;
                 Config.OpenFormAtCursor = OpenAtMouse.Checked;
-                Config.PopupHotkeyModifier = i;
+                Config.PopupHotkeyModifier = (ModifierKey)i;
                 Funcs.StartWithWindows = Startup.Checked;
                 Config.ParseShortcuts = ChkParseShortcuts.Checked;
                 Config.OpenAtRoot = ChkOpenRootFolder.Checked;

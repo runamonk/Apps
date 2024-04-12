@@ -32,7 +32,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Key = new System.Windows.Forms.TextBox();
             this.ChkParseShortcuts = new System.Windows.Forms.CheckBox();
-            this.AutoSizeHeight = new System.Windows.Forms.CheckBox();
             this.OpenAtMouse = new System.Windows.Forms.CheckBox();
             this.Startup = new System.Windows.Forms.CheckBox();
             this.ChkOpenRootFolder = new System.Windows.Forms.CheckBox();
@@ -47,11 +46,15 @@
             this.AppSelectedColor = new System.Windows.Forms.Panel();
             this.AppBackColor = new System.Windows.Forms.Panel();
             this.AppFontColor = new System.Windows.Forms.Panel();
+            this.IgnoreWindows = new System.Windows.Forms.TextBox();
+            this.AutoHide = new System.Windows.Forms.CheckBox();
+            this.AutoSizeHeight = new System.Windows.Forms.CheckBox();
             this.dlgColor = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.GroupOptions = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.GroupHotkey = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
             this.Clear = new System.Windows.Forms.Button();
             this.Windows = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -84,8 +87,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.DarkTheme = new System.Windows.Forms.RadioButton();
             this.LightTheme = new System.Windows.Forms.RadioButton();
-            this.label24 = new System.Windows.Forms.Label();
-            this.IgnoreWindows = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.GroupOptions.SuspendLayout();
             this.GroupHotkey.SuspendLayout();
@@ -113,25 +114,13 @@
             // 
             this.ChkParseShortcuts.AutoSize = true;
             this.ChkParseShortcuts.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkParseShortcuts.Location = new System.Drawing.Point(6, 65);
+            this.ChkParseShortcuts.Location = new System.Drawing.Point(6, 82);
             this.ChkParseShortcuts.Name = "ChkParseShortcuts";
             this.ChkParseShortcuts.Size = new System.Drawing.Size(117, 17);
-            this.ChkParseShortcuts.TabIndex = 3;
+            this.ChkParseShortcuts.TabIndex = 4;
             this.ChkParseShortcuts.Text = "Parse .lnk && .url files";
             this.toolTip1.SetToolTip(this.ChkParseShortcuts, "Check to automatically parse .lnk and .url files when adding a new application.");
             this.ChkParseShortcuts.UseVisualStyleBackColor = true;
-            // 
-            // AutoSizeHeight
-            // 
-            this.AutoSizeHeight.AutoSize = true;
-            this.AutoSizeHeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AutoSizeHeight.Location = new System.Drawing.Point(6, 48);
-            this.AutoSizeHeight.Name = "AutoSizeHeight";
-            this.AutoSizeHeight.Size = new System.Drawing.Size(98, 17);
-            this.AutoSizeHeight.TabIndex = 2;
-            this.AutoSizeHeight.Text = "Auto size height";
-            this.toolTip1.SetToolTip(this.AutoSizeHeight, "Check to automatically size Apps height to the number of Apps.");
-            this.AutoSizeHeight.UseVisualStyleBackColor = true;
             // 
             // OpenAtMouse
             // 
@@ -161,10 +150,10 @@
             // 
             this.ChkOpenRootFolder.AutoSize = true;
             this.ChkOpenRootFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ChkOpenRootFolder.Location = new System.Drawing.Point(6, 82);
+            this.ChkOpenRootFolder.Location = new System.Drawing.Point(6, 99);
             this.ChkOpenRootFolder.Name = "ChkOpenRootFolder";
             this.ChkOpenRootFolder.Size = new System.Drawing.Size(145, 17);
-            this.ChkOpenRootFolder.TabIndex = 4;
+            this.ChkOpenRootFolder.TabIndex = 5;
             this.ChkOpenRootFolder.Text = "Always open to root folder";
             this.toolTip1.SetToolTip(this.ChkOpenRootFolder, "Check to always open at the root folder.");
             this.ChkOpenRootFolder.UseVisualStyleBackColor = true;
@@ -279,6 +268,39 @@
             this.toolTip1.SetToolTip(this.AppFontColor, "Click to set color.");
             this.AppFontColor.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ColorControl_MouseClick);
             // 
+            // IgnoreWindows
+            // 
+            this.IgnoreWindows.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.IgnoreWindows.Location = new System.Drawing.Point(7, 107);
+            this.IgnoreWindows.Name = "IgnoreWindows";
+            this.IgnoreWindows.Size = new System.Drawing.Size(229, 20);
+            this.IgnoreWindows.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.IgnoreWindows, "Enter partial window titles (seperated by a comma) to ignore.");
+            // 
+            // AutoHide
+            // 
+            this.AutoHide.AutoSize = true;
+            this.AutoHide.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AutoHide.Location = new System.Drawing.Point(6, 48);
+            this.AutoHide.Name = "AutoHide";
+            this.AutoHide.Size = new System.Drawing.Size(68, 17);
+            this.AutoHide.TabIndex = 2;
+            this.AutoHide.Text = "Auto hide";
+            this.toolTip1.SetToolTip(this.AutoHide, "Check to auto hide apps window after clicking a clip.");
+            this.AutoHide.UseVisualStyleBackColor = true;
+            // 
+            // AutoSizeHeight
+            // 
+            this.AutoSizeHeight.AutoSize = true;
+            this.AutoSizeHeight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AutoSizeHeight.Location = new System.Drawing.Point(6, 65);
+            this.AutoSizeHeight.Name = "AutoSizeHeight";
+            this.AutoSizeHeight.Size = new System.Drawing.Size(98, 17);
+            this.AutoSizeHeight.TabIndex = 3;
+            this.AutoSizeHeight.Text = "Auto size height";
+            this.toolTip1.SetToolTip(this.AutoSizeHeight, "Check to automatically size Apps height to the number of Apps.");
+            this.AutoSizeHeight.UseVisualStyleBackColor = true;
+            // 
             // dlgColor
             // 
             this.dlgColor.AnyColor = true;
@@ -297,9 +319,10 @@
             // 
             // GroupOptions
             // 
+            this.GroupOptions.Controls.Add(this.AutoSizeHeight);
+            this.GroupOptions.Controls.Add(this.AutoHide);
             this.GroupOptions.Controls.Add(this.ChkOpenRootFolder);
             this.GroupOptions.Controls.Add(this.ChkParseShortcuts);
-            this.GroupOptions.Controls.Add(this.AutoSizeHeight);
             this.GroupOptions.Controls.Add(this.OpenAtMouse);
             this.GroupOptions.Controls.Add(this.Startup);
             this.GroupOptions.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -338,6 +361,15 @@
             this.GroupHotkey.TabIndex = 6;
             this.GroupHotkey.TabStop = false;
             this.GroupHotkey.Text = "Popup Hotkey";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(7, 88);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(84, 13);
+            this.label24.TabIndex = 10;
+            this.label24.Text = "Ignore Windows";
             // 
             // Clear
             // 
@@ -694,24 +726,6 @@
             this.LightTheme.UseVisualStyleBackColor = true;
             this.LightTheme.Click += new System.EventHandler(this.LightTheme_Click);
             // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(7, 88);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(84, 13);
-            this.label24.TabIndex = 10;
-            this.label24.Text = "Ignore Windows";
-            // 
-            // IgnoreWindows
-            // 
-            this.IgnoreWindows.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.IgnoreWindows.Location = new System.Drawing.Point(7, 107);
-            this.IgnoreWindows.Name = "IgnoreWindows";
-            this.IgnoreWindows.Size = new System.Drawing.Size(229, 20);
-            this.IgnoreWindows.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.IgnoreWindows, "Enter partial window titles (seperated by a comma) to ignore.");
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -751,6 +765,8 @@
             this.ResumeLayout(false);
 
         }
+
+        public System.Windows.Forms.CheckBox AutoHide;
 
         #endregion
         private System.Windows.Forms.ToolTip toolTip1;

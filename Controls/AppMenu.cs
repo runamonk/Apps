@@ -9,6 +9,7 @@ namespace Apps.Controls
     {
         public AppMenu(Config myConfig)
         {
+            DoubleBuffered = true;
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += ConfigChanged;
             SetColors();

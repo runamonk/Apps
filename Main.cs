@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Apps.Controls;
+using Resolve.HotKeys;
 using Utility;
 using zuulWindowTracker;
 
@@ -82,9 +83,9 @@ namespace Apps
         private bool _inMenu;
         private bool _inSettings;
         private bool _pinned;
-        private bool _hotkeyEnabled;
+        private bool _firstTime = true;
 
-        private readonly int _hotkeyId = 1;
+        private HotKey _hotkey1;
 
         private const string IconPinnedW7 = "\u25FC";
         private const string IconUnpinnedW7 = "\u25FB";
@@ -109,7 +110,7 @@ namespace Apps
 
         private void AppClicked()
         {
-            ToggleShow(true);
+            ToggleShow();
         }
 
         private void AppsChanged()
@@ -126,7 +127,7 @@ namespace Apps
 
         private void Main_Deactivate(object sender, EventArgs e)
         {
-            if (Opacity > 0)
+            if (!_firstTime && Config.AutoHide && IsVisible() && !_pinned)
                 ToggleShow();
         }
 
@@ -138,8 +139,8 @@ namespace Apps
 
         private void Main_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape && Opacity > 0)
-                ToggleShow(true);
+            if (e.KeyCode == Keys.Escape && IsVisible())
+                ToggleShow();
             else if (e.KeyCode == Keys.P)
                 PinButton.PerformClick();
             else if (e.KeyCode == Keys.Back && BackButton.Visible)
@@ -148,7 +149,8 @@ namespace Apps
 
         private void Main_Load(object sender, EventArgs e)
         {
-            LoadConfig();
+            if (_firstTime)
+                LoadConfig();
         }
 
         private void Main_ResizeEnd(object sender, EventArgs e)
@@ -184,7 +186,7 @@ namespace Apps
         private void MenuSettings_Click(object sender, EventArgs e)
         {
             _inSettings = true;
-            Config.ShowConfigForm(Opacity > 0);
+            Config.ShowConfigForm(IsVisible());
             _inSettings = false;
         }
 
@@ -196,7 +198,7 @@ namespace Apps
 
         private void OnWindowChanged(IntPtr handle)
         {
-            if (_inClose) return;
+            if (_inClose || Config.IgnoreWindows == "") return;
             try
             {
                 GetWindowThreadProcessId(handle, out var pid);
@@ -368,36 +370,45 @@ namespace Apps
             }
 
             Text = Funcs.GetNameAndVersion();
-            if (Config.AutoSizeHeight && Visible)
+            if (Config.AutoSizeHeight && IsVisible())
                 AutoSizeForm(false);
             pTop.BackColor = Config.HeaderBackColor;
             BackColor = Config.AppsBackColor;
             _ignoreWindowsList = Config.IgnoreWindows.Split(',');
             SubfolderName.ForeColor = Config.MenuFontColor;
-            DisableHotkey();
-            EnableHotkey();
+
+            if (Config.PopupHotkey == Keys.None)
+                DisableHotkey();
+            else
+                EnableHotkey();
+
             MonitorWindowChanges();
+
+            ShowInTaskbar = (!Config.AutoHide);
+
+            ToggleShow();
         }
 
-        public void EnableHotkey()
+        private void EnableHotkey()
         {
-            if (Config.PopupHotkey == "")
+            DisableHotkey();
+            _hotkey1 = new HotKey(Config.PopupHotkey, Config.PopupHotkeyModifier);
+            _hotkey1.Pressed += (sender, args) => ToggleShow();
+            _hotkey1.Register();
+        }
+
+        private void DisableHotkey()
+        {
+            if (_hotkey1 != null)
             {
-                _hotkeyEnabled = false;
-            }
-            else if (_hotkeyEnabled == false)
-            {
-                _hotkeyEnabled = true;
-                RegisterHotKey(Handle, _hotkeyId, Config.PopupHotkeyModifier,
-                    ((Keys)Enum.Parse(typeof(Keys), Config.PopupHotkey)).GetHashCode());
+                _hotkey1.Unregister();
+                _hotkey1.Dispose();
             }
         }
 
-        public void DisableHotkey()
+        private bool IsVisible()
         {
-            if (!_hotkeyEnabled) return;
-            _hotkeyEnabled = false;
-            UnregisterHotKey(Handle, _hotkeyId);
+            return (Opacity >= 1);
         }
 
         private bool InWindowList(string title)
@@ -418,28 +429,49 @@ namespace Apps
             Left = Config.FormLeft;
             Size = Config.FormSize;
         }
-
-        private void ToggleShow(bool @override = false)
+        
+        private void ToggleShow()
         {
-            if (_pinned || Apps.InLoad ||
-                (!@override && (_inClose || _inAbout || Apps.InMenu || _inMenu || _inSettings))) return;
-
-            if (Opacity > 0)
+            void SetVisible(bool setVis)
             {
-                Opacity = 0;
-                if (Config.OpenAtRoot && Apps.CurrentFolderName != "")
-                    Apps.LoadItems();
+                if (!setVis)
+                {
+                    KeyPreview = false;
+                    Opacity = 0;
+                }
+                else
+                {
+                    if (Config.OpenFormAtCursor)
+                        Funcs.MoveFormToCursor(this);
+                    
+                    if (Config.OpenAtRoot && Apps.CurrentFolderName != "")
+                        Apps.LoadItems();
+
+                    AutoSizeForm(true);
+                    Opacity = 100;
+                    Activate();
+                    KeyPreview = true;
+                }
+            }
+
+            if (_pinned || _inClose || _inAbout || Apps.InMenu || _inMenu || _inSettings) return;
+
+            if  ((_firstTime && Config.AutoHide) || (Config.AutoHide && IsVisible()))
+            {
+                SetVisible(false);
+                _firstTime = false;
             }
             else
+            if ((_firstTime && !Config.AutoHide) || (!_firstTime && !IsVisible()))
             {
-                AutoSizeForm(true);
-                if (Config.OpenFormAtCursor)
-                    Funcs.MoveFormToCursor(this);
-                Opacity = 100;
-                Activate();
+                SetVisible(true);
+                _firstTime = false;
             }
         }
 
+
         #endregion
+
+
     }
 }

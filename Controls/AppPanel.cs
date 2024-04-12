@@ -15,6 +15,8 @@ namespace Apps.Controls
     {
         public AppPanel(Config myConfig)
         {
+            DoubleBuffered = true;
+            BeginUpdate();
             AppsConfig = myConfig;
             AppsConfig.ConfigChanged += ConfigChanged;
 
@@ -50,6 +52,7 @@ namespace Apps.Controls
             DragDrop += DropToPanel;
             SetColors();
             LoadItems();
+            EndUpdate();
         }
 
         #region Properties

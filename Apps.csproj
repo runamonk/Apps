@@ -87,6 +87,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Shared_Misc\HotKeys\HotKeys\HotKey.cs">
+      <Link>HotKeys\HotKeys\HotKey.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared_Misc\HotKeys\HotKeys\ModifierKey.cs">
+      <Link>HotKeys\HotKeys\ModifierKey.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared_Misc\HotKeys\HotKeys\NativeMethods.cs">
+      <Link>HotKeys\HotKeys\NativeMethods.cs</Link>
+    </Compile>
     <Compile Include="..\Shared_Misc\Utility.cs">
       <Link>Utility.cs</Link>
     </Compile>
@@ -226,6 +235,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Shared_Misc\HotKeys\HotKeys.sln">
+      <Link>HotKeys\HotKeys.sln</Link>
+    </Content>
+    <Content Include="..\Shared_Misc\HotKeys\HotKeys\HotKey.ico">
+      <Link>HotKeys\HotKeys\HotKey.ico</Link>
+    </Content>
+    <Content Include="..\Shared_Misc\HotKeys\HotKeys\HotKey.png">
+      <Link>HotKeys\HotKeys\HotKey.png</Link>
+    </Content>
+    <Content Include="..\Shared_Misc\HotKeys\LICENSE">
+      <Link>HotKeys\LICENSE</Link>
+    </Content>
     <Content Include="zapps.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +280,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="..\Shared_Misc\HotKeys\HotKeys\Properties\">
+      <Link>HotKeys\HotKeys\Properties</Link>
+    </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
