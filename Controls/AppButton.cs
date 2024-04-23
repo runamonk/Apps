@@ -24,6 +24,9 @@ namespace Apps
 
     public class AppButton : Panel
     {
+        private readonly Timer _buttonHoldTimer = new Timer();
+        private Cursor _dragAndDropCursor;
+
         public AppButton(Config myConfig, ButtonType buttonType)
         {
             DoubleBuffered = true;
@@ -125,6 +128,7 @@ namespace Apps
                 _buttonText.DragOver += OnDragOver;
                 _buttonText.DragDrop += OnDrop;
                 _buttonText.MouseDown += TextMouseDown;
+                _buttonText.MouseUp += TextMouseUp;
             }
 
             _buttonText.Margin = new Padding(0, 0, 0, 0);
@@ -369,12 +373,41 @@ namespace Apps
             }
         }
 
+        protected override void OnGiveFeedback(GiveFeedbackEventArgs gfbevent)
+        {
+            base.OnGiveFeedback(gfbevent);
+            if (MouseButtons == MouseButtons.Left && Cursor.Current != Cursors.No)
+            {
+                gfbevent.UseDefaultCursors = false;
+                Cursor.Current = _dragAndDropCursor;
+            }
+        }
+
         private void TextMouseDown(object sender, MouseEventArgs e)
         {
-            if (e == null || e.Button == MouseButtons.Left)
-                if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeparatorButton &&
-                    ModifierKeys == Keys.Control)
-                    DoDragDrop(this, DragDropEffects.Move);
+            if (IsAppButton | IsFolderButton | IsFolderLinkButton | IsSeparatorButton && (e.Button == MouseButtons.Left)) 
+                _buttonHoldTimer.Start();
+        }
+
+        private void TextMouseUp(object sender, MouseEventArgs e)
+        {
+            _buttonHoldTimer.Stop();
+            base.OnMouseUp(e);
+        }
+        
+        private void ButtonHoldTimer_Tick(object sender, EventArgs e)
+        {
+            _buttonHoldTimer.Stop();
+            if (MouseButtons == MouseButtons.Left)
+            {
+                // copy the button and use it as the cursor while dragging and dropping.
+                var bmpButtonCopy = new Bitmap(Width, Height);
+                DrawToBitmap(bmpButtonCopy, new Rectangle(Point.Empty, bmpButtonCopy.Size));
+
+                _dragAndDropCursor = new Cursor(bmpButtonCopy.GetHicon());
+                Cursor.Current = _dragAndDropCursor;
+                DoDragDrop(this, DragDropEffects.Move);
+            }
         }
 
         private void TextMouseEnter(object sender, EventArgs e)
@@ -438,6 +471,13 @@ namespace Apps
         #endregion
 
         #region Overrides
+
+        protected override void OnCreateControl()
+        {
+            base.OnCreateControl();
+            _buttonHoldTimer.Interval = 250;
+            _buttonHoldTimer.Tick += ButtonHoldTimer_Tick;
+        }
 
         protected override void OnClick(EventArgs e)
         {
