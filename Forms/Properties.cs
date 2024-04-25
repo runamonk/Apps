@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Apps.Controls;
@@ -9,37 +10,46 @@ namespace Apps.Forms
 {
     public partial class Properties : Form
     {
+        private const int CpNocloseButton = 0x200;
+
+        private readonly Config _appsConfig;
+        private readonly AppButton _fAppButton;
+        private readonly AppMenu _menuRc;
+        private bool _isCancelled;
+
         public Properties(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
             _appsConfig = myConfig;
             _fAppButton = appButton;
-            _menuRc = new AppMenu(myConfig)
-            {
-                ShowCheckMargin = false,
-                ShowImageMargin = false
-            };
+            _menuRc = new AppMenu(myConfig) { ShowCheckMargin = false, ShowImageMargin = false };
             Funcs.AddMenuItem(_menuRc, "Reset", MenuReset_Click);
             EditAppIcon.ContextMenuStrip = _menuRc;
 
             SetColors();
         }
 
-        #region Overrides
-
         protected override CreateParams CreateParams
         {
             get
             {
-                var myCp = base.CreateParams;
+                CreateParams myCp = base.CreateParams;
                 myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }
         }
 
-        #endregion
+        public string AppFileArgs => EditFileArgs.Text.Trim();
 
-        #region Methods
+        public string AppFileName => EditAppFilePath.Text.Trim();
+
+        public string AppFileWorkingFolder => EditWorkingFolder.Text.Trim();
+
+        public string AppIconIndex { get; private set; }
+
+        public string AppIconPath { get; private set; }
+
+        public string AppName => EditAppName.Text.Trim();
 
         private void SetColors()
         {
@@ -57,43 +67,13 @@ namespace Apps.Forms
             EditWorkingFolder.ForeColor = _appsConfig.AppsFontColor;
         }
 
-        #endregion
-
-        #region Properties
-
-        public string AppFileArgs => EditFileArgs.Text.Trim();
-
-        public string AppFileName => EditAppFilePath.Text.Trim();
-
-        public string AppFileWorkingFolder => EditWorkingFolder.Text.Trim();
-
-        public string AppIconIndex { get; private set; }
-
-        public string AppIconPath { get; private set; }
-
-        public string AppName => EditAppName.Text.Trim();
-
-        #endregion
-
-        #region Privates
-
-        private readonly Config _appsConfig;
-        private const int CpNocloseButton = 0x200;
-        private bool _isCancelled;
-        private readonly AppMenu _menuRc;
-        private readonly AppButton _fAppButton;
-
-        #endregion
-
-        #region Events
-
         private void AppIcon_Click(object sender, EventArgs e)
         {
             void ShowIconPicker(string fileName)
             {
                 if (string.IsNullOrEmpty(fileName)) return;
 
-                var frm = new IconPicker(_appsConfig, fileName);
+                IconPicker frm = new IconPicker(_appsConfig, fileName);
                 if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     AppIconIndex = frm.SelectedIconIndex.ToString();
@@ -111,7 +91,7 @@ namespace Apps.Forms
         {
             if (!_isCancelled)
             {
-                var errorStr = "";
+                string errorStr = "";
                 if (AppName == "")
                     errorStr = "Please enter a name.";
                 if (AppFileName == "")
@@ -119,10 +99,8 @@ namespace Apps.Forms
 
                 EditWorkingFolder.Text = EditWorkingFolder.Text.Trim();
 
-                if (EditWorkingFolder.Text != "" && !Directory.Exists(EditWorkingFolder.Text) &&
-                    !EditWorkingFolder.Text.Contains("shell:"))
-                    e.Cancel = Misc.ConfirmDialog(_appsConfig, ConfirmButtons.YesNo, "Are you sure?",
-                        "Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.Yes;
+                if (EditWorkingFolder.Text != "" && !Directory.Exists(EditWorkingFolder.Text) && !EditWorkingFolder.Text.Contains("shell:"))
+                    e.Cancel = Misc.ConfirmDialog(_appsConfig, ConfirmButtons.YesNo, "Are you sure?", "Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.Yes;
 
                 if (errorStr != "")
                 {
@@ -156,7 +134,7 @@ namespace Apps.Forms
 
         private void Browse_Click(object sender, EventArgs e)
         {
-            var fileName = Funcs.BrowseForFile();
+            string fileName = Funcs.BrowseForFile();
             if (fileName != "")
             {
                 if (_appsConfig.ParseShortcuts && Misc.IsShortcut(fileName))
@@ -166,7 +144,7 @@ namespace Apps.Forms
                 }
                 else
                 {
-                    var f = Funcs.GetFileInfo(fileName);
+                    FileVersionInfo f = Funcs.GetFileInfo(fileName);
                     _fAppButton.AppName = f.ProductName;
                     EditAppFilePath.Text = fileName;
                 }
@@ -175,20 +153,16 @@ namespace Apps.Forms
 
         private void BrowseWF_Click(object sender, EventArgs e)
         {
-            var f = new FolderBrowserDialog();
+            FolderBrowserDialog f = new FolderBrowserDialog();
             if (f.ShowDialog() == DialogResult.OK && Directory.Exists(f.SelectedPath))
                 EditWorkingFolder.Text = f.SelectedPath;
         }
 
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            _isCancelled = true;
-        }
+        private void ButtonCancel_Click(object sender, EventArgs e) { _isCancelled = true; }
 
         private void ButtonParseShortcut_Click(object sender, EventArgs e)
         {
-            Misc.ParseShortcut(EditAppFilePath.Text, out var fileName, out var fileIcon, out var fileIconIdx,
-                out var fileArgs, out var fileWf);
+            Misc.ParseShortcut(EditAppFilePath.Text, out string fileName, out string fileIcon, out string fileIconIdx, out string fileArgs, out string fileWf);
             if (EditAppName.Text == "")
                 EditAppName.Text = Path.GetFileName(fileName);
             EditAppFilePath.Text = fileName;
@@ -202,7 +176,7 @@ namespace Apps.Forms
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
             ButtonParseShortcut.Enabled = Misc.IsShortcut(EditAppFilePath.Text);
-            var isShellApp = EditAppFilePath.Text.StartsWith(IconFuncs.ShellAppPrefix);
+            bool isShellApp = EditAppFilePath.Text.StartsWith(IconFuncs.ShellAppPrefix);
             EditWorkingFolder.Enabled = !isShellApp;
             EditAppFilePath.Enabled = !isShellApp;
             Browse.Enabled = !isShellApp;
@@ -236,7 +210,5 @@ namespace Apps.Forms
             else
                 Text = "Edit Application Properties";
         }
-
-        #endregion
     }
 }

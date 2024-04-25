@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -9,11 +10,7 @@ namespace Apps.Forms
 {
     public partial class IconPicker : Form
     {
-        #region Privates
-
         private readonly Config _appsConfig;
-
-        #endregion
 
         public IconPicker(Config myConfig, string fileName)
         {
@@ -29,15 +26,6 @@ namespace Apps.Forms
             SetColors();
         }
 
-        protected override void WndProc(ref System.Windows.Forms.Message m)
-        {
-            //  Hide horizontal  scrollbar.
-            ShowScrollBar(Icons.Handle, 0, false);
-            base.WndProc(ref m);
-        }
-
-        #region Properties
-
         public string SelectedFileName { get; set; }
 
         public int SelectedIconIndex
@@ -50,9 +38,12 @@ namespace Apps.Forms
             }
         }
 
-        #endregion
-
-        #region Methods
+        protected override void WndProc(ref System.Windows.Forms.Message m)
+        {
+            //  Hide horizontal  scrollbar.
+            ShowScrollBar(Icons.Handle, 0, false);
+            base.WndProc(ref m);
+        }
 
         private void LoadIcons()
         {
@@ -62,14 +53,14 @@ namespace Apps.Forms
             Icons.Items.Clear();
             imageList.Images.Clear();
 
-            var idx = 0;
+            int idx = 0;
             while (true)
             {
-                var f = IconFuncs.GetIcon(SelectedFileName, idx.ToString());
+                Image f = IconFuncs.GetIcon(SelectedFileName, idx.ToString());
                 if (f != null)
                 {
                     imageList.Images.Add(f);
-                    var item = new ListViewItem("", idx);
+                    ListViewItem item = new ListViewItem("", idx);
                     Icons.Items.Add(item);
                 }
                 else
@@ -115,19 +106,27 @@ namespace Apps.Forms
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
 
-        #endregion
-
-        #region Events
-
         private void Browse_Click(object sender, EventArgs e)
         {
-            var fileName = Funcs.BrowseForFile("resources|*.dll;*.exe;*.png;*.tif;*.jpg;*.gif;*.bmp;*.ico");
+            string fileName = Funcs.BrowseForFile("resources|*.dll;*.exe;*.png;*.tif;*.jpg;*.gif;*.bmp;*.ico");
             if (fileName != "")
             {
                 SelectedFileName = fileName;
                 LoadIcons();
             }
         }
+
+        private void IconPicker_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ButtonOK.PerformClick();
+            else if (e.KeyCode == Keys.Escape)
+                ButtonCancel.PerformClick();
+        }
+
+        private void IconPicker_Load(object sender, EventArgs e) { MoveButtons(); }
+
+        private void IconPicker_Resize(object sender, EventArgs e) { MoveButtons(); }
 
         private void Icons_DoubleClick(object sender, EventArgs e)
         {
@@ -140,33 +139,9 @@ namespace Apps.Forms
             if ((e.State & ListViewItemStates.Selected) != 0)
                 e.DrawFocusRectangle();
 
-            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageIndex], e.Bounds.X + 5, e.Bounds.Y + 5,
-                e.Bounds.Width - 10, e.Bounds.Height - 10); // x y w h#
+            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageIndex], e.Bounds.X + 5, e.Bounds.Y + 5, e.Bounds.Width - 10, e.Bounds.Height - 10); // x y w h#
         }
 
-        private void IconPicker_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                ButtonOK.PerformClick();
-            else if (e.KeyCode == Keys.Escape)
-                ButtonCancel.PerformClick();
-        }
-
-        private void IconPicker_Load(object sender, EventArgs e)
-        {
-            MoveButtons();
-        }
-
-        private void IconPicker_Resize(object sender, EventArgs e)
-        {
-            MoveButtons();
-        }
-
-        private void Icons_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Text = string.Format("Icon {0} of " + imageList.Images.Count, SelectedIconIndex + 1);
-        }
-
-        #endregion
+        private void Icons_SelectedIndexChanged(object sender, EventArgs e) { Text = string.Format("Icon {0} of " + imageList.Images.Count, SelectedIconIndex + 1); }
     }
 }

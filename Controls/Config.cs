@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Utility;
 using Resolve.HotKeys;
+using Utility;
 
 namespace Apps
 {
@@ -26,7 +26,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("auto_hide");
+                string s = FindKey("auto_hide");
                 if (s == "")
                     s = SetKey("auto_hide", "false");
                 return bool.Parse(s);
@@ -38,7 +38,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("auto_size_height");
+                string s = FindKey("auto_size_height");
                 if (s == "")
                     s = SetKey("auto_size_height", "false");
                 return bool.Parse(s);
@@ -50,7 +50,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("Apps_back_color");
+                string s = FindKey("Apps_back_color");
                 if (s == "")
                     s = SetKey("Apps_back_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -62,7 +62,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("Apps_font_color");
+                string s = FindKey("Apps_font_color");
                 if (s == "")
                     s = SetKey("Apps_font_color", Color.Black.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -74,7 +74,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("Apps_header_color");
+                string s = FindKey("Apps_header_color");
                 if (s == "")
                     s = SetKey("Apps_header_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -86,7 +86,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("Apps_lines_per_row");
+                string s = FindKey("Apps_lines_per_row");
                 if (s == "")
                     s = SetKey("Apps_lines_per_row", "1");
                 return Convert.ToInt32(s);
@@ -98,7 +98,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("Apps_row_back_color");
+                string s = FindKey("Apps_row_back_color");
                 if (s == "")
                     s = SetKey("Apps_row_back_color", Color.Gray.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -110,7 +110,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("Apps_max_Apps");
+                string s = FindKey("Apps_max_Apps");
                 if (s == "")
                     s = SetKey("Apps_max_Apps", "50");
                 return Convert.ToInt32(s);
@@ -122,7 +122,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("form_left");
+                string s = FindKey("form_left");
                 if (s == "")
                     s = SetKey("form_left", "0", true);
                 return Convert.ToInt32(s);
@@ -134,7 +134,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("form_top");
+                string s = FindKey("form_top");
                 if (s == "")
                     s = SetKey("form_top", "0", true);
                 return Convert.ToInt32(s);
@@ -146,7 +146,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("form_size");
+                string s = FindKey("form_size");
                 Size sz;
                 SizeConverter sc;
 
@@ -163,7 +163,7 @@ namespace Apps
             }
             set
             {
-                var sc = new SizeConverter();
+                SizeConverter sc = new SizeConverter();
                 SetKey("form_size", sc.ConvertToString(value), true);
             }
         }
@@ -172,7 +172,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("header_back_color");
+                string s = FindKey("header_back_color");
                 if (s == "")
                     s = SetKey("header_back_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -184,7 +184,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("header_button_color");
+                string s = FindKey("header_button_color");
                 if (s == "")
                     s = SetKey("header_button_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -196,7 +196,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("header_font_color");
+                string s = FindKey("header_font_color");
                 if (s == "")
                     s = SetKey("header_font_color", Color.Black.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -208,7 +208,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("header_button_selected_color");
+                string s = FindKey("header_button_selected_color");
                 if (s == "")
                     s = SetKey("header_button_selected_color", Color.Gray.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -220,7 +220,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("ignorewindows");
+                string s = FindKey("ignorewindows");
                 if (s == "")
                     s = SetKey("ignorewindows", "");
                 return s;
@@ -232,7 +232,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("menu_back_color");
+                string s = FindKey("menu_back_color");
                 if (s == "")
                     s = SetKey("menu_back_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -244,7 +244,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("menu_border_color");
+                string s = FindKey("menu_border_color");
                 if (s == "")
                     s = SetKey("menu_border_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -256,7 +256,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("menu_button_color");
+                string s = FindKey("menu_button_color");
                 if (s == "")
                     s = SetKey("menu_button_color", Color.White.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -268,7 +268,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("menu_font_color");
+                string s = FindKey("menu_font_color");
                 if (s == "")
                     s = SetKey("menu_font_color", Color.Black.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -280,7 +280,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("menu_selected_color");
+                string s = FindKey("menu_selected_color");
                 if (s == "")
                     s = SetKey("menu_selected_color", Color.Gray.ToArgb().ToString());
                 return Color.FromArgb(Convert.ToInt32(s));
@@ -292,7 +292,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("open_form_at_cursor");
+                string s = FindKey("open_form_at_cursor");
                 if (s == "")
                     s = SetKey("open_form_at_cursor", "false");
                 return bool.Parse(s);
@@ -304,7 +304,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("open_at_root");
+                string s = FindKey("open_at_root");
                 if (s == "")
                     s = SetKey("open_at_root", "false");
                 return bool.Parse(s);
@@ -316,7 +316,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("parse_shortcuts");
+                string s = FindKey("parse_shortcuts");
                 if (s == "")
                     s = SetKey("parse_shortcuts", "false");
                 return bool.Parse(s);
@@ -328,7 +328,7 @@ namespace Apps
         {
             get
             {
-                var s = FindKey("popup_hotkey");
+                string s = FindKey("popup_hotkey");
                 if (s == "")
                     s = SetKey("popup_hotkey", "None");
                 return Funcs.StringToKey(s);
@@ -336,7 +336,7 @@ namespace Apps
             set => SetKey("popup_hotkey", value.ToString());
         }
 
-        public Resolve.HotKeys.ModifierKey PopupHotkeyModifier
+        public ModifierKey PopupHotkeyModifier
         {
             /* Modifier
                None = 0,
@@ -344,52 +344,31 @@ namespace Apps
                Control = 2,
                Shift = 4,
                WinKey = 8*/
-
             get
             {
-                var s = FindKey("popup_hotkey_modifier");
+                string s = FindKey("popup_hotkey_modifier");
                 if (s == "")
                     s = SetKey("popup_hotkey_modifier", "0");
-                return (Resolve.HotKeys.ModifierKey)Int32.Parse(s);
+                return (ModifierKey)Int32.Parse(s);
             }
             set => SetKey("popup_hotkey_modifier", ((int)value).ToString());
         }
 
-        public event EventHandler ConfigChanged;
-
-        ~Config()
-        {
-            _config.Clear();
-            _config = null;
-        }
-
-        private int GetKeyIndex(string key)
-        {
-            for (var i = 0; i < _config.Count; i++)
-                if (_config[i].IndexOf(key) > -1 && _config[i].Substring(0, key.Length) == key)
-                    return i;
-            return -1;
-        }
-
         private string FindKey(string key)
         {
-            foreach (var s in _config)
+            foreach (string s in _config)
                 if (s.Length > 0 && s.Substring(0, s.IndexOf('=')) == key)
                     return s.Substring(s.IndexOf('=') + 1, s.Length - (s.IndexOf('=') + 1));
 
             return "";
         }
 
-        private string SetKey(string key, string value, bool saveNow = false)
+        private int GetKeyIndex(string key)
         {
-            var i = GetKeyIndex(key);
-            if (i == -1)
-                _config.Add(key + "=" + value);
-            else
-                _config[i] = key + "=" + value;
-
-            if (saveNow) SaveConfiguration();
-            return value;
+            for (int i = 0; i < _config.Count; i++)
+                if (_config[i].IndexOf(key) > -1 && _config[i].Substring(0, key.Length) == key)
+                    return i;
+            return -1;
         }
 
         private void LoadConfiguration()
@@ -398,7 +377,7 @@ namespace Apps
             {
                 if (!File.Exists(Funcs.AppPath(ConfigFilename)))
                 {
-                    var fs = File.Create(Funcs.AppPath(ConfigFilename));
+                    FileStream fs = File.Create(Funcs.AppPath(ConfigFilename));
                     fs.Close();
                 }
 
@@ -417,9 +396,21 @@ namespace Apps
             File.WriteAllLines(Funcs.AppPath(ConfigFilename), _config.ToArray());
         }
 
+        private string SetKey(string key, string value, bool saveNow = false)
+        {
+            int i = GetKeyIndex(key);
+            if (i == -1)
+                _config.Add(key + "=" + value);
+            else
+                _config[i] = key + "=" + value;
+
+            if (saveNow) SaveConfiguration();
+            return value;
+        }
+
         public void ShowConfigForm(bool parentIsVisible)
         {
-            var f = new Settings(this);
+            Settings f = new Settings(this);
             if (!parentIsVisible)
             {
                 f.StartPosition = FormStartPosition.Manual;
@@ -439,11 +430,17 @@ namespace Apps
             f.Close();
         }
 
+        public event EventHandler ConfigChanged;
+
+        ~Config()
+        {
+            _config.Clear();
+            _config = null;
+        }
+
         private class Settings : Apps.Settings
         {
-            public Settings()
-            {
-            }
+            public Settings() { }
 
             public Settings(Config config)
             {
@@ -461,7 +458,7 @@ namespace Apps
                        Shift = 4,
                        WinKey = 8*/
 
-                var m = (int)Config.PopupHotkeyModifier;
+                int m = (int)Config.PopupHotkeyModifier;
                 Alt.Checked = m == 1 || m == 3 || m == 5 || m == 9;
                 Control.Checked = m == 2 || m == 3 || m == 6 || m == 10;
                 Shift.Checked = m == 4 || m == 5 || m == 6 || m == 12;
@@ -530,7 +527,7 @@ namespace Apps
                    Control = 2,
                    Shift = 4,
                    WinKey = 8*/
-                var i = 0;
+                int i = 0;
                 if (Alt.Checked) i++;
                 if (Control.Checked) i += 2;
                 if (Shift.Checked) i += 4;

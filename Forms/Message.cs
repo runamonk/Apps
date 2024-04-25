@@ -18,10 +18,17 @@ namespace Apps.Forms
         {
             get
             {
-                var myCp = base.CreateParams;
+                CreateParams myCp = base.CreateParams;
                 myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }
+        }
+
+        public DialogResult ShowAsDialog(string caption, string message)
+        {
+            Text = caption;
+            MessageText.Text = message;
+            return ShowDialog();
         }
 
         private void Message_KeyDown(object sender, KeyEventArgs e)
@@ -30,13 +37,6 @@ namespace Apps.Forms
                 ButtonOK.PerformClick();
             else if (e.KeyCode == Keys.Escape)
                 ButtonOK.PerformClick();
-        }
-
-        public DialogResult ShowAsDialog(string caption, string message)
-        {
-            Text = caption;
-            MessageText.Text = message;
-            return ShowDialog();
         }
     }
 }

@@ -6,6 +6,12 @@ namespace Apps.Forms
 {
     public partial class FolderLink : Form
     {
+        private const int CpNocloseButton = 0x200;
+
+        private readonly Config _appsConfig;
+        private readonly AppButton _fAppButton;
+        private bool _isCancelled;
+
         public FolderLink(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
@@ -22,46 +28,62 @@ namespace Apps.Forms
             ButtonCancel.BackColor = BackColor;
         }
 
-        #region Overrides
-
         protected override CreateParams CreateParams
         {
             get
             {
-                var myCp = base.CreateParams;
+                CreateParams myCp = base.CreateParams;
                 myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }
         }
 
-        #endregion
+        public string FolderName { get => EditFolderName.Text.Trim(); set => EditFolderName.Text = value; }
 
-        #region Properties
+        public string FolderPath { get => EditFolderPath.Text.Trim(); set => EditFolderPath.Text = value; }
 
-        public string FolderName
+        private void BrowseWF_Click(object sender, EventArgs e)
         {
-            get => EditFolderName.Text.Trim();
-            set => EditFolderName.Text = value;
+            FolderBrowserDialog f = new FolderBrowserDialog();
+            if (f.ShowDialog() == DialogResult.OK && Directory.Exists(f.SelectedPath))
+            {
+                EditFolderName.Text = Path.GetFileName(f.SelectedPath);
+                EditFolderPath.Text = f.SelectedPath;
+            }
         }
 
-        public string FolderPath
+        private void ButtonCancel_Click(object sender, EventArgs e) { _isCancelled = true; }
+
+        private void ButtonOK_Click(object sender, EventArgs e) { _isCancelled = false; }
+
+        private void FolderLink_FormClosing(object sender, FormClosingEventArgs e)
         {
-            get => EditFolderPath.Text.Trim();
-            set => EditFolderPath.Text = value;
+            if (!_isCancelled)
+            {
+                string errorStr = "";
+
+                if (FolderName == "")
+                    errorStr = "Please enter a folder name.";
+
+                if (FolderPath == "")
+                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") + "Please enter a folder path.";
+
+                if (FolderPath != "" && !Directory.Exists(FolderPath))
+                    e.Cancel = Misc.ConfirmDialog(_appsConfig, ConfirmButtons.YesNo, "Are you sure?", "Folder: " + FolderPath + " cannot be found.") != DialogResult.Yes;
+
+                if (errorStr != "")
+                {
+                    Message f = new Message(_appsConfig);
+                    f.ShowAsDialog("Error", errorStr);
+                    e.Cancel = true;
+                }
+                else
+                {
+                    _fAppButton.AppName = FolderName;
+                    _fAppButton.FileName = FolderPath;
+                }
+            }
         }
-
-        #endregion
-
-        #region Private
-
-        private readonly Config _appsConfig;
-        private bool _isCancelled;
-        private readonly AppButton _fAppButton;
-        private const int CpNocloseButton = 0x200;
-
-        #endregion
-
-        #region Events
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
@@ -80,57 +102,5 @@ namespace Apps.Forms
             else
                 Text = "Edit Folder Link";
         }
-
-        private void FolderLink_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!_isCancelled)
-            {
-                var errorStr = "";
-
-                if (FolderName == "")
-                    errorStr = "Please enter a folder name.";
-
-                if (FolderPath == "")
-                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") + "Please enter a folder path.";
-
-                if (FolderPath != "" && !Directory.Exists(FolderPath))
-                    e.Cancel = Misc.ConfirmDialog(_appsConfig, ConfirmButtons.YesNo, "Are you sure?",
-                        "Folder: " + FolderPath + " cannot be found.") != DialogResult.Yes;
-
-                if (errorStr != "")
-                {
-                    var f = new Message(_appsConfig);
-                    f.ShowAsDialog("Error", errorStr);
-                    e.Cancel = true;
-                }
-                else
-                {
-                    _fAppButton.AppName = FolderName;
-                    _fAppButton.FileName = FolderPath;
-                }
-            }
-        }
-
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            _isCancelled = true;
-        }
-
-        private void ButtonOK_Click(object sender, EventArgs e)
-        {
-            _isCancelled = false;
-        }
-
-        private void BrowseWF_Click(object sender, EventArgs e)
-        {
-            var f = new FolderBrowserDialog();
-            if (f.ShowDialog() == DialogResult.OK && Directory.Exists(f.SelectedPath))
-            {
-                EditFolderName.Text = Path.GetFileName(f.SelectedPath);
-                EditFolderPath.Text = f.SelectedPath;
-            }
-        }
-
-        #endregion
     }
 }

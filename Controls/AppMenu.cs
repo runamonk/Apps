@@ -25,27 +25,19 @@ namespace Apps.Controls
             Renderer = new CustomToolstripRenderer(AppsConfig);
         }
 
-        private void ConfigChanged(object sender, EventArgs e)
-        {
-            SetColors();
-        }
+        private void ConfigChanged(object sender, EventArgs e) { SetColors(); }
     }
 
     public class CustomToolstripRenderer : ToolStripProfessionalRenderer
     {
-        public CustomToolstripRenderer(Config myConfig) : base(new CustomColors(myConfig))
-        {
-        }
+        public CustomToolstripRenderer(Config myConfig) : base(new CustomColors(myConfig)) { }
     }
 
     public class CustomColors : ProfessionalColorTable
     {
         private readonly Config _config;
 
-        public CustomColors(Config myConfig)
-        {
-            _config = myConfig;
-        }
+        public CustomColors(Config myConfig) { _config = myConfig; }
 
         public override Color ButtonSelectedBorder => Color.Transparent;
 

@@ -25,7 +25,7 @@ namespace Apps.Forms
         {
             get
             {
-                var myCp = base.CreateParams;
+                CreateParams myCp = base.CreateParams;
                 myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }

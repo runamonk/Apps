@@ -6,6 +6,12 @@ namespace Apps.Forms
 {
     public partial class WebLink : Form
     {
+        private const int CpNocloseButton = 0x200;
+
+        private readonly Config _appsConfig;
+        private readonly AppButton _fAppButton;
+        private bool _isCancelled;
+
         public WebLink(Config myConfig, AppButton appButton)
         {
             InitializeComponent();
@@ -22,46 +28,23 @@ namespace Apps.Forms
             ButtonCancel.BackColor = BackColor;
         }
 
-        #region Overrides
-
         protected override CreateParams CreateParams
         {
             get
             {
-                var myCp = base.CreateParams;
+                CreateParams myCp = base.CreateParams;
                 myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }
         }
 
-        #endregion
+        public string UrlName { get => EditUrlName.Text.Trim(); set => EditUrlName.Text = value; }
 
-        #region Properties
+        public string UrlPath { get => EditUrlPath.Text.Trim(); set => EditUrlPath.Text = value; }
 
-        public string UrlName
-        {
-            get => EditUrlName.Text.Trim();
-            set => EditUrlName.Text = value;
-        }
+        private void ButtonCancel_Click(object sender, EventArgs e) { _isCancelled = true; }
 
-        public string UrlPath
-        {
-            get => EditUrlPath.Text.Trim();
-            set => EditUrlPath.Text = value;
-        }
-
-        #endregion
-
-        #region Private
-
-        private readonly Config _appsConfig;
-        private bool _isCancelled;
-        private readonly AppButton _fAppButton;
-        private const int CpNocloseButton = 0x200;
-
-        #endregion
-
-        #region Events
+        private void ButtonOK_Click(object sender, EventArgs e) { _isCancelled = false; }
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
@@ -86,7 +69,7 @@ namespace Apps.Forms
         {
             if (!_isCancelled)
             {
-                var errorStr = "";
+                string errorStr = "";
 
                 if (UrlName == "")
                     errorStr = "Please enter a link name.";
@@ -95,12 +78,11 @@ namespace Apps.Forms
                     errorStr = (errorStr != "" ? errorStr += "\r\n" : "") + "Please enter a url.";
 
                 if (!Funcs.IsUrl(UrlPath))
-                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") +
-                               "Please enter a properly formatted url. \r\n (https://www.website.com or ftp://ftp.website.com)";
+                    errorStr = (errorStr != "" ? errorStr += "\r\n" : "") + "Please enter a properly formatted url. \r\n (https://www.website.com or ftp://ftp.website.com)";
 
                 if (errorStr != "")
                 {
-                    var f = new Message(_appsConfig);
+                    Message f = new Message(_appsConfig);
                     f.ShowAsDialog("Error", errorStr);
                     e.Cancel = true;
                 }
@@ -111,17 +93,5 @@ namespace Apps.Forms
                 }
             }
         }
-
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            _isCancelled = true;
-        }
-
-        private void ButtonOK_Click(object sender, EventArgs e)
-        {
-            _isCancelled = false;
-        }
-
-        #endregion
     }
 }

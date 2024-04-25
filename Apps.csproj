@@ -96,11 +96,14 @@
     <Compile Include="..\Shared_Misc\HotKeys\HotKeys\NativeMethods.cs">
       <Link>HotKeys\HotKeys\NativeMethods.cs</Link>
     </Compile>
+    <Compile Include="..\Shared_Misc\Icons.cs">
+      <Link>Shared\Icons.cs</Link>
+    </Compile>
     <Compile Include="..\Shared_Misc\Utility.cs">
-      <Link>Utility.cs</Link>
+      <Link>Shared\Utility.cs</Link>
     </Compile>
     <Compile Include="..\Shared_Misc\WindowTracker.cs">
-      <Link>WindowTracker.cs</Link>
+      <Link>Shared\WindowTracker.cs</Link>
     </Compile>
     <Compile Include="Controls\AppButton.cs">
       <SubType>Component</SubType>
@@ -133,6 +136,12 @@
     </Compile>
     <Compile Include="Forms\IconPicker.Designer.cs">
       <DependentUpon>IconPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Programs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Programs.Designer.cs">
+      <DependentUpon>Programs.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Properties.cs">
       <SubType>Form</SubType>
@@ -170,7 +179,6 @@
     <Compile Include="Forms\WebLink.Designer.cs">
       <DependentUpon>WebLink.cs</DependentUpon>
     </Compile>
-    <Compile Include="Icons.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +190,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Programs.resx">
+      <DependentUpon>Programs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Folder.resx">
       <DependentUpon>Folder.cs</DependentUpon>
@@ -281,10 +292,6 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="..\Shared_Misc\HotKeys\HotKeys\Properties\">
-      <Link>HotKeys\HotKeys\Properties</Link>
-    </Folder>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

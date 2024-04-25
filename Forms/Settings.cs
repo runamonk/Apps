@@ -8,19 +8,40 @@ namespace Apps
     {
         private const int CpNocloseButton = 0x200;
 
-        public Settings()
-        {
-            InitializeComponent();
-        }
+        public Settings() { InitializeComponent(); }
 
         protected override CreateParams CreateParams
         {
             get
             {
-                var myCp = base.CreateParams;
+                CreateParams myCp = base.CreateParams;
                 myCp.ClassStyle |= CpNocloseButton;
                 return myCp;
             }
+        }
+
+        private void Clear_Click(object sender, EventArgs e) { Key.Clear(); }
+
+        private void ColorControl_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (dlgColor.ShowDialog() == DialogResult.OK) ((Panel)sender).BackColor = dlgColor.Color;
+        }
+
+        private void DarkTheme_Click(object sender, EventArgs e)
+        {
+            LightTheme.Checked = false;
+            AppBackColor.BackColor = Color.FromArgb(56, 56, 56);
+            AppFontColor.BackColor = Color.White;
+            AppSelectedColor.BackColor = Color.DarkGray;
+            HeaderBackColor.BackColor = Color.FromArgb(56,   56, 56);
+            HeaderButtonColor.BackColor = Color.FromArgb(56, 56, 56);
+            HeaderFontColor.BackColor = Color.White;
+            HeaderButtonSelectedColor.BackColor = Color.DarkGray;
+            MenuBackColor.BackColor = Color.FromArgb(56,   56, 56);
+            MenuBorderColor.BackColor = Color.FromArgb(56, 56, 56);
+            MenuSelectedColor.BackColor = Color.DarkGray;
+            MenuFontColor.BackColor = Color.White;
+            MenuSelectedColor.BackColor = Color.DarkGray;
         }
 
         private void FormConfig_KeyDown(object sender, KeyEventArgs e)
@@ -31,9 +52,15 @@ namespace Apps
                 Cancel.PerformClick();
         }
 
-        private void ColorControl_MouseClick(object sender, MouseEventArgs e)
+        private void Key_KeyDown(object sender, KeyEventArgs e)
         {
-            if (dlgColor.ShowDialog() == DialogResult.OK) ((Panel)sender).BackColor = dlgColor.Color;
+            Keys k = e.KeyCode;
+            Key.Text = k.ToString();
+        }
+
+        private void Key_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true; // this will stop the key pressed from actually entering into the text box.
         }
 
         private void LightTheme_Click(object sender, EventArgs e)
@@ -50,39 +77,6 @@ namespace Apps
             MenuBorderColor.BackColor = Color.White;
             MenuFontColor.BackColor = Color.Black;
             MenuSelectedColor.BackColor = Color.Gray;
-        }
-
-        private void DarkTheme_Click(object sender, EventArgs e)
-        {
-            LightTheme.Checked = false;
-            AppBackColor.BackColor = Color.FromArgb(56, 56, 56);
-            AppFontColor.BackColor = Color.White;
-            AppSelectedColor.BackColor = Color.DarkGray;
-            HeaderBackColor.BackColor = Color.FromArgb(56, 56, 56);
-            HeaderButtonColor.BackColor = Color.FromArgb(56, 56, 56);
-            HeaderFontColor.BackColor = Color.White;
-            HeaderButtonSelectedColor.BackColor = Color.DarkGray;
-            MenuBackColor.BackColor = Color.FromArgb(56, 56, 56);
-            MenuBorderColor.BackColor = Color.FromArgb(56, 56, 56);
-            MenuSelectedColor.BackColor = Color.DarkGray;
-            MenuFontColor.BackColor = Color.White;
-            MenuSelectedColor.BackColor = Color.DarkGray;
-        }
-
-        private void Key_KeyDown(object sender, KeyEventArgs e)
-        {
-            var k = e.KeyCode;
-            Key.Text = k.ToString();
-        }
-
-        private void Key_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true; // this will stop the key pressed from actually entering into the text box.
-        }
-
-        private void Clear_Click(object sender, EventArgs e)
-        {
-            Key.Clear();
         }
     }
 }
