@@ -251,7 +251,7 @@ namespace Apps
                 }
             }
 
-            if (_pinned || _inClose || _inAbout || Apps.InMenu || _inMenu || _inSettings) return;
+            if (_pinned || _inClose || _inAbout || Apps.InMenu || _inMenu || _inSettings || Apps.InMenu) return;
 
             if ((_firstTime && Config.AutoHide) || (Config.AutoHide && IsVisible()))
             {

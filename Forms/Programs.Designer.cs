@@ -40,6 +40,7 @@
             this.listPrograms = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelButtons.SuspendLayout();
             this.panelSearch.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -142,7 +143,9 @@
             this.listPrograms.ShowGroups = false;
             this.listPrograms.Size = new System.Drawing.Size(393, 333);
             this.listPrograms.SmallImageList = this.imageList;
+            this.listPrograms.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listPrograms.TabIndex = 0;
+            this.toolTip.SetToolTip(this.listPrograms, "Click and select programs, drag and drop onto Apps.");
             this.listPrograms.UseCompatibleStateImageBehavior = false;
             this.listPrograms.View = System.Windows.Forms.View.Details;
             this.listPrograms.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listPrograms_MouseDown);
@@ -199,5 +202,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox search;
         private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

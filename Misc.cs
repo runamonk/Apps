@@ -83,7 +83,7 @@ namespace Apps
                 parsedFileIconIndex = (i < 0 ? i * -1 : i).ToString();
 
                 if (link.Target.Path != "")
-                    parsedFileName = link.Target.Path.Contains("!") ? "shell:AppsFolder\\" + link.Target.Path : link.Target.Path;
+                    parsedFileName = link.Target.Path.StartsWith("::") ? "shell:" + link.Target.Path : link.Target.Path.Contains("!") ? "shell:AppsFolder\\" + link.Target.Path : link.Target.Path;
                 else
                     parsedFileName = "";
 

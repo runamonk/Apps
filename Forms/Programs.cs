@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Icons;
+using Microsoft.WindowsAPICodePack.Shell;
 using Utility;
 
 namespace Apps.Forms
@@ -16,6 +17,7 @@ namespace Apps.Forms
         private readonly Timer _buttonHoldTimer = new Timer();
 
         private readonly List<InstalledApp> _installedApps = new List<InstalledApp>();
+
         //private Cursor _dragAndDropCursor;
 
         public Programs(Config myConfig, Form parentForm)
@@ -93,40 +95,45 @@ namespace Apps.Forms
                     ListViewItem i = new ListViewItem(f.Caption, imageList.Images.Count - 1);
                     listPrograms.Items.Add(i).Tag = f;
                 }
-                else
-                {
-                    listPrograms.Items.Add(new ListViewItem(f.Caption)).Tag = f;
-                }
 
             listPrograms.EndUpdate();
         }
 
         private void GetPrograms()
         {
-            string[] shortcuts;
+            List<string> shortcuts = new List<string>();
+
 
             _installedApps.Clear();
 
             string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            shortcuts = Funcs.GetFiles("C:\\ProgramData\\Microsoft\\Windows\\Start Menu", "lnk,url");
+            shortcuts = Funcs.GetFiles("C:\\ProgramData\\Microsoft\\Windows\\Start Menu", "lnk,url").ToList();
             // remove duplicates inbetween each parse aka Where() and compare filenames.
 
             shortcuts = shortcuts.Concat(Funcs.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Microsoft\\Windows\\Start Menu", "lnk,url")
                                               .Where(f => { return !shortcuts.Any(a => { return Path.GetFileName(a) == Path.GetFileName(f); }); }))
-                                 .ToArray();
+                                 .ToList();
             shortcuts = shortcuts.Concat(Funcs.GetFiles("C:\\Users\\Default\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu", "lnk,url")
                                               .Where(f => { return !shortcuts.Any(a => { return Path.GetFileName(a) == Path.GetFileName(f); }); }))
-                                 .ToArray();
-            shortcuts = shortcuts.Where(f => { return f.ToLower().IndexOf("uninstall") == -1; }).ToArray();
+                                 .ToList();
+            shortcuts = shortcuts.Where(f => { return f.ToLower().IndexOf("uninstall") == -1; }).ToList();
 
-            foreach (string s in shortcuts)
+            listPrograms.Items[0].Text = "Getting WindowsApps, please wait...";
+            // Get a list of all the windows apps.
+            // https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid
+            ShellObject apps = (ShellObject)KnownFolderHelper.FromKnownFolderId(new Guid("{1e87508d-89c2-42f0-8a7e-645a0f50ca58}"));
+            foreach (ShellObject app in (IKnownFolder)apps)
             {
-                InstalledApp app = new InstalledApp(s);
-                if (File.Exists(app.FileName) || Funcs.IsUrl(app.FileName)) _installedApps.Add(app); // skip orphaned shortcuts/apps
+                if (!app.ParsingName.Contains("!") && !app.ParsingName.Contains("Microsoft.")) continue;
+
+                if (shortcuts.Count(s => s.Contains(app.Name) || s == app.Name) > 0) continue;
+                shortcuts.Add(app.Name + "#" + IconFuncs.ShellAppPrefix + app.ParsingName);
             }
 
-            _installedApps.Sort((file1, file2) => { return string.Compare(file1.Caption, file2.Caption, StringComparison.OrdinalIgnoreCase); });
+
+            foreach (string s in shortcuts)
+                _installedApps.Add(new InstalledApp(s));
 
             AddFilesToListView();
         }
@@ -179,17 +186,28 @@ namespace Apps.Forms
 
             public InstalledApp(string fileName)
             {
-                if (Misc.IsShortcut(fileName))
+                if (IconFuncs.IsShellApp(fileName))
+                {
+                    Caption = fileName.Substring(0, fileName.IndexOf("#"));
+                    FileName = fileName.Substring(fileName.IndexOf("#") + 1);
+                    Icon = IconFuncs.GetIcon(FileName, "");
+                }
+                else if (Misc.IsShortcut(fileName))
                 {
                     Misc.ParseShortcut(fileName, out string parsedFileName, out string parsedFileIcon, out string parsedFileIconIndex, out string parsedArgs, out string parsedWorkingFolder);
-                    Icon = IconFuncs.GetIcon(parsedFileIcon, parsedFileIconIndex);
+
+                    if (IconFuncs.IsShellApp(parsedFileName))
+                        Icon = IconFuncs.GetIcon(parsedFileName, "");
+                    else
+                        Icon = IconFuncs.GetIcon(parsedFileIcon, parsedFileIconIndex);
 
                     if (Icon == null && Funcs.IsUrl(parsedFileName))
                         Icon = Funcs.GetWebsiteFavIconAsImage(parsedFileName);
                     else if (Icon == null)
-                        Icon = IconFuncs.GetIcon(parsedFileName, "0");
+                        Icon = IconFuncs.GetIcon(parsedFileName, "");
 
                     Caption = Path.GetFileName(fileName).Replace(".url", "").Replace(".lnk", "");
+
                     FileName = parsedFileName;
                     ShortcutPath = fileName;
                     WorkingFolder = parsedWorkingFolder;

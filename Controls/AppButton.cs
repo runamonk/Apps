@@ -210,7 +210,9 @@ namespace Apps
             set
             {
                 _fFileIconPath = value;
-                if (!string.IsNullOrEmpty(_fFileIconPath))
+                if (IconFuncs.IsShellApp(FileName))
+                    FileIconImage = IconFuncs.GetIcon(FileName, "");
+                else if (!string.IsNullOrEmpty(_fFileIconPath))
                     FileIconImage = IconFuncs.GetIcon(_fFileIconPath, FileIconIndex);
             }
         }

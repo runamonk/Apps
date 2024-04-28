@@ -99,7 +99,7 @@ namespace Apps.Forms
 
                 EditWorkingFolder.Text = EditWorkingFolder.Text.Trim();
 
-                if (EditWorkingFolder.Text != "" && !Directory.Exists(EditWorkingFolder.Text) && !EditWorkingFolder.Text.Contains("shell:"))
+                if (EditWorkingFolder.Text != "" && !Directory.Exists(EditWorkingFolder.Text) && !IconFuncs.IsShellApp(EditWorkingFolder.Text))
                     e.Cancel = Misc.ConfirmDialog(_appsConfig, ConfirmButtons.YesNo, "Are you sure?", "Working folder: " + EditWorkingFolder.Text + " cannot be found.") != DialogResult.Yes;
 
                 if (errorStr != "")
@@ -176,7 +176,7 @@ namespace Apps.Forms
         private void EditAppFilePath_TextChanged(object sender, EventArgs e)
         {
             ButtonParseShortcut.Enabled = Misc.IsShortcut(EditAppFilePath.Text);
-            bool isShellApp = EditAppFilePath.Text.StartsWith(IconFuncs.ShellAppPrefix);
+            bool isShellApp = IconFuncs.IsShellApp(EditAppFilePath.Text);
             EditWorkingFolder.Enabled = !isShellApp;
             EditAppFilePath.Enabled = !isShellApp;
             Browse.Enabled = !isShellApp;
@@ -186,7 +186,7 @@ namespace Apps.Forms
 
         private void MenuReset_Click(object sender, EventArgs e)
         {
-            if (File.Exists(AppFileName) || AppFileName.StartsWith(IconFuncs.ShellAppPrefix))
+            if (File.Exists(AppFileName) || IconFuncs.IsShellApp(AppFileName))
             {
                 AppIconPath = AppFileName;
                 AppIconIndex = "0";

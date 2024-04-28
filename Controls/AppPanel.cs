@@ -34,6 +34,9 @@ namespace Apps.Controls
         private XmlDocument _appsXml;
         private int _beginUpdateCounter;
         private XmlNode _currentParentNode;
+        private bool _inMenu;
+
+        private Programs ProgramsForm;
 
         public AppPanel(Config myConfig)
         {
@@ -75,10 +78,10 @@ namespace Apps.Controls
         }
 
         private Config AppsConfig { get; }
-
         public string GetRootId { get; } = Guid.NewGuid().ToString();
 
-        public bool InMenu { get; set; }
+        public bool InMenu { get => InProgramList() || _inMenu; set => _inMenu = value; }
+
         public bool InLoad { get; set; }
 
         public bool InAFolder => _currentParentNode != null;
@@ -309,7 +312,7 @@ namespace Apps.Controls
                     else
                     {
                         b.AppName = app.Caption;
-                        b.FileName = app.FileName;
+                        b.FileName = !string.IsNullOrEmpty(app.ShortcutPath) ? app.ShortcutPath : app.FileName;
                         b.FileArgs = app.Arguments;
                         AddApp(b, toAppButton == null ? 0 : Controls.GetChildIndex(toAppButton));
                     }
@@ -417,6 +420,8 @@ namespace Apps.Controls
             else
                 LoadItems();
         }
+
+        public bool InProgramList() { return ProgramsForm != null && ProgramsForm.Visible; }
 
         private void LoadCache()
         {
@@ -723,8 +728,8 @@ namespace Apps.Controls
         private void MenuAddAppFromList_Click(object sender, EventArgs e)
         {
             InMenu = true;
-            Programs form = new Programs(AppsConfig, Funcs.GetParentForm(this));
-            form.Show();
+            if (ProgramsForm == null || ProgramsForm.IsDisposed) ProgramsForm = new Programs(AppsConfig, Funcs.GetParentForm(this));
+            ProgramsForm.Show();
             InMenu = false;
         }
 
