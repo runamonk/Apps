@@ -120,17 +120,17 @@ namespace Apps.Forms
             shortcuts = shortcuts.Where(f => { return f.ToLower().IndexOf("uninstall") == -1; }).ToList();
 
             listPrograms.Items[0].Text = "Getting WindowsApps, please wait...";
+
             // Get a list of all the windows apps.
             // https://learn.microsoft.com/en-us/windows/win32/shell/knownfolderid
             ShellObject apps = (ShellObject)KnownFolderHelper.FromKnownFolderId(new Guid("{1e87508d-89c2-42f0-8a7e-645a0f50ca58}"));
             foreach (ShellObject app in (IKnownFolder)apps)
             {
                 if (!app.ParsingName.Contains("!") && !app.ParsingName.Contains("Microsoft.")) continue;
+                if (shortcuts.Any(s => s.Contains(app.Name) || s == app.Name)) continue;
 
-                if (shortcuts.Count(s => s.Contains(app.Name) || s == app.Name) > 0) continue;
                 shortcuts.Add(app.Name + "#" + IconFuncs.ShellAppPrefix + app.ParsingName);
             }
-
 
             foreach (string s in shortcuts)
                 _installedApps.Add(new InstalledApp(s));
