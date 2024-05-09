@@ -79,7 +79,8 @@ namespace Apps
                 ShellLinkObject link = (ShellLinkObject)linkItem.GetLink;
 
                 int i = link.GetIconLocation(out string linkIcon);
-
+                // had some weird icon locations.
+                if (i > 999 || i < -999) i = 0;
                 parsedFileIconIndex = (i < 0 ? i * -1 : i).ToString();
 
                 if (link.Target.Path != "")

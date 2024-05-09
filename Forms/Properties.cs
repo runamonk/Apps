@@ -24,6 +24,8 @@ namespace Apps.Forms
             _fAppButton = appButton;
             _menuRc = new AppMenu(myConfig) { ShowCheckMargin = false, ShowImageMargin = false };
             Funcs.AddMenuItem(_menuRc, "Reset", MenuReset_Click);
+            Funcs.AddMenuItem(_menuRc, "Save",  MenuSave_Click);
+
             EditAppIcon.ContextMenuStrip = _menuRc;
 
             SetColors();
@@ -193,6 +195,14 @@ namespace Apps.Forms
                 EditAppIcon.Image = IconFuncs.GetIcon(AppFileName, null);
             }
         }
+
+        private void MenuSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog f = new SaveFileDialog();
+            if (f.ShowDialog() == DialogResult.OK)
+                EditAppIcon.Image.Save(f.FileName);
+        }
+
 
         private void Properties_Load(object sender, EventArgs e)
         {
