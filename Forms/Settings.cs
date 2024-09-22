@@ -20,7 +20,7 @@ namespace Apps
             }
         }
 
-        private void Clear_Click(object sender, EventArgs e) { Key.Clear(); }
+        private void Clear_Click(object sender, EventArgs e) { Key.Text = ((Keys)Enum.Parse(typeof(Keys), Keys.None.ToString())).ToString(); }
 
         private void ColorControl_MouseClick(object sender, MouseEventArgs e)
         {
