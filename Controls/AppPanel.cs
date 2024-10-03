@@ -56,7 +56,7 @@ namespace Apps.Controls
             _folderCache = new List<AppCache>();
             _menuRc = new AppMenu(myConfig) { ShowCheckMargin = false, ShowImageMargin = false };
             _menuRc.Opening += Menu_Opening;
-            Funcs.AddMenuItem(_menuRc, "Add Application From List", MenuAddAppFromList_Click);
+            //Funcs.AddMenuItem(_menuRc, "Add Application From List", MenuAddAppFromList_Click);
             Funcs.AddMenuItem(_menuRc, "Add Application",           MenuAddApp_Click);
             Funcs.AddMenuItem(_menuRc, "Add Folder",                MenuAddFolder_Click);
             Funcs.AddMenuItem(_menuRc, "Add Folder Link",           MenuAddFolderLink_Click);
