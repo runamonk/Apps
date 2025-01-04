@@ -112,7 +112,7 @@ namespace Apps
         [DllImport("user32.dll")]
         private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
 
-        private bool InWindowList(string title) { return title != "" && _ignoreWindowsList.Any(s => s.Trim() != "" && title.ToLower().Contains(s.ToLower())); }
+        private bool InWindowList(string title) { return title != "" && _ignoreWindowsList.Any(s => s.Trim() != "" && title.ToLower().Contains(s.Trim().ToLower())); }
 
         private bool IsVisible() { return Opacity >= 1; }
 
