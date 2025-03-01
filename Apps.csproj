@@ -87,24 +87,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Shared_Misc\HotKeys\HotKeys\HotKey.cs">
-      <Link>HotKeys\HotKeys\HotKey.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared_Misc\HotKeys\HotKeys\ModifierKey.cs">
-      <Link>HotKeys\HotKeys\ModifierKey.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared_Misc\HotKeys\HotKeys\NativeMethods.cs">
-      <Link>HotKeys\HotKeys\NativeMethods.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared_Misc\Icons.cs">
-      <Link>Shared\Icons.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared_Misc\Utility.cs">
-      <Link>Shared\Utility.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared_Misc\WindowTracker.cs">
-      <Link>Shared\WindowTracker.cs</Link>
-    </Compile>
     <Compile Include="Controls\AppButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -188,6 +170,14 @@
     <Compile Include="Misc.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\HotKeys\HotKeys\HotKey.cs" />
+    <Compile Include="Shared\HotKeys\HotKeys\ModifierKey.cs" />
+    <Compile Include="Shared\HotKeys\HotKeys\NativeMethods.cs" />
+    <Compile Include="Shared\Icons.cs" />
+    <Compile Include="Shared\LowLevelHooks.cs" />
+    <Compile Include="Shared\Toggle.cs" />
+    <Compile Include="Shared\Utility.cs" />
+    <Compile Include="Shared\WindowTracker.cs" />
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
@@ -241,23 +231,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Shared\.git" />
+    <None Include="Shared\HotKeys\LICENSE" />
+    <None Include="Shared\README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Shared_Misc\HotKeys\HotKeys.sln">
-      <Link>HotKeys\HotKeys.sln</Link>
-    </Content>
-    <Content Include="..\Shared_Misc\HotKeys\HotKeys\HotKey.ico">
-      <Link>HotKeys\HotKeys\HotKey.ico</Link>
-    </Content>
-    <Content Include="..\Shared_Misc\HotKeys\HotKeys\HotKey.png">
-      <Link>HotKeys\HotKeys\HotKey.png</Link>
-    </Content>
-    <Content Include="..\Shared_Misc\HotKeys\LICENSE">
-      <Link>HotKeys\LICENSE</Link>
-    </Content>
+    <Content Include="Shared\.gitattributes" />
+    <Content Include="Shared\.gitignore" />
+    <Content Include="Shared\HotKeys\HotKeys.sln" />
+    <Content Include="Shared\HotKeys\HotKeys\HotKey.ico" />
+    <Content Include="Shared\HotKeys\HotKeys\HotKey.png" />
     <Content Include="zapps.ico" />
   </ItemGroup>
   <ItemGroup>
